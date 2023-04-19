@@ -6,9 +6,11 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.lec.bowow.model.Member" alias="Member"/>
+		<typeAlias type="com.lec.bowow.model.Admin" alias="Admin"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Admin.xml"/>
 	</mappers>
 </configuration>
 
