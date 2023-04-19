@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -23,8 +25,35 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 컨트롤러 스캔 -->
 	<context:component-scan base-package="com.lec.bowow" />
 	
 	
+	<!-- dao인터페이스에 @mapper 설정 -->
+	<mybatis-spring:scan base-package="com.lec.ch19.dao"/> 
+	
+	<!-- 메일 properties 파일 읽어서 메일전송 객체 생성 -->
+	<context:property-placeholder location="classpath:META-INF/property/mail.properties"/>
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="${mail.host}"/>
+		<beans:property name="port" value="${mail.port}"/>
+		<beans:property name="username" value="${mail.username}"/>
+		<beans:property name="password" value="${mail.passwoard}"/>
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.ssl.trust">smtp.gmail.com</beans:prop>
+				<beans:prop key="mail.smtp.ssl.protocols">TLSv1.2</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- 파일첨부 가능하게 해주는 객체 : 여기서 파일첨부 용량 설정 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="1048576"/> <!-- 1M 제한 -->
+	</beans:bean>
 	
 </beans:beans>

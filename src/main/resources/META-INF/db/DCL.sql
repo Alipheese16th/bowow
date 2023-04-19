@@ -1,0 +1,2 @@
+CREATE USER bowow IDENTIFIED BY dog;
+GRANT DBA TO bowow;

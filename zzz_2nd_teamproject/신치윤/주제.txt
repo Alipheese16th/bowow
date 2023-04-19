@@ -1,0 +1,241 @@
+
+# 사이트 색상 ( #BE8D6E )
+
+## 기능별 정리
+
+### 김소연
+- 메인페이지 / 헤더 / 푸터
+- 회원가입 / 메일발송 / 유효성검사, 데이트피커(날짜), 우편번호 api
+- 로그인 / 아이디찾기 / 비밀번호 찾기
+- 로그아웃
+- 마이페이지(회원등급,쿠폰,적립금)
+	주문내역 / 리뷰내역 / 질문내역 / 정보수정 / 회원탈퇴
+- 리뷰게시판(별점,좋아요, 페이징, 검색) / 댓글 / 댓글의 답글
+
+### 신치윤
+- 상품 카테고리(애견용품) - 패션 / 푸드 / 장난감 / 산책(외출) / 목욕(위생)
+- 상품 목록(정렬기준 2가지)
+- 상품 상세보기 / 리뷰 / 좋아요, 신고,차단
+- 상품 검색결과
+- 장바구니
+- 주문서
+- 주문결과
+- 공지사항 게시판 (페이징, 검색)
+
+### 유민상
+- 관리자로그인 
+- 관리자 메인페이지 - 매출통계 ( 일별 매출, 카테고리별 매출 )
+- 관리자 상품 조회 ( 수정, 삭제 )
+- 관리자 상품 등록
+- 관리자 공지사항 관리 ( 추가, 수정, 삭제 )
+- 관리자 1대1 문의 확인
+- 질문게시판 (페이징, 검색, 답변글)
+- FAQ 자주묻는질문
+- 1대1 문의
+
+- our story 페이지 (사이트 소개)
+- 오시는길 (지도 api)
+- 매거진
+
+
+
+
+QNA(질문)게시판은 상품선택을 하고 작성할수도 선택안할수도 있음
+리뷰게시판은 반드시 상품 선택하고 작성가능
+
+
+
+
+### 고려중인 기능
+
+- 1대1문의
+	- 사용자 - 1대1문의 글쓰기
+	- 관리자 - 1대1문의 조회, 답변달기
+답변받으실이메일 (회원이메일의 정보가져오기)
+문의유형(카테고리선택)
+문의제목
+문의내용
+문의하기 submit시 고객의 메일로 문의가 정상적으로 접수되었습니다 알림
+문의 답변도 이메일로 하기
+
+- 리뷰글의 좋아요 기능
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+
+
+
+## 역할분담
+
+상품,주문 컨트롤러 (상품검색,상품리스트,상품상세보기(리뷰),장바구니, 주문) - 신치윤
+관리자 컨트롤러 (관리자로그인/매출통계/상품관리/공지사항) - 김소연
+유저컨트롤러 (회원가입/로그인/정보수정/마이페이지(내리뷰,내문의,주문내역)/회원탈퇴) - 유민상
+
+리뷰게시판 컨트롤러(댓글) - 김소연
+QNA 컨트롤러(답글) - 유민상
+공지사항 컨트롤러 - 신치윤
+
+
+
+## 역할분담 상세
+1. 신치윤
+- 상품목록 (product/list)
+- 상품상세보기 (product/content)
+- 상품검색  (product/search)
+- 주문하기페이지 (product/order)
+- 주문결과페이지 (product/orderResult)
+- 공지사항게시판 (notice/list)
+
+
+2. 김소연
+
+- 메인페이지 디자인
+
+- 회원가입 (user/join)
+- 로그인 (user/login)
+- 로그아웃 (user/logout)
+- 마이페이지 (주문내역 / 취소,반품내역 / QnA 내역 / 내가 쓴 리뷰 / 회원정보 수정, 탈퇴 / )
+- 장바구니(user/cart)
+- 리뷰게시판(review/list)  (댓글 기능)
+
+3. 유민상
+
+- 관리자 페이지(admin/login)  (admin/logout)
+- 매출 그래프 페이지(admin/graph) (일별 매출, 상품별 매출, 공지사항)
+- 상품 조회(admin/productSearch) (수정, 삭제)
+- 상품 등록(admin/productRegister) (상품등록, 옵션등록)
+- 공지사항 게시판 관리(admin/noticeSet) (추가, 수정, 삭제)
+- QNA 게시판(qna/list) (답글기능)
+
+
+
+
+--------------------------------------------------------------------------
+
+
+
+## 사용 소스,툴
+exerd, github
+oracle sqldeveloper
+java-1.8 eclipse-jee
+tomcat
+html css js jsp
+jstl
+jquery
+jquery-datepicker
+spring framework
+mybatis
+
+
+## 스프링 설정
+pom.xml - spring-jdbc (jdbc탬플릿)
+pom.xml - mybatis (마이바티스)
+pom.xml - mybatis-spring (마이바티스)
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>${org.springframework-version}</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis 3.5.5-->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.5.6</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring 2.0.5 -->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>2.0.6</version>
+</dependency>
+
+
+pom.xml - lombok (@data)
+
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.26</version>
+    <scope>provided</scope>
+</dependency>
+
+
+pom.xml - mail (메일발송)
+
+<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>mail</artifactId>
+    <version>1.4.7</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>3.0.5.RELEASE</version>
+</dependency>
+
+pom.xml - commons-fileupload (파일첨부)
+
+<!-- 파일업로드 -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.5</version>
+</dependency>
+
+
+web.xml - encodingFilter (한글필터)
+
+<!-- 한글처리 filter 추가 -->
+<filter>
+	<filter-name>encodingFilter</filter-name>
+	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+	<init-param>
+		<param-name>forceEncoding</param-name>
+		<param-value>true</param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+	<filter-name>encodingFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+
+
+web.xml - *.do (컨트롤러 디스페쳐)
+servlet-context.xml - resources mapping (css폴더 설정)
+servlet-context.xml - context:property-placeholder (properties파일 읽기)
+servlet-context.xml - mybatis-spring:scan (dao 인터페이스에 @mapper)
+servlet-context.xml - mailSender빈생성 (이메일계정 properties파일)
+servlet-context.xml - mulitpartResolver빈생성 
+root-context.xml - dataSource (scott계정 properties파일)
+root-context.xml - sqlSessionFactory(mybatis-config.xml, dataSource)
+root-context.xml - sqlSessionTemplate
+
+
+
+## api 정리
+datepicker
+다음 우편번호 검색
+별점기능
+select 검색가능한 셀렉트
+
+
+## 여유생기면 할거
+- 관리자 1대1 채팅
+- 좋아요 기능
+- 신고/차단 기능
+
+
