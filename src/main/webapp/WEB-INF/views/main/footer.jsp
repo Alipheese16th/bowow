@@ -8,9 +8,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath}/css/main.css">
+	<link href="${conPath}/css/footer.css">
 </head>
 <body>
-	hello world
+
 </body>
 </html>
