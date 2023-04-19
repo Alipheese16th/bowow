@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class mainController {
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public String main() {
-		return "main/main";
+		return "main/header";
 	}
 }
