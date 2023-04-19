@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.ch19.dao.MemberDao">
+
+	<resultMap type="Member" id="MemberResult">
+		<result property="memberId" column="memberId"/>
+		<result property="memberPw" column="memberPw"/>
+		<result property="memberName" column="memberName"/>
+		<result property="memberEmail" column="memberEmail"/>
+		<result property="memberTel" column="memberTel"/>
+		<result property="memberAddr" column="memberAddr"/>
+		<result property="memberBirth" column="memberBirth"/>
+		<result property="memberPoint" column="memberPoint"/>
+	</resultMap>
+	
+</mapper>
