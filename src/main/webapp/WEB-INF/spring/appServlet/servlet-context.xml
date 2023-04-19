@@ -30,7 +30,7 @@
 	
 	
 	<!-- dao인터페이스에 @mapper 설정 -->
-	<mybatis-spring:scan base-package="com.lec.ch19.dao"/> 
+	<mybatis-spring:scan base-package="com.lec.bowow.dao"/> 
 	
 	<!-- 메일 properties 파일 읽어서 메일전송 객체 생성 -->
 	<context:property-placeholder location="classpath:META-INF/property/mail.properties"/>

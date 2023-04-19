@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.bowow.dao.NoticeDao">
+	<resultMap type="Notice" id="NoticeResult">
+		<result property="noticeNum" column="noticeNum"/>
+		<result property="adminId" column="adminId"/>
+		<result property="noticeTitle" column="noticeTitle"/>
+		<result property="noticeContent" column="noticeContent"/>
+		<result property="noticeDate" column="noticeDate"/>
+	</resultMap>
+	<select id="noticeList" parameterType="Notice" resultMap="NoticeResult">
+		SELECT * FROM
+		       (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NOTICE ORDER BY NOTICENUM DESC) A)
+		    WHERE RN BETWEEN #{startRow} AND #{endRow};
+	</select>
+	<select id="totCntNotice" resultType="int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
+	<insert id="writeNotice" parameterType="Notice">
+		INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
+			VALUES (notice_SEQ.NEXTVAL, #{adminId}, #{noticeTitle}, #{noticeContent})
+	</insert>
+	<select id="contentNotice" parameterType="int" resultType="Notice">
+		SELECT * FROM NOTICE WHERE noticeNum = #{noticeNum}
+	</select>
+	<update id="modifyNotice" parameterType="Notice">
+		UPDATE NOTICE
+		    SET noticeTitle = #{noticeTitle},
+		        noticeContent = #{noticeContent}
+		    WHERE noticeNum = #{noticeNum}
+	</update>
+	<delete id="deleteNotice" parameterType="Notice">
+		DELETE FROM NOTICE WHERE noticeNum = #{noticeNum}
+	</delete>
+</mapper>
