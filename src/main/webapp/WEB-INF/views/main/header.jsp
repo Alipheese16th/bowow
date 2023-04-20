@@ -19,13 +19,21 @@
 			$(".search").click(function(){
 				$(".search-view").toggleClass("up");
 			});
+			$("div.bar-close").click(function(){
+				$(".top-bar").css("display", "none");
+			})
 		});
 	</script>
 </head>
 <body>
 	<div id="header">
 		<div class="top-bar">
-			<p><a>BOWOW 바우와우에 신규가입하고 <b>2천원 즉시 할인혜택 받기</b></a></p>
+			<div>				
+				<a>BOWOW 바우와우에 신규가입하고 <b>2천원 즉시 할인혜택 받기</b></a>
+				<div class="bar-close">
+					<span></span>
+				</div>
+			</div>
 		</div>
 		<div class="header-top">
 			<div class="header-inner">

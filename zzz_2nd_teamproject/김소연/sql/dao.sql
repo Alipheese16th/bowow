@@ -1,35 +1,37 @@
 
 ----------------------------------- MEMBER 관련 ----------------------------------
+-- 회원 id중복체크
+SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
 -- 회원가입
-INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERPOINT)
-  VALUES ('bbb', '111', '신치윤', 'shwoo93@naver.com', '010-6344-4081', '인천시 남동구 만수동 1081-3', '93-11-03', 0);
-
--- 아이디 중복확인
-SELECT * FROM MEMBER WHERE MEMBERID = 'bbb';
-
--- 이메일 중복확인 -- 해도되고 안해도되고 / 하려면 DDL.sql 에서 member 테이블의 이메일 컬럼을 유니크로 변경
-
+INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT)
+    VALUES ('aaa', '111', '김길동', 'kim@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08', 100000, 100);
 -- 로그인
-SELECT * FROM MEMBER WHERE MEMBERID = 'bbb' AND MEMBERPW = '111';
+SELECT * FROM MEMBER WHERE MEMBERID = 'aaa' AND MEMBERPW = '111';
+-- 아이디 찾기
+SELECT * FROM MEMBER WHERE MEMBEREMAIL = 'kim@naver.com';
+-- 비밀번호 찾기
+SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
+-- mid로 dto가져오기 (로그인 성공시 session에 넣기 위해)
+SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
+-- 회원정보 수정
+UPDATE MEMBER SET 
+        MEMBERPW = '222',
+        MEMBERNAME = '이길동',
+        MEMBEREMAIL = 'lee@naver.com',
+        MEMBERTEL = '010-3333-3333',
+        MEMBERADDR = '서울시 마포구 합정동 합정이젠아카데미 1층',
+        MEMBERBIRTH = '10/03/23'
+    WHERE MEMBERID = 'aaa';
+-- 회원탈퇴(작성 글 모두 지우고)
+DELETE FROM MEMBER WHERE MEMBERID = 'aaa';
+COMMIT;
 
--- 아이디 찾기 (이메일 입력)
-SELECT * FROM MEMBER WHERE MEMBEREMAIL = 'shwoo93@naver.com';
+-- 장바구니 (추가, 리스트, 삭제)
+INSERT INTO CART (cartNUM, memberID, productCODE, sizeNUM, colorNUM, QTY, COST)
+    VALUES (CART_SEQ.NEXTVAL, 'aaa', 'P001', SIZES_SEQ.NEXTVAL, COLOR_SEQ.NEXTVAL, 2, (SELECT productPRICE FROM PRODUCT WHERE productCODE = 'P001')*2);
+SELECT * FROM CART;
 
--- 비밀번호 찾기 (아이디 입력) -- 후에 이메일로 비밀번호 전송시켜줘도 됨
-SELECT * FROM MEMBER WHERE MEMBERID = 'bbb';
 
--- 회원 정보 수정
-UPDATE MEMBER 
-  SET MEMBERPW = '222',
-      MEMBERNAME = '홍길동',
-      MEMBEREMAIL = 'hong@naver.com',
-      MEMBERTEL = '010-9898-9898',
-      MEMBERADDR = '서울시 서대문구 머시기',
-      MEMBERBIRTH = '99/12/12'
-  WHERE MEMBERID = 'bbb';
-
--- 회원 탈퇴
-DELETE FROM MEMBER WHERE MEMBERID = 'bbb';
 
 -- 마이페이지 (등급까지 조회)
 SELECT * FROM MEMBER, MEMBERGRADE WHERE MEMBERAMOUNT BETWEEN LOWAMOUNT AND HIAMOUNT AND MEMBERID = 'aaa';
