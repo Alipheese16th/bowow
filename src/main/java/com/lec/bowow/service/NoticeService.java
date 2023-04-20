@@ -9,8 +9,8 @@ import com.lec.bowow.model.Notice;
 public interface NoticeService {
 	public List<Notice> noticeList(String pageNum);
 	public int totCntNotice();
-	public int writeNotice(Notice notice, HttpServletRequest request);
+	public int writeNotice(Notice notice);
 	public Notice contentNotice(int noticeNum);
-	public int modifyNotice(Notice notice, HttpServletRequest request);
+	public int modifyNotice(Notice notice);
 	public int deleteNotice(int noticeNum);
 }
