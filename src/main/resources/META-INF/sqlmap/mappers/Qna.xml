@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.bowow.dao.QnaDao">
+	<resultMap type="Qna" id="QnaResult">
+		<result property="qnaNum" column="qnaNum"/>
+		<result property="memberId" column="memberId"/>
+		<result property="productCode" column="productCode"/>
+		<result property="qnaTitle" column="qnaTitle"/>
+		<result property="qnaContent" column="qnaContent"/>
+		<result property="qnaImage" column="qnaImage"/>
+		<result property="qnaDate" column="qnaDate"/>
+		<result property="qnaGroup" column="qnaGroup"/>
+		<result property="qnaStep" column="qnaStep"/>
+		<result property="qnaIndent" column="qnaIndent"/>
+		<result property="qnaIp" column="qnaIp"/>
+	</resultMap>
+	<select id="qnaList" parameterType="Qna" resultMap="QnaResult">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaNum) A)
+			WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntQna" resultType="int">
+		SELECT COUNT(*) FROM QNA
+	</select>
+	<insert id="writeQna"></insert>
+</mapper>
