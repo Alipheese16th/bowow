@@ -1,0 +1,85 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: 'Pretendard-Regular', 'sans-serif';
+	text-align:center;
+}
+li{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+	display:block;
+	color:#000;
+}
+#footer .footer-in{
+	padding:10px 80px 60px;
+	cursor:pointer;
+	margin:0 auto;
+	position:relative;
+	min-width:1250px;
+	overflow:hidden;
+}
+#footer .footer-in .footer-top{
+	display:flex;
+	padding: 10px 0 20px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 40px;
+}
+#footer .footer-in .footer-top a{
+	display:inline-block;
+	padding-left:20px;
+	position:relative;
+	font-size:14px;
+	font-weight: 300;
+}
+#footer .footer-in .footer-top a:after{
+	content: '';
+    position: absolute;
+    width: 1px;
+    height: 14px;
+    background: #dadada;
+    left: 10px;
+    top: 50%;
+    margin-top: -7px;
+}
+#footer .footer-in .footer-top a:first-child {
+	padding-left:0;
+}
+#footer .footer-in .footer-top a:first-child:after{
+	display:none;
+}
+#footer .footer-in .footer-content{
+	margin-top: 10px;
+    display: -webkit-box;
+}
+#footer .footer-in .footer-content p{
+	padding-bottom:15px;
+	text-align: left;
+}
+#footer .footer-in .footer-content p:first-child{
+	font-size:15px;
+}
+#footer .footer-in .footer-content .ftitle{
+	font-weight: 600;
+}
+#footer .footer-in .footer-content .tel{
+	color: #BE8D6E;
+    font-size: 25px;
+    font-weight: 600;
+}
+#footer .footer-in .footer-content .footer-left,
+#footer .footer-in .footer-content .footer-right .footer-right-content{
+	margin-right:100px;
+}
+#footer .footer-in .footer-content .footer-right{
+	display: flex;
+}
