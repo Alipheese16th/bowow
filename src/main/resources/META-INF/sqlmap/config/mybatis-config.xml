@@ -8,11 +8,16 @@
 		<typeAlias type="com.lec.bowow.model.Member" alias="Member"/>
 		<typeAlias type="com.lec.bowow.model.Admin" alias="Admin"/>
 		<typeAlias type="com.lec.bowow.model.Notice" alias="Notice"/>
+		<typeAlias type="com.lec.bowow.model.Product" alias="Product"/>
+		<typeAlias type="com.lec.bowow.model.Sizes" alias="Sizes"/>
+		<typeAlias type="com.lec.bowow.model.Color" alias="Color"/>
+		<typeAlias type="com.lec.bowow.model.ProductImage" alias="ProductImage"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Admin.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Notice.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Product.xml"/>
 	</mappers>
 </configuration>
 

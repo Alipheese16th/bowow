@@ -15,19 +15,35 @@ public class Paging {
 	private int endPage;
 	
 	public Paging(int totCnt, String pageNum) {
-		if(pageNum != null) {
+		this.totCnt = totCnt;
+		if(pageNum!=null && !pageNum.equals("")) {
 			currentPage = Integer.parseInt(pageNum);
 		}
-		this.totCnt = totCnt;
-		this.pageSize = 10;
-		this.blockSize = 10;
-		startRow = (currentPage - 1) * pageSize + 1;
-		endRow = startRow + pageSize - 1;
-		pageCnt = (int) Math.ceil((double)totCnt/pageSize);
-		startPage = ((currentPage-1) / blockSize) * blockSize + 1;
-		endPage = startPage + blockSize - 1;
+		startRow 	= (currentPage - 1) * pageSize + 1;
+		endRow 		= startRow + pageSize - 1;
+		pageCnt 	= (int) Math.ceil((double)totCnt/pageSize);
+		startPage 	= ((currentPage-1) / blockSize) * blockSize + 1;
+		endPage 	= startPage + blockSize - 1;
 		if(endPage > pageCnt) {
 			endPage = pageCnt;
 		}
 	}
+	
+	public Paging(int totCnt, String pageNum, int pageSize, int blockSize) {
+		this.totCnt = totCnt;
+		if(pageNum!=null && !pageNum.equals("")) {
+			currentPage = Integer.parseInt(pageNum);
+		}
+		this.pageSize  = pageSize;
+		this.blockSize = blockSize;
+		startRow 	= (currentPage-1)*pageSize +1;
+		endRow   	= startRow + pageSize -1;
+		pageCnt  	= (int)Math.ceil((double)totCnt/pageSize);
+		startPage 	= ((currentPage-1)/blockSize)*blockSize+1;
+		endPage   	= startPage + blockSize -1;
+		if(endPage>pageCnt) {
+			endPage = pageCnt;
+		}
+	}
+	
 }

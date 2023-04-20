@@ -13,5 +13,6 @@ public class Member {
 	private String memberTel;
 	private String memberAddr;
 	private Date memberBirth;
+	private int memberAmount;
 	private int memberPoint;
 }

@@ -13,6 +13,7 @@
 		<result property="memberTel" column="memberTel"/>
 		<result property="memberAddr" column="memberAddr"/>
 		<result property="memberBirth" column="memberBirth"/>
+		<result property="memberAmount" column="memberAmount"/>
 		<result property="memberPoint" column="memberPoint"/>
 	</resultMap>
 	
