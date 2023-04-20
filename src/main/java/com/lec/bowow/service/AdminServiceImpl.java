@@ -13,12 +13,12 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao adminDao;
 	@Override
 	public String adminLogin(String adminId, String adminPw, HttpSession httpSession) {
-		String result = "°ü¸®ÀÚ ·Î±×ÀÎ ¼º°ø";
+		String result = "ê´€ë¦¬ì ë¡œê·¸ì¸ ì„±ê³µ";
 		Admin admin = adminDao.getAdmin(adminId);
 		if(admin == null) {
-			result = "°ü¸®ÀÚ ¾ÆÀÌµğ°¡ ¾Æ´Õ´Ï´Ù";
+			result = "ìœ íš¨í•˜ì§€ ì•Šì€ ì•„ì´ë”” ì…ë‹ˆë‹¤";
 		} else if(! admin.getAdminPw().equals(adminPw)) {
-			result = "ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù";
+			result = "ë¹„ë°€ë²ˆí˜¸ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤";
 		} else {
 			httpSession.setAttribute("admin", admin);
 		}

@@ -75,18 +75,21 @@
 	<div class="wrap">
 		<div class="content">
 		  <div class="card-body">
-		    <h5 class="card-title" style="font-weight: bold; font-size: 1.8em;">관리자 로그인</h5>
-		    <p class="card-text">아이디와 비밀번호를 입력해주세요</p>
-		    <div class="id">
-		    	<input type="text" name="mid" placeholder="아이디">
-		    </div>
-		    <div class="pw">
-		    	<input type="password" name="mpw" placeholder="비밀번호">
-		    </div>
-		    <div class="member">
-		    	<a href="">회원사이트로 가기</a>
-		    </div>
-		    <a href="#" class="btn">로그인</a>
+		  	<form action="${coaPath }/login.do" method="post">
+			    <h5 class="card-title" style="font-weight: bold; font-size: 1.8em;">관리자 로그인</h5>
+			    <p class="card-text">아이디와 비밀번호를 입력해주세요</p>
+			    <div class="id">
+			    	<input type="text" name="mid" placeholder="아이디">
+			    </div>
+			    <div class="pw">
+			    	<input type="password" name="mpw" placeholder="비밀번호">
+			    </div>
+			    <div class="member">
+			    	<a href="">회원사이트로 가기</a>
+			    </div>
+			    <input type="submit" value="로그인" class="btn">
+			    <!-- <a href="#" class="btn">로그인</a> -->
+		  	</form>
 		  </div>
 		</div>
 	</div>
