@@ -10,17 +10,7 @@
 	<title>title</title>
 	<link href="${conPath }/css/header.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-	<script>
-		$(document).ready(function(){
-			$(".lnb").hide();
-			$("ul .lnb-down").mouseenter(function(){ $(this).children(".lnb").stop().slideDown(300);})
-			.mouseleave(function(){ $(this).children(".lnb").stop().slideUp(300);})
-			$("ul .lnb-down").click(function(){ $(this).children(".lnb").slideToggle(300);})
- 			$(".search]").click(function(){
-				
-			});
-		});
-	</script>
+	<script src="${conPath}/js/header.js"></script>
 </head>
 <body>
 	<div id="header">
@@ -76,11 +66,15 @@
 						</ul>
 					</div>
 					<div class="gnb-right">
-						<form>
-							<input type="text" name="search" class="search-form">
-							<input type="submit" class="search" value="">
-						</form>
+						<button class="search">검색하기</button>
 						<button class="cart">장바구니<span>0</span></button>
+					</div>
+					<div class="search-view">
+						<form>
+							<input type="text" name="sch_product">
+							<button type="submit" class="searchP">검색하기</button>
+							<button class="search">검색하기</button>
+						</form>
 					</div>
 				</div>
 			</div>
