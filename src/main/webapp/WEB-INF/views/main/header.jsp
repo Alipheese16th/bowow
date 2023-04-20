@@ -72,8 +72,8 @@
 					<div class="search-view">
 						<form>
 							<input type="text" name="sch_product">
-							<button type="submit" class="searchP">검색하기</button>
-							<button class="search">검색하기</button>
+							<input type="submit" class="searchP">
+							<input type="button" class="search">
 						</form>
 					</div>
 				</div>
