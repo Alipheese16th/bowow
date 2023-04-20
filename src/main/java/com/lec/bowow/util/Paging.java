@@ -5,14 +5,15 @@ import lombok.Data;
 @Data
 public class Paging {
 	private int currentPage = 1;
-	private int pageSize;
-	private int blockSize;
+	private int pageSize = 10;
+	private int blockSize = 10;
 	private int startRow;
 	private int endRow;
 	private int totCnt;
 	private int pageCnt;
 	private int startPage;
 	private int endPage;
+	
 	public Paging(int totCnt, String pageNum) {
 		if(pageNum != null) {
 			currentPage = Integer.parseInt(pageNum);
