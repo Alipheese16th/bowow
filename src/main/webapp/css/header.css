@@ -32,8 +32,22 @@ a{
 	height:50px;
 	line-height: 50px;
 }
-#header .top-bar p a{
+#header .top-bar div a{
 	color:#fff;
+}
+#header .top-bar .bar-close{
+	position:absolute;
+	right:20px;
+	top:10px;
+	z-index:9;
+}
+#header .top-bar .bar-close span{
+	width:25px; 
+	height:25px;
+	float:right;
+	cursor: pointer;
+	background:url("../img/topClose_btn.png") no-repeat center right;
+	background-size: 20px;
 }
 #header .header-top{
 	min-width:1020px;
@@ -209,4 +223,11 @@ a{
 	border:none;
 	background:url("../img/close_btn.png")center no-repeat;
 	background-size:30px;	
+}
+#header .header-top .header-bottom .gnb .search-view input[type='button']{
+    padding-top: 10px;
+    position: absolute;
+    /* border: 1px solid #000; */
+    bottom: 160px;
+    margin-left: 10px;
 }
