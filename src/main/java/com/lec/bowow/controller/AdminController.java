@@ -18,7 +18,7 @@ public class AdminController {
 	@RequestMapping(value="login", method = {RequestMethod.GET, RequestMethod.POST})
 	public String login(String adminId, String adminPw, HttpSession httpSession, Model model) {
 		String adminLoginResult = adminService.adminLogin(adminId, adminPw, httpSession);
-		if(adminLoginResult.equals("°ü¸®ÀÚ ·Î±×ÀÎ ¼º°ø")) {
+		if(adminLoginResult.equals("ê´€ë¦¬ì ë¡œê·¸ì¸ ì„±ê³µ")) {
 			model.addAttribute("adminLoginResult", adminLoginResult);
 			return "forward:main.do";
 		} else {
@@ -27,5 +27,10 @@ public class AdminController {
 			model.addAttribute("adminPw", adminPw);
 			return "admin/login";
 		}
+	}
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(HttpSession httpsession) {
+		httpsession.invalidate();
+		return "forward:main.do";
 	}
 }

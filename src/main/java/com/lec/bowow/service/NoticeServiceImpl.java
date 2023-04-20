@@ -16,36 +16,31 @@ public class NoticeServiceImpl implements NoticeService {
 	private NoticeDao noticeDao;
 	@Override
 	public List<Notice> noticeList(String pageNum) {
-		return null;
+		Paging paging = new Paging(noticeDao.totCntNotice(), pageNum);
+		Notice notice = new Notice();
+		notice.setStartRow(paging.getStartRow());
+		notice.setEndRow(paging.getEndRow());
+		return noticeDao.noticeList(notice);
 	}
 	@Override
 	public int totCntNotice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.totCntNotice();
 	}
-
 	@Override
-	public int writeNotice(Notice notice, HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int writeNotice(Notice notice) {
+		return noticeDao.writeNotice(notice);
 	}
-
 	@Override
 	public Notice contentNotice(int noticeNum) {
-		// TODO Auto-generated method stub
-		return null;
+		return noticeDao.contentNotice(noticeNum);
 	}
-
 	@Override
-	public int modifyNotice(Notice notice, HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int modifyNotice(Notice notice) {
+		return noticeDao.modifyNotice(notice);
 	}
 
 	@Override
 	public int deleteNotice(int noticeNum) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.deleteNotice(noticeNum);
 	}
-
 }
