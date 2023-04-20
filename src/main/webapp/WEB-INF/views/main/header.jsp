@@ -14,18 +14,26 @@
 		$(document).ready(function(){
 			$(".lnb").hide();
 			$("ul .lnb-down").mouseenter(function(){ $(this).children(".lnb").stop().slideDown(300);})
-			.mouseleave(function(){ $(this).children(".lnb").stop().slideUp(300);})
-			$("ul .lnb-down").click(function(){ $(this).children(".lnb").slideToggle(300);})
- 			$(".search]").click(function(){
-				
+			$("ul .lnb-down").mouseleave(function(){ $(this).children(".lnb").stop().slideUp(300);})
+			$("ul .lnb-down").click(function(){ $(this).children(".lnb").slideToggle(300);});
+			$(".search").click(function(){
+				$(".search-view").toggleClass("up");
 			});
+			$("div.bar-close").click(function(){
+				$(".top-bar").css("display", "none");
+			})
 		});
 	</script>
 </head>
 <body>
 	<div id="header">
 		<div class="top-bar">
-			<p><a>BOWOW 바우와우에 신규가입하고 <b>2천원 즉시 할인혜택 받기</b></a></p>
+			<div>				
+				<a>BOWOW 바우와우에 신규가입하고 <b>2천원 즉시 할인혜택 받기</b></a>
+				<div class="bar-close">
+					<span></span>
+				</div>
+			</div>
 		</div>
 		<div class="header-top">
 			<div class="header-inner">
@@ -76,11 +84,15 @@
 						</ul>
 					</div>
 					<div class="gnb-right">
-						<form>
-							<input type="text" name="search" class="search-form">
-							<input type="submit" class="search" value="">
-						</form>
+						<button class="search">검색하기</button>
 						<button class="cart">장바구니<span>0</span></button>
+					</div>
+					<div class="search-view">
+						<form>
+							<input type="text" name="sch_product">
+							<input type="submit" class="searchP">
+							<input type="button" class="search">
+						</form>
 					</div>
 				</div>
 			</div>

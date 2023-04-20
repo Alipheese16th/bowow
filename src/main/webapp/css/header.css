@@ -1,10 +1,15 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 *{
 	margin:0;
 	padding:0;
 	box-sizing:border-box;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Pretendard-Regular', 'sans-serif';
 	text-align:center;
 }
 li{
@@ -27,8 +32,22 @@ a{
 	height:50px;
 	line-height: 50px;
 }
-#header .top-bar p a{
+#header .top-bar div a{
 	color:#fff;
+}
+#header .top-bar .bar-close{
+	position:absolute;
+	right:20px;
+	top:10px;
+	z-index:9;
+}
+#header .top-bar .bar-close span{
+	width:25px; 
+	height:25px;
+	float:right;
+	cursor: pointer;
+	background:url("../img/topClose_btn.png") no-repeat center right;
+	background-size: 20px;
 }
 #header .header-top{
 	min-width:1020px;
@@ -62,6 +81,7 @@ a{
 }
 #header .header-top .header-inner .inner .inner-right li a{
 	font-size:15px;
+	color:#7F7F7F;
 }
 /*header-bottom 부분*/
 #header .header-top .header-bottom{
@@ -72,13 +92,14 @@ a{
 	position:relative;
 }
 #header .header-top .header-bottom .gnb{
-	position:relative;
 	display:flex;
 	width:1400px;
 	margin:0 auto;
 	height:60px;
 	-webkit-box-pack: center;
     justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
 }
 #header .header-top .header-bottom .gnb .gnb-left{
 	line-height:60px;
@@ -88,20 +109,20 @@ a{
 }
 #header .header-top .header-bottom .gnb .gnb-left>ul>li{
 	float:left;
+	padding:0px 40px;
 	margin-left:60px;
 	line-height:60px;
-	width:150px;
 }
 #header .header-top .header-bottom .gnb .gnb-left .lnb{
 	background:#fff;
+	position:fixed;
 }
 #header .header-top .header-bottom .gnb .gnb-left .lnb li{
 	border-bottom:1px solid #ccc;
 }
 #header .header-top .header-bottom .gnb .gnb-left .lnb li a{
-	text-align:center
+	text-align:left
 }
-/*header에 gnb-right부분*/
 #header .header-top .header-bottom .gnb .gnb-right{
 	display:flex;
 	margin-top:15px;
@@ -147,7 +168,66 @@ a{
 	background:url("../img/search.png")center no-repeat;
 	background-size:30px;
 }
-
-
-
-
+#header .header-top .header-bottom .gnb .search-view{
+	border:1px solid #000;
+	position: absolute;
+    top: 40px;
+    left: 0;
+    font-size: 25px;
+    width: 100%;
+    z-index: 6;
+    margin: -540px auto 0;
+    outline: none;
+    border: 0;
+    line-height: 40px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,1);
+    padding: 80px 10px 150px 33px;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+#header .header-top .header-bottom .gnb .search-view.up{
+    margin: 15px 0 15px !important;
+    box-shadow: 0 15px 15px 1px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 15px 15px 1px rgba(0,0,0,0.1);
+}
+#header .header-top .header-bottom .gnb .search-view input[type='text']{
+	outline: none;
+    font-size: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #111111;
+    vertical-align: middle;
+    width:50%;
+    padding:10px;
+    border:none;
+    border-bottom:2px solid #000;
+    position:relative;
+}
+#header .header-top .header-bottom .gnb .searchP{
+	width:30px;
+	height:30px;
+	text-align:center;
+	margin-left:20px;
+	font-size: 0px;
+	border:none;
+	background:url("../img/search.png")center no-repeat;
+	background-size:30px;
+}
+#header .header-top .header-bottom .gnb .search-view .search{
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    width:30px;
+	height:30px;
+	text-align:center;
+	font-size: 0px;
+	border:none;
+	background:url("../img/close_btn.png")center no-repeat;
+	background-size:30px;	
+}
+#header .header-top .header-bottom .gnb .search-view input[type='button']{
+    padding-top: 10px;
+    position: absolute;
+    /* border: 1px solid #000; */
+    bottom: 160px;
+    margin-left: 10px;
+}

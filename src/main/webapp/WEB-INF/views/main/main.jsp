@@ -9,8 +9,13 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link href="${conPath}/css/main.css">
+	<style>
+		#content{height:800px; width:100%; margin:0 auto;}
+	</style>
 </head>
 <body>
-	hello world
+	<jsp:include page="../main/header.jsp"/>
+	<div id="content"></div>
+	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
