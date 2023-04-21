@@ -116,6 +116,7 @@ a{
 #header .header-top .header-bottom .gnb .gnb-left .lnb{
 	background:#fff;
 	position:fixed;
+	padding-left:0 !important;
 }
 #header .header-top .header-bottom .gnb .gnb-left .lnb li{
 	border-bottom:1px solid #ccc;

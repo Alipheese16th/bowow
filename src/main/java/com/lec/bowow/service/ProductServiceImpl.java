@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lec.bowow.dao.ProductDao;
 import com.lec.bowow.model.Color;
 import com.lec.bowow.model.Product;
-import com.lec.bowow.model.ProductImage;
+import com.lec.bowow.model.Image;
 import com.lec.bowow.model.Sizes;
 import com.lec.bowow.util.Paging;
 
@@ -20,22 +20,29 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> productList(Product product, String pageNum) {
-		Paging paging = new Paging(totCntProduct(product), pageNum, 20, 5);
+		Paging paging = new Paging(totCntProduct(product), pageNum, 16, 5);
 		product.setStartRow(paging.getStartRow());
 		product.setEndRow(paging.getEndRow());
 		return productDao.productList(product);
 	}
-
 	@Override
 	public int totCntProduct(Product product) {
 		return productDao.totCntProduct(product);
 	}
-
+	
+	
 	@Override
 	public Product productDetail(String productCode) {
-		// TODO Auto-generated method stub
-		return null;
+		return productDao.productDetail(productCode);
 	}
+	@Override
+	public List<Image> imageList(String productCode) {
+		return productDao.imageList(productCode);
+	}
+
+	
+
+	
 
 	@Override
 	public List<Product> searchProduct(String searchName) {
@@ -62,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int registerProductImage(ProductImage productImage) {
+	public int registerProductImage(Image productImage) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -78,5 +85,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 }

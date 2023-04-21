@@ -2,7 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
 <mapper namespace="com.lec.bowow.dao.ProductDao">
+
 	<resultMap type="Product" id="ProductResult">
 		<result property="productCode" column="productCode"/>
 		<result property="category" column="category"/>
@@ -13,6 +15,14 @@
 		<result property="productDate" column="productDate"/>
 		<result property="productStock" column="productStock"/>
 		<result property="prooductUsed" column="prooductUsed"/>
+		<result property="image" column="image"/>
+	</resultMap>
+	
+	<resultMap type="Image" id="ImageResult">
+		<result property="imageNum" column="imageNum"/>
+		<result property="productCode" column="productCode"/>
+		<result property="type" column="type"/>
+		<result property="image" column="image"/>
 	</resultMap>
 	
 	<select id="productList" parameterType="Product" resultMap="ProductResult">
@@ -20,38 +30,50 @@
 		<if test="category==null or category==''">
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
-			    (SELECT * FROM PRODUCT ORDER BY PRODUCTDATE DESC) A)
+			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+			        AND TYPE='title' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		
 		<if test='category=="fashion"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
-			    (SELECT * FROM PRODUCT WHERE CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
+			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+			        AND TYPE='title' AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="food"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
-			    (SELECT * FROM PRODUCT WHERE CATEGORY = 'food' ORDER BY PRODUCTDATE DESC) A)
+			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+			        AND TYPE='title' AND CATEGORY = 'food' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="toy"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
-			    (SELECT * FROM PRODUCT WHERE CATEGORY = 'toy' ORDER BY PRODUCTDATE DESC) A)
+			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+			        AND TYPE='title' AND CATEGORY = 'toy' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="walking"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
-			    (SELECT * FROM PRODUCT WHERE CATEGORY = 'walking' ORDER BY PRODUCTDATE DESC) A)
+			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+			        AND TYPE='title' AND CATEGORY = 'walking' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="clean"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
-			    (SELECT * FROM PRODUCT WHERE CATEGORY = 'clean' ORDER BY PRODUCTDATE DESC) A)
+			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+			        AND TYPE='title' AND CATEGORY = 'clean' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		
@@ -59,30 +81,40 @@
 	
 	<select id="totCntProduct" parameterType="Product" resultType="int">
 	
-		
+		<if test="category==null or category==''">
 			SELECT COUNT(*) FROM PRODUCT
-		
-	
-		<!-- <if test="category=='fashion'">
+		</if>
+		<if test='category=="fashion"'>
 			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion'
 		</if>
-		<if test="category=='food'">
+		<if test='category=="food"'>
 			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'food'
 		</if>
-		<if test="category=='toy'">
+		<if test='category=="toy"'>
 			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'toy'
 		</if>
-		<if test="category=='walking'">
+		<if test='category=="walking"'>
 			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'walking'
 		</if>
-		<if test="category=='clean'">
+		<if test='category=="clean"'>
 			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'clean'
-		</if> -->
+		</if>
 	</select>
+	
+	
+	
 	
 	<select id="productDetail" parameterType="String" resultType="Product">
 		SELECT * FROM PRODUCT WHERE productCode = #{productCode}
 	</select>
+	
+	<select id="imageList" parameterType="String" resultMap="ImageResult">
+		SELECT * FROM IMAGE WHERE PRODUCTCODE = #{productCode}
+	</select>
+	
+	
+	
+	
 	
 	<select id="searchProduct" parameterType="String" resultMap="ProductResult">
 		SELECT * FROM PRODUCT WHERE productName LIKE '%' || TRIM(#{searchName}) || '%'
@@ -103,9 +135,9 @@
   			VALUES (COLOR_SEQ.NEXTVAL, #{productCode}, #{productColor})
 	</insert>
 	
-	<insert id="registerProductImage" parameterType="ProductImage">
-		INSERT INTO PRODUCTIMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
-  			VALUES (PRODUCTIMAGE_SEQ.NEXTVAL, #{productCode}, #{type}, #{image})
+	<insert id="registerImage" parameterType="Image">
+		INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
+  			VALUES (IMAGE_SEQ.NEXTVAL, #{productCode}, #{type}, #{image})
 	</insert>
 	
 	<update id="modifyProduct" parameterType="Product">

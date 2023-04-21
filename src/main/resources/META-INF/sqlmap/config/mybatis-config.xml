@@ -5,22 +5,33 @@
 
 <configuration>
 	<typeAliases>
+		<!-- 김소연 시작 -->
 		<typeAlias type="com.lec.bowow.model.Member" alias="Member"/>
+		<!-- 김소연 끝 -->
+		
+		<!-- 유민상 시작 -->
 		<typeAlias type="com.lec.bowow.model.Admin" alias="Admin"/>
-		<typeAlias type="com.lec.bowow.model.Notice" alias="Notice"/>
 		<typeAlias type="com.lec.bowow.model.Qna" alias="Qna"/>
+		<!-- 유민상 끝 -->
+		
+		<!-- 신치윤 시작 -->
 		<typeAlias type="com.lec.bowow.model.Product" alias="Product"/>
 		<typeAlias type="com.lec.bowow.model.Sizes" alias="Sizes"/>
 		<typeAlias type="com.lec.bowow.model.Color" alias="Color"/>
-		<typeAlias type="com.lec.bowow.model.ProductImage" alias="ProductImage"/>
+		<typeAlias type="com.lec.bowow.model.Image" alias="Image"/>
+		<typeAlias type="com.lec.bowow.model.Notice" alias="Notice"/>
+		<!-- 신치윤 끝 -->
 
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Admin.xml"/>
-		<mapper resource="META-INF/sqlmap/mappers/Notice.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Qna.xml"/>
+		
+		<!-- 신치윤 시작 -->
 		<mapper resource="META-INF/sqlmap/mappers/Product.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Notice.xml"/>
+		<!-- 신치윤 끝 -->
 	</mappers>
 </configuration>
 

@@ -3,7 +3,7 @@ package com.lec.bowow.model;
 import lombok.Data;
 
 @Data
-public class ProductImage {
+public class Image {
 	private int imageNum;
 	private String productCode;
 	private String type;

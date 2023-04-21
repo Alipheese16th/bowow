@@ -20,11 +20,16 @@ public class ProductController {
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public String list(Model model, Product product, String pageNum) {
 		model.addAttribute("productList",productService.productList(product, pageNum));
-		model.addAttribute("paging",new Paging(productService.totCntProduct(product), pageNum, 20, 5));
+		model.addAttribute("paging",new Paging(productService.totCntProduct(product), pageNum, 16, 5));
 		return "product/list";
 	}
 	
-	
+	@RequestMapping(value="content", method=RequestMethod.GET)
+	public String content(Model model, String productCode) {
+		model.addAttribute("product",productService.productDetail(productCode));
+		model.addAttribute("imageList",productService.imageList(productCode));
+		return "product/content";
+	}
 	
 	
 	
