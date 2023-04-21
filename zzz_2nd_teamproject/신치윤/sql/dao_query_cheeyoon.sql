@@ -1,11 +1,16 @@
 
 -------------------------------- product ----------------------------------------
 
--- 카테고리별 상품 리스트 -- top-n구문 20개씩만, 페이징)
+-- 카테고리별 상품 리스트 -- top-n구문 20개씩만, 페이징, 대표이미지 조인)
 SELECT * FROM 
   (SELECT ROWNUM RN, A.* FROM 
-    (SELECT * FROM PRODUCT WHERE CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
+    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+        AND TYPE='title' AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
   WHERE RN BETWEEN 1 AND 10;
+
+-- 특정 상품의 이미지 리스트 가져오기 (상품리스트에서 해당 상품코드의 이미지 필요함)
+SELECT * FROM IMAGE WHERE PRODUCTCODE = 'P0001';
 
 -- 상품 갯수 (카테고리별)
 SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion';
@@ -29,8 +34,8 @@ INSERT INTO COLOR (COLORNUM, PRODUCTCODE, PRODUCTCOLOR)
   VALUES (COLOR_SEQ.NEXTVAL, 'P0001', '레드');
 
 -- 상품 이미지 등록
-INSERT INTO PRODUCTIMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
-  VALUES (PRODUCTIMAGE_SEQ.NEXTVAL, 'P0001', 'title', 'flowershirt1.jpg');
+INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
+  VALUES (IMAGE_SEQ.NEXTVAL, 'P0001', 'title', 'flowershirt1.jpg');
 
 -- 상품 수정
 UPDATE PRODUCT
@@ -44,7 +49,6 @@ UPDATE PRODUCT
 	
 -- 상품 삭제
 UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';
-
 
 --------------------------------- ORDERS ---------------------------------------
 

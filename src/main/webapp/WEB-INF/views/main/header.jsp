@@ -38,7 +38,7 @@
 		<div class="header-top">
 			<div class="header-inner">
 				<div class="inner">
-					<h1 class="logo"><a><img src="${conPath }/img/bowow_logo.png"></a></h1>
+					<h1 class="logo"><a href="${conPath}/main.do"><img src="${conPath }/img/bowow_logo.png"></a></h1>
 					<c:if test="${empty member and empty admin}">
 						<ul class="inner-right">
 							<li><a href="#">회원가입</a></li>
@@ -64,11 +64,11 @@
 							<li class="lnb-down">
 								<a href="#">상품</a>
 									<ul class="lnb">
-										<li><a href="#">패션</a></li>
-										<li><a href="#">푸드</a></li>
-										<li><a href="#">장난감</a></li>
-										<li><a href="#">산책(외출)</a></li>
-										<li><a href="#">목욕(위생)</a></li>
+										<li><a href="${conPath}/product/list.do?category=fashion">패션</a></li>
+										<li><a href="${conPath}/product/list.do?category=food">푸드</a></li>
+										<li><a href="${conPath}/product/list.do?category=toy">장난감</a></li>
+										<li><a href="${conPath}/product/list.do?category=walking">산책(외출)</a></li>
+										<li><a href="${conPath}/product/list.do?category=clean">목욕(위생)</a></li>
 									</ul>
 							</li>
 							<li><a href="#">매거진</a></li>

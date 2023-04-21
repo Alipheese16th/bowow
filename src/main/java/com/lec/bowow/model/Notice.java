@@ -11,6 +11,7 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private Date noticeDate;
+	// 페이징
 	private int startRow;
 	private int endRow;
 }
