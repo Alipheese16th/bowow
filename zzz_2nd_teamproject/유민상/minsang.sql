@@ -163,7 +163,8 @@ SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaNum) A)
 SELECT COUNT(*) FROM QNA;
 
 -- QNA 작성
-INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '문의제목', '문의내용', NULL, SYSDATE, 0, 0, 0 , '192.168.0.1');
+INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    VALUES (QNA_SEQ.NEXTVAL, 'aaa', 'P0001', '상품문의 제목', '색깔은 어떤게 있나요?', QNA_SEQ.CURRVAL, 0, 0, '192.168.0.1');
 
 -- QNA 상세보기(qnaNum)
 SELECT * FROM QNA WHERE qnaNum = 1;
@@ -195,17 +196,25 @@ CREATE TABLE FAQ(
 );
 
 -- FAQ DUMMY DATA
-INSERT INTO FAQ VALUES ('자주묻는질문', '자주묻는질문의답');
-INSERT INTO FAQ VALUES ('자주묻는질문2', '자주묻는질문의답2');
-INSERT INTO FAQ VALUES ('자주묻는질문3', '자주묻는질문의답3');
-INSERT INTO FAQ VALUES ('자주묻는질문4', '자주묻는질문의답4');
+INSERT INTO FAQ(faqTitle, faqContent)
+    VALUES ('자주묻는질문', '자주묻는질문의답');
+INSERT INTO FAQ(faqTitle, faqContent)
+    VALUES ('자주묻는질문2', '자주묻는질문의답2');
+INSERT INTO FAQ(faqTitle, faqContent)
+    VALUES ('자주묻는질문3', '자주묻는질문의답3');
+INSERT INTO FAQ(faqTitle, faqContent)
+    VALUES ('자주묻는질문4', '자주묻는질문의답4');
 
 -- FAQ 목록(페이징)
 SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM FAQ) A ORDER BY RN DESC)
     WHERE RN BETWEEN 2 AND 3;
 
+-- FAQ 전체 글 개수
+SELECT COUNT(*) FROM FAQ;
+
 -- FAQ 등록
-INSERT INTO FAQ VALUES ('자주묻는질문', '자주묻는질문의답');
+INSERT INTO FAQ(faqTitle, faqContent)
+    VALUES ('자주묻는질문', '자주묻는질문의답');
 
 -- FAQ 상세보기
 SELECT * FROM FAQ WHERE faqTitle = '자주묻는질문4';
@@ -231,16 +240,24 @@ CREATE TABLE INQUIRY(
 );
 
 -- INQUIRY DUMMY DATA
-INSERT INTO INQUIRY VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com');
-INSERT INTO INQUIRY VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목2', '문의내용2', 'mmm@naver.com');
-INSERT INTO INQUIRY VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목3', '문의내용3', 'mmm@naver.com');
+INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
+    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com');
+INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
+    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목2', '문의내용2', 'mmm@naver.com');
+INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
+    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목3', '문의내용3', 'mmm@naver.com');
 
--- INQUIRY 목록(페이징)
+-- INQUIRY 목록
 SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM INQUIRY) A ORDER BY RN DESC)
     WHERE RN BETWEEN 2 AND 3;
+SELECT * FROM INQUIRY ORDER BY INQUIRYNUM DESC;
+
+-- INQUIRY 전체 글 개수
+SELECT COUNT(*) FROM INQUIRY;
 
 -- INQUIRY 등록
-INSERT INTO INQUIRY VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com');
+INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
+    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com');
 
 -- INQUIRY 상세보기
 SELECT * FROM INQUIRY WHERE inquiryNum = 2;
@@ -274,3 +291,27 @@ INSERT INTO PRODUCTIMAGE (imageNum, productCode, type, image)
     VALUES (PRODUCTIMAGE_SEQ.NEXTVAL, 'p001', '본문', 'image2.jpg');
 INSERT INTO PRODUCTIMAGE (imageNum, productCode, type, image)
     VALUES (PRODUCTIMAGE_SEQ.NEXTVAL, 'p001', '본문', 'image3.jpg');
+
+-- PRODUCTIMAGE 목록
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM PRODUCTIMAGE) A ORDER BY RN DESC)
+    WHERE RN BETWEEN 2 AND 3;
+
+-- PRODUCTIMAGE 전체 글 개수
+SELECT COUNT(*) FROM PRODUCTIMAGE;
+
+-- PRODUCTIMAGE 등록
+INSERT INTO PRODUCTIMAGE (imageNum, productCode, type, image)
+    VALUES (PRODUCTIMAGE_SEQ.NEXTVAL, 'p001', '대표', 'image1.jpg');
+
+-- PRODUCTIMAGE 상세보기
+SELECT * FROM PRODUCTIMAGE WHERE imageNum = 2;
+
+-- PRODUCTIMAGE 수정
+UPDATE PRODUCTIMAGE
+    SET productCode = 'p001',
+        type = '본문',
+        image = 'image2.jpg'
+    WHERE imageNum = 2;
+    
+-- PRODUCTIMAGE 삭제(imageNum)
+DELETE FROM PRODUCTIMAGE WHERE imageNum = 1;

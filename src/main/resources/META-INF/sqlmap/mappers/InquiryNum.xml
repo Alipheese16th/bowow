@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.bowow.dao.InquiryDao">
+	<resultMap type="Inquiry" id="InquiryResult">
+		<result property="inquiryNum" column="inquiryNum"/>
+		<result property="memberId" column="memberId"/>
+		<result property="inquiryTitle" column="inquiryTitle"/>
+		<result property="inquiryContent" column="inquiryContent"/>
+		<result property="inquiryEmail" column="inquiryEmail"/>
+	</resultMap>
+	<select id="inquiryList" parameterType="Inquiry" resultMap="InquiryResult">
+		SELECT * FROM INQUIRY ORDER BY INQUIRYNUM DESC
+	</select>
+	<select id="totCntInquiry" resultType="int">
+		SELECT COUNT(*) FROM INQUIRY
+	</select>
+	<insert id="writeInquiry" parameterType="Inquiry">
+		INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
+    		VALUES (INQUIRY_SEQ.NEXTVAL, '#{memberId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+	</insert>
+	<select id="contentInquiry" parameterType="int" resultType="Inquiry">
+		SELECT * FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
+	</select>
+	<update id="modifyInquiry" parameterType="Inquiry">
+		UPDATE INQUIRY
+		    SET inquiryTitle = #{inquiryTitle},
+		        inquiryContent = #{inquiryContent},
+		        inquiryEmail = #{inquiryEmail}
+		    WHERE inquiryNum = #{inquiryNum}
+	</update>
+	<delete id="deleteInquiry" parameterType="int">
+		DELETE FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
+	</delete>
+</mapper>

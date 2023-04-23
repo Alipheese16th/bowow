@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.bowow.dao.FaqDao">
+	<resultMap type="Faq" id="FaqResult">
+		<result property="faqTitle" column="faqTitle"/>
+		<result property="faqContent" column="faqContent"/>
+	</resultMap>
+	<select id="faqList" parameterType="Faq" resultMap="FaqResult">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM FAQ) A ORDER BY RN DESC)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntFaq" resultType="int">
+		SELECT COUNT(*) FROM FAQ
+	</select>
+	<insert id="writeFaq" parameterType="Faq">
+		INSERT INTO FAQ(faqTitle, faqContent)
+    		VALUES (#{faqTitle}, #{faqContent})
+	</insert>
+	<select id="contentFaq" parameterType="int" resultType="Faq">
+		SELECT * FROM FAQ WHERE faqTitle = #{faqTitle}
+	</select>
+	<update id="modifyFaq" parameterType="Faq">
+		UPDATE FAQ
+		    SET faqTitle = #{faqTitle},
+		        faqContent = #{faqContent}
+		    WHERE faqTitle = #{faqTitle}
+	</update>
+	<delete id="deleteFaq" parameterType="int">
+		DELETE FROM FAQ WHERE faqTitle = #{faqTitle}
+	</delete>
+</mapper>

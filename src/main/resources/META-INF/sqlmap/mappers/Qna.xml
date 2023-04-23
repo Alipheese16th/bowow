@@ -23,5 +23,27 @@
 	<select id="totCntQna" resultType="int">
 		SELECT COUNT(*) FROM QNA
 	</select>
-	<insert id="writeQna"></insert>
+	<insert id="writeQna" parameterType="Qna">
+		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, #{qnaImage}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp});
+	</insert>
+	<select id="contentQna" parameterType="int" resultType="Qna">
+		SELECT * FROM QNA WHERE qnaNum = #{qnaNum}
+	</select>
+	<update id="modifyQna" parameterType="Qna">
+		UPDATE QNA SET qnaTitle = #{qnaTitle},
+				qnaContent = #{qnaContent}
+			WHERE qnaNum = #{qnaNum}
+	</update>
+	<delete id="deleteQna" parameterType="int">
+		DELETE FROM QNA WHERE qnaNum = #{qnaNum}
+	</delete>
+	<update id="preReplyQna" parameterType="Qna">
+		UPDATE QNA SET qnaStep = qnaStep + 1
+    		WHERE qnaGroup = #{qnaGroup} AND qnaStep > #{qnaStep}
+	</update>
+	<insert id="replyQna" parameterType="Qna">
+		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, #{qnaImage}, #{qnaGroup}, #{qnaStep}+1, #{qnaIndent}+1, #{qnaIp})
+	</insert>
 </mapper>
