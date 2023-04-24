@@ -102,6 +102,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
 </head>
 <body>
+	<jsp:include page="../main/header.jsp"/>
 	<div class="wrap">
 		<div class="pagename">
 			<h1>관리자 페이지</h1>
@@ -291,5 +292,6 @@
 	  );
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
