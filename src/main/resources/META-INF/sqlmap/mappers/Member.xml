@@ -18,11 +18,33 @@
 		<result property="gradeno" column="gradeno"/>
 	</resultMap>
 	
-	<select id="idConfirm" parameterType="String" resultType="int">
+	<select id="midConfirm" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId}
 	</select>
 	<insert id="joinMember" parameterType="Member">
-		INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT)
-    VALUES (#{memberId}, #{memberPw}, #{memberName}, 'kim@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08', 100000, 100)
+		INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH)
+   			VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberAddr},#{memberBirth});
 	</insert>
+	<select id="searchIdMember" parameterType="String" resultType="String">
+		SELECT MEMBERID FROM MEMBER WHERE MEMBEREMAIL = #{memberEmail}
+	</select>
+	<select id="searchPwMember" parameterType="String" resultType="String">
+		SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = #{memberId}
+	</select>
+	<select id="getDetailMember" parameterType="String" resultType="Member">
+		SELECT * FROM MEMBER WHERE MEMBERID = #{memberId}
+	</select>
+	<update id="modifyMember" parameterType="Member">
+		UPDATE MEMBER SET 
+	        MEMBERPW = #{memberPw},
+	        MEMBERNAME = #{memberName},
+	        MEMBEREMAIL = #{memberEmail},
+	        MEMBERTEL = #{memberTel},
+	        MEMBERADDR = #{memberAddr},
+	        MEMBERBIRTH = #{memberBirth}
+    	WHERE MEMBERID = #{memberId}
+	</update>
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM MEMBER WHERE MEMBERID = #{memberId}
+	</delete>
 </mapper>

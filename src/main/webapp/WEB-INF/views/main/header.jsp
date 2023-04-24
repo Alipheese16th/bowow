@@ -41,7 +41,7 @@
 					<h1 class="logo"><a href="${conPath}/main.do"><img src="${conPath }/img/bowow_logo.png"></a></h1>
 					<c:if test="${empty member and empty admin}">
 						<ul class="inner-right">
-							<li><a href="#">회원가입</a></li>
+							<li><a href="${conPath}/member/join.do">회원가입</a></li>
 							<li><a href="#">로그인</a></li>
 							<li><a href="#">주문내역</a></li>
 						</ul>
