@@ -27,7 +27,7 @@ public class ProductImageController {
 	}
 	@RequestMapping(value="register", method=RequestMethod.POST)
 	public String register(ProductImage productImage, Model model) {
-		model.addAttribute("writePIResult", productImageService.registerProductImage(productImage));
+		model.addAttribute("writePIResult", productImageService.addProductImage(productImage));
 		return "forward:list.do";
 	}
 	@RequestMapping(value="detail", method= {RequestMethod.GET, RequestMethod.POST})

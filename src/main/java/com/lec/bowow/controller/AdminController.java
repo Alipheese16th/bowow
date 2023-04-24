@@ -15,16 +15,24 @@ import com.lec.bowow.service.AdminService;
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
-	@RequestMapping(value="login", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="login", method=RequestMethod.GET)
+	public String login() {
+		return "admin/login";
+	}
+	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(String adminId, String adminPw, HttpSession httpSession, Model model) {
+		System.out.println("dd");
 		String adminLoginResult = adminService.adminLogin(adminId, adminPw, httpSession);
 		if(adminLoginResult.equals("관리자 로그인 성공")) {
 			model.addAttribute("adminLoginResult", adminLoginResult);
-			return "forward:main.do";
+			System.out.println("dd");
+			return "forward:admin/main.do";
 		} else {
+			System.out.println("ss");
 			model.addAttribute("adminLoginResult", adminLoginResult);
 			model.addAttribute("adminId", adminId);
 			model.addAttribute("adminPw", adminPw);
+			System.out.println("ss");
 			return "admin/login";
 		}
 	}

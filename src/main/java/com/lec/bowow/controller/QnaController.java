@@ -52,7 +52,7 @@ public class QnaController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value="reply", method=RequestMethod.GET)
-	public String replty(int qnaNum, Model model) {
+	public String reply(int qnaNum, Model model) {
 		return "qna/reply";
 	}
 	@RequestMapping(value="reply", method=RequestMethod.POST)

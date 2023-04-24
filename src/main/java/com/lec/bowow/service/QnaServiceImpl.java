@@ -28,7 +28,7 @@ public class QnaServiceImpl implements QnaService {
 	}
 	@Override
 	public int writeQna(Qna qna, HttpServletRequest request) {
-		qna.setQnaIP(request.getRemoteAddr());
+		qna.setQnaIp(request.getRemoteAddr());
 		return qnaDao.writeQna(qna);
 	}
 	@Override
@@ -37,7 +37,7 @@ public class QnaServiceImpl implements QnaService {
 	}
 	@Override
 	public int modifyQna(Qna qna, HttpServletRequest request) {
-		qna.setQnaIP(request.getRemoteAddr());
+		qna.setQnaIp(request.getRemoteAddr());
 		return qnaDao.modifyQna(qna);
 	}
 	@Override
@@ -47,7 +47,7 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public int replyQna(Qna qna, HttpServletRequest request) {
 		qnaDao.preReplyQna(qna);
-		qna.setQnaIP(request.getRemoteAddr());
+		qna.setQnaIp(request.getRemoteAddr());
 		return qnaDao.replyQna(qna);
 	}
 }

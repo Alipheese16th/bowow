@@ -25,8 +25,8 @@ public class ProductImageServiceImpl implements ProductImageService {
 		return productImageDao.totCntProductImage();
 	}
 	@Override
-	public int registerProductImage(ProductImage productImage) {
-		return productImageDao.registerProductImage(productImage);
+	public int addProductImage(ProductImage productImage) {
+		return productImageDao.addProductImage(productImage);
 	}
 	@Override
 	public ProductImage productImageDetail(int imageNum) {

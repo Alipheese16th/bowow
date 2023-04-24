@@ -21,7 +21,7 @@ CREATE TABLE ADMIN(
 INSERT INTO ADMIN VALUES ('admin', '1234', '관리자'); -- 관리자 추가 DUMMY
 
 -- ADMIN 로그인
-SELECT * FROM ADMIN WHERE adminId = 'admin' AND adminPw = '1234';
+SELECT * FROM ADMIN WHERE adminId = 'admin' AND adminPw = '111';
 SELECT * FROM ADMIN WHERE adminId = 'admin';
 
 

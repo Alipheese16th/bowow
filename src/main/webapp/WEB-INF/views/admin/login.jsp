@@ -17,7 +17,10 @@
 		} */
 		body {
 			margin: 0 auto;
-			background: linear-gradient(to right, rgba(350, 110, 81, 1), rgba(150, 88, 106, 1))
+			background: linear-gradient(to right, rgba(350, 110, 81, 1), rgba(150, 88, 106, 1));
+			background-image: url("${conPath}/img/bowow_logo.png");
+			background-repeat: no-repeat;
+			background-position: center top;
 		}
 		.wrap {
 			margin: 300px auto 0 auto;
@@ -44,13 +47,13 @@
 			font-size: 1.2em;
 			padding-left: 10px;
 		}
-		.member {
+		.admin {
 			text-align: right;
 			margin-right: 30px;
 			color: lightgray;
 			margin-bottom: 30px;
 		}
-		.member a {
+		.admin a {
 			color: #654;
 		}
 		.btn {
@@ -75,20 +78,19 @@
 	<div class="wrap">
 		<div class="content">
 		  <div class="card-body">
-		  	<form action="${coaPath }/login.do" method="post">
+		  	<form action="${conPath }/admin/login.do" method="post">
 			    <h5 class="card-title" style="font-weight: bold; font-size: 1.8em;">관리자 로그인</h5>
 			    <p class="card-text">아이디와 비밀번호를 입력해주세요</p>
 			    <div class="id">
-			    	<input type="text" name="mid" placeholder="아이디">
+			    	<input type="text" name="adminId" placeholder="아이디" value="${adminId }">
 			    </div>
 			    <div class="pw">
-			    	<input type="password" name="mpw" placeholder="비밀번호">
+			    	<input type="password" name="adminPw" placeholder="비밀번호" value="${adminPw }">
 			    </div>
-			    <div class="member">
-			    	<a href="">회원사이트로 가기</a>
+			    <div class="admin">
+			    	<a href="${conPath }/">회원사이트로 가기</a>
 			    </div>
 			    <input type="submit" value="로그인" class="btn">
-			    <!-- <a href="#" class="btn">로그인</a> -->
 		  	</form>
 		  </div>
 		</div>

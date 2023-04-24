@@ -16,7 +16,7 @@ public class Qna {
 	private int qnaGroup;
 	private int qnaStep;
 	private int qnaIndent;
-	private String qnaIP;
+	private String qnaIp;
 	private int startRow;
 	private int endRow;
 }

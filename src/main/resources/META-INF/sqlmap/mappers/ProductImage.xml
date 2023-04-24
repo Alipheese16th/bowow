@@ -16,7 +16,7 @@
 	<select id="totCntProductImage" resultType="int">
 		SELECT COUNT(*) FROM PRODUCTIMAGE
 	</select>
-	<insert id="registerProductImage" parameterType="ProductImage">
+	<insert id="addProductImage" parameterType="ProductImage">
 		INSERT INTO PRODUCTIMAGE (imageNum, productCode, type, image)
     		VALUES (PRODUCTIMAGE_SEQ.NEXTVAL, #{productCode}, #{type}, #{image})
 	</insert>
