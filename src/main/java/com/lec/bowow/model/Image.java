@@ -8,4 +8,6 @@ public class Image {
 	private String productCode;
 	private String type;
 	private String image;
+	private int startRow;
+	private int endRow;
 }
