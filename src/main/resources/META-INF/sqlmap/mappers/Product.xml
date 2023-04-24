@@ -25,6 +25,18 @@
 		<result property="image" column="image"/>
 	</resultMap>
 	
+	<resultMap type="Sizes" id="SizeResult">
+		<result property="sizeNum" column="sizeNum"/>
+		<result property="productCode" column="productCode"/>
+		<result property="productSize" column="productSize"/>
+	</resultMap>
+	
+	<resultMap type="Color" id="ColorResult">
+		<result property="colorNum" column="colorNum"/>
+		<result property="productCode" column="productCode"/>
+		<result property="productColor" column="productColor"/>
+	</resultMap>
+	
 	<select id="productList" parameterType="Product" resultMap="ProductResult">
 		<if test="category==null or category==''">
 			SELECT * FROM 

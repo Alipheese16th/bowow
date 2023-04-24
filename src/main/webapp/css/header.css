@@ -5,17 +5,17 @@
     font-weight: 400;
     font-style: normal;
 }
-*{
+#header *{
 	margin:0;
 	padding:0;
 	box-sizing:border-box;
 	font-family: 'Pretendard-Regular', 'sans-serif';
 	text-align:center;
 }
-li{
+#header li{
 	list-style:none;
 }
-a{
+#header a{
 	text-decoration: none;
 	display:block;
 	color:#000;

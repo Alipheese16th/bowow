@@ -5,17 +5,17 @@
     font-weight: 400;
     font-style: normal;
 }
-*{
+#footer *{
 	margin:0;
 	padding:0;
 	box-sizing:border-box;
 	font-family: 'Pretendard-Regular', 'sans-serif';
 	text-align:center;
 }
-li{
+#footer li{
 	list-style:none;
 }
-a{
+#footer a{
 	text-decoration: none;
 	display:block;
 	color:#000;
