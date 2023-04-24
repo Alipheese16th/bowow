@@ -12,6 +12,9 @@
 		<!-- 유민상 시작 -->
 		<typeAlias type="com.lec.bowow.model.Admin" alias="Admin"/>
 		<typeAlias type="com.lec.bowow.model.Qna" alias="Qna"/>
+		<typeAlias type="com.lec.bowow.model.Faq" alias="Faq"/>
+		<typeAlias type="com.lec.bowow.model.Inquiry" alias="Inquiry"/>
+		<typeAlias type="com.lec.bowow.model.ProductImage" alias="ProductImage"/>
 		<!-- 유민상 끝 -->
 		
 		<!-- 신치윤 시작 -->
@@ -29,6 +32,9 @@
 		<!-- 김소연 끝 -->
 		<mapper resource="META-INF/sqlmap/mappers/Admin.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Qna.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Faq.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Inquiry.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/ProductImage.xml"/>
 		
 		<!-- 신치윤 시작 -->
 		<mapper resource="META-INF/sqlmap/mappers/Product.xml"/>

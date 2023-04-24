@@ -15,6 +15,8 @@ public interface ProductDao {
 	
 	public Product productDetail(String productCode);
 	public List<Image> imageList(String productCode);
+	public List<Sizes> sizeList(String productCode);
+	public List<Color> colorList(String productCode);
 	
 	public List<Product> searchProduct(String searchName);
 	public int registerProduct(Product product);

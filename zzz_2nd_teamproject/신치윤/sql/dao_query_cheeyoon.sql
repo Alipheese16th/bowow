@@ -8,21 +8,20 @@ SELECT * FROM
       WHERE P.PRODUCTCODE = I.PRODUCTCODE 
         AND TYPE='title' AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
   WHERE RN BETWEEN 1 AND 10;
-
--- 특정 상품의 이미지 리스트 가져오기 (상품리스트에서 해당 상품코드의 이미지 필요함)
-SELECT * FROM IMAGE WHERE PRODUCTCODE = 'P0001';
-
-
-
-
-
-
-
 -- 상품 갯수 (카테고리별)
 SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion';
 
+
 -- 상품 상세보기
 SELECT * FROM PRODUCT WHERE productCode = 'P0001';
+-- 특정 상품의 이미지 리스트 가져오기 (상품리스트에서 해당 상품코드의 이미지 필요함)
+SELECT * FROM IMAGE WHERE PRODUCTCODE = 'P0001';
+-- 상품 상세보기 (사이즈)
+SELECT * FROM SIZES WHERE PRODUCTCODE = 'P0001';
+-- 상품 상세보기 (색상)
+SELECT * FROM COLOR WHERE PRODUCTCODE = 'P0001';
+
+
 
 -- 상품 검색 (이름, )
 SELECT * FROM PRODUCT WHERE productName LIKE '%' || TRIM(' 셔츠 ') || '%';

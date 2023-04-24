@@ -39,7 +39,14 @@ public class ProductServiceImpl implements ProductService {
 	public List<Image> imageList(String productCode) {
 		return productDao.imageList(productCode);
 	}
-
+	@Override
+	public List<Sizes> sizeList(String productCode) {
+		return productDao.sizeList(productCode);
+	}
+	@Override
+	public List<Color> colorList(String productCode) {
+		return productDao.colorList(productCode);
+	}
 	
 
 	
@@ -85,7 +92,6 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	
 
 }
