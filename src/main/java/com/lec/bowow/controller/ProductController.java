@@ -28,6 +28,8 @@ public class ProductController {
 	public String content(Model model, String productCode) {
 		model.addAttribute("product",productService.productDetail(productCode));
 		model.addAttribute("imageList",productService.imageList(productCode));
+		model.addAttribute("sizeList","");
+		model.addAttribute("colorList","");
 		return "product/content";
 	}
 	
