@@ -1,17 +1,17 @@
 
 ----------------------------------- MEMBER 관련 ----------------------------------
--- 회원 id중복체크
+-- 회원 id중복체크 id = idConfirm
 SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
--- 회원가입
+-- 회원가입 id = joinMember
 INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT)
     VALUES ('aaa', '111', '김길동', 'kim@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08', 100000, 100);
--- 로그인
+-- 로그인 id  = loginMember
 SELECT * FROM MEMBER WHERE MEMBERID = 'aaa' AND MEMBERPW = '111';
--- 아이디 찾기
+-- 아이디 찾기 id = searchId
 SELECT * FROM MEMBER WHERE MEMBEREMAIL = 'kim@naver.com';
--- 비밀번호 찾기
+-- 비밀번호 찾기 id = searchPw
 SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
--- mid로 dto가져오기 (로그인 성공시 session에 넣기 위해)
+-- mid로 dto가져오기 (로그인 성공시 session에 넣기 위해) id = getDetailMember
 SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
 -- 회원정보 수정
 UPDATE MEMBER SET 

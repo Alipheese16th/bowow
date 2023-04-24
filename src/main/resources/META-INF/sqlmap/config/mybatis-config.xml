@@ -24,7 +24,9 @@
 
 	</typeAliases>
 	<mappers>
+		<!-- 김소연 시작 -->
 		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
+		<!-- 김소연 끝 -->
 		<mapper resource="META-INF/sqlmap/mappers/Admin.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Qna.xml"/>
 		

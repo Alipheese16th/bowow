@@ -15,6 +15,14 @@
 		<result property="memberBirth" column="memberBirth"/>
 		<result property="memberAmount" column="memberAmount"/>
 		<result property="memberPoint" column="memberPoint"/>
+		<result property="gradeno" column="gradeno"/>
 	</resultMap>
 	
+	<select id="idConfirm" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId}
+	</select>
+	<insert id="joinMember" parameterType="Member">
+		INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT)
+    VALUES (#{memberId}, #{memberPw}, #{memberName}, 'kim@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08', 100000, 100)
+	</insert>
 </mapper>
