@@ -71,8 +71,8 @@ INSERT INTO MEMBERGRADE (GRADENO, GRADE, LOWAMOUNT, HIAMOUNT)
 
 SELECT * FROM MEMBERGRADE;
 -------------------------- 8. MEMBER --------------------------------------------
-INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERPOINT, GRADENO)
-  VALUES ('aaa', '111', '신치윤', 'shwoo1103@gmail.com', '010-6344-4081', '인천시 남동구 만수동 1081-3', '93-11-03', 0, 1);
+INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERPOINT)
+  VALUES ('aaa', '111', '신치윤', 'shwoo1103@gmail.com', '010-6344-4081', '인천시 남동구 만수동 1081-3', '93-11-03', 0);
 
 SELECT * FROM MEMBER;
 --------------------------- 9. COUPON ------------------------------------------

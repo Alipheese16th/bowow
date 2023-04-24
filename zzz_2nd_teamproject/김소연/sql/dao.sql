@@ -1,19 +1,20 @@
 
 ----------------------------------- MEMBER 관련 ----------------------------------
--- 회원 id중복체크
+-- 회원 id중복체크 id = midConfirm
 SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
--- 회원가입
-INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT)
-    VALUES ('bbb', '111', '김길동', 'kim@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08', 100000, 100);
--- 로그인
-SELECT * FROM MEMBER WHERE MEMBERID = 'aaa' AND MEMBERPW = '111';
--- 아이디 찾기
-SELECT * FROM MEMBER WHERE MEMBEREMAIL = 'kim@naver.com';
--- 비밀번호 찾기
+-- 회원가입 id = joinMember
+INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH)
+    VALUES ('ccc', '111', '김길동', 'kim2@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08');
+INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT, GRADENO)
+    VALUES ('bbb', '111', '김길동', 'kim@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08', 0, 0, 1);
+SELECT * FROM MEMBER;
+-- 아이디 찾기 id = searchIdMember
+SELECT MEMBERID FROM MEMBER WHERE MEMBEREMAIL = 'kim@naver.com';
+-- 비밀번호 찾기 id = searchPwMember
+SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = 'aaa';
+-- mid로 dto가져오기 (로그인 성공시 session에 넣기 위해) id = getDetailMember
 SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
--- mid로 dto가져오기 (로그인 성공시 session에 넣기 위해)
-SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
--- 회원정보 수정
+-- 회원정보 수정 id = modifyMember
 UPDATE MEMBER SET 
         MEMBERPW = '222',
         MEMBERNAME = '이길동',
@@ -22,8 +23,8 @@ UPDATE MEMBER SET
         MEMBERADDR = '서울시 마포구 합정동 합정이젠아카데미 1층',
         MEMBERBIRTH = '10/03/23'
     WHERE MEMBERID = 'aaa';
--- 회원탈퇴(작성 글 모두 지우고)
-DELETE FROM MEMBER WHERE MEMBERID = 'aaa';
+-- 회원탈퇴(작성 글 모두 지우고) id = deleteMember
+DELETE FROM MEMBER WHERE MEMBERID = 'ccc';
 
 ----------------------------------- CART 관련 ----------------------------------
 -- 장바구니 추가
@@ -96,7 +97,8 @@ UPDATE MEMBER SET
     
 -----------------------------------  MYPAGE 관련 ----------------------------------
 -- 마이페이지 (등급까지 조회)
-SELECT * FROM MEMBER, MEMBERGRADE WHERE MEMBERAMOUNT BETWEEN LOWAMOUNT AND HIAMOUNT AND MEMBERID = 'aaa';
+SELECT M.*, GRADE FROM MEMBER M, MEMBERGRADE G WHERE M.GRADENO = G.GRADENO AND MEMBERID = 'aaa'; -- aaa 등급
+SELECT M.*, GRADE FROM MEMBER M, MEMBERGRADE G WHERE M.GRADENO = G.GRADENO AND MEMBERID = 'bbb'; -- bbb 등급
   -- 내 쿠폰함 
   SELECT * 
     FROM (SELECT ROWNUM RN, A.*

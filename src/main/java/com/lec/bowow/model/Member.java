@@ -15,4 +15,5 @@ public class Member {
 	private Date memberBirth;
 	private int memberAmount;
 	private int memberPoint;
+	private int gradeno;
 }
