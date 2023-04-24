@@ -26,7 +26,6 @@
 	</resultMap>
 	
 	<select id="productList" parameterType="Product" resultMap="ProductResult">
-	
 		<if test="category==null or category==''">
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
@@ -35,7 +34,6 @@
 			        AND TYPE='title' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
-		
 		<if test='category=="fashion"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
@@ -76,11 +74,8 @@
 			        AND TYPE='title' AND CATEGORY = 'clean' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
-		
 	</select>
-	
 	<select id="totCntProduct" parameterType="Product" resultType="int">
-	
 		<if test="category==null or category==''">
 			SELECT COUNT(*) FROM PRODUCT
 		</if>
@@ -103,14 +98,21 @@
 	
 	
 	
-	
 	<select id="productDetail" parameterType="String" resultType="Product">
 		SELECT * FROM PRODUCT WHERE productCode = #{productCode}
 	</select>
-	
 	<select id="imageList" parameterType="String" resultMap="ImageResult">
 		SELECT * FROM IMAGE WHERE PRODUCTCODE = #{productCode}
 	</select>
+	<select id="sizeList" parameterType="String" resultMap="SizeResult">
+		SELECT * FROM SIZES WHERE PRODUCTCODE = #{productCode}
+	</select>
+	<select id="colorList" parameterType="String" resultMap="ColorResult">
+		SELECT * FROM COLOR WHERE PRODUCTCODE = #{productCode}
+	</select>
+	
+	
+	
 	
 	
 	

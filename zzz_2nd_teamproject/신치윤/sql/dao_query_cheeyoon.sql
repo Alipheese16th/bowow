@@ -12,6 +12,12 @@ SELECT * FROM
 -- 특정 상품의 이미지 리스트 가져오기 (상품리스트에서 해당 상품코드의 이미지 필요함)
 SELECT * FROM IMAGE WHERE PRODUCTCODE = 'P0001';
 
+
+
+
+
+
+
 -- 상품 갯수 (카테고리별)
 SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion';
 
