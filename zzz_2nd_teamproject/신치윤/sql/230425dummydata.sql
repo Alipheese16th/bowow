@@ -71,8 +71,8 @@ INSERT INTO MEMBERGRADE (GRADENO, GRADE, LOWAMOUNT, HIAMOUNT)
 
 
 -------------------------- 8. MEMBER --------------------------------------------
-INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERPOINT)
-  VALUES ('aaa', '111', '신치윤', 'shwoo1103@gmail.com', '010-6344-4081', '인천시 남동구 만수동 1081-3', '93-11-03', 0);
+INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH, MEMBERPOINT)
+  VALUES ('aaa', '111', '신치윤', 'shwoo1103@gmail.com', '010-6344-4081','12212','인천시 남동구 만수동', '1081-3 201호', '93-11-03', 0);
 
 
 --------------------------- 9. COUPON ------------------------------------------
@@ -88,8 +88,8 @@ INSERT INTO CART (CARTNUM, MEMBERID, PRODUCTCODE, SIZENUM, COLORNUM, QTY, COST)
 
 
 ----------------------------- 11. ORDERS ---------------------------------------
-INSERT INTO ORDERS (ORDERNUM, MEMBERID, ORDERNAME, ORDERADDR, ORDERTEL)
-  VALUES (CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')), 'aaa', '택배받는사람', '택배주소', '010-9999-9999');
+INSERT INTO ORDERS (ORDERNUM, MEMBERID, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
+  VALUES (CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')), 'aaa', '택배받는사람', '12323', '택배기본주소','택배상세주소', '010-9999-9999');
 
 
 ----------------------------- 12. ORDERDETAIL ----------------------------------
