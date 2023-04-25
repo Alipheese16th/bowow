@@ -18,8 +18,7 @@ public class MemberController {
 	public String join() {
 		return "member/join";
 	}
-	// member/memberIdConfrim.do?->
-	@RequestMapping(params="method=memberIdConfirm", method=RequestMethod.GET)
+	@RequestMapping(value="memberIdConfirm", method=RequestMethod.GET)
 	public String memberIdConfirm(String memberId, Model model) {
 		model.addAttribute("midConfirmResult", memberService.memberIdConfirm(memberId));
 		return "member/memberIdConfirm";

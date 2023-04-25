@@ -18,9 +18,9 @@
 			$(".idconfirm").click(function(){
 				var memberId = $("#id").val();
 				$.ajax({
-					url : '${conPath}/member.do',
+					url : '${conPath}/member/memberIdConfirm.do',
 					dataType : 'html',
-					data: "method=memberIdConfirm&memberId="+memberId,
+					data: "memberId="+memberId,
 					success : function(data, status){
 						$(".midResult").html(data);
 					},
