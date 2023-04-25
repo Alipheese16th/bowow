@@ -9,12 +9,12 @@
 	<meta charset="UTF-8">
 	<title>회원가입</title>
 	<link href="${conPath}/css/join.css" rel="stylesheet">
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="${conPath}/js/address.js"></script>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script>
 	  $(function() {
-	    $("#datepicker" ).datepicker({
+	    $("#datepicker").datepicker({
 	    	dateFormat: "yy-mm-dd",
 	    	monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
 	    	dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
@@ -94,17 +94,17 @@
 						<div class="join-form-wrap">
 							<div class="join-form-title"><label for="address">우편번호</label></div>
 							<div class="join-form-text">
-								<input type="text" id="sample4_postcode" name="mpost" class="focusB"  placeholder="우편번호">
+								<input type="text" id="sample6_postcode" placeholder="우편번호">
 							</div>
 							<div class="join-form-btn">
-								<button type="button" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
+								<button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button><br>
 							</div>
 						</div>
 						<div class="join-form-wrap">
 							<div class="join-form-title"><label for="address">주소</label></div>
 							<div class="join-form-text">
-								<input type="text" id="sample4_roadAddress" name="maddr"  placeholder="도로명주소" class="focusB">
-								<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+								<input type="text" id="sample6_address" placeholder="주소"><br>
+								<input type="text" id="sample6_detailAddress" placeholder="상세주소">
 								<span id="guide"></span>
 							</div>
 							<div class="join-form-btn"></div>

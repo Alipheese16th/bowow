@@ -38,6 +38,12 @@
 	border-top:2px solid black;
 }
 
+.plus, .minus, .delete{
+	display:block;
+	height:11px;
+}
+
+
 </style>
 </head>
 <body>
@@ -45,7 +51,6 @@
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="container">
-		
 		
 		<div class="d-flex justify-content-center mt-5">
 			
@@ -80,16 +85,25 @@
 						<td class="infoLeft">
 							판매가
 						</td>
-						<td><del>${product.productPrice}원</del></td>
-					</tr>
-					<tr>
-						<td class="infoLeft">
-							할인판매가
+						<td class="price" id="${product.productPrice}">
+							<c:if test="${product.productDiscount ne 0}">
+								<del>${product.productPrice}원</del>
+							</c:if>
+							<c:if test="${product.productDiscount eq 0}">
+								${product.productPrice}원
+							</c:if>
 						</td>
-						<td class="price" id="${product.productPrice - (product.productPrice * (product.productDiscount/100))}">
-							<fmt:parseNumber value="${product.productPrice - (product.productPrice * (product.productDiscount/100))}" integerOnly="true"/>원
-						</td>
 					</tr>
+					<c:if test="${product.productDiscount ne 0}">
+						<tr>
+							<td class="infoLeft">
+								할인판매가
+							</td>
+							<td class="disPrice" id="${product.productPrice - (product.productPrice * (product.productDiscount/100))}">
+								<fmt:parseNumber value="${product.productPrice - (product.productPrice * (product.productDiscount/100))}" integerOnly="true"/>원
+							</td>
+						</tr>
+					</c:if>
 					<tr>
 						<td class="infoLeft">
 							배송비
@@ -128,9 +142,8 @@
 				
 				<hr>
 				
-				
 				<form action="${conPath}/product/cart.do">
-					<input type="hidden" name="productCode" value="${product.productCode}">
+					<input type="hidden" id="productCode" name="productCode" value="${product.productCode}">
 					
 					<table class="w-100">
 						<tbody id="result">
@@ -139,18 +152,17 @@
 								<th>수량</th>
 								<th>가격</th>
 							</tr>
-							
 						</tbody>
 						<tbody>
 							<tr>
-								<td colspan="3" class="right">
+								<td colspan="3" class="right pt-3">
 									총 상품금액 <span id="total"></span>원
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				
-					<input type="button" class="btn btn-dark" value="장바구니 담기">
+					<input type="button" class="btn btn-dark" id="cart" value="장바구니 담기">
 					<input type="button" class="btn btn-outline-dark" value="즉시 구매하기">
 				</form>
 				
@@ -317,13 +329,164 @@
 	
 	var size = 0;
 	var color = 0;
+	var sizeName;
+	var colorName;
 	var price = Number($('.price').attr('id'));
-	var qty = 0;
+	var disPrice = Number($('.disPrice').attr('id'));
+	var totQty = 0;
 	var total = 0;
+	var num = 0;
+	var products = [];	// 상품 배열
+	if(!$('.disPrice').length){ // 할인판매가가 존재하지 않는다면 판매가로 전부 적용
+		disPrice = price;
+	}
+	$('#total').text(0); // 총 상품금액 초기화 ( 0원 )
 	
-	$('#total').text(0);
+	
+	$('#cart').click(function(){	// 장바구니 클릭
+		var sizeNums = '';
+		var colorNums = '';
+		var qtys = '';
+		var memberId = 'aaa';
+		var productCode = $('#productCode').val();
+		
+		// 이미 장바구니에 해당 아이템이 존재하는지 확인
+		products.forEach(function(product,index){
+			
+			console.log(index);
+			console.log(product);
+			
+			if(product.size !== undefined){
+				sizeNums += 'sizeNum='+product.size+'&';
+			}
+			if(product.color !== undefined){
+				colorNums += 'colorNum='+product.color+'&';
+			}
+			qtys += 'qty='+product.qty+'&';
+			
+		});
+		
+		console.log(sizeNums);
+		console.log(colorNums);
+		console.log(qtys);
+		
+		
+		location.href='${conPath}/cart/confirmCart.do?'+sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode;
+
+		
+		/* $.ajax({
+			url : '${conPath}/confirmCart.do',
+			type : 'post',
+			data : 'commentNo='+commentNo+'&commentPageNum='+commentPageNum+'&pageNum='+pageNum+'&search='+search+'&type='+type,
+			dataType : 'html',
+			success : function(data){
+				$('#comment'+commentNo).html(data);
+			}
+		}); */
+		
+		
+	});
 	
 	
+	const getProductBoth = function(size, color, sizeName, colorName){
+		var product = $('<tr>'
+				+'<td class="d-flex justify-content-between align-items-center">'
+				+'${product.productName} - '+sizeName+' '+colorName
+				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'</td>'
+				+'<td>'
+				+'<div class="d-flex">'
+				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<div class="d-flex flex-column justify-content-center">'
+				+'<img class="plus" src="${conPath}/img/up.gif">'
+				+'<img class="minus" src="${conPath}/img/down.gif">'
+				+'</div>'
+				+'</div>'
+				+'</td>'
+				+'<td class="obj">'
+				+'<input type="hidden" class="num" value="'+num+'">'
+				+'<input type="hidden" name="sizeNum" value="'+size+'">'
+				+'<input type="hidden" name="colorNum" value="'+color+'">'
+				+'<input type="hidden" class="pre" value="1">'
+				+'<span class="price">'+price+'</span>원'
+				+'</td>'
+				+'</tr>');
+		num++;
+		return product;
+	};
+	const getProductSize = function(size, sizeName){
+		var product = $('<tr>'
+				+'<td class="d-flex justify-content-between align-items-center">'
+				+'${product.productName} - '+sizeName
+				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'</td>'
+				+'<td>'
+				+'<div class="d-flex">'
+				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<div class="d-flex flex-column justify-content-center">'
+				+'<img class="plus" src="${conPath}/img/up.gif">'
+				+'<img class="minus" src="${conPath}/img/down.gif">'
+				+'</div>'
+				+'</div>'
+				+'</td>'
+				+'<td class="obj">'
+				+'<input type="hidden" class="num" value="'+num+'">'
+				+'<input type="hidden" name="sizeNum" value="'+size+'">'
+				+'<input type="hidden" class="pre" value="1">'
+				+'<span class="price">'+price+'</span>원'
+				+'</td>'
+				+'</tr>');
+		num++;
+		return product;
+	};
+	const getProductColor = function(color, colorName){
+		var product = $('<tr>'
+				+'<td class="d-flex justify-content-between align-items-center">'
+				+'${product.productName} - '+colorName
+				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'</td>'
+				+'<td>'
+				+'<div class="d-flex">'
+				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<div class="d-flex flex-column justify-content-center">'
+				+'<img class="plus" src="${conPath}/img/up.gif">'
+				+'<img class="minus" src="${conPath}/img/down.gif">'
+				+'</div>'
+				+'</div>'
+				+'</td>'
+				+'<td class="obj">'
+				+'<input type="hidden" class="num" value="'+num+'">'
+				+'<input type="hidden" name="colorNum" value="'+color+'">'
+				+'<input type="hidden" class="pre" value="1">'
+				+'<span class="price">'+price+'</span>원'
+				+'</td>'
+				+'</tr>');
+		num++;
+		return product;
+	};
+	const getProductNo = function(){
+		var product = $('<tr>'
+				+'<td>'
+				+'${product.productName}'
+				+'</td>'
+				+'<td>'
+				+'<div class="d-flex">'
+				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<div class="d-flex flex-column justify-content-center">'
+				+'<img class="plus" src="${conPath}/img/up.gif">'
+				+'<img class="minus" src="${conPath}/img/down.gif">'
+				+'</div>'
+				+'</div>'
+				+'</td>'
+				+'<td class="obj">'
+				+'<input type="hidden" class="num" value="'+num+'">'
+				+'<input type="hidden" class="pre" value="1">'
+				+'<span class="price">'+price+'</span>원'
+				+'</td>'
+				+'</tr>');
+		num++;
+		return product;
+	};
 	
 	if($('#sizeList').length){
 		
@@ -332,109 +495,246 @@
 		
 			$('#sizeList').change(function(){
 				size = $(this).val();
+				sizeName = $("#sizeList option:checked").text();
+				console.log(sizeName);
 
-				if(size != 0 && color != 0){
+				if(size != 0 && color != 0){	// 옵션을 제대로 골랐을 경우
 					
-					$('#result').append($('<tr>'
-					+'<td>사이즈,색상:'+size+' , '+color+'</td>'
-					+'<td>'
-					+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
-					+'<input type="button" class="plus" value="+">'
-					+'<input type="button" class="minus" value="-">'
-					+'<input type="hidden" class="pre" value="1">'
-					+'</td>'
-					+'<td>'+price+'</td>'
-					+'</tr>'));
+					let product = products.find(product => product.size === size && product.color === color);	// 해당조건의 상품찾기
+					if(product){
+						console.log('이미 해당 옵션의 상품이 존재할경우');
+						console.log(product);
+						alert('중복된 상품입니다');
+						return;
+						
+					}else{
+						product = {
+							"num": num,
+							"size": size,
+							"color": color,
+							"qty": 1,
+							"price": price
+						}
+						products.push(product);
+						console.log(products);
+						
+						$('#result').append(getProductBoth(size, color, sizeName, colorName));
+						totQty = totQty + 1;
+						$('#total').text(totQty * disPrice);
+					}
 					
-					qty = qty + 1;
-					$('#total').text(qty * price);
 				}
-				
 			});
 			
 			$('#colorList').change(function(){
 				color = $(this).val();
+				colorName = $("#colorList option:checked").text();
+				console.log(colorName);
 
-				if(size != 0 && color != 0){
-				
-					$('#result').append($('<tr>'
-					+'<td>사이즈,색상:'+size+' , '+color+'</td>'
-					+'<td>'
-					+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
-					+'<input type="button" class="plus" value="+">'
-					+'<input type="button" class="minus" value="-">'
-					+'<input type="hidden" class="pre" value="1">'
-					+'</td>'
-					+'<td>'+price+'</td>'
-					+'</tr>'));
+				if(size != 0 && color != 0){	// 옵션을 제대로 골랐을 경우
 					
-					qty = qty + 1;
-					$('#total').text(qty * price);
-					
-					/* var old = Number($('#total').text().trim());
-					$('#total').text(old + price); */
-					
+					let product = products.find(product => product.size === size && product.color === color);
+					if(product){
+						console.log('이미 해당 옵션의 상품이 존재할경우');
+						console.log(product);
+						alert('중복된 상품입니다');
+						return;
+						
+					}else{
+						product = {
+							"num": num,
+							"size": size,
+							"color": color,
+							"qty": 1,
+							"price": price
+						}
+						products.push(product);
+						console.log(products);
+						
+						$('#result').append(getProductBoth(size, color, sizeName, colorName));
+						totQty = totQty + 1;
+						$('#total').text(totQty * disPrice);
+					}
 				}
-				
 			});
 			
 			
-			
-			
-		}else{						// 사이즈만 존재
+		}else{	// 사이즈만 존재
 			console.log('사이즈만 존재');
-		
+			$('#sizeList').change(function(){
+				size = $(this).val();
+				sizeName = $("#sizeList option:checked").text();
+				console.log(sizeName);
+				
+				if(size != 0){	// 옵션을 제대로 골랐을 경우
+					
+					let product = products.find(product => product.size === size);	// 해당조건의 상품찾기
+					if(product){
+						console.log('이미 해당 옵션의 상품이 존재할경우');
+						console.log(product);
+						alert('중복된 상품입니다');
+						return;
+						
+					}else{
+						product = {
+							"num": num,
+							"size": size,
+							"qty": 1,
+							"price": price
+						}
+						products.push(product);
+						console.log(products);
+						
+						$('#result').append(getProductSize(size, sizeName));
+						totQty = totQty + 1;
+						$('#total').text(totQty * disPrice);
+					}
+					
+				}
+			});
 		}
 	
 	}else if($('#colorList').length){	// 사이즈는 없고 색상이 존재
 		console.log('색상만 존재');
+		$('#colorList').change(function(){
+			
+			color = $(this).val();
+			colorName = $("#colorList option:checked").text();
+			console.log(colorName);
+			
+			if(color != 0){	// 옵션을 제대로 골랐을 경우
+				
+				let product = products.find(product => product.color === color);	// 해당조건의 상품찾기
+				if(product){
+					console.log('이미 해당 옵션의 상품이 존재할경우');
+					console.log(product);
+					alert('중복된 상품입니다');
+					return;
+					
+				}else{
+					product = {
+						"num": num,
+						"color": color,
+						"qty": 1,
+						"price": price
+					}
+					products.push(product);
+					console.log(products);
+					
+					$('#result').append(getProductColor(color, colorName));
+					totQty = totQty + 1;
+					$('#total').text(totQty * disPrice);
+				}
+				
+			}
+		});
 		
 	}else{							// 둘다 미존재
 		console.log('둘다 없음');
 		
+		// 옵션으로 나눌필요가없다 시작부터 tr 하나 주면됨
+		
+		product = {
+			"num": num,
+			"qty": 1,
+			"price": price
+		}
+		products.push(product);
+		console.log(products);
+		
+		$('#result').append(getProductNo());
+		totQty = totQty + 1;
+		$('#total').text(totQty * disPrice);
+		
 	}
 	
 
-	// 수량 증가 혹은 감소
+	/////////////////////////////////////////////////////////////////// 상품의 수량 증가 혹은 감소 버튼
 	$(document).on("click",".plus",function(){
-		var old = Number($(this).parent().children('.qty').val());
-		$(this).parent().children('.qty').val(old + 1);
-		$(this).parent().children('.pre').val(old + 1);
-		qty = qty + 1;
-		$('#total').text(qty * price);
+		
+		var num = Number($(this).parents('tr').find('.num').val());
+		
+		console.log(num);
+		let product = products.find(product => product.num === num);
+		console.log(product.qty);
+		product.qty = product.qty + 1;
+		console.log(products);
+		
+		$(this).parents('tr').find('.qty').val(product.qty);
+		$(this).parents('tr').find('.pre').val(product.qty);
+		totQty = totQty + 1;
+		$('#total').text(totQty * disPrice);
+		$(this).parents('tr').find('.price').text(product.qty * price);
 		
 	});
 	$(document).on("click",".minus",function(){
-		var old = Number($(this).parent().children('.qty').val());
-		if(old-1 < 1){
+		
+		var num = Number($(this).parents('tr').find('.num').val());
+		
+		console.log(num);
+		let product = products.find(product => product.num === num);
+		console.log(product.qty);
+		if(product.qty -1 < 1){
 			alert('최소 수량은 1개 이상입니다');
 			return;
 		}
-		$(this).parent().children('.qty').val(old - 1);
-		$(this).parent().children('.pre').val(old - 1);
-		qty = qty - 1;
-		$('#total').text(qty * price);
+		product.qty = product.qty - 1;
+		console.log(products);
+		
+		$(this).parents('tr').find('.qty').val(product.qty);
+		$(this).parents('tr').find('.pre').val(product.qty);
+		totQty = totQty - 1;
+		$('#total').text(totQty * disPrice);
+		$(this).parents('tr').find('.price').text(product.qty * price);
 	});
 	
-	
+	////////////////////////////////////////////////////// 상품의 수량 변경을 직접적으로 입력
 	$(document).on("change",".qty",function(){
 		
-		var pre = $(this).parent().children('.pre').val();
-		console.log('원래 수량 : ' + pre);
+		if($(this).val() < 1){
+			alert('최소 수량은 1개 이상입니다');
+			$(this).val(1);
+		}
 		
-		after = $(this).val();
+		var num = Number($(this).parents('tr').find('.num').val());		// 클릭한 tr태그의 객체 번호
+		console.log(num);
+		let product = products.find(product => product.num === num);	// 객체 정보
+		
+		var pre = product.qty;
+		console.log('원래 수량 : ' + pre);
+		console.log(products);
+		
+		var after = Number($(this).val());
 		console.log('바뀐 수량 : ' + after);
 		
-        qty = qty + (after - pre);
+		totQty = totQty + (after - pre);
+        console.log('총수량 : ' + totQty);
         
-        console.log('총수량 : ' + qty);
-        
-        $('#total').text(qty * price);
-        $(this).parent().children('.pre').val(after);
+        $('#total').text(totQty * disPrice);
+        $(this).parents('tr').find('.pre').val(after);
+        product.qty = after;
+        $(this).parents('tr').find('.price').text(product.qty * price);
 	});
-
 	
-	
+	///////////////////////////////////////////////////////// 상품 삭제
+	$(document).on("click",".delete",function(){
+		
+		console.log(products);
+		var num = Number($(this).parents('tr').find('.num').val());		// 클릭한 tr태그의 객체 번호
+		let product = products.find(product => product.num === num);	// 객체 정보
+		var qty = product.qty;											// 객체의 수량
+		console.log('객체의 수량 : '+qty);
+		totQty = totQty - qty;
+		console.log('총수량 : ' + totQty);
+		$('#total').text(totQty * disPrice);							// totQty 수정 , total 결과 뿌리기
+		
+		products = products.filter(product => product.num !== num);		// 배열 수정
+		console.log('배열바뀜');
+		console.log(products);
+		
+		$(this).parents('tr').remove();									// tr 태그 삭제
+		
+	});
 
 	
 </script>
