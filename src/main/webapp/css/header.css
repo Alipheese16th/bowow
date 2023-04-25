@@ -52,7 +52,7 @@
 	width:1400px;
 	margin:0 auto;
 	position:relative;
-	padding:20px 0 20px 0;
+	padding: 10px 0;
 }
 #header .header-top .header-inner .inner{
 	position:relative;
@@ -84,6 +84,7 @@
 	background:#fff;
 	width:100%;
 	position:relative;
+	padding: 10px 0;
 }
 #header .header-top .header-bottom .gnb{
 	display:flex;
@@ -97,26 +98,29 @@
 }
 #header .header-top .header-bottom .gnb .gnb-left{
 	line-height:60px;
-}
-#header .header-top .header-bottom .gnb .gnb-left ul{
-	overflow:hidden;
+	margin: 0 auto;
+    width: 970px;
 }
 #header .header-top .header-bottom .gnb .gnb-left>ul>li{
 	float:left;
 	padding:0px 40px;
 	margin-left:60px;
 	line-height:60px;
+	position:relative;
 }
 #header .header-top .header-bottom .gnb .gnb-left .lnb{
-	background:#fff;
-	position:fixed;
+	background:rgba( 255, 255, 255, 0.7);
+	position:absolute;
 	padding-left:0 !important;
+	z-index:7;
+	width:100%;
+	left:0;
 }
 #header .header-top .header-bottom .gnb .gnb-left .lnb li{
 	border-bottom:1px solid #ccc;
 }
 #header .header-top .header-bottom .gnb .gnb-left .lnb li a{
-	text-align:left
+	text-align:center;
 }
 #header .header-top .header-bottom .gnb .gnb-right{
 	display:flex;
@@ -220,9 +224,7 @@
 	background-size:30px;	
 }
 #header .header-top .header-bottom .gnb .search-view input[type='button']{
-    padding-top: 10px;
-    position: absolute;
-    /* border: 1px solid #000; */
-    bottom: 160px;
-    margin-left: 10px;
+	position: absolute;
+    top: 20px;
+    right: 125px;
 }
