@@ -16,8 +16,8 @@ public class MemverServiceImpl implements MemberService {
 	@Autowired
 	private JavaMailSender mailSender;
 	@Override
-	public int midConfirm(String memberId) {
-		return memberDao.midConfirm(memberId);
+	public int memberIdConfirm(String memberId) {
+		return memberDao.memberIdConfirm(memberId);
 	}
 	@Override
 	public int joinMember(final Member member) {

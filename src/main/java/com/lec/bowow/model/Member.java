@@ -11,7 +11,9 @@ public class Member {
 	private String memberName;
 	private String memberEmail;
 	private String memberTel;
-	private String memberAddr;
+	private String memberPost;
+	private String memberAddr1;
+	private String memberAddr2;
 	private Date memberBirth;
 	private int memberAmount;
 	private int memberPoint;

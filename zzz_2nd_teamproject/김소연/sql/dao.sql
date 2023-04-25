@@ -1,15 +1,15 @@
 
 ----------------------------------- MEMBER 관련 ----------------------------------
--- 회원 id중복체크 id = midConfirm
+-- 회원 id중복체크 id = memberIdConfirm
 SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
 -- 회원가입 id = joinMember
-INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH)
-    VALUES ('ccc', '111', '김길동', 'kim2@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08');
-INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT, GRADENO)
-    VALUES ('bbb', '111', '김길동', 'kim@naver.com', '010-5468-3213', '서울시 서대문구 신촌동 신촌이젠아카데미','90-11-08', 0, 0, 1);
+INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT, GRADENO)
+    VALUES ('bbb', '111', '김길동', 'kim@naver.com', '010-5468-3213', '02165','서울시 서대문구 신촌동 신촌이젠아카데미','301호','90-11-08', 0, 0, 1);
+INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH)
+    VALUES ('ccc', '111', '김길동', 'kim2@naver.com', '010-5468-3213', '02165','서울시 서대문구 신촌동 신촌이젠아카데미','301호','90-11-08');
 SELECT * FROM MEMBER;
 -- 아이디 찾기 id = searchIdMember
-SELECT MEMBERID FROM MEMBER WHERE MEMBEREMAIL = 'kim@naver.com';
+SELECT MEMBERID FROM MEMBER WHERE MEMBERTEL = '010-5468-3213';
 -- 비밀번호 찾기 id = searchPwMember
 SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = 'aaa';
 -- mid로 dto가져오기 (로그인 성공시 session에 넣기 위해) id = getDetailMember
@@ -20,7 +20,9 @@ UPDATE MEMBER SET
         MEMBERNAME = '이길동',
         MEMBEREMAIL = 'lee@naver.com',
         MEMBERTEL = '010-3333-3333',
-        MEMBERADDR = '서울시 마포구 합정동 합정이젠아카데미 1층',
+        MEMBERPOST = '03215', 
+        MEMBERADDR1 = '서울시 마포구 합정동',
+        MEMBERADDR2 = '합정이젠아카데미 1층',
         MEMBERBIRTH = '10/03/23'
     WHERE MEMBERID = 'aaa';
 -- 회원탈퇴(작성 글 모두 지우고) id = deleteMember
@@ -30,6 +32,7 @@ DELETE FROM MEMBER WHERE MEMBERID = 'ccc';
 -- 장바구니 추가
 INSERT INTO CART (cartNUM, memberID, productCODE, sizeNUM, colorNUM, QTY, COST)
     VALUES (CART_SEQ.NEXTVAL, 'aaa', 'P0002', 2, 3, 1, (SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = 'P0002')*2);
+
 -- 장바구니 목록 (상품명, 상품대표이미지, 상품사이즈, 상품색상, 상품수량, 상품가격)
 SELECT A.*
     FROM (SELECT C.*, TYPE, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSIZE, PRODUCTCOLOR  FROM CART C, IMAGE I, PRODUCT P, SIZES S, COLOR CO 

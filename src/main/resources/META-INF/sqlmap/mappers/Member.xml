@@ -11,22 +11,24 @@
 		<result property="memberName" column="memberName"/>
 		<result property="memberEmail" column="memberEmail"/>
 		<result property="memberTel" column="memberTel"/>
-		<result property="memberAddr" column="memberAddr"/>
+		<result property="memberPost" column="memberPost"/>
+		<result property="memberAddr1" column="memberAddr1"/>
+		<result property="memberAddr2" column="memberAddr2"/>
 		<result property="memberBirth" column="memberBirth"/>
 		<result property="memberAmount" column="memberAmount"/>
 		<result property="memberPoint" column="memberPoint"/>
 		<result property="gradeno" column="gradeno"/>
 	</resultMap>
 	
-	<select id="midConfirm" parameterType="String" resultType="int">
+	<select id="memberIdConfirm" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId}
 	</select>
 	<insert id="joinMember" parameterType="Member">
-		INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERADDR, MEMBERBIRTH)
-   			VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberAddr},#{memberBirth});
+		INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH)
+    		VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberPost},#{MEMBERADDR1},#{MEMBERADDR2},#{MEMBERBIRTH});
 	</insert>
 	<select id="searchIdMember" parameterType="String" resultType="String">
-		SELECT MEMBERID FROM MEMBER WHERE MEMBEREMAIL = #{memberEmail}
+		SELECT MEMBERID FROM MEMBER WHERE MEMBERTEL = #{memberTel}
 	</select>
 	<select id="searchPwMember" parameterType="String" resultType="String">
 		SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = #{memberId}
@@ -40,7 +42,9 @@
 	        MEMBERNAME = #{memberName},
 	        MEMBEREMAIL = #{memberEmail},
 	        MEMBERTEL = #{memberTel},
-	        MEMBERADDR = #{memberAddr},
+	        MEMBERPOST = #{memberPost}, 
+	        MEMBERADDR1 = #{memberAddr1},
+	        MEMBERADDR2 = #{memberAddr2},
 	        MEMBERBIRTH = #{memberBirth}
     	WHERE MEMBERID = #{memberId}
 	</update>

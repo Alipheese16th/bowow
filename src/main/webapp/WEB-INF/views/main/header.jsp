@@ -10,8 +10,7 @@
 	<title>title</title>
 	<link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet">
 	<link href="${conPath }/css/header.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-	<script>
+  	<script>
 		$(document).ready(function(){
 			$(".lnb").hide();
 			$("ul .lnb-down").mouseenter(function(){ $(this).children(".lnb").stop().slideDown(300);})
