@@ -72,8 +72,10 @@ SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001' AND S
 
 
 
+INSERT INTO CART (cartNUM, memberID, productCODE, sizeNUM, colorNUM, QTY, COST)
+    VALUES (CART_SEQ.NEXTVAL, 'aaa', 'P0013', null, 12, 1, 1*(SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = 'P0002'));
 
-
+select * from cart;
 
 
 -- 장바구니 추가

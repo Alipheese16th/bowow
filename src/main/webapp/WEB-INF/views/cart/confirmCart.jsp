@@ -30,20 +30,20 @@
 		<hr>
 		<br>
 		<c:forEach items="${sizeNum}" var="size">
-			${size} , 
+			${size} / 
 		</c:forEach>
 		
 		<br>
 		<hr>
 		<br>
 		<c:forEach items="${colorNum}" var="color">
-			${color} , 
+			${color} / 
 		</c:forEach>
 		<br>
 		<hr>
 		<br>
 		<c:forEach items="${qty}" var="q">
-			${q} , 
+			${q} / 
 		</c:forEach>
 		
 		

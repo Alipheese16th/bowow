@@ -17,9 +17,9 @@
 	
 	<select id="confirmCart" parameterType="Cart" resultType="int">
 	
-		SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
+		<!-- SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} -->
 		
-		<!-- <if test="sizeNum == 0 and colorNum == 0">
+		<if test="sizeNum == 0 and colorNum == 0">
 			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
 		</if>
 		
@@ -33,7 +33,7 @@
 		
 		<if test="sizeNum != 0 and colorNum != 0">
 			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
-		</if> -->
+		</if>
 		
 	</select>
 	
