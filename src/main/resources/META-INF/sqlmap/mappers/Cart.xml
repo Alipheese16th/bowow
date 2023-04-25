@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.lec.bowow.dao.CartDao">
+
+	<resultMap type="Cart" id="CartResult">
+		<result property="cartNum" column="cartNum"/>
+		<result property="memberId" column="memberId"/>
+		<result property="productCode" column="productCode"/>
+		<result property="sizeNum" column="sizeNum"/>
+		<result property="colorNum" column="colorNum"/>
+		<result property="qty" column="qty"/>
+		<result property="cost" column="cost"/>
+	</resultMap>
+	
+	<select id="confirmCart" parameterType="Cart" resultType="int">
+	
+		SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
+		
+		<!-- <if test="sizeNum == 0 and colorNum == 0">
+			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
+		</if>
+		
+		<if test="sizeNum != 0 and colorNum == 0">
+			SELECT COUNT(*) FROM CART WHERE  MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum}
+		</if>
+		
+		<if test="sizeNum == 0 and colorNum != 0">
+			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND COLORNUM = #{colorNum}
+		</if>
+		
+		<if test="sizeNum != 0 and colorNum != 0">
+			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
+		</if> -->
+		
+	</select>
+	
+	
+</mapper>
