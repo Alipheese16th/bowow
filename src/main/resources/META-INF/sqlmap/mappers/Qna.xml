@@ -9,7 +9,6 @@
 		<result property="productCode" column="productCode"/>
 		<result property="qnaTitle" column="qnaTitle"/>
 		<result property="qnaContent" column="qnaContent"/>
-		<result property="qnaImage" column="qnaImage"/>
 		<result property="qnaDate" column="qnaDate"/>
 		<result property="qnaGroup" column="qnaGroup"/>
 		<result property="qnaStep" column="qnaStep"/>
@@ -17,15 +16,15 @@
 		<result property="qnaIp" column="qnaIp"/>
 	</resultMap>
 	<select id="qnaList" parameterType="Qna" resultMap="QnaResult">
-		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaNum) A)
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaNum DESC) A)
 			WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntQna" resultType="int">
 		SELECT COUNT(*) FROM QNA
 	</select>
 	<insert id="writeQna" parameterType="Qna">
-		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, #{qnaImage}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp});
+		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp});
 	</insert>
 	<select id="contentQna" parameterType="int" resultType="Qna">
 		SELECT * FROM QNA WHERE qnaNum = #{qnaNum}
@@ -43,7 +42,7 @@
     		WHERE qnaGroup = #{qnaGroup} AND qnaStep > #{qnaStep}
 	</update>
 	<insert id="replyQna" parameterType="Qna">
-		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, #{qnaImage}, #{qnaGroup}, #{qnaStep}+1, #{qnaIndent}+1, #{qnaIp})
+		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, #{qnaGroup}, #{qnaStep}+1, #{qnaIndent}+1, #{qnaIp})
 	</insert>
 </mapper>

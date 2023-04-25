@@ -1,5 +1,7 @@
 package com.lec.bowow.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,10 @@ import com.lec.bowow.model.Admin;
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDao adminDao;
+	@Override
+	public List<Admin> mainList() {
+		return adminDao.adminList();
+	}
 	@Override
 	public String adminLogin(String adminId, String adminPw, HttpSession httpSession) {
 		String result = "관리자 로그인 성공";

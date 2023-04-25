@@ -34,6 +34,7 @@
 		.card {
 			border: 1px solid #BE8D6E;
 			width: 300px;
+			text-align: right;
 		}
 		.box {
 			width: 344px; height: 94px;
@@ -48,8 +49,8 @@
 			width: 580px;
 		}
 		#myChart1 {
-			min-width: 580px;
-			max-width: 580px;
+			min-width: 650px;
+			max-width: 950px;
 			max-height: 300px;
 		}
 		#myChart2 {
@@ -102,9 +103,18 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
 </head>
 <body>
+	<c:if test="${empty admin}">
+		<script>
+			alert('관리자 아이디를 통해 이용해주세요');
+			history.back();
+		</script>
+	</c:if>
+	
 	<jsp:include page="../main/header.jsp"/>
 	<div class="wrap">
 		<div class="pagename">
+			<%-- <input type="text" name="adminId" value="${admin.adminId }">
+			<input type="text" name="adminPw" value="${admin.adminPw }"> --%>
 			<h1>관리자 페이지</h1>
 		</div>
 		<div class="row">

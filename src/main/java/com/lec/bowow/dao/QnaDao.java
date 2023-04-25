@@ -16,4 +16,5 @@ public interface QnaDao {
 	public int deleteQna(int qnaNum);
 	public void preReplyQna(Qna qna);
 	public int replyQna(Qna qna);
+	public Qna modifyReplyQnaView(int qnaNum);
 }
