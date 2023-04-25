@@ -6,7 +6,7 @@ import com.lec.bowow.model.Member;
 
 @Mapper
 public interface MemberDao {
-	public int midConfirm(String memberId);
+	public int memberIdConfirm(String memberId);
 	public int joinMember(Member member);
 	public String searchIdMember(String memberEmail);
 	public String searchPwMember(String memberId);

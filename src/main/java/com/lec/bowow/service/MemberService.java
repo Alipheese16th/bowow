@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import com.lec.bowow.model.Member;
 
 public interface MemberService {
-	public int midConfirm(String memberId);
+	public int memberIdConfirm(String memberId);
 	public int joinMember(Member member);
 	public String loginCheck(String memberId, String memberPw, HttpSession session);
 	public String searchIdMember(String memberEmail);

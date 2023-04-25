@@ -1,10 +1,16 @@
 @charset "UTF-8";
+body{
+	margin:0;
+	padding:0;
+}
 #header *{
 	margin:0;
 	padding:0;
 	box-sizing:border-box;
 	text-align:center;
 	font-family: 'Pretendard';
+	overflow-x:hidden;
+	overflow-y:hidden;
 }
 #header li{
 	list-style:none;
@@ -49,7 +55,6 @@
 }
 /*header-inner 부분*/
 #header .header-top .header-inner{
-	width:1400px;
 	margin:0 auto;
 	position:relative;
 	padding: 10px 0;
@@ -88,7 +93,6 @@
 }
 #header .header-top .header-bottom .gnb{
 	display:flex;
-	width:1400px;
 	margin:0 auto;
 	height:60px;
 	-webkit-box-pack: center;
