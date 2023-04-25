@@ -23,6 +23,7 @@ SELECT * FROM COLOR WHERE PRODUCTCODE = 'P0001';
 
 
 
+
 -- 상품 검색 (이름, )
 SELECT * FROM PRODUCT WHERE productName LIKE '%' || TRIM(' 셔츠 ') || '%';
 
