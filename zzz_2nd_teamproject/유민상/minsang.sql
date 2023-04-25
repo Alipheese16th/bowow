@@ -20,6 +20,9 @@ CREATE TABLE ADMIN(
 );
 INSERT INTO ADMIN VALUES ('admin', '1234', '관리자'); -- 관리자 추가 DUMMY
 
+-- ADMIN 메인
+SELECT * FROM ADMIN;
+
 -- ADMIN 로그인
 SELECT * FROM ADMIN WHERE adminId = 'admin' AND adminPw = '111';
 SELECT * FROM ADMIN WHERE adminId = 'admin';
@@ -148,16 +151,16 @@ CREATE TABLE QNA(
 );
 
 -- QNA DUMMY DATA
-INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '문의제목', '문의내용', NULL, QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
-INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '상품문의 제목', '색깔은 어떤게 있나요?', NULL, QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
-INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '사료문의 제목', '고양이도 먹어도 되나요?', NULL, QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
-
+INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '문의제목', '문의내용', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
+INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '상품문의 제목', '색깔은 어떤게 있나요?', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
+INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '사료문의 제목', '고양이도 먹어도 되나요?', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
+COMMIT;
 -- QNA 목록(페이징)
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaNum) A)
-	WHERE RN BETWEEN 2 AND 3;
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaNum DESC) A)
+	WHERE RN BETWEEN 1 AND 3;
 
 -- QNA 전체 글 개수
 SELECT COUNT(*) FROM QNA;

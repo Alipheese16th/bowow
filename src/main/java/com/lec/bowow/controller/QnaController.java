@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lec.bowow.model.Qna;
 import com.lec.bowow.service.QnaService;
@@ -24,7 +25,8 @@ public class QnaController {
 		return "qna/list";
 	}
 	@RequestMapping(value="write", method=RequestMethod.GET)
-	public String write() {
+	public String write(String pageNum, Model model) {
+		model.addAttribute("qnaList", qnaService.qnaList(pageNum));
 		return "qna/write";
 	}
 	@RequestMapping(value="write", method=RequestMethod.POST)
@@ -38,12 +40,19 @@ public class QnaController {
 		return "qna/content";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)
-	public String modify(int qnaNum, Model model) {
+	public String modify(int qnaNum, String pageNum, Qna qna, Model model) {
+		model.addAttribute("qna", qnaService.modifyReplyQnaView(qnaNum));
+		model.addAttribute("qnaList", qnaService.qnaList(pageNum));
 		 return "qna/modify";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.POST)
 	public String modify(Qna qna, HttpServletRequest request, Model model) {
-		model.addAttribute("modifyQResult", qnaService.modifyQna(qna, request));
+		try {
+			model.addAttribute("modifyQResult", qnaService.modifyQna(qna, request));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			model.addAttribute("modifyOResult", "수정 실패");
+		}
 		return "forward:content.do";
 	}
 	@RequestMapping(value="delete", method=RequestMethod.GET)
