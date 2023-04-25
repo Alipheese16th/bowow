@@ -15,6 +15,10 @@
 		<result property="cost" column="cost"/>
 	</resultMap>
 	
+	<select id="cartList" parameterType="String" resultMap="CartResult">
+	
+	</select>
+	
 	<select id="confirmCart" parameterType="Cart" resultType="int">
 	
 		<!-- SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} -->
