@@ -47,7 +47,7 @@
 		<c:forEach var="qna" items="${qnaList }">
 			<tr onclick="clickTr(${qna.qnaNum})">
 				<td>${qna.qnaNum }</td>
-				<td>${qna.qnaImage }</td>
+				<td></td>
 		  		<td style="text-align: center">
 		  			${qna.qnaTitle }
 		  		</td>

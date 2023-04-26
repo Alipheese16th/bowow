@@ -1,15 +1,11 @@
 package com.lec.bowow.service;
 
-import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lec.bowow.dao.QnaDao;
 import com.lec.bowow.model.Qna;

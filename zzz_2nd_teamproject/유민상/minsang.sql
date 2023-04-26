@@ -142,7 +142,6 @@ CREATE TABLE QNA(
     productCode VARCHAR2(100) REFERENCES PRODUCT(productCode),
     qnaTitle VARCHAR2(500) NOT NULL,
     qnaContent VARCHAR2(4000) NOT NULL,
-    qnaImage VARCHAR2(500),
     qnaDate DATE DEFAULT SYSDATE NOT NULL,
     qnaGroup NUMBER(4) NOT NULL,
     qnaStep NUMBER(4) NOT NULL,
