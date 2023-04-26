@@ -43,7 +43,7 @@ public class MemberController {
 			model.addAttribute("loginResult", loginResult);
 			model.addAttribute("memberId", memberId);
 			model.addAttribute("memberPw", memberPw);
-			return "main/login";
+			return "member/login";
 		}
 	}
 	@RequestMapping(value="logout", method=RequestMethod.GET)

@@ -89,7 +89,7 @@ public class MemverServiceImpl implements MemberService {
 		Member member = memberDao.getDetailMember(memberId);
 		if(member==null) {
 			result = "유효하지 않은 아이디입니다.";
-		}else if(member.getMemberPw().equals(memberPw)) {
+		}else if(!member.getMemberPw().equals(memberPw)) {
 			result = "비밀번호가 일치하지 않습니다.";
 		}else {			
 			session.setAttribute("member", member);
