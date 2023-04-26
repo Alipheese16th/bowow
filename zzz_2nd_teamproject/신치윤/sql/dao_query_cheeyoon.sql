@@ -64,18 +64,22 @@ UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';
 
 ----------------------------------- CART 관련 ----------------------------------
 
--- 해당 회원의 장바구니 갯수 /헤더에서 계속 보일 갯수 (param : memberId)
-SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa';
-
--- 장바구니 리스트 (파라미터: 회원아이디)
-SELECT C.*, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, IMAGE  FROM CART C, PRODUCT P, IMAGE I
-  WHERE C.PRODUCTCODE = P.PRODUCTCODE AND P.PRODUCTCODE = I.PRODUCTCODE AND TYPE = 'title' AND MEMBERID = 'aaa';
-
 -- 장바구니에 동일한 상품을 담았는지 확인 (memberId, productCode, sizeNum, colorNum)
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001';
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001' AND SIZENUM = 1;
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001' AND COLORNUM = 2;
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001' AND SIZENUM = 1 AND COLORNUM = 2;
+
+-- 해당 회원의 장바구니 갯수 /헤더에서 계속 보일 갯수 (param : memberId)
+SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa';
+
+-- 장바구니 리스트 (파라미터: 회원아이디)
+SELECT C.*, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK, IMAGE  FROM CART C, PRODUCT P, IMAGE I
+  WHERE C.PRODUCTCODE = P.PRODUCTCODE AND P.PRODUCTCODE = I.PRODUCTCODE AND TYPE = 'title' AND MEMBERID = 'aaa';
+-- 장바구니에서 옵션 이름만 보여줄려고 사이즈리스트, 색상리스트 가져오기
+SELECT * FROM SIZES;
+SELECT * FROM COLOR;
+
 
 
 
@@ -84,6 +88,7 @@ INSERT INTO CART (cartNUM, memberID, productCODE, sizeNUM, colorNUM, QTY, COST)
     VALUES (CART_SEQ.NEXTVAL, 'aaa', 'P0013', null, 12, 1, 1*(SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = 'P0013'));
 INSERT INTO CART (cartNUM, memberID, productCODE, sizeNUM, colorNUM, QTY, COST)
     VALUES (CART_SEQ.NEXTVAL, 'aaa', 'P0006', 5, 4, 2, 2*(SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = 'P0006'));
+
 -- 장바구니에 기존 상품 수량 추가 (memberId, productCode, qty, sizeNum, colorNum)
 UPDATE CART 
   SET QTY = QTY + 1,

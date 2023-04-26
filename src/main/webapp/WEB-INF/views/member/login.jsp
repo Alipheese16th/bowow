@@ -32,6 +32,7 @@
 		<div class="login-wrap">
 			<form action="login.do" method="post">
 			<input type="hidden" name="after" value="${empty param.after ? 'main.do':param.after}">
+			<input type="hidden" name="productCode" value="${param.productCode}">
 				<table>
 					<tr>
 						<td><input type="text" name="memberId" class="focusB" placeholder="아이디를 입력해주세요."></td>

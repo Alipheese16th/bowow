@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
 .container{
-	min-width: 1500px !important;
+	min-width: 1300px !important;
 }
 
 .pagination > li > a{

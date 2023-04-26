@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
 .container{
-	min-width: 1500px !important;
+	min-width: 1300px !important;
 }
 .imageArea, .infoArea, .titleImage{
 	width:600px;
@@ -41,6 +41,19 @@
 .plus, .minus, .delete{
 	display:block;
 	height:11px;
+}
+
+.contentImg{
+	max-width: 1000px;
+}
+
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
 }
 
 </style>
@@ -141,7 +154,8 @@
 				
 				<hr>
 				
-				<input type="hidden" id="productCode" name="productCode" value="${product.productCode}">
+				<input type="hidden" id="productCode" value="${product.productCode}">
+				<input type="hidden" id="memberId" value="${member.memberId}">
 				
 				<table class="w-100">
 					<tbody id="result">
@@ -160,7 +174,7 @@
 					</tbody>
 				</table>
 			
-				<button type="button" class="btn btn-dark" id="cart">장바구니 담기</button>
+				<button type="button" class="btn btn-myColor" id="cart">장바구니 담기</button>
 				<button type="button" class="btn btn-outline-dark">즉시 구매하기</button>
 				
 				
@@ -189,7 +203,7 @@
 			<c:forEach items="${imageList}" var="image">
 				<c:if test="${image.type eq 'content'}">
 					<p>
-						<img src="${conPath}/productImage/${image.image}">
+						<img class="contentImg" src="${conPath}/productImage/${image.image}">
 					</p>
 				</c:if>
 			</c:forEach>
@@ -316,6 +330,8 @@
 		
 	</div>
 	
+	<div class="d-none confirmResult"></div>
+	
 	<jsp:include page="../main/footer.jsp"/>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
@@ -337,6 +353,9 @@
 	if(!$('.disPrice').length){ // 할인판매가가 존재하지 않는다면 기본판매가로 전부 적용
 		disPrice = price;
 	}
+	var memberId = $('#memberId').val();
+	var productCode = $('#productCode').val();
+	
 	
 	////////////////////////////////////////////////////////////////// 장바구니 클릭시
 	$('#cart').click(function(){
@@ -344,20 +363,17 @@
 		if(products.length == 0){	// 상품 아무것도 안고르고 장바구니 클릭시에 경고문
 			alert('필수 옵션을 선택하세요');
 			return;
+		}else if(!memberId){
+			alert('로그인 한 회원만 가능합니다');
+			location.href='${conPath}/login.do?after=product/content.do&productCode='+productCode;
+			return;
 		}
 		
+		// 객체 배열의 옵션들을 파라미터로 보내려고 이어붙임
 		var sizeNums = '';
 		var colorNums = '';
 		var qtys = '';
-		var memberId = 'aaa';	////////////////////////////// 나중에 로그인 기능 구현시 로그인 세션에서 가져와야함
-		var productCode = $('#productCode').val();
-		
-		// 이미 장바구니에 해당 아이템이 존재하는지 확인
-		products.forEach(function(product,index){
-			
-			console.log(index);
-			console.log(product);
-			
+		products.forEach(function(product){
 			if(product.size !== undefined){
 				sizeNums += 'sizeNum='+product.size+'&';
 			}
@@ -365,26 +381,32 @@
 				colorNums += 'colorNum='+product.color+'&';
 			}
 			qtys += 'qty='+product.qty+'&';
-			
 		});
 		
-		console.log(sizeNums);
-		console.log(colorNums);
-		console.log(qtys);
-		
-		location.href='${conPath}/cart/confirmCart.do?'+sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode;
-		
-		/* $.ajax({
-			url : '${conPath}/confirmCart.do',
+		// 이미 장바구니에 해당 아이템이 존재하는지 확인
+// 		location.href='${conPath}/cart/confirmCart.do?'+sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode;
+		$.ajax({
+			url : '${conPath}/cart/confirmCart.do',
 			type : 'post',
-			data : 'commentNo='+commentNo+'&commentPageNum='+commentPageNum+'&pageNum='+pageNum+'&search='+search+'&type='+type,
+			data : sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode,
 			dataType : 'html',
 			success : function(data){
-				$('#comment'+commentNo).html(data);
+				$('.confirmResult').html(data);
+				
+				var confirmResult = $('.confirmResult').text().trim();
+				if(confirmResult > 0){
+					alert('중복된 상품이 존재합니다. 추가하시겠습니까? ' + confirmResult);
+				}else{
+					alert('중복없음 : '+confirmResult);
+		 			//location.href='${conPath}/cart/insertCart.do';
+				}
+				
 			}
-		}); */
+		});
 		
-	});
+		
+		
+	});//장바구니 클릭 로직 끝
 	
 	const getProductBoth = function(size, color, sizeName, colorName){
 		var product = $('<tr>'
@@ -394,7 +416,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'
@@ -420,7 +442,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'
@@ -445,7 +467,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'
@@ -469,7 +491,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="number" class="qty" name="qty" value="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'

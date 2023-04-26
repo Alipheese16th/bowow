@@ -1,12 +1,8 @@
 package com.lec.bowow.service;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.lec.bowow.dao.NoticeDao;
 import com.lec.bowow.model.Notice;
 import com.lec.bowow.util.Paging;

@@ -16,7 +16,20 @@
 		<result property="productName" column="productName"/>
 		<result property="productPrice" column="productPrice"/>
 		<result property="productDiscount" column="productDiscount"/>
+		<result property="productStock" column="productStock"/>
 		<result property="image" column="image"/>
+	</resultMap>
+	
+	<resultMap type="Sizes" id="SizeResult">
+		<result property="sizeNum" column="sizeNum"/>
+		<result property="productCode" column="productCode"/>
+		<result property="productSize" column="productSize"/>
+	</resultMap>
+	
+	<resultMap type="Color" id="ColorResult">
+		<result property="colorNum" column="colorNum"/>
+		<result property="productCode" column="productCode"/>
+		<result property="productColor" column="productColor"/>
 	</resultMap>
 	
 	<select id="confirmCart" parameterType="Cart" resultType="int">
@@ -35,13 +48,28 @@
 	</select>
 	
 	<select id="cartList" parameterType="String" resultMap="CartResult">
-		SELECT C.*, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, IMAGE  FROM CART C, PRODUCT P, IMAGE I
+		SELECT C.*, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK, IMAGE  FROM CART C, PRODUCT P, IMAGE I
   			WHERE C.PRODUCTCODE = P.PRODUCTCODE AND P.PRODUCTCODE = I.PRODUCTCODE AND TYPE = 'title' AND MEMBERID = #{memberId}
 	</select>
-	
 	<select id="totCntCart" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId}
 	</select>
+	<select id="sizeList" resultMap="SizeResult">
+		SELECT * FROM SIZES
+	</select>
+	<select id="colorList" resultMap="ColorResult">
+		SELECT * FROM COLOR
+	</select>
+	
+	
+	<insert id="insertCart" parameterType="Cart">
+		INSERT INTO CART (cartNUM, memberID, productCODE, sizeNUM, colorNUM, QTY, COST)
+    		VALUES (CART_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{sizeNum}, #{colorNum}, #{qty}, #{qty}*(SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = 'P0013'))
+	</insert>
+	
+	
+	
+	
 	
 	
 	

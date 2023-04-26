@@ -22,13 +22,23 @@
 			$("div.bar-close").click(function(){
 				$(".top-bar").css("display", "none");
 			})
+			
+			var memberId = $('#memberId').val();
 			$(".cart").click(function(){
+				if(!memberId){
+					alert('로그인 한 회원만 가능합니다');
+					location.href='${conPath}/login.do?after=cart/list.do';
+					return;
+				}
 				location.href="${conPath}/cart/list.do";
 			});
+			
 		});
 	</script>
 </head>
 <body>
+	<input type="hidden" id="memberId" value="${member.memberId}">
+	
 	<div id="header">
 		<div class="top-bar">
 			<div>				
