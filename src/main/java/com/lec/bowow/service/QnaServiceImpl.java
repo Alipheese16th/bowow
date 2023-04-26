@@ -15,9 +15,8 @@ public class QnaServiceImpl implements QnaService {
 	@Autowired
 	private QnaDao qnaDao;
 	@Override
-	public List<Qna> qnaList(String pageNum) {
+	public List<Qna> qnaList(Qna qna, String pageNum) {
 		Paging paging = new Paging(qnaDao.totCntQna(), pageNum);
-		Qna qna = new Qna();
 		qna.setStartRow(paging.getStartRow());
 		qna.setEndRow(paging.getEndRow());
 		return qnaDao.qnaList(qna);
@@ -53,10 +52,6 @@ public class QnaServiceImpl implements QnaService {
 	}
 	@Override
 	public Qna contentQna(int qnaNum) {
-		return qnaDao.contentQna(qnaNum);
-	}
-	@Override
-	public Qna modifyReplyQnaView(int qnaNum) {
 		return qnaDao.contentQna(qnaNum);
 	}
 	@Override

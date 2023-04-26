@@ -10,11 +10,10 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.lec.bowow.model.Qna;
 
 public interface QnaService {
-	public List<Qna> qnaList(String pageNum);
+	public List<Qna> qnaList(Qna qna, String pageNum);
 	public int totCntQna();
 	public int writeQna(Qna qna, HttpServletRequest request);
 	public Qna contentQna(int qnaNum);
-	public Qna modifyReplyQnaView(int qnaNum);
 	public int modifyQna(Qna qna, HttpServletRequest request);
 	public int deleteQna(int qnaNum);
 	public int replyQna(Qna qna, HttpServletRequest request);
