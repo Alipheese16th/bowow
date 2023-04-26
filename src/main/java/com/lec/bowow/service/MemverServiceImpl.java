@@ -20,18 +20,54 @@ public class MemverServiceImpl implements MemberService {
 		return memberDao.memberIdConfirm(memberId);
 	}
 	@Override
+	public int memberMailConfirm(String memberEmail) {
+		return memberDao.memberMailConfirm(memberEmail);
+	}
+	@Override
 	public int joinMember(final Member member) {
 		MimeMessagePreparator message = new MimeMessagePreparator() {
-			String content = "<div style=\\\"width:500px; margin:0 auto;\\\">\\r\\n\" + \r\n" + 
-					"					\"		<h1>\"+ member.getMname() + \"님의 회원가입 감사합니다.</h1>\\r\\n\" + \r\n" + 
-					"					\"		<p>아무개 사이트에서만 쓰실 수 있는 감사쿠폰을 드립니다.</p>\\r\\n\" + \r\n" + 
-					"					\"		<img src=\\\"https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png\\\" alt=\\\"daum로고\\\">\\r\\n\" + \r\n" + 
-					"					\"		<hr color=\\\"red\\\">\\r\\n\" + \r\n" + 
-					"					\"		<span style=\\\"color:red;\\\">빨간 글씨 부분</span><br>\\r\\n\" + \r\n" + 
-					"					\"		<span style=\\\"color:blue;\\\">파란 글씨 부분</span>\\r\\n\" + \r\n" + 
-					"					\"		<p><img src=\\\"http://localhost:8090/ch19_sch/img/coupon.jpg\\\" alt=\\\"쿠폰\\\"></p>\\r\\n\" + \r\n" + 
-					"					\"		<p align=\\\"center\\\">서울시 어떤구 몰라 17길 51 어떤빌딩 4층</p>\\r\\n\" + \r\n" + 
-					"					\"	</div>";
+			String content = "	<div style=\"background:#f2f2f2; padding:25px;\">\r\n" + 
+					"		<div style=\"width:600px; margin: 0 auto; background:#fff; padding:40px; \">\r\n" + 
+					"			<img src=\"http://localhost:8098/bowow/img/bowow_logo.png\" style=\"width:200px; height:auto;margin:0; padding:0;\">\r\n" + 
+					"			<br><br>\r\n" + 
+					"			<h1>회원가입에 감사드립니다.</h1>\r\n" + 
+					"			<p style=\"line-height:25px;\">회원가입 감사 <b>10% 쿠폰</b>을 발급해 드렸으니,<br>\r\n" + 
+					"			마이페이지를 통해서 확인하시길 바랍니다.</p>\r\n" + 
+					"			<a href=\"마이페이지링크\" style=\"color:#BE8D6E;text-decoration:none;\">쿠폰 확인하기 ></a>\r\n" + 
+					"			<hr color=\"#000\" style=\"margin-bottom:30px; margin-top:30px;\">\r\n" + 
+					"			<div>\r\n" + 
+					"				<table style=\"width:100%;\">\r\n" + 
+					"					<tr>\r\n" + 
+					"						<td>아이디</td>\r\n" + 
+					"						<td></td>\r\n" + 
+					"					</tr>\r\n" + 
+					"					<tr>\r\n" + 
+					"						<td>가입일</td>\r\n" + 
+					"						<td></td>\r\n" + 
+					"					</tr>\r\n" + 
+					"					<tr style=\"height: 10px;\"><td></td></tr>\r\n" + 
+					"					<tr style=\"width: 100%;height: 1px;background: #f2f2f2;\"><td colspan=\"3\"></td></tr>\r\n" + 
+					"					<tr style=\"height: 10px;\"><td></td></tr>\r\n" + 
+					"					<tr>\r\n" + 
+					"						<td>회원혜택</td>\r\n" + 
+					"					</tr>\r\n" + 
+					"					<tr>\r\n" + 
+					"						<td>- 회원등급별 다양한 이벤트 및 쿠폰 제공</td>\r\n" + 
+					"					</tr>\r\n" + 
+					"					<tr>\r\n" + 
+					"						<td>- 쇼핑 구매액의 5% 포인트 적립</td>\r\n" + 
+					"					</tr>\r\n" + 
+					"					<tr style=\"height: 10px;\"><td></td></tr>\r\n" + 
+					"					<tr style=\"width: 100%;height: 1px;background: #f2f2f2;\"><td colspan=\"3\"></td></tr>\r\n" + 
+					"					<tr style=\"text-align: center;\">\r\n" + 
+					"						<td colspan=\"5\">\r\n" + 
+					"							<button onclick=\"location.href='홈페이지 메인주소링크'\" style=\"background: #BE8D6E;color: #fff;outline: none;border: none;height: 50px;border-radius: 5px;padding:0px 15px 0 15px;margin-top: 30px;font-family: 'Pretendard-Regular'; font-size:15px;\">회원 혜택 더 알아보기</button>\r\n" + 
+					"						</td>\r\n" + 
+					"					</tr>	\r\n" + 
+					"				</table>\r\n" + 
+					"			</div>\r\n" + 
+					"		</div>\r\n" + 
+					"	</div>";
 			@Override
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				// 받을 메일 설정 

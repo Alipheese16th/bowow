@@ -32,7 +32,7 @@
 	<div id="header">
 		<div class="top-bar">
 			<div>				
-				<a>BOWOW 바우와우에 신규가입하고 <b>2천원 즉시 할인혜택 받기</b></a>
+				<a>BOWOW 바우와우에 신규가입하고 <span class="point-font">2천원 즉시 할인혜택 받기</span></a>
 				<div class="bar-close">
 					<span></span>
 				</div>
@@ -44,14 +44,14 @@
 					<h1 class="logo"><a href="${conPath}/main.do"><img src="${conPath }/img/bowow_logo.png"></a></h1>
 					<c:if test="${empty member and empty admin}">
 						<ul class="inner-right">
-							<li><a href="${conPath}/member/join.do">회원가입</a></li>
-							<li><a href="#">로그인</a></li>
+							<li><a href="${conPath}/join.do">회원가입</a></li>
+							<li><a href="${conPath}/login.do">로그인</a></li>
 							<li><a href="#">주문내역</a></li>
 						</ul>
 					</c:if>
 					<c:if test="${not empty member and empty admin}">
 						<ul class="inner-right">
-							<li><a href="#">로그아웃</a></li>
+							<li><a href="${conPath}/logout.do">${member.memberId}님 로그아웃</a></li>
 							<li><a href="#">마이페이지</a></li>
 							<li><a href="#">주문내역</a></li>
 						</ul>

@@ -1,4 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -15,8 +15,15 @@
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script>
 		$(document).ready(function(){
+			const patternId = /^[a-z]{1}[a-z0-9_-]{2,15}$/; // 아이디 정규표현식
+			const patternPw = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~`!@#$%^&*()-_+=|\\\[\]{}'";:?,.\/]).{8,16}$/; // 비밀번호 정규표현식
+			const patternName = /^[a-zA-Z가-힣]{1,}$/; // 이름 정규표현식 
+			const patternSpc = /[~`!@#$%^&*()-_+=|\\\[\]{}'";:?,.\/]/;
+			const patternMail = /^\w+@\w+(\.\w+){1,2}$/; // 이메일 정규표현식
+			const patternTel = /^\d{2,3}[\-) ]?\d{3,4}[\-]?\d{4}$/; // 전화번호 정규표현식
+			const patternSpace = /\s/g; 
+			var memberId, memberPw, memberPwchk, memberName, memberEmail, memberTel;
 			$(".idconfirm").click(function(){
-				var memberId = $("#id").val();
 				$.ajax({
 					url : '${conPath}/member/memberIdConfirm.do',
 					dataType : 'html',
@@ -25,7 +32,113 @@
 						$(".midResult").html(data);
 					},
 				});
+			}); // memberId 중복확인
+			$("#id").keyup(function(){
+				memberId = $("#id").val();
+				if(!memberId){
+					$(".midResult").html("<p style='color:red;'>필수 정보입니다.</p>");
+				}else if(!memberId.match(patternId) || memberId.match(patternSpace)){
+					$(".midResult").html("<p style='font-size:12Px; color:red;'>2~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</p>");
+				}else{
+					$.ajax({
+						url : '${conPath}/memberIdConfirm.do',
+						dataType : 'html',
+						data: "memberId="+memberId,
+						success : function(data, status){
+							$(".midResult").html(data);
+						},
+					});
+				}
+			}); // memberID keyup 이벤트
+			$("#pw").keyup(function(){
+				memberPw = $(this).val();
+				if(!memberPw){
+					$(".mpwResult").html("<p style='color:red;'>필수 정보입니다.</p>");
+				}else if(!memberPw.match(patternPw) || memberPw.match(patternSpace)){
+					$(".mpwResult").html("<p style='color:red;'>8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</p>");
+				}else{
+					$(".mpwResult").html("");
+				};
+			}); //memberPw keyup 이벤트
+			$("#pwChk").keyup(function(){
+				memberPwchk = $(this).val();
+				if(!memberPwchk){
+					$(".mpwChkResult").html("<p style='color:red;'>필수 정보입니다.</p>");
+				}else if(!memberPwchk.match(patternPw) || memberPwchk.match(patternSpace)){
+					$(".mpwChkResult").html("<p style='color:red;'>8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</p>");
+				}else{
+					if(memberPw==memberPwchk){
+						$(".mpwChkResult").html("");
+					}else{
+						$(".mpwChkResult").html("<p style='color:red;'>비밀번호가 일치하지 않습니다.</p>");
+					};
+				};
 			});
+			$("#name").keyup(function(){
+				memberName = $(this).val();
+				if(!memberName){
+					$(".mnameResult").html("<p style='color:red;'>필수 정보입니다.</p>");
+				}else if(!memberName.match(patternName)|| memberName.match(patternSpace)){
+					$(".mnameResult").html("<p style='color:red;'>한글과 영문 대 소문자를 사용하세요.</p>");
+					if(memberName.match(patternSpc)){
+						memberName = memberName.replace(patternSpc, '');				
+						$(this).val(memberName);
+					}
+				}else{
+					$(".mnameResult").html("");
+				}
+			}); //memberName keyup 이벤트
+			$("#email").keyup(function(){
+				memberEmail = $(this).val();
+				if(!memberEmail){
+					$(".memailResult").html("<p style='color:red;'>필수 정보입니다.</p>");
+				}else if(!memberEmail.match(patternMail) || memberEmail.match(patternSpace)){
+					$(".memailResult").html("<p style='color:red;'>이메일 형식으로 입력해 주세요.</p>");
+				}else{
+					$(".memailResult").html("");
+				}
+			}); // memberEmail keyup 이벤트
+			$("#tel").keyup(function(){
+				memberTel = $(this).val();
+				if(!memberTel){
+					$(".mtelResult").html("");
+				}else if(!memberTel.match(patternTel)){
+					$(".mtelResult").html("<p style='color:red;'>형식에 맞지 않는 번호입니다.</p>");
+				}else{
+					$(".mtelResult").html("");
+				}
+			}); //mtel-keyup 이벤트
+			$("form").submit(function(){
+				var midResult = $(".midResult").text().trim();
+				/*var mnameResult = $(".mnameResult").text().trim();
+				var mtelResult = $(".mtelResult").text().trim();
+				var memailResult = $(".memailResult").text().trim();
+				var maddressResult = $(".maddressResult").text().trim();*/
+				if(midResult != "사용가능한 ID입니다"){
+					alert("사용가능한 아이디인지 확인 요망");
+					$("#id").focus();
+					return false;
+				}else if(!memberPw){
+					alert("비밀번호를 확인하세요.");
+					$("#pw").focus();
+					return false;
+				}else if(!memberPwchk){
+					alert("비밀번호가 맞지 않습니다.");
+					return false;
+				}else if(!memberName){
+					alert("이름을 확인하세요.")
+					$("#name").focus();
+					return false;
+				}else if(memberTel=="형식에 맞지 않는 번호입니다."){
+					alert("전화번호를 확인하세요.");
+					$("#tel").focus();
+					return false;
+				}else if(memberEmail == "이메일 형식으로 입력해 주세요."){
+					alert("이메일을 확인하세요.");
+					$("#email").focus();
+					return false;
+				}
+			}); // submit 제한
 		});
 	</script>
 	<script>
@@ -105,6 +218,7 @@
 							<div class="join-form-title"><label for="tel">전화번호</label></div>
 							<div class="join-form-text">
 								<input type="text" name="memberTel" id="tel" class="focusB" placeholder="예 : 02-000-0000 또는 010-0000-0000">
+								<div class="mtelResult bottom"></div>
 							</div>
 							<div class="join-form-btn"></div>
 						</div>
@@ -146,4 +260,4 @@
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
-</html> --%>
+</html>
