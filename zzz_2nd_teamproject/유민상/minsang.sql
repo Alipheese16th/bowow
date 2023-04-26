@@ -133,7 +133,7 @@ CREATE TABLE MEMBER(
 );
 INSERT INTO MEMBER (memberId, memberPw, memberName, memeberEmail, memberPoint)
     VALUES ('aaa', '111', '유민상', 'mmm@naver.com', 5000);
-
+select * from member;
 ----------------------------------------------<QNA>----------------------------------------------
 CREATE SEQUENCE QNA_SEQ MAXVALUE 9999 NOCACHE NOCYCLE;
 CREATE TABLE QNA(
@@ -171,6 +171,12 @@ SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA WHERE qnaContent LI
     
 -- QNA 전체 글 개수
 SELECT COUNT(*) FROM QNA;
+
+-- QNA 검색(제목) 글 개수
+SELECT COUNT(*) FROM QNA WHERE qnaTitle LIKE '%'||'질'||'%';
+
+-- QNA 검색(본문) 글 개수
+SELECT COUNT(*) FROM QNA WHERE qnaContent LIKE '%'||'먹'||'%';
 
 -- QNA 작성
 INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)

@@ -32,7 +32,6 @@ public class MemberController {
 	}
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String loginView() {
-		System.out.println("test11111111111111111111111");
 		return "member/login";
 	}
 	@RequestMapping(value="login", method=RequestMethod.POST)
