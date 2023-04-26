@@ -10,7 +10,6 @@
 	<title>title</title>
 	<link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet">
 	<link href="${conPath }/css/header.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
   	<script>
 		$(document).ready(function(){
