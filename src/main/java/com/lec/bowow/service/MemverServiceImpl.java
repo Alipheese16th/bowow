@@ -26,7 +26,11 @@ public class MemverServiceImpl implements MemberService {
 	@Override
 	public int joinMember(final Member member) {
 		MimeMessagePreparator message = new MimeMessagePreparator() {
-			String content = "	<div style=\"background:#f2f2f2; padding:25px;\">\r\n" + 
+			
+			String content = "<style>.body{\r\n" + 
+					"			font-family: 'Pretendard-Regular', 'sans-serif';\r\n" + 
+					"		}</style>"+
+					"	<div class=\"body\" style=\"background:#f2f2f2; padding:25px;\">\r\n" + 
 					"		<div style=\"width:600px; margin: 0 auto; background:#fff; padding:40px; \">\r\n" + 
 					"			<img src=\"http://localhost:8098/bowow/img/bowow_logo.png\" style=\"width:200px; height:auto;margin:0; padding:0;\">\r\n" + 
 					"			<br><br>\r\n" + 
