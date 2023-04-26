@@ -24,22 +24,7 @@
 			const patternSpace = /\s/g; 
 			var memberId, memberPw, memberPwchk, memberName, memberEmail, memberTel;
 			$(".idconfirm").click(function(){
-				$.ajax({
-					url : '${conPath}/member/memberIdConfirm.do',
-					dataType : 'html',
-					data: "memberId="+memberId,
-					success : function(data, status){
-						$(".midResult").html(data);
-					},
-				});
-			}); // memberId 중복확인
-			$("#id").keyup(function(){
-				memberId = $("#id").val();
-				if(!memberId){
-					$(".midResult").html("<p style='color:red;'>필수 정보입니다.</p>");
-				}else if(!memberId.match(patternId) || memberId.match(patternSpace)){
-					$(".midResult").html("<p style='font-size:12Px; color:red;'>2~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</p>");
-				}else{
+				if(memberId && memberId.length > 2){
 					$.ajax({
 						url : '${conPath}/memberIdConfirm.do',
 						dataType : 'html',
@@ -48,6 +33,17 @@
 							$(".midResult").html(data);
 						},
 					});
+				}
+			}); // memberId 중복확인
+			// memberId를 입력했으면 idconfirm
+			$("#id").keyup(function(){
+				memberId = $("#id").val();
+				if(!memberId || memberId.length < 1){
+					$(".midResult").html("<p style='color:red;'>필수 정보입니다.</p>");
+				}else if(!memberId.match(patternId) || memberId.match(patternSpace)){
+					$(".midResult").html("<p style='font-size:12Px; color:red;'>2~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</p>");
+				}else{
+					$(".midResult").html("");
 				}
 			}); // memberID keyup 이벤트
 			$("#pw").keyup(function(){
@@ -243,7 +239,7 @@
 							<div class="join-form-title">생년월일</div>
 							<div class="mbirth-line">
 								<div class="join-form-text">
-									<input type="date" name="memberBirth" id="datepicker">
+									<input type="text" name="memberBirth" id="datepicker">
 								</div>
 								<div class="join-form-btn"></div>
 							</div>

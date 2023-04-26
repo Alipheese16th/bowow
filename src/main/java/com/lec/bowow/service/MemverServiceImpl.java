@@ -1,4 +1,8 @@
 package com.lec.bowow.service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -26,7 +30,6 @@ public class MemverServiceImpl implements MemberService {
 	@Override
 	public int joinMember(final Member member) {
 		MimeMessagePreparator message = new MimeMessagePreparator() {
-			
 			String content = "<style>.body{\r\n" + 
 					"			font-family: 'Pretendard-Regular', 'sans-serif';\r\n" + 
 					"		}</style>"+
@@ -43,11 +46,11 @@ public class MemverServiceImpl implements MemberService {
 					"				<table style=\"width:100%;\">\r\n" + 
 					"					<tr>\r\n" + 
 					"						<td>아이디</td>\r\n" + 
-					"						<td></td>\r\n" + 
+					"						<td>"+ member.getMemberId() +"</td>\r\n" + 
 					"					</tr>\r\n" + 
 					"					<tr>\r\n" + 
 					"						<td>가입일</td>\r\n" + 
-					"						<td></td>\r\n" + 
+					"						<td>"+ new Date(System.currentTimeMillis())+"</td>\r\n" + 
 					"					</tr>\r\n" + 
 					"					<tr style=\"height: 10px;\"><td></td></tr>\r\n" + 
 					"					<tr style=\"width: 100%;height: 1px;background: #f2f2f2;\"><td colspan=\"3\"></td></tr>\r\n" + 

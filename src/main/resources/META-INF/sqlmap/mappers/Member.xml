@@ -21,7 +21,7 @@
 	</resultMap>
 	
 	<select id="memberIdConfirm" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId}
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId, jdbcType=VARCHAR}
 	</select>
 	<select id="memberMailConfirm">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBEREMAIL = #{memberEmail}
