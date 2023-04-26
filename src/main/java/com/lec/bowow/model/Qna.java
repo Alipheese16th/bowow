@@ -18,4 +18,6 @@ public class Qna {
 	private String qnaIp;
 	private int startRow;
 	private int endRow;
+	private String schItem;
+	private String schWord;
 }

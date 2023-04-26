@@ -27,10 +27,7 @@
 			border: 1px solid lightgray;
 			font-weight: bold;
 		}
-		.input {
-			text-align: center;
-			min-width: 620px;
-		}
+		.input {text-align: center; min-width: 620px;}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -43,11 +40,11 @@
 	<input type="hidden" name="qnaNum" value="${qna.qnaNum }">
 		<div class="mb-3">
 			<label for="exampleFormControlInput1" class="form-label">제목</label>
-			<input type="text" class="form-control" id="exampleFormControlInput1" value="${qna.qnaTitle }" required="required">
+			<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" value="${qna.qnaTitle }" required="required">
 		</div>
 		<div class="mb-3">
 			<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required="required">${qna.qnaContent }</textarea>
+			<textarea name="qnaContent" class="form-control" id="exampleFormControlTextarea1" rows="3" required="required">${qna.qnaContent }</textarea>
 		</div>
 		<!-- <div class="mb-3">
 			<label for="exampleFormControlInput1" class="form-label">파일첨부</label>

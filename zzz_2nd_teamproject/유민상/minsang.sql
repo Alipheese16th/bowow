@@ -158,9 +158,17 @@ INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, 
     VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '사료문의 제목', '고양이도 먹어도 되나요?', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
 COMMIT;
 -- QNA 목록(페이징)
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaNum DESC) A)
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep) A)
 	WHERE RN BETWEEN 1 AND 3;
-
+    
+-- QNA 검색(제목)
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA WHERE qnaTitle LIKE '%'||'제'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+	WHERE RN BETWEEN 1 AND 3;
+    
+-- QNA 검색(본문)
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA WHERE qnaContent LIKE '%'||'내'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+	WHERE RN BETWEEN 1 AND 3;
+    
 -- QNA 전체 글 개수
 SELECT COUNT(*) FROM QNA;
 
@@ -187,8 +195,8 @@ UPDATE QNA SET qnaStep = qnaStep + 1
     WHERE qnaGroup = 1 AND qnaStep > 0;
     
 -- QNA 답글
-INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaImage, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, 'qna답글제목', 'qna답글내용', NULL, 11, 1, 1, '192.168.0.11');
+INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, 'qna답글제목', 'qna답글내용', 115, 1, 1, '192.168.0.11');
 
 
 ----------------------------------------------<FAQ>----------------------------------------------
