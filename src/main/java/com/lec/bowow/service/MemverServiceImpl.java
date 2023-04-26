@@ -26,7 +26,11 @@ public class MemverServiceImpl implements MemberService {
 	@Override
 	public int joinMember(final Member member) {
 		MimeMessagePreparator message = new MimeMessagePreparator() {
-			String content = "	<div style=\"background:#f2f2f2; padding:25px;\">\r\n" + 
+			
+			String content = "<style>.body{\r\n" + 
+					"			font-family: 'Pretendard-Regular', 'sans-serif';\r\n" + 
+					"		}</style>"+
+					"	<div class=\"body\" style=\"background:#f2f2f2; padding:25px;\">\r\n" + 
 					"		<div style=\"width:600px; margin: 0 auto; background:#fff; padding:40px; \">\r\n" + 
 					"			<img src=\"http://localhost:8098/bowow/img/bowow_logo.png\" style=\"width:200px; height:auto;margin:0; padding:0;\">\r\n" + 
 					"			<br><br>\r\n" + 
@@ -72,6 +76,7 @@ public class MemverServiceImpl implements MemberService {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				// 받을 메일 설정 
 				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(member.getMemberEmail()));
+				mimeMessage.setFrom(new InternetAddress("sykim789456@gmail.com"));
 				mimeMessage.setSubject("[HTML 가입인사]" + member.getMemberName() + "님 회원가입 감사합니다.");
 				mimeMessage.setText(content, "utf-8", "html");
 			}
@@ -85,7 +90,7 @@ public class MemverServiceImpl implements MemberService {
 		Member member = memberDao.getDetailMember(memberId);
 		if(member==null) {
 			result = "유효하지 않은 아이디입니다.";
-		}else if(member.getMemberPw().equals(memberPw)) {
+		}else if(!member.getMemberPw().equals(memberPw)) {
 			result = "비밀번호가 일치하지 않습니다.";
 		}else {			
 			session.setAttribute("member", member);

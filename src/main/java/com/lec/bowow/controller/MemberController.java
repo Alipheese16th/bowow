@@ -32,6 +32,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String loginView() {
+		System.out.println("test11111111111111111111111");
 		return "member/login";
 	}
 	@RequestMapping(value="login", method=RequestMethod.POST)
@@ -43,7 +44,7 @@ public class MemberController {
 			model.addAttribute("loginResult", loginResult);
 			model.addAttribute("memberId", memberId);
 			model.addAttribute("memberPw", memberPw);
-			return "main/login";
+			return "member/login";
 		}
 	}
 	@RequestMapping(value="logout", method=RequestMethod.GET)
