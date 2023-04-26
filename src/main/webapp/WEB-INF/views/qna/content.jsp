@@ -34,15 +34,16 @@
 <body>
 	<c:set var="success" value="1"/>
 	<c:set var="fail" value="0"/>
-	<c:if test="${modifyOResult eq success }">
+	<c:if test="${modifyQResult eq success }">
 		<script>alert('수정 성공');</script>
 	</c:if>
-	<c:if test="${modifyOResult eq fail }">
+	<c:if test="${modifyQResult eq fail }">
 		<script>
 			alert('수정 실패');
 			history.back();
 		</script>
 	</c:if>
+	
 	<jsp:include page="../main/header.jsp"/>
 	<h1>${contentQna.qnaNum }번 글(작성자 : ${contentQna.memberId })</h1>
 	<table class="table table-hover">

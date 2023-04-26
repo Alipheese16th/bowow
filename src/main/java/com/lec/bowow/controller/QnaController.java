@@ -61,12 +61,19 @@ public class QnaController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value="reply", method=RequestMethod.GET)
-	public String reply(int qnaNum, Model model) {
+	public String reply(int qnaNum, String pageNum, Model model) {
+		model.addAttribute("qna", qnaService.modifyReplyQnaView(qnaNum));
+		model.addAttribute("qnaList", qnaService.qnaList(pageNum));
 		return "qna/reply";
 	}
 	@RequestMapping(value="reply", method=RequestMethod.POST)
 	public String reply(Qna qna, HttpServletRequest request, Model model) {
-		model.addAttribute("replyQResult", qnaService.replyQna(qna, request));
+		try {
+			model.addAttribute("replyQResult", qnaService.replyQna(qna, request));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			model.addAttribute("replyQResult", "답변 작성이 실패되었습니다");
+		}
 		return "forward:list.do";
 	}
 }
