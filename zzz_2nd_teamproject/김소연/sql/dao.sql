@@ -1,7 +1,7 @@
 
 ----------------------------------- MEMBER 관련 ----------------------------------
 -- 회원 id중복체크 id = memberIdConfirm
-SELECT * FROM MEMBER WHERE MEMBERID = 'aaa';
+SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = 'ddd';
 -- 회원가입 id = joinMember
 INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH, MEMBERAMOUNT, MEMBERPOINT, GRADENO)
     VALUES ('bbb', '111', '김길동', 'kim@naver.com', '010-5468-3213', '02165','서울시 서대문구 신촌동 신촌이젠아카데미','301호','90-11-08', 0, 0, 1);

@@ -13,11 +13,13 @@ import com.lec.bowow.service.MemberService;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
-	// member/join.do?->
-	@RequestMapping(value="join", method=RequestMethod.GET)
-	public String join() {
-		return "member/join";
-	}
+
+	/*
+	 * // member/join.do?->
+	 * 
+	 * @RequestMapping(value="join", method=RequestMethod.GET) public String join()
+	 * { return "member/join"; }
+	 */
 	@RequestMapping(value="memberIdConfirm", method=RequestMethod.GET)
 	public String memberIdConfirm(String memberId, Model model) {
 		model.addAttribute("midConfirmResult", memberService.memberIdConfirm(memberId));
