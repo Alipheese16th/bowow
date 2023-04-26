@@ -15,6 +15,12 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
+	@RequestMapping(value="list", method=RequestMethod.GET)
+	public String list(Model model) {
+		
+		return "cart/list";
+	};
+	
 	@RequestMapping(value="confirmCart", method=RequestMethod.GET)
 	public String confirmCart(Model model, String productCode, String memberId, int[] sizeNum, int[] colorNum, int[] qty) {
 		

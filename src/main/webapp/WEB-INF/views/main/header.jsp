@@ -99,5 +99,22 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+  	<script>
+		$(function(){
+			
+			$(".lnb").hide();
+			$("ul .lnb-down").mouseenter(function(){ $(this).children(".lnb").stop().slideDown(300);})
+			$("ul .lnb-down").mouseleave(function(){ $(this).children(".lnb").stop().slideUp(300);})
+			$("ul .lnb-down").click(function(){ $(this).children(".lnb").slideToggle(300);});
+			$(".search").click(function(){
+				$(".search-view").toggleClass("up");
+			});
+			$("div.bar-close").click(function(){
+				$(".top-bar").css("display", "none");
+			})
+		});
+
+	</script>
 </body>
 </html>

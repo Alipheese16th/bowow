@@ -11,7 +11,6 @@ public class Qna {
 	private String productCode;
 	private String qnaTitle;
 	private String qnaContent;
-	private String qnaImage;
 	private Date qnaDate;
 	private int qnaGroup;
 	private int qnaStep;

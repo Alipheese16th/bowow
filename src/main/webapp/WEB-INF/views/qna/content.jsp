@@ -52,7 +52,7 @@
 	</tr>
 	<tr>
 		<th>이미지</th>
-		<td>${contentQna.qnaImage }</td>
+		<td></td>
 	</tr>
 	<tr>
 		<th>제목</th>
