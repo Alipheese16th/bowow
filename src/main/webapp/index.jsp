@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <jsp:forward page="main.do"/> --%>
-	<jsp:forward page="product/list.do?category=fashion"/>
+	<jsp:forward page="main.do"/>
 </body>
 </html>
