@@ -72,6 +72,7 @@ public class MemverServiceImpl implements MemberService {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				// 받을 메일 설정 
 				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(member.getMemberEmail()));
+				mimeMessage.setFrom(new InternetAddress("sykim789456@gmail.com"));
 				mimeMessage.setSubject("[HTML 가입인사]" + member.getMemberName() + "님 회원가입 감사합니다.");
 				mimeMessage.setText(content, "utf-8", "html");
 			}
