@@ -10,6 +10,20 @@
 	<title>title</title>
 	<link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet">
 	<link href="${conPath }/css/header.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+  	<script>
+		$(document).ready(function(){
+			$(".lnb").hide();
+			$("ul .lnb-down").mouseenter(function(){ $(this).children(".lnb").stop().slideDown(300);})
+			$("ul .lnb-down").mouseleave(function(){ $(this).children(".lnb").stop().slideUp(300);})
+			$(".search").click(function(){
+				$(".search-view").toggleClass("up");
+			});
+			$("div.bar-close").click(function(){
+				$(".top-bar").css("display", "none");
+			})
+		});
+	</script>
 </head>
 <body>
 	<div id="header">

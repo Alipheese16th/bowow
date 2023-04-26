@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link href="${conPath}/css/main.css">
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<style>
 		#content{height:800px; width:100%; margin:0 auto;}
 	</style>
