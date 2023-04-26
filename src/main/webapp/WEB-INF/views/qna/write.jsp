@@ -11,13 +11,13 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style>
-		body {min-width: 1400px; text-align: center;}
-		h1 {text-align: center; height: 100px; line-height: 100px;}
-		.form-control {border: 1px solid #BE8D6E;}
-		label {font-size: 1.2em; font-weight: bold;}
-		textarea {height: 300px;}
-		.btn {background: #BE8D6E; font-size: 1.2em;}
-		.btn:hover {
+		.qna {min-width: 1400px; text-align: center;}
+		.qna h1 {text-align: center; height: 100px; line-height: 100px;}
+		.qna .form-control {border: 1px solid #BE8D6E;}
+		.qna label {font-size: 1.2em; font-weight: bold;}
+		.qna textarea {height: 300px;}
+		.qna .btn {background: #BE8D6E; font-size: 1.2em;}
+		.qna .btn:hover {
 			background: gray;
 			border: 1px solid lightgray;
 			font-weight: bold;
@@ -28,22 +28,26 @@
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
-	<h1>상품문의 게시판 작성</h1>
-	<form action="${conPath }/qna/write.do" method="post">
-		<div class="mb-3">
-			<label for="exampleFormControlInput1" class="form-label">제목</label>
-			<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력해주세요" required="required">
-		</div>
-		<div class="mb-3">
-			<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-			<textarea name="qnaContent" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="내용을 입력해주세요" required="required"></textarea>
-		</div>
-		<!-- <div class="mb-3">
-			<label for="exampleFormControlInput1" class="form-label">파일첨부</label>
-			<input type="file" class="form-control" id="exampleFormControlInput1">
-		</div> -->
-		<input class="btn btn-primary form-control" type="submit" value="작성하기">
-	</form>
+	
+	<div class="qna">
+		<h1>상품문의 게시판 작성</h1>
+		<form action="${conPath }/qna/write.do" method="post">
+			<div class="mb-3">
+				<label for="exampleFormControlInput1" class="form-label">제목</label>
+				<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력해주세요" required="required">
+			</div>
+			<div class="mb-3">
+				<label for="exampleFormControlTextarea1" class="form-label">내용</label>
+				<textarea name="qnaContent" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="내용을 입력해주세요" required="required"></textarea>
+			</div>
+			<!-- <div class="mb-3">
+				<label for="exampleFormControlInput1" class="form-label">파일첨부</label>
+				<input type="file" class="form-control" id="exampleFormControlInput1">
+			</div> -->
+			<input class="btn btn-primary form-control" type="submit" value="작성하기">
+		</form>
+	</div>
+	
 	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

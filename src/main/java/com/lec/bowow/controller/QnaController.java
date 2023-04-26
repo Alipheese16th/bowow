@@ -18,7 +18,7 @@ import com.lec.bowow.util.Paging;
 public class QnaController {
 	@Autowired
 	private QnaService qnaService;
-	@RequestMapping(value="list", method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String list(String pageNum, Model model) {
 		model.addAttribute("qnaList", qnaService.qnaList(pageNum));
 		model.addAttribute("paging", new Paging(qnaService.totCntQna(), pageNum));

@@ -11,20 +11,20 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style>
-		body {min-width: 1400px; text-align: center;}
-		h1 {font-size: 2.7em; height: 100px; line-height: 100px;}
-		a {color: black; text-decoration: none;}
-		.write {
+		.qna {min-width: 1400px; text-align: center;}
+		.qna h1 {font-size: 2.7em; height: 100px; line-height: 100px;}
+		.qna a {color: black; text-decoration: none;}
+		.qna .write {
 			background-color: #BE8D6E; color: #fff;
 			font-size: 1.2em;
 		}
-		.write:hover {background-color: gray;}
-		.write a {
+		.qna .write:hover {background-color: gray;}
+		.qna .write a {
 			color: #fff;
 		}
-		.paging {margin: 30px 0 30px;}
-		.paging b {color: red;}
-		tr:hover {cursor: pointer;}
+		.qna .paging {margin: 30px 0 30px;}
+		.qna .paging b {color: red;}
+		.qna tr:hover {cursor: pointer;}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -57,87 +57,89 @@
 	</c:if>
 
 	<jsp:include page="../main/header.jsp"/>
-	<h1>상품문의 게시판</h1>
-	<form action="${conPath }/qna/list.do">
-		<!-- <input type="text" name="method" value="list"> -->
-		<table class="table table-hover">
-		  <tr>
-		  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th>
-		  </tr>
-		  <c:if test="${totCntQna eq 0 }">
-			<tr><td colspan="6">해당 페이지의 글이 없습니다</td>
-		  </c:if>
-		  <c:if test="${totCntQna != 0 }">
-			<c:forEach var="qna" items="${qnaList }">
-				<tr onclick="clickTr(${qna.qnaNum})">
-					<td>${qna.qnaNum }</td>
-					<td></td>
-			  		<td style="text-align: left;">
-			  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
-			  				<c:if test="${i eq qna.qnaIndent }">
-			  					<img src="${conPath }/img/re.png" width="20">
-			  				</c:if>
-			  				<c:if test="${i != qna.qnaIndent }"> &nbsp; &nbsp; </c:if>
-			  			</c:forEach>
-			  			${qna.qnaTitle }
-			  		</td>
-			  		<td>${qna.qnaContent }</td>
-			  		<td>
-			  			<fmt:formatDate value="${qna.qnaDate }" type="date" pattern="yyyy-MM-dd"/>
-			  		</td>
-			  		<td>${qna.qnaIp }</td>
-				</tr>
-			</c:forEach>
-		  </c:if>
-		</table>
-		<select name="schItem">
-			<option value=""
-				<c:if test="${param.schItem eq '' }">selected="selected"</c:if>
-			>검색키워드</option>
-			<option value="qnaTitle"
-				<c:if test="${param.schItem eq 'qnaTitle' }">selected="selected"</c:if>
-			>제목</option>
-			<option value="qnaContent"
-				<c:if test="${param.schItem eq 'qnaContent' }">selected="selected"</c:if>
-			>내용</option>
-		</select>
-		<input type="text" name="schWord" value="${param.schWord }">
-		<input type="submit" value="검색">
-		<button class="btn write" type="button" style="text-align: right;">
-			<a href="${conPath }/qna/write.do?pageNum=${paging.currentPage}" style="text-align: right;">
-				WRITE
-			</a>
-		</button>
-	</form>
-  	<%-- <div class="d-grid gap-2 col-4 mx-auto">
-		<button class="btn write" type="button">
-			<a href="${conPath }/qna/write.do?pageNum=${paging.currentPage}">
-				WRITE
-			</a>
-		</button>
-	</div> --%>
-	<div class="paging">
-		<c:if test="${paging.startPage > paging.blockSize }">
-			<button type="button" class="btn btn-outline-secondary">
-				<a href="${conPath }/qna/list.do?pageNum=${paging.startPage-1}"><</a>
+	
+	<div class="qna">
+		<h1>상품문의 게시판</h1>
+		<form action="${conPath }/qna/list.do">
+			<input type="hidden" name="value" value="list">
+			<%-- <input type="text" name="memberId" value="${qnaList.memberId }"> --%>
+			<table class="table table-hover">
+			  <tr>
+			  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th>
+			  </tr>
+			  <c:if test="${totCntQna eq 0 }">
+				<tr><td colspan="6">해당 페이지의 글이 없습니다</td>
+			  </c:if>
+			  <c:if test="${totCntQna != 0 }">
+				<c:forEach var="qna" items="${qnaList }">
+					<tr onclick="clickTr(${qna.qnaNum})">
+						<td>${qna.qnaNum }</td>
+						<td></td>
+				  		<td style="text-align: left;">
+				  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
+				  				<c:if test="${i eq qna.qnaIndent }">
+				  					<img src="${conPath }/img/re.png" width="20">
+				  				</c:if>
+				  				<c:if test="${i != qna.qnaIndent }"> &nbsp; &nbsp; </c:if>
+				  			</c:forEach>
+				  			${qna.qnaTitle }
+				  		</td>
+				  		<td>${qna.qnaContent }</td>
+				  		<td>
+				  			<fmt:formatDate value="${qna.qnaDate }" type="date" pattern="yyyy-MM-dd"/>
+				  		</td>
+				  		<td>${qna.qnaIp }</td>
+					</tr>
+				</c:forEach>
+			  </c:if>
+			</table>
+			<select name="schItem">
+				<option value="qnaTitle"
+					<c:if test="${param.schItem eq 'qnaTitle' }">selected="selected"</c:if>
+				>제목</option>
+				<option value="qnaContent"
+					<c:if test="${param.schItem eq 'qnaContent' }">selected="selected"</c:if>
+				>내용</option>
+			</select>
+			<input type="text" name="schWord" value="${param.schWord }">
+			<input type="submit" value="검색">
+			<button class="btn write" type="button">
+				<a href="${conPath }/qna/write.do">
+					WRITE
+				</a>
 			</button>
-		</c:if>
-		<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
-			<c:if test="${paging.currentPage == i }">
-				<button type="button" class="btn btn-outline-secondary"><b>${i }</b></button>
-			</c:if>
-			<c:if test="${paging.currentPage != i }">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?pageNum=${i }'">
-					${i }
+		</form>
+	  	<%-- <div class="d-grid gap-2 col-4 mx-auto">
+			<button class="btn write" type="button">
+				<a href="${conPath }/qna/write.do?pageNum=${paging.currentPage}">
+					WRITE
+				</a>
+			</button>
+		</div> --%>
+		<div class="paging">
+			<c:if test="${paging.startPage > paging.blockSize }">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?value=list&pageNum=${paging.startPage-1}&schItem=${param.schItem }&schWord=${param.schWord}'">
+					<
 				</button>
 			</c:if>
-		</c:forEach>
-		<c:if test="${paging.endPage < paging.pageCnt }">
-			<button type="button" class="btn btn-outline-secondary">
-				<a href="${conPath }/qna/list.do?pageNum=${paging.endPage+1}">></a>
-			</button>
-		</c:if>
+			<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
+				<c:if test="${paging.currentPage == i }">
+					<button type="button" class="btn btn-outline-secondary"><b>${i }</b></button>
+				</c:if>
+				<c:if test="${paging.currentPage != i }">
+					<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?value=list&pageNum=${i }&schItem=${param.schItem }&schWord=${param.schWord}'">
+						${i }
+					</button>
+				</c:if>
+			</c:forEach>
+			<c:if test="${paging.endPage < paging.pageCnt }">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?value=list&pageNum=${paging.endPage+1}&schItem=${param.schItem }&schWord=${param.schWord}'">
+					>
+				</button>
+			</c:if>
+		</div>
 	</div>
+	
 	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
