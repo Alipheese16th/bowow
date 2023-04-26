@@ -51,11 +51,7 @@
 	
 	<div class="container py-5">
 		
-		
-			
-		
 		<div class="d-flex justify-content-evenly">
-		
 			
 			<c:forEach items="${productList}" var="product" varStatus="i">
 			
@@ -78,9 +74,7 @@
 				
 			</c:forEach>
 		
-		
 		</div>
-		
 		
 		<!-- 페이지 네비게이션 시작 -->
 		<nav aria-label="Page navigation example pt-5 mt-5">

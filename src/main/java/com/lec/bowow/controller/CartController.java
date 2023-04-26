@@ -1,5 +1,7 @@
 package com.lec.bowow.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +18,11 @@ public class CartController {
 	private CartService cartService;
 	
 	@RequestMapping(value="list", method=RequestMethod.GET)
-	public String list(Model model) {
-		
+	public String list(Model model, HttpSession httpSession) {
+		model.addAttribute("cartList",cartService.cartList(httpSession));
 		return "cart/list";
 	};
+	
 	
 	@RequestMapping(value="confirmCart", method=RequestMethod.GET)
 	public String confirmCart(Model model, String productCode, String memberId, int[] sizeNum, int[] colorNum, int[] qty) {

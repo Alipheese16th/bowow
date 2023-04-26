@@ -13,33 +13,39 @@
 		<result property="colorNum" column="colorNum"/>
 		<result property="qty" column="qty"/>
 		<result property="cost" column="cost"/>
+		<result property="productName" column="productName"/>
+		<result property="productPrice" column="productPrice"/>
+		<result property="productDiscount" column="productDiscount"/>
+		<result property="image" column="image"/>
 	</resultMap>
 	
-	<select id="cartList" parameterType="String" resultMap="CartResult">
-	
-	</select>
-	
 	<select id="confirmCart" parameterType="Cart" resultType="int">
-	
-		<!-- SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} -->
-		
 		<if test="sizeNum == 0 and colorNum == 0">
 			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
 		</if>
-		
 		<if test="sizeNum != 0 and colorNum == 0">
 			SELECT COUNT(*) FROM CART WHERE  MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum}
 		</if>
-		
 		<if test="sizeNum == 0 and colorNum != 0">
 			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND COLORNUM = #{colorNum}
 		</if>
-		
 		<if test="sizeNum != 0 and colorNum != 0">
 			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
 		</if>
-		
 	</select>
+	
+	<select id="cartList" parameterType="String" resultMap="CartResult">
+		SELECT C.*, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, IMAGE  FROM CART C, PRODUCT P, IMAGE I
+  			WHERE C.PRODUCTCODE = P.PRODUCTCODE AND P.PRODUCTCODE = I.PRODUCTCODE AND TYPE = 'title' AND MEMBERID = #{memberId}
+	</select>
+	
+	<select id="totCntCart" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId}
+	</select>
+	
+	
+	
+	
 	
 	
 </mapper>

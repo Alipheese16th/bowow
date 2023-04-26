@@ -16,7 +16,10 @@ public interface ProductService {
 	public List<Sizes> sizeList(String productCode);
 	public List<Color> colorList(String productCode);
 	
-	public List<Product> searchProduct(String searchName);
+	public List<Product> searchProduct(Product product, String pageNum);
+	public int totCntSearch(Product product);
+	
+	
 	public int registerProduct(Product product);
 	public int registerSize(Sizes sizes);
 	public int registerColor(Color color);

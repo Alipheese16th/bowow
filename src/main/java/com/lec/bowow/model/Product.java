@@ -19,4 +19,6 @@ public class Product {
 	// 페이징을 위한 필드
 	private int startRow;
 	private int endRow;
+	// 검색을 위한 필드
+	private String searchName;
 }

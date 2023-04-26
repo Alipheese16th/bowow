@@ -22,6 +22,9 @@
 			$("div.bar-close").click(function(){
 				$(".top-bar").css("display", "none");
 			})
+			$(".cart").click(function(){
+				location.href="${conPath}/cart/list.do";
+			});
 		});
 	</script>
 </head>
@@ -89,8 +92,8 @@
 						<button class="cart">장바구니<span>0</span></button>
 					</div>
 					<div class="search-view">
-						<form>
-							<input type="text" name="sch_product">
+						<form action="${conPath}/product/search.do">
+							<input type="text" name="searchName">
 							<input type="submit" class="searchP">
 							<input type="button" class="search">
 						</form>

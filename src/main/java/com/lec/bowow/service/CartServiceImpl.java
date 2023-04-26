@@ -1,10 +1,15 @@
 package com.lec.bowow.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lec.bowow.dao.CartDao;
 import com.lec.bowow.model.Cart;
+import com.lec.bowow.model.Member;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -43,5 +48,23 @@ public class CartServiceImpl implements CartService {
 		
 		return result;
 	}
+
+	@Override
+	public List<Cart> cartList(HttpSession httpSession) {
+//		Member member = (Member)httpSession.getAttribute("member");
+//		return cartDao.cartList(member.getMemberId());
+		return cartDao.cartList("aaa");
+	}
+
+	@Override
+	public int totCntCart(HttpSession httpSession) {
+//		Member member = (Member)httpSession.getAttribute("member");
+//		return cartDao.totCntCart(member.getMemberId());
+		return cartDao.totCntCart("aaa");
+	}
+	
+	
+	
+	
 
 }

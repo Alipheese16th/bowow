@@ -37,6 +37,7 @@
 		<result property="productColor" column="productColor"/>
 	</resultMap>
 	
+	<!-- 상품 리스트 (카테고리 별) -->
 	<select id="productList" parameterType="Product" resultMap="ProductResult">
 		<if test="category==null or category==''">
 			SELECT * FROM 
@@ -108,8 +109,7 @@
 		</if>
 	</select>
 	
-	
-	
+	<!-- 상품 상세보기 -->
 	<select id="productDetail" parameterType="String" resultType="Product">
 		SELECT * FROM PRODUCT WHERE productCode = #{productCode}
 	</select>
@@ -123,16 +123,27 @@
 		SELECT * FROM COLOR WHERE PRODUCTCODE = #{productCode}
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	<select id="searchProduct" parameterType="String" resultMap="ProductResult">
-		SELECT * FROM PRODUCT WHERE productName LIKE '%' || TRIM(#{searchName}) || '%'
+	<!-- 상품 검색하기 -->
+	<select id="searchProduct" parameterType="Product" resultMap="ProductResult">
+		SELECT * FROM 
+		  (SELECT ROWNUM RN, A.* FROM 
+		    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+		      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
+		        AND TYPE='title' AND productName LIKE '%' || TRIM(#{searchName}) || '%' ORDER BY PRODUCTDATE DESC) A)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
+	<select id="totCntSearch" parameterType="Product" resultType="int">
+		SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(#{searchName}) || '%'
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<insert id="registerProduct" parameterType="Product">
 		INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK) 

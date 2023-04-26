@@ -30,7 +30,6 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.totCntProduct(product);
 	}
 	
-	
 	@Override
 	public Product productDetail(String productCode) {
 		return productDao.productDetail(productCode);
@@ -48,14 +47,22 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.colorList(productCode);
 	}
 	
-
-	
-
 	@Override
-	public List<Product> searchProduct(String searchName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> searchProduct(Product product, String pageNum) {
+		Paging paging = new Paging(totCntSearch(product), pageNum, 16, 5);
+		product.setStartRow(paging.getStartRow());
+		product.setEndRow(paging.getEndRow());
+		return productDao.searchProduct(product);
 	}
+	@Override
+	public int totCntSearch(Product product) {
+		return productDao.totCntSearch(product);
+	}
+	
+	
+	
+	
+	
 
 	@Override
 	public int registerProduct(Product product) {
@@ -92,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 	
 
 }

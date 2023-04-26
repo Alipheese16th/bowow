@@ -43,7 +43,6 @@
 	height:11px;
 }
 
-
 </style>
 </head>
 <body>
@@ -142,36 +141,32 @@
 				
 				<hr>
 				
-				<form action="${conPath}/product/cart.do">
-					<input type="hidden" id="productCode" name="productCode" value="${product.productCode}">
-					
-					<table class="w-100">
-						<tbody id="result">
-							<tr>
-								<th class="w-50">이름</th>
-								<th>수량</th>
-								<th>가격</th>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td colspan="3" class="right pt-3">
-									총 상품금액 <span id="total"></span>원
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				<input type="hidden" id="productCode" name="productCode" value="${product.productCode}">
 				
-					<input type="button" class="btn btn-dark" id="cart" value="장바구니 담기">
-					<input type="button" class="btn btn-outline-dark" value="즉시 구매하기">
-				</form>
-				
+				<table class="w-100">
+					<tbody id="result">
+						<tr>
+							<th class="w-50">이름</th>
+							<th>수량</th>
+							<th>가격</th>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td colspan="3" class="right pt-3">
+								총 상품금액 <span id="total"></span>원
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			
+				<button type="button" class="btn btn-dark" id="cart">장바구니 담기</button>
+				<button type="button" class="btn btn-outline-dark">즉시 구매하기</button>
 				
 				
 			</div><!-- infoArea -->
 			
 		</div><!-- d-flex -->
-		
 		
 		
 		<ul class="nav nav-tabs d-flex justify-content-center my-5">
@@ -327,6 +322,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	
+	// 초기값 변수
 	var size = 0;
 	var color = 0;
 	var sizeName;
@@ -335,19 +331,25 @@
 	var disPrice = Number($('.disPrice').attr('id'));
 	var totQty = 0;
 	var total = 0;
+	$('#total').text(0); // 총 상품금액 초기화 ( 0원 )
 	var num = 0;
 	var products = [];	// 상품 배열
-	if(!$('.disPrice').length){ // 할인판매가가 존재하지 않는다면 판매가로 전부 적용
+	if(!$('.disPrice').length){ // 할인판매가가 존재하지 않는다면 기본판매가로 전부 적용
 		disPrice = price;
 	}
-	$('#total').text(0); // 총 상품금액 초기화 ( 0원 )
 	
-	
-	$('#cart').click(function(){	// 장바구니 클릭
+	////////////////////////////////////////////////////////////////// 장바구니 클릭시
+	$('#cart').click(function(){
+		
+		if(products.length == 0){	// 상품 아무것도 안고르고 장바구니 클릭시에 경고문
+			alert('필수 옵션을 선택하세요');
+			return;
+		}
+		
 		var sizeNums = '';
 		var colorNums = '';
 		var qtys = '';
-		var memberId = 'aaa';
+		var memberId = 'aaa';	////////////////////////////// 나중에 로그인 기능 구현시 로그인 세션에서 가져와야함
 		var productCode = $('#productCode').val();
 		
 		// 이미 장바구니에 해당 아이템이 존재하는지 확인
@@ -370,9 +372,7 @@
 		console.log(colorNums);
 		console.log(qtys);
 		
-		
 		location.href='${conPath}/cart/confirmCart.do?'+sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode;
-
 		
 		/* $.ajax({
 			url : '${conPath}/confirmCart.do',
@@ -384,9 +384,7 @@
 			}
 		}); */
 		
-		
 	});
-	
 	
 	const getProductBoth = function(size, color, sizeName, colorName){
 		var product = $('<tr>'

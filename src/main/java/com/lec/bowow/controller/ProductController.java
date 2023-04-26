@@ -33,6 +33,12 @@ public class ProductController {
 		return "product/content";
 	}
 	
+	@RequestMapping(value="search", method=RequestMethod.GET)
+	public String search(Model model, Product product, String pageNum) {
+		model.addAttribute("productList",productService.searchProduct(product, pageNum));
+		model.addAttribute("paging",new Paging(productService.totCntSearch(product), pageNum, 16, 5));
+		return "product/search";
+	}
 	
 	
 	
