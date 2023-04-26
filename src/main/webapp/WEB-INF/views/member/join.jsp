@@ -9,10 +9,11 @@
 	<meta charset="UTF-8">
 	<title>회원가입</title>
 	<link href="${conPath}/css/join.css" rel="stylesheet">
+  	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script src="${conPath}/js/address.js"></script>
-	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script>
 		$(document).ready(function(){
 			const patternId = /^[a-z]{1}[a-z0-9_-]{2,15}$/; // 아이디 정규표현식
@@ -155,7 +156,6 @@
 	    });
 	  } );
 	</script>
-		<script src="${conPath}/js/address.js"></script>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
