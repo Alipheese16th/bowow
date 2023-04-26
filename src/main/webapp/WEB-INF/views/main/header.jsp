@@ -26,6 +26,14 @@
 				location.href="${conPath}/cart/list.do";
 			});
 		});
+		$(window).scroll(function(){
+			var scroll = $(this).scrollTop();
+			if(scroll > 1){
+				$("#header").css("box-shadow", "0 3px 4px 0 rgba(0, 0, 0, 0.07)");
+			}else{
+				$("#header").css("box-shadow","0px 0px 0px 0px");
+			}
+		});
 	</script>
 </head>
 <body>
