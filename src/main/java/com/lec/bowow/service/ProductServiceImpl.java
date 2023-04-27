@@ -59,7 +59,10 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.totCntSearch(product);
 	}
 	
-	
+	@Override
+	public List<Product> allProductList() {
+		return productDao.allProductList();
+	}
 	
 	
 	
@@ -99,6 +102,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 	
 	
 

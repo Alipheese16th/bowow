@@ -136,7 +136,11 @@
 		SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(#{searchName}) || '%'
 	</select>
 	
-	
+	<!-- 질문게시판 상품선택 모든 상품 리스트 -->
+	<select id="allProductList" resultMap="ProductResult">
+		SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+    		WHERE P.PRODUCTCODE = I.PRODUCTCODE AND TYPE='title' ORDER BY PRODUCTDATE DESC
+	</select>
 	
 	
 	
