@@ -26,7 +26,7 @@ public class MemverServiceImpl implements MemberService {
 		return memberDao.memberMailConfirm(memberEmail);
 	}
 	@Override
-	public int joinMember(final Member member) {
+	public int joinMember(final Member member, String memberBirthTemp, HttpSession session) {
 		MimeMessagePreparator message = new MimeMessagePreparator() {
 			String content = "<style>.body{\r\n" + 
 					"			font-family: 'Pretendard-Regular', 'sans-serif';\r\n" + 
@@ -83,6 +83,11 @@ public class MemverServiceImpl implements MemberService {
 			}
 		};
 		mailSender.send(message); // 메일 전송
+		if(!memberBirthTemp.equals("")) {
+			member.setMemberBirth(Date.valueOf(memberBirthTemp));
+		}
+		System.out.println(member);
+		session.setAttribute("memberId", member.getMemberId());
 		return memberDao.joinMember(member);
 	}
 	@Override

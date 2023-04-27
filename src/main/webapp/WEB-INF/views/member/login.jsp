@@ -44,6 +44,11 @@
 						</td>
 					</tr>
 					<tr>
+						<td style="text-align:right;display: block;">
+							<a href="${conPath}/findId.do" style="font-size:12px; color:#000;">아이디 찾기</a><span class="find-style"></span><a href="${conPath}/findPw.do" style="font-size:12px; color:#000;">비밀번호 찾기</a>
+						</td>
+					</tr>
+					<tr>
 						<td colspan="2">
 							<button type="submit" class="btnStyle">로그인</button>
 							<button type="button" class="btnStyle" onclick="location='${conPath }/join.do'">회원가입</button>

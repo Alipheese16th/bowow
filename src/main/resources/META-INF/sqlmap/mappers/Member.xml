@@ -21,14 +21,14 @@
 	</resultMap>
 	
 	<select id="memberIdConfirm" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId, jdbcType=VARCHAR}
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId}
 	</select>
 	<select id="memberMailConfirm">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBEREMAIL = #{memberEmail}
 	</select>
 	<insert id="joinMember" parameterType="Member">
-		INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH)
-    		VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberPost}, #{memberAddr1}, #{memberAddr2}, #{memberBirth})
+			INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH)
+    			VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberPost}, #{memberAddr1}, #{memberAddr2}, #{memberBirth})
 	</insert>
 	<select id="searchIdMember" parameterType="String" resultType="String">
 		SELECT MEMBERID FROM MEMBER WHERE MEMBERTEL = #{memberTel}

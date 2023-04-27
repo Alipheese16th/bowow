@@ -1,5 +1,7 @@
 package com.lec.bowow.controller;
 
+import java.sql.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lec.bowow.model.Member;
 import com.lec.bowow.service.MemberService;
@@ -26,8 +29,8 @@ public class MemberController {
 		return "member/memberIdConfirm";
 	}
 	@RequestMapping(value="join", method=RequestMethod.POST)
-	public String joinSuccess(@ModelAttribute("mDto") Member member, Model model) {
-		model.addAttribute("joinResult", memberService.joinMember(member));
+	public String joinMember(@ModelAttribute("mDto") Member member, String memberBirthTemp ,Model model, HttpSession session) {
+		model.addAttribute("joinResult", memberService.joinMember(member, memberBirthTemp, session));
 		return "member/login";
 	}
 	@RequestMapping(value="login", method=RequestMethod.GET)
@@ -45,6 +48,10 @@ public class MemberController {
 			model.addAttribute("memberPw", memberPw);
 			return "member/login";
 		}
+	}
+	@RequestMapping(value="findId", method=RequestMethod.GET)
+	public String findId() {
+		return "member/findId";
 	}
 	@RequestMapping(value="logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {

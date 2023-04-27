@@ -7,7 +7,7 @@ import com.lec.bowow.model.Member;
 public interface MemberService {
 	public int memberIdConfirm(String memberId);
 	public int memberMailConfirm(String memberEmail);
-	public int joinMember(Member member);
+	public int joinMember(Member member, String memberBirthTemp, HttpSession session);
 	public String loginCheck(String memberId, String memberPw, HttpSession session);
 	public String searchIdMember(String memberEmail);
 	public String searchPwMember(String memberId);
