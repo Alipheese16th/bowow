@@ -21,11 +21,11 @@
 			const patternName = /^[a-zA-Z가-힣]{1,}$/; // 이름 정규표현식 
 			const patternSpc = /[~`!@#$%^&*()-_+=|\\\[\]{}'";:?,.\/]/;
 			const patternMail = /^\w+@\w+(\.\w+){1,2}$/; // 이메일 정규표현식
-			const patternTel = /^\d{2,3}[\-) ]?\d{3,4}[\-]?\d{4}$/; // 전화번호 정규표현식
+			const patternTel = /^\d{2,3}[\-)]?\d{3,4}[\-]?\d{4}$/; // 전화번호 정규표현식
 			const patternSpace = /\s/g; 
 			var memberId, memberPw, memberPwchk, memberName, memberEmail, memberTel;
 			$(".idconfirm").click(function(){
-				if(memberId && memberId.length > 2){
+				if(memberId){
 					$.ajax({
 						url : '${conPath}/memberIdConfirm.do',
 						dataType : 'html',
@@ -77,10 +77,10 @@
 					$(".mnameResult").html("<p style='color:red;'>필수 정보입니다.</p>");
 				}else if(!memberName.match(patternName)|| memberName.match(patternSpace)){
 					$(".mnameResult").html("<p style='color:red;'>한글과 영문 대 소문자를 사용하세요.</p>");
-					if(memberName.match(patternSpc)){
+/* 					if(memberName.match(patternSpc)){
 						memberName = memberName.replace(patternSpc, '');				
 						$(this).val(memberName);
-					}
+					} */
 				}else{
 					$(".mnameResult").html("");
 				}
@@ -107,22 +107,23 @@
 			}); //mtel-keyup 이벤트
 			$("form").submit(function(){
 				var midResult = $(".midResult").text().trim();
-				/*var mnameResult = $(".mnameResult").text().trim();
+				var mnameResult = $(".mnameResult").text().trim();
+				var mpwResult = $(".mpwResult").text().trim();
+				var mpwChkResult = $(".mpwChkResult").text().trim();
 				var mtelResult = $(".mtelResult").text().trim();
 				var memailResult = $(".memailResult").text().trim();
-				var maddressResult = $(".maddressResult").text().trim();*/
 				if(midResult != "사용가능한 ID입니다"){
 					alert("사용가능한 아이디인지 확인 요망");
 					$("#id").focus();
 					return false;
-				}else if(!memberPw){
+				}else if(!mpwResult=="" || !mpwChkResult==""){
 					alert("비밀번호를 확인하세요.");
 					$("#pw").focus();
 					return false;
-				}else if(!memberPwchk){
-					alert("비밀번호가 맞지 않습니다.");
+				}else if(mpwChkResult=="비밀번호가 일치하지 않습니다."){
+					alert("비밀번호가 일치하지 않습니다.");
 					return false;
-				}else if(!memberName){
+				}else if(!mnameResult==""){
 					alert("이름을 확인하세요.")
 					$("#name").focus();
 					return false;
@@ -130,7 +131,7 @@
 					alert("전화번호를 확인하세요.");
 					$("#tel").focus();
 					return false;
-				}else if(memberEmail == "이메일 형식으로 입력해 주세요."){
+				}else if(!memailResult==""){
 					alert("이메일을 확인하세요.");
 					$("#email").focus();
 					return false;
@@ -141,7 +142,7 @@
 	<script>
 	  $(function(){
 	    $("#datepicker").datepicker({
-	    	dateFormat: "yy-mm-dd",
+	    	dateFormat: "yy/mm/dd",
 	    	monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
 	    	dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
 	    	changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.

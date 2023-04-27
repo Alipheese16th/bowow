@@ -10,7 +10,7 @@
 	<title>title</title>
 	<link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet">
 	<link href="${conPath }/css/header.css" rel="stylesheet">
-<!-- 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script> -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.4.js"></script> -->
   	<script>
 		$(document).ready(function(){
 			$(".lnb").hide();
