@@ -28,7 +28,7 @@
 	</select>
 	<insert id="joinMember" parameterType="Member">
 		INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH)
-    		VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberPost}, #{memberAddr1},#{memberAddr2},#{memberBirth})
+    		VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberPost}, #{memberAddr1}, #{memberAddr2}, #{memberBirth})
 	</insert>
 	<select id="searchIdMember" parameterType="String" resultType="String">
 		SELECT MEMBERID FROM MEMBER WHERE MEMBERTEL = #{memberTel}

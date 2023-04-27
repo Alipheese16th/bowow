@@ -1,8 +1,6 @@
 package com.lec.bowow.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.sql.Date;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
