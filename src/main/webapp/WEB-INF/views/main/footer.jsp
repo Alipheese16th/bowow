@@ -19,7 +19,9 @@
 				<a href="#">바우와우소개</a>
 				<a href="#">이용약관</a>
 				<a href="#">개인 정보 처리 방침</a>
-				<a href="${conPath }/admin/login.do">관리자 페이지</a>
+				<c:if test="${empty member }">
+					<a href="${conPath }/admin/login.do">관리자 페이지</a>
+				</c:if>
 			</div>
 			<div class="footer-content">
 				<div class="footer-left">

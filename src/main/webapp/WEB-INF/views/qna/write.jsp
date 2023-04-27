@@ -33,6 +33,9 @@
 	<script>
 		$(document).ready(function(){
 			$('.my-select').selectpicker();
+			$('form').click(function() {
+				location.href="${conPath}/qna/write.do?"
+			});
 		}
 	</script>
 </head>

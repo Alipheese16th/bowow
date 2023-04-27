@@ -74,6 +74,13 @@
 							<li><a href="#">주문내역</a></li>
 						</ul>
 					</c:if>
+					<c:if test="${empty member and not empty admin}">
+						<ul class="inner-right">
+							<li><a href="${conPath}/admin/logout.do">${admin.adminId}님 로그아웃</a></li>
+							<li><a href="#">마이페이지</a></li>
+							<li><a href="#">주문내역</a></li>
+						</ul>
+					</c:if>
 				</div>
 			</div><!-- header-inner -->
 			<div class="header-bottom">

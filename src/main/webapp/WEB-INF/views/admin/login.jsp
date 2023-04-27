@@ -75,6 +75,16 @@
 	</script>
 </head>
 <body>
+	<c:if test="${not empty member }">
+		<script>
+			alert('접근 제한 페이지 입니다');
+			history.back();
+		</script>
+	</c:if>
+	<c:if test="${not empty admin }">
+		<script>location.href="${conPath}/admin/main.do"</script>
+	</c:if>
+
 	<div class="wrap">
 		<div class="content">
 		  <div class="card-body">
@@ -82,7 +92,7 @@
 			    <h5 class="card-title" style="font-weight: bold; font-size: 1.8em;">관리자 로그인</h5>
 			    <p class="card-text">아이디와 비밀번호를 입력해주세요</p>
 			    <div class="id">
-			    	<input type="text" name="adminId" placeholder="아이디" value="${adminId }">
+			    	<input type="text" name="adminId" placeholder="아이디" value="${adminId }" autofocus="autofocus">
 			    </div>
 			    <div class="pw">
 			    	<input type="password" name="adminPw" placeholder="비밀번호" value="${adminPw }">

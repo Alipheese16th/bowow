@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lec.bowow.dao.QnaDao;
+import com.lec.bowow.model.Admin;
 import com.lec.bowow.model.Member;
 import com.lec.bowow.model.Qna;
 import com.lec.bowow.util.Paging;
@@ -16,6 +17,10 @@ import com.lec.bowow.util.Paging;
 public class QnaServiceImpl implements QnaService {
 	@Autowired
 	private QnaDao qnaDao;
+	@Override
+	public List<Qna> qnaList() {
+		return qnaDao.qnaAList();
+	}
 	@Override
 	public List<Qna> qnaList(Qna qna, String pageNum) {
 		Paging paging = new Paging(qnaDao.totCntQna(qna), pageNum);
@@ -48,9 +53,11 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.deleteQna(qnaNum);
 	}
 	@Override
-	public int replyQna(Qna qna, HttpServletRequest request) {
+	public int replyQna(Qna qna, HttpServletRequest request, HttpSession httpSession) {
 		qnaDao.preReplyQna(qna);
+		Admin admin = (Admin) httpSession.getAttribute("admin");
 		qna.setQnaIp(request.getRemoteAddr());
+		qna.setAdminId(admin.getAdminId());
 		return qnaDao.replyQna(qna);
 	}
 }

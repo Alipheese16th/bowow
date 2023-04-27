@@ -6,6 +6,7 @@
 	<resultMap type="Qna" id="QnaResult">
 		<result property="qnaNum" column="qnaNum"/>
 		<result property="memberId" column="memberId"/>
+		<result property="adminId" column="adminId"/>
 		<result property="productCode" column="productCode"/>
 		<result property="qnaTitle" column="qnaTitle"/>
 		<result property="qnaContent" column="qnaContent"/>
@@ -15,6 +16,9 @@
 		<result property="qnaIndent" column="qnaIndent"/>
 		<result property="qnaIp" column="qnaIp"/>
 	</resultMap>
+	<select id="qnaAList" resultMap="QnaResult">
+		SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep
+	</select>
 	<select id="qnaList" parameterType="Qna" resultMap="QnaResult">
 		<if test="schItem==null or schItem==''">
 			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep) A)
@@ -60,7 +64,7 @@
     		WHERE qnaGroup = #{qnaGroup} AND qnaStep > #{qnaStep}
 	</update>
 	<insert id="replyQna" parameterType="Qna">
-		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, #{qnaGroup}, #{qnaStep}+1, #{qnaIndent}+1, #{qnaIp})
+		INSERT INTO QNA (qnaNum, adminId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    		VALUES (QNA_SEQ.NEXTVAL, #{adminId}, #{productCode, jdbcType=VARCHAR}, #{qnaTitle}, #{qnaContent}, #{qnaGroup}, #{qnaStep}+1, #{qnaIndent}+1, #{qnaIp})
 	</insert>
 </mapper>

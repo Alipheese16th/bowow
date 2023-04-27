@@ -32,7 +32,6 @@ public class QnaController {
 	public String write(Qna qna, String pageNum, Model model) {
 		model.addAttribute("qnaList", qnaService.qnaList(qna, pageNum));
 		model.addAttribute("productList",productService.allProductList());
-		
 		return "qna/write";
 	}
 	@RequestMapping(value="write", method=RequestMethod.POST)
@@ -73,9 +72,9 @@ public class QnaController {
 		return "qna/reply";
 	}
 	@RequestMapping(value="reply", method=RequestMethod.POST)
-	public String reply(Qna qna, HttpServletRequest request, Model model) {
+	public String reply(Qna qna, HttpServletRequest request, HttpSession httpSession, Model model) {
 		try {
-			model.addAttribute("replyQResult", qnaService.replyQna(qna, request));
+			model.addAttribute("replyQResult", qnaService.replyQna(qna, request, httpSession));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			model.addAttribute("replyQResult", "답변 작성이 실패되었습니다");
