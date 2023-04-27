@@ -8,6 +8,7 @@ import lombok.Data;
 public class Qna {
 	private int qnaNum;
 	private String memberId;
+	private String adminId;
 	private String productCode;
 	private String qnaTitle;
 	private String qnaContent;

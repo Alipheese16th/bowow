@@ -139,7 +139,8 @@ select * from member;
 CREATE SEQUENCE QNA_SEQ MAXVALUE 9999 NOCACHE NOCYCLE;
 CREATE TABLE QNA(
     qnaNum NUMBER(4) PRIMARY KEY,
-    memberId VARCHAR2(100) REFERENCES MEMBER(memberId) NOT NULL,
+    memberId VARCHAR2(100) REFERENCES MEMBER(memberId),
+    adminId VARCHAR2(100) REFERENCES MEMBER(adminId),
     productCode VARCHAR2(100) REFERENCES PRODUCT(productCode),
     qnaTitle VARCHAR2(500) NOT NULL,
     qnaContent VARCHAR2(4000) NOT NULL,
@@ -158,6 +159,9 @@ INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, 
 INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '사료문의 제목', '고양이도 먹어도 되나요?', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
 
+
+SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep;
+    
 -- QNA 목록(페이징)
 SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep) A)
 	WHERE RN BETWEEN 1 AND 3;
@@ -202,10 +206,10 @@ UPDATE QNA SET qnaStep = qnaStep + 1
     WHERE qnaGroup = 1 AND qnaStep > 0;
     
 -- QNA 답글
-INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, 'qna답글제목', 'qna답글내용', 115, 1, 1, '192.168.0.11');
+INSERT INTO QNA (qnaNum, adminId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
+    VALUES (QNA_SEQ.NEXTVAL, 'admin', NULL, 'qna답글제목', 'qna답글내용', 2, 1, 1, '192.168.0.11');
 
-
+select * from admin, qna;
 ----------------------------------------------<FAQ>----------------------------------------------
 CREATE TABLE FAQ(
     faqTitle VARCHAR2(500),

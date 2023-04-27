@@ -65,7 +65,7 @@
 			padding-top: 20px;
 		}
 		.box1, .box2, .box3, .box4, .box5, .box6 {
-			height: 300px;
+			height: 400px;
 			border: 1px solid #BE8D6E;
 			border-radius: 5px;
 		}
@@ -87,6 +87,7 @@
 			margin-right: 20px;
 		}
 		.box4 {
+			min-width: 700px;
 			margin-top: 50px;
 			margin-bottom: 50px;
 			margin-left: 20px;
@@ -101,6 +102,11 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
+	<script>
+		const clickTr = function(qnaNum) {
+			location.href = "${conPath}/qna/content.do?qnaNum=" + qnaNum + '&pageNum=${paging.currentPage}';
+		};
+	</script>
 </head>
 <body>
 	<c:if test="${empty admin}">
@@ -149,30 +155,60 @@
 				<a href="#">view ></a>
 			</div>
 			<div class="box3 col-3">
-				공지사항
+				<h2>공지사항</h2>
 				<hr>
 				<a href="#">
 					view >
 				</a>
 			</div>
 			<div class="box4 col-7">
-				상담문의
+				<h2>상담문의</h2>
 				<hr>
-				<a href="#">
+				<table class="table table-hover">
+				  <tr>
+				  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th>
+				  </tr>
+				  <c:if test="${totCntQna eq 0 }">
+					<tr><td colspan="6">해당 페이지의 글이 없습니다</td>
+				  </c:if>
+				  <c:if test="${totCntQna != 0 }">
+					<c:forEach var="qna" items="${qnaList }" begin="0" end="4">
+						<tr onclick="clickTr(${qna.qnaNum})">
+							<td>${qna.qnaNum }</td>
+							<td></td>
+					  		<td style="text-align: left;">
+					  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
+					  				<c:if test="${i eq qna.qnaIndent }">
+					  					<img src="${conPath }/img/re.png" width="20">
+					  				</c:if>
+					  				<c:if test="${i != qna.qnaIndent }"> &nbsp; &nbsp; </c:if>
+					  			</c:forEach>
+					  			${qna.qnaTitle }
+					  		</td>
+					  		<td>${qna.qnaContent }</td>
+					  		<td>
+					  			<fmt:formatDate value="${qna.qnaDate }" type="date" pattern="yyyy-MM-dd"/>
+					  		</td>
+					  		<td>${qna.qnaIp }</td>
+						</tr>
+					</c:forEach>
+				  </c:if>
+				</table>
+				<a href="${conPath }/qna/list.do">
 					view >
 				</a>
 			</div>
 			<div class="box5 col-7">
-				1:1문의
+				<h2>1:1문의</h2>
 				<hr>
 				<a href="#">
 					view >
 				</a>
 			</div>
 			<div class="box6 col-3">
-				자주 묻는 질문
+				<h2>자주 묻는 질문</h2>
 				<hr>
-				<a href="#">
+				<a href="${conPath }/faq/list">
 					view >
 				</a>
 			</div>

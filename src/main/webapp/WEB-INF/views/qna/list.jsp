@@ -66,13 +66,15 @@
 			  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th>
 			  </tr>
 			  <c:if test="${totCntQna eq 0 }">
-				<tr><td colspan="6">해당 페이지의 글이 없습니다</td>
+				<tr><td colspan="6">해당 페이지의 글이 없습니다</td></tr>
 			  </c:if>
 			  <c:if test="${totCntQna != 0 }">
 				<c:forEach var="qna" items="${qnaList }">
 					<tr onclick="clickTr(${qna.qnaNum})">
 						<td>${qna.qnaNum }</td>
-						<td></td>
+						<td>${qna.productCode }
+						${product.productCode }
+						${param.productCode }</td>
 				  		<td style="text-align: left;">
 				  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
 				  				<c:if test="${i eq qna.qnaIndent }">

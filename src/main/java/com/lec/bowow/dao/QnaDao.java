@@ -8,6 +8,7 @@ import com.lec.bowow.model.Qna;
 
 @Mapper
 public interface QnaDao {
+	public List<Qna> qnaAList();
 	public List<Qna> qnaList(Qna qna);
 	public int totCntQna(Qna qna);
 	public int writeQna(Qna qna);
