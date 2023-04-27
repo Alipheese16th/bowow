@@ -61,8 +61,6 @@
 	<div class="qna">
 		<h1>상품문의 게시판</h1>
 		<form action="${conPath }/qna/list.do">
-			<!-- <input type="hidden" name="value" value="list"> -->
-			<%-- <input type="text" name="memberId" value="${qnaList.memberId }"> --%>
 			<table class="table table-hover">
 			  <tr>
 			  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th>
@@ -103,10 +101,8 @@
 			</select>
 			<input type="text" name="schWord" value="${param.schWord }">
 			<input type="submit" value="검색">
-			<button class="btn write" type="button">
-				<a href="${conPath }/qna/write.do">
-					WRITE
-				</a>
+			<button class="btn write" type="button" onclick="location.href='${conPath }/qna/write.do'">
+				WRITE
 			</button>
 		</form>
 	  	<%-- <div class="d-grid gap-2 col-4 mx-auto">
@@ -118,7 +114,7 @@
 		</div> --%>
 		<div class="paging">
 			<c:if test="${paging.startPage > paging.blockSize }">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?value=list&pageNum=${paging.startPage-1}&schItem=${param.schItem }&schWord=${param.schWord}'">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?pageNum=${paging.startPage-1}&schItem=${param.schItem }&schWord=${param.schWord}'">
 					<
 				</button>
 			</c:if>
@@ -127,13 +123,13 @@
 					<button type="button" class="btn btn-outline-secondary"><b>${i }</b></button>
 				</c:if>
 				<c:if test="${paging.currentPage != i }">
-					<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?value=list&pageNum=${i }&schItem=${param.schItem }&schWord=${param.schWord}'">
+					<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?pageNum=${i }&schItem=${param.schItem }&schWord=${param.schWord}'">
 						${i }
 					</button>
 				</c:if>
 			</c:forEach>
 			<c:if test="${paging.endPage < paging.pageCnt }">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?value=list&pageNum=${paging.endPage+1}&schItem=${param.schItem }&schWord=${param.schWord}'">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/qna/list.do?pageNum=${paging.endPage+1}&schItem=${param.schItem }&schWord=${param.schWord}'">
 					>
 				</button>
 			</c:if>

@@ -3,11 +3,13 @@ package com.lec.bowow.service;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lec.bowow.dao.QnaDao;
+import com.lec.bowow.model.Member;
 import com.lec.bowow.model.Qna;
 import com.lec.bowow.util.Paging;
 @Service
@@ -16,18 +18,20 @@ public class QnaServiceImpl implements QnaService {
 	private QnaDao qnaDao;
 	@Override
 	public List<Qna> qnaList(Qna qna, String pageNum) {
-		Paging paging = new Paging(qnaDao.totCntQna(), pageNum);
+		Paging paging = new Paging(qnaDao.totCntQna(qna), pageNum);
 		qna.setStartRow(paging.getStartRow());
 		qna.setEndRow(paging.getEndRow());
 		return qnaDao.qnaList(qna);
 	}
 	@Override
-	public int totCntQna() {
-		return qnaDao.totCntQna();
+	public int totCntQna(Qna qna) {
+		return qnaDao.totCntQna(qna);
 	}
 	@Override
-	public int writeQna(Qna qna, HttpServletRequest request) {
+	public int writeQna(Qna qna, HttpServletRequest request, HttpSession httpSession) {
 		qna.setQnaIp(request.getRemoteAddr());
+		Member member = (Member) httpSession.getAttribute("member");
+		qna.setMemberId(member.getMemberId());
 		return qnaDao.writeQna(qna);
 	}
 	@Override
@@ -35,7 +39,7 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.contentQna(qnaNum);
 	}
 	@Override
-	public int modifyQna(Qna qna, HttpServletRequest request) {
+	public int modifyQna(Qna qna, HttpServletRequest request, HttpSession httpSession) {
 		qna.setQnaIp(request.getRemoteAddr());
 		return qnaDao.modifyQna(qna);
 	}

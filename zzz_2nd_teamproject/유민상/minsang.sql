@@ -22,6 +22,7 @@ INSERT INTO ADMIN VALUES ('admin', '1234', '관리자'); -- 관리자 추가 DUM
 
 -- ADMIN 메인
 SELECT * FROM ADMIN;
+SELECT ADMINID, QNA.* FROM ADMIN, QNA;S
 
 -- ADMIN 로그인
 SELECT * FROM ADMIN WHERE adminId = 'admin' AND adminPw = '111';
@@ -156,7 +157,7 @@ INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, 
     VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '상품문의 제목', '색깔은 어떤게 있나요?', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
 INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '사료문의 제목', '고양이도 먹어도 되나요?', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
-COMMIT;
+
 -- QNA 목록(페이징)
 SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep) A)
 	WHERE RN BETWEEN 1 AND 3;

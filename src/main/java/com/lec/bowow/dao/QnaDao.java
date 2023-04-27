@@ -9,7 +9,7 @@ import com.lec.bowow.model.Qna;
 @Mapper
 public interface QnaDao {
 	public List<Qna> qnaList(Qna qna);
-	public int totCntQna();
+	public int totCntQna(Qna qna);
 	public int writeQna(Qna qna);
 	public Qna contentQna(int qnaNum);
 	public int modifyQna(Qna qna);

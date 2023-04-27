@@ -47,11 +47,15 @@
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="qna">
-		<h1>${contentQna.qnaNum }번 글(작성자 : ${contentQna.memberId })</h1>
+		<h1>${contentQna.qnaNum }번 글 상세보기</h1>
 		<table class="table table-hover">
 		<tr>
 			<th>No</th>
 			<td>${contentQna.qnaNum }</td>
+		</tr>
+		<tr>
+			<th>작성자</th>
+			<td>${contentQna.memberId }</td>
 		</tr>
 		<tr>
 			<th>이미지</th>
@@ -68,9 +72,15 @@
 		<tr>
 		  	<td colspan="2">
 		  		<div class="gap-2 mx-auto">
-					<button class="btn write" type="button" onclick="location.href='${conPath }/qna/modify.do?qnaNum=${param.qnaNum }&pageNum=${param.pageNum}'">수정하기</button>
-					<button class="btn write" type="button" onclick="location.href='${conPath }/qna/reply.do?qnaNum=${param.qnaNum }&pageNum=${param.pageNum}'">답변하기</button>
-					<button class="btn write" type="button" onclick="location.href='${conPath }/qna/delete.do?qnaNum=${param.qnaNum }&pageNum=${param.pageNum}'">삭제하기</button>
+		  			<c:if test="${member.memberId eq contentQna.memberId }">
+						<button class="btn write" type="button" onclick="location.href='${conPath }/qna/modify.do?qnaNum=${param.qnaNum }&pageNum=${param.pageNum}'">수정하기</button>
+		  			</c:if>
+					<c:if test="${not empty admin}">
+						<button class="btn write" type="button" onclick="location.href='${conPath }/qna/reply.do?qnaNum=${param.qnaNum }&pageNum=${param.pageNum}'">답변하기</button>
+					</c:if>
+		  			<c:if test="${member.memberId eq contentQna.memberId }">
+						<button class="btn write" type="button" onclick="location.href='${conPath }/qna/delete.do?qnaNum=${param.qnaNum }&pageNum=${param.pageNum}'">삭제하기</button>
+					</c:if>
 					<button class="btn write" type="button" onclick="location.href='${conPath }/qna/list.do?pageNum=${param.pageNum}'">목록가기</button>
 				</div>
 		  	</td>

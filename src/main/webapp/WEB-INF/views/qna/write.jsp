@@ -11,8 +11,10 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style>
-		.qna {min-width: 1400px; text-align: center;}
+		.qna {min-width: 1400px;}
 		.qna h1 {text-align: center; height: 100px; line-height: 100px;}
+		.qna .select {margin: 10px 0;}
+		.qna .form-label {left: 0;}
 		.qna .form-control {border: 1px solid #BE8D6E;}
 		.qna label {font-size: 1.2em; font-weight: bold;}
 		.qna textarea {height: 300px;}
@@ -28,22 +30,38 @@
 	<!-- bootstrap-select -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('.my-select').selectpicker();
+		}
+	</script>
 </head>
 <body>
+	<c:if test="${empty member and empty admin }">
+		<script>
+			alert('로그인 후 작성이 가능합니다');
+			history.back();
+		</script>
+	</c:if>
+	
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="qna">
 		<h1>상품문의 게시판 작성</h1>
 		<form action="${conPath }/qna/write.do" method="post">
-		
-			<div>
+			<div class="select">
 				<select id="selectId" name="selectId" class="selectpicker my-select" data-live-search="true">
-					<option>현재 상영작</option>
-					<option value="1">1</option>
-					<option value="1">1</option>
-					<option value="1">1</option>
+					<option>상품명을 입력해주세요</option>
+					<c:forEach var="product" items="${productList }">
+						<option value="${product.productCode }">
+							${product.productName }
+						</option>
+					</c:forEach>
 				</select>
 			</div>
+			<c:if test="${product.productCode eq param.productCode }">
+			
+			</c:if>
 		
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
