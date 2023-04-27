@@ -42,7 +42,7 @@
 	</select>
 	<insert id="writeQna" parameterType="Qna">
 		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
-    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qnaTitle}, #{qnaContent}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp});
+    		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode, jdbcType=VARCHAR}, #{qnaTitle}, #{qnaContent}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp})
 	</insert>
 	<select id="contentQna" parameterType="int" resultType="Qna">
 		SELECT * FROM QNA WHERE qnaNum = #{qnaNum}
