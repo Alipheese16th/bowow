@@ -1,9 +1,7 @@
 package com.lec.bowow.model;
-
 import java.sql.Date;
 
 import lombok.Data;
-
 @Data
 public class Member {
 	private String memberId;

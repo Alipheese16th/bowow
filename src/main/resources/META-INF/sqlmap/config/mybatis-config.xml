@@ -4,6 +4,9 @@
     "https://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
 	<typeAliases>
 		<!-- 김소연 시작 -->
 		<typeAlias type="com.lec.bowow.model.Member" alias="Member"/>

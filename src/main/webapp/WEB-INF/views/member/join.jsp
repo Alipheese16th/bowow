@@ -16,7 +16,7 @@
 	<script src="${conPath}/js/address.js"></script>
 	<script>
 		$(document).ready(function(){
-			const patternId = /^[a-z]{1}[a-z0-9_-]{2,15}$/; // 아이디 정규표현식
+			const patternId = /^[a-z]{1}[a-z0-9_\-]{2,15}$/; // 아이디 정규표현식
 			const patternPw = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~`!@#$%^&*()-_+=|\\\[\]{}'";:?,.\/]).{8,16}$/; // 비밀번호 정규표현식
 			const patternName = /^[a-zA-Z가-힣]{1,}$/; // 이름 정규표현식 
 			const patternSpc = /[~`!@#$%^&*()-_+=|\\\[\]{}'";:?,.\/]/;
@@ -24,8 +24,8 @@
 			const patternTel = /^\d{2,3}[\-)]?\d{3,4}[\-]?\d{4}$/; // 전화번호 정규표현식
 			const patternSpace = /\s/g; 
 			var memberId, memberPw, memberPwchk, memberName, memberEmail, memberTel;
-			$(".idconfirm").click(function(){
-				if(memberId){
+ 			$(".idconfirm").click(function(){
+ 				if(memberId.match(patternId) && memberId.length > 2){
 					$.ajax({
 						url : '${conPath}/memberIdConfirm.do',
 						dataType : 'html',
@@ -35,13 +35,13 @@
 						},
 					});
 				}
-			}); // memberId 중복확인
+			}); // memberId 중복확인 
 			// memberId를 입력했으면 idconfirm
 			$("#id").keyup(function(){
 				memberId = $("#id").val();
 				if(!memberId || memberId.length < 1){
 					$(".midResult").html("<p style='color:red;'>필수 정보입니다.</p>");
-				}else if(!memberId.match(patternId) || memberId.match(patternSpace)){
+				}else if(!memberId.match(patternId)){
 					$(".midResult").html("<p style='font-size:12Px; color:red;'>2~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</p>");
 				}else{
 					$(".midResult").html("");
@@ -116,14 +116,14 @@
 					alert("사용가능한 아이디인지 확인 요망");
 					$("#id").focus();
 					return false;
-				}else if(!mpwResult=="" || !mpwChkResult==""){
+				}else if(!memberPw || !mpwResult=="" || !mpwChkResult==""){
 					alert("비밀번호를 확인하세요.");
 					$("#pw").focus();
 					return false;
-				}else if(mpwChkResult=="비밀번호가 일치하지 않습니다."){
+				}else if(!memberPwchk || mpwChkResult=="비밀번호가 일치하지 않습니다."){
 					alert("비밀번호가 일치하지 않습니다.");
 					return false;
-				}else if(!mnameResult==""){
+				}else if(!memberName || !mnameResult==""){
 					alert("이름을 확인하세요.")
 					$("#name").focus();
 					return false;
@@ -131,7 +131,7 @@
 					alert("전화번호를 확인하세요.");
 					$("#tel").focus();
 					return false;
-				}else if(!memailResult==""){
+				}else if(!memberEmail || !memailResult==""){
 					alert("이메일을 확인하세요.");
 					$("#email").focus();
 					return false;
@@ -240,7 +240,7 @@
 							<div class="join-form-title">생년월일</div>
 							<div class="mbirth-line">
 								<div class="join-form-text">
-									<input type="text" name="memberBirth" id="datepicker">
+									<input type="text" name="memberBirthTemp" id="datepicker">
 								</div>
 								<div class="join-form-btn"></div>
 							</div>
