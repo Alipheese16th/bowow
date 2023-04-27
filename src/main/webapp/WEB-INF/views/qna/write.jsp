@@ -31,10 +31,11 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 	<script>
-		$(document).ready(function(){
+		$(document).on('ready', function(){
 			$('.my-select').selectpicker();
-			$('form').click(function() {
-				location.href="${conPath}/qna/write.do?"
+			
+			$('select').change(function() {
+				$('.select').submit();
 			});
 		}
 	</script>
@@ -49,23 +50,26 @@
 	
 	<jsp:include page="../main/header.jsp"/>
 	
+	<form action="${conPath }/qna/write.do?pageNum" method="get" class="select">
+		<select id="selectId" name="selectId" class="selectpicker my-select" data-live-search="true">
+			<option>상품명을 입력해주세요</option>
+			<c:forEach var="product" items="${productList }">
+				<option value="${product.productCode }">
+					${product.productName }
+				</option>
+			</c:forEach>
+		</select>
+	</form>
+	<c:if test="${product.productCode eq param.productCode }">
+		<div>img</div>
+	</c:if>
+	<c:if test="${product.productCode != param.productCode }">
+		<div>ddd</div>
+	</c:if>
+	
 	<div class="qna">
 		<h1>상품문의 게시판 작성</h1>
 		<form action="${conPath }/qna/write.do" method="post">
-			<div class="select">
-				<select id="selectId" name="selectId" class="selectpicker my-select" data-live-search="true">
-					<option>상품명을 입력해주세요</option>
-					<c:forEach var="product" items="${productList }">
-						<option value="${product.productCode }">
-							${product.productName }
-						</option>
-					</c:forEach>
-				</select>
-			</div>
-			<c:if test="${product.productCode eq param.productCode }">
-			
-			</c:if>
-		
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
 				<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력해주세요" required="required">
