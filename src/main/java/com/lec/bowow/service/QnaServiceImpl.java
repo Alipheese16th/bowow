@@ -15,9 +15,8 @@ public class QnaServiceImpl implements QnaService {
 	@Autowired
 	private QnaDao qnaDao;
 	@Override
-	public List<Qna> qnaList(String pageNum) {
+	public List<Qna> qnaList(Qna qna, String pageNum) {
 		Paging paging = new Paging(qnaDao.totCntQna(), pageNum);
-		Qna qna = new Qna();
 		qna.setStartRow(paging.getStartRow());
 		qna.setEndRow(paging.getEndRow());
 		return qnaDao.qnaList(qna);
@@ -29,34 +28,10 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public int writeQna(Qna qna, HttpServletRequest request) {
 		qna.setQnaIp(request.getRemoteAddr());
-//		String uploadPath = mRequest.getRealPath("qnaFileImage/");
-//		Iterator<String> params = mRequest.getFileNames();
-//		String qimg = "";
-//		if(params.hasNext()) {
-//			String param = params.next();
-//			MultipartFile mFile = mRequest.getFile(param);
-//			qimg = mFile.getOriginalFilename();
-//			if(qimg!=null && !qimg.equals("")) {
-//				if(new File(uploadPath+qimg).exists()) {
-//					qimg = System.currentTimeMillis()+"_"+qimg;
-//				}
-//				try {
-//					mFile.transferTo(new File(uploadPath+qimg));
-//					System.out.println("서버파일 : " + uploadPath + qimg);
-//				} catch (Exception e) {
-//					System.out.println(e.getMessage());
-//				}
-//			}
-//		}
-//		qna.setQnaImage(qimg);
 		return qnaDao.writeQna(qna);
 	}
 	@Override
 	public Qna contentQna(int qnaNum) {
-		return qnaDao.contentQna(qnaNum);
-	}
-	@Override
-	public Qna modifyReplyQnaView(int qnaNum) {
 		return qnaDao.contentQna(qnaNum);
 	}
 	@Override

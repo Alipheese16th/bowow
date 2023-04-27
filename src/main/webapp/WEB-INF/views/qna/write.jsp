@@ -25,6 +25,9 @@
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- bootstrap-select -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
@@ -32,6 +35,16 @@
 	<div class="qna">
 		<h1>상품문의 게시판 작성</h1>
 		<form action="${conPath }/qna/write.do" method="post">
+		
+			<div>
+				<select id="selectId" name="selectId" class="selectpicker my-select" data-live-search="true">
+					<option>현재 상영작</option>
+					<option value="1">1</option>
+					<option value="1">1</option>
+					<option value="1">1</option>
+				</select>
+			</div>
+		
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
 				<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력해주세요" required="required">

@@ -61,7 +61,7 @@
 	<div class="qna">
 		<h1>상품문의 게시판</h1>
 		<form action="${conPath }/qna/list.do">
-			<input type="hidden" name="value" value="list">
+			<!-- <input type="hidden" name="value" value="list"> -->
 			<%-- <input type="text" name="memberId" value="${qnaList.memberId }"> --%>
 			<table class="table table-hover">
 			  <tr>
