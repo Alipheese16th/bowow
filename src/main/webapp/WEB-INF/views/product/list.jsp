@@ -62,7 +62,16 @@
 				  <img src="${conPath}/productImage/${product.image}" class="card-img-top rounded-0">
 				  <div class="card-body">
 				    <h5 class="card-title pb-1 mb-0">${product.productName}</h5>
-				    <p class="card-text">${product.productPrice}원</p>
+				    <p class="card-text">
+				    	<c:if test="${product.productDiscount ne 0}">
+							<del>${product.productPrice}원</del>
+							<br>
+							<fmt:parseNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" integerOnly="true"/>원
+						</c:if>
+						<c:if test="${product.productDiscount eq 0}">
+							${product.productPrice}원
+						</c:if>
+				    </p>
 				  </div>
 				</div>
 				

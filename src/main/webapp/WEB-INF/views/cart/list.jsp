@@ -35,19 +35,27 @@
 	text-align:right;
 }
 
+.qty{
+	width:40px;
+	height:20px !important;
+}
+
 </style>
 </head>
 <body>
+	<input type="hidden" id="memberId" value="${member.memberId}">
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="container pb-5">
 	
 		<h3 class="text-center py-5">CART</h3>
 		
+		<form action="${conPath}/cart/select.do">
+		
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col"><input type="checkbox"></th>
+					<th scope="col"><input type="checkbox" class="chkAll"></th>
 					<th scope="col">이미지</th>
 					<th scope="col">상품정보</th>
 					<th scope="col">판매가</th>
@@ -60,11 +68,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				<c:set var="totalPrice" value="0"/>
+				<c:set var="num" value="1"/>
 				<c:forEach items="${cartList}" var="cart">
 					<tr class="plist" id="${cart.productCode}">
-						<td><input type="checkbox"></td>
-						<td><img class="titleImg" src="${conPath}/productImage/${cart.image}"></td>
+						<td>
+							<input type="checkbox" class="chk" name="cartNum" value="${cart.cartNum}">
+							<input type="hidden" class="num" value="${num}">
+						</td>
+						<td>
+							<img class="titleImg" src="${conPath}/productImage/${cart.image}">
+						</td>
 						<td class="left">
 							<div class="d-flex flex-column title">
 								<span>
@@ -75,12 +89,16 @@
 										[옵션 :
 										<c:forEach items="${sizeList}" var="size">
 											<c:if test="${size.sizeNum eq cart.sizeNum}">
-												${size.productSize}
+												<span class="sizeNum" id="${cart.sizeNum}">
+													${size.productSize}
+												</span>
 											</c:if>
 										</c:forEach>
 										<c:forEach items="${colorList}" var="color">
 											<c:if test="${color.colorNum eq cart.colorNum}">
-												${color.productColor}
+												<span class="colorNum" id="${cart.colorNum}">
+													${color.productColor}
+												</span>
 											</c:if>
 										</c:forEach>
 										]
@@ -99,26 +117,34 @@
 							</c:if>
 						</td>
 						<td>
-							<div class="d-flex">
-								<input type="text" class="qty" name="qty" value="${cart.qty}" size="1" min="1" max="${cart.productStock}">
+							<div class="d-flex justify-content-center">
+								<input class="form-control form-control-sm qty" type="text" value="${cart.qty}" min="1" max="${cart.productStock}">
 								<div class="d-flex flex-column justify-content-center">
 									<img class="plus" src="${conPath}/img/up.gif">
 									<img class="minus" src="${conPath}/img/down.gif">
 								</div>
 							</div>
+							<div>
+								<img class="change" src="${conPath}/img/change.gif">
+							</div>
 						</td>
 						<td>-</td>
 						<td>기본배송</td>
 						<td>3000원</td>
-						<td>${cart.cost}원</td>
+						<td>
+							<span class="cost" id="${cart.cost}">
+								${cart.cost}원
+							</span>
+						</td>
 						<td>
 							<div class="d-flex flex-column">
-								<button type="button" class="btn btn-outline-dark">주문하기</button>
-								<button type="button" class="btn btn-outline-dark">삭제</button>
+								<input type="button" class="btn btn-outline-dark" value="주문하기">
+								<input type="button" class="btn btn-outline-dark delete" value="삭제">
 							</div>
 						</td>
 					</tr>
-					
+				<c:set var="totalPrice" value="${totalPrice + cart.cost}"/>
+				<c:set var="num" value="${num + 1}"/>
 				</c:forEach><!-- 상품리스트 -->
 				
 				<tr>
@@ -128,7 +154,7 @@
 							[기본배송]
 							</span>
 							<span>
-								상품구매금액 152,000 + 배송비 3000원 = 합계 : 155,000원
+								상품구매금액 ${totalPrice}원 + 배송비 3000원 = 합계 : ${totalPrice + 3000}원
 							</span>
 						</div>
 					</td>
@@ -138,21 +164,24 @@
 		
 		<div class="d-flex justify-content-between px-5 py-1">
 			<div>
-				<button type="button" class="btn btn-outline-dark">선택삭제</button>
-				<button type="button" class="btn btn-outline-dark">전체삭제</button>
+				<input type="submit" class="btn btn-outline-dark" name="submit" value="선택삭제">
+				<input type="button" class="btn btn-outline-dark deleteAll" value="전체삭제">
 			</div>
 			<div>
-				<button type="button" class="btn btn-outline-dark">선택주문</button>
-				<button type="button" class="btn btn-outline-dark">전체주문</button>
+				<input type="submit" class="btn btn-outline-dark" name="submit" value="선택주문">
+				<input type="button" class="btn btn-outline-dark" value="전체주문">
 			</div>
 		</div>
+		
+		</form>
+		
 		
 		<div class="d-flex justify-content-between px-5 py-1">
 			<span>
 				주문금액
 			</span>
 			<span>
-				152,000원
+				${totalPrice}원
 			</span>
 		</div>
 		<div class="d-flex justify-content-between px-5 py-1">
@@ -169,7 +198,7 @@
 				합계
 			</span>
 			<span>
-				155,000원
+				${totalPrice + 3000}원
 			</span>
 		</div>
 		<div class="d-flex justify-content-center px-5 py-1">
@@ -181,6 +210,10 @@
 
 <script>
 	
+	var memberId = $('#memberId').val();
+	var products = [];
+	
+	// 이미지나 상품명 누르면 상품상세보기로 이동
 	$('.titleImg').click(function(){
 		var productCode = $(this).parents('tr').attr('id');
 		location.href = '${conPath}/product/content.do?productCode='+productCode;
@@ -190,13 +223,87 @@
 		location.href = '${conPath}/product/content.do?productCode='+productCode;
 	});
 	
-	//////////////////////////////////// 상품 수량 업데이트
-	$('.plus').click(function(){
+	
+	/////// 체크박스 선택시 상품 객체배열로 저장 , 선택 해제시 객체배열에서 삭제
+	$('.chk').change(function(){
+		
+		console.log($(this).val);
+		
+		var num = $(this).parents('.plist').find('.num').val();
+		var productCode = $(this).parents('.plist').attr('id');
+		var sizeNum = $(this).parents('.plist').find('.sizeNum').attr('id');
+		var colorNum = $(this).parents('.plist').find('.colorNum').attr('id');
+		var qty = $(this).parents('.plist').find('.qty').val();
+		var cost = $(this).parents('.plist').find('.cost').attr('id');
+		
+		if($('.chk').is(':checked')){	// 체크박스 선택
+			
+			let product = {
+				"num": num,
+				"productCode": productCode,
+				"sizeNum": sizeNum,
+				"colorNum": colorNum,
+				"qty": qty,
+				"cost": cost
+			}
+			
+			products.push(product);
+			console.log(products);
+			
+		}else{	// 체크박스 해제
+			
+			products = products.filter(product => product.num !== num);		// 배열 수정
+			console.log('배열바뀜');
+			console.log(products);
+			
+		}
+		
+	});// 체크박스로직
+	
+	// 전체체크박스 선택시 전체선택
+	$('.chkAll').change(function(){
+		if($('.chkAll').is(':checked')){
+			$('.chk').prop('checked',true);
+		}else{
+			$('.chk').prop('checked',false);
+		}
 		
 	});
 	
+	
+	///////// 상품 수량 업데이트
+	$('.change').click(function(){
+		var productCode = $(this).parents('.plist').attr('id');
+		var qty = $(this).parents('.plist').find('.qty').val();
+		var cartNum = Number($(this).parents('.plist').find('.chk').val());
+		var parameter = '';
+		parameter += 'cartNum='+cartNum+'&productCode='+productCode+'&qty='+qty;
+		location.href='${conPath}/cart/updateCart.do?'+parameter;
+	});
+	$('.plus').click(function(){
+		var productCode = $(this).parents('.plist').attr('id');
+		var qty = Number($(this).parents('.plist').find('.qty').val()) + 1;
+		var cartNum = Number($(this).parents('.plist').find('.chk').val());
+		var parameter = '';
+		parameter += 'cartNum='+cartNum+'&productCode='+productCode+'&qty='+qty;
+		location.href='${conPath}/cart/updateCart.do?'+parameter;
+	});
 	$('.minus').click(function(){
-		
+		var productCode = $(this).parents('.plist').attr('id');
+		var qty = Number($(this).parents('.plist').find('.qty').val()) - 1;
+		var cartNum = Number($(this).parents('.plist').find('.chk').val());
+		var parameter = '';
+		parameter += 'cartNum='+cartNum+'&productCode='+productCode+'&qty='+qty;
+		location.href='${conPath}/cart/updateCart.do?'+parameter;
+	});
+	//// 상품 하나 삭제버튼
+	$('.delete').click(function(){
+		var cartNum = Number($(this).parents('.plist').find('.chk').val());
+		location.href='${conPath}/cart/deleteCart.do?cartNum='+cartNum;
+	});
+	//// 전체삭제 버튼
+	$('.deleteAll').click(function(){
+		location.href='${conPath}/cart/deleteAll.do?memberId='+memberId;
 	});
 	
 	

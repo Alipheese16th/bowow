@@ -15,5 +15,7 @@ public interface CartService {
 	public List<Sizes> sizeList();
 	public List<Color> colorList();
 	public int insertCart(String productCode, String memberId, int[] sizeNum, int[] colorNum, int[] qty);
-	
+	public int updateCart(Cart cart);
+	public void deleteCart(int[] cartNum);
+	public void deleteAll(String memberId);
 }

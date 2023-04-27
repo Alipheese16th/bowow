@@ -428,7 +428,7 @@
 				if(confirmResult > 0){
 					var result = confirm('중복된 상품이 존재합니다. 추가하시겠습니까? ');
 					if(result){
-						// 중복된거 포함해서 장바구니에 추가하는로직
+						// 장바구니에 추가하는로직
 						$.ajax({
 							url : '${conPath}/cart/insertCart.do',
 							type : 'post',
@@ -474,7 +474,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="form-control form-control-sm qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'
@@ -500,7 +500,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="form-control form-control-sm qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'
@@ -525,7 +525,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="form-control form-control-sm qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'
@@ -549,7 +549,7 @@
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
-				+'<input type="text" class="qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
+				+'<input type="text" class="form-control form-control-sm qty" name="qty" value="1" size="1" min="1" max="${product.productStock}">'
 				+'<div class="d-flex flex-column justify-content-center">'
 				+'<img class="plus" src="${conPath}/img/up.gif">'
 				+'<img class="minus" src="${conPath}/img/down.gif">'
