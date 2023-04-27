@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .container{
 	min-width: 1500px !important;
@@ -175,9 +177,6 @@
 	
 	<jsp:include page="../main/footer.jsp"/>
 
-
-<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	$(function(){
 		

@@ -86,26 +86,26 @@
 	<update id="updateCart" parameterType="Cart">
 		<if test="sizeNum == 0 and colorNum == 0">
 			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
+			  SET QTY = QTY + #{qty},
+			      COST = COST + #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
 			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
 		</if>
 		<if test="sizeNum != 0 and colorNum == 0">
 			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
+			  SET QTY = QTY + #{qty},
+			      COST = COST + #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
 			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum}
 		</if>
 		<if test="sizeNum == 0 and colorNum != 0">
 			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
+			  SET QTY = QTY + #{qty},
+			      COST = COST + #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
 			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND COLORNUM = #{colorNum}
 		</if>
 		<if test="sizeNum != 0 and colorNum != 0">
 			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
+			  SET QTY = QTY + #{qty},
+			      COST = COST + #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
 			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
 		</if>
 	</update>

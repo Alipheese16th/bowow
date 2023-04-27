@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link href="${conPath}/css/login.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 </head>
 <body>
 	<c:if test="${joinResult eq 1}">

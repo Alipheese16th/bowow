@@ -32,9 +32,9 @@ public class CartController {
 	}
 	
 	@RequestMapping(value = "insertCart", method = {RequestMethod.GET,RequestMethod.POST})
-	public String insertCart() {
-		
-		return "";
+	public String insertCart(String productCode, String memberId, int[] sizeNum, int[] colorNum, int[] qty) {
+		cartService.insertCart(productCode, memberId, sizeNum, colorNum, qty);
+		return "cart/confirmCart";
 	}
 	
 	

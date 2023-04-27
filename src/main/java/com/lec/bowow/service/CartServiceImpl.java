@@ -89,14 +89,9 @@ public class CartServiceImpl implements CartService {
 				// 상품등록
 				cartDao.insertCart(cart);
 			}else { // 만약 해당 상품이 이미 존재한다면?
-				// 상품 수량 업데이트
+				// 상품 수량 추가
 				cartDao.updateCart(cart);
 			}
-			
-			
-			result += cartDao.insertCart(cart);
-			
-			
 		}
 		return result;
 	}

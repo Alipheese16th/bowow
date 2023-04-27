@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .container{
 	min-width: 1300px !important;
@@ -53,6 +55,27 @@
 }
 .btn-myColor:hover{
 	background-color:#FFFFFF;
+	color:#BE8D6E;
+}
+#cartResult{
+	position:fixed;
+	top:30%;
+	margin: 0 auto;
+    left: 0;
+    right: 0;
+ 	display:none;
+	z-index:2;
+	width:400px;
+}
+#cartResult .header, #cartResult .caca{
+	background-color:#BE8D6E;
+	color:white;
+}
+#cartResult a{
+	text-decoration:none;
+}
+#cartResult .content, #cartResult .gogo{
+	backgorund-color:white;
 	color:#BE8D6E;
 }
 
@@ -327,15 +350,23 @@
 		
 		</div>
 		
-		
 	</div>
 	
-	<div class="d-none confirmResult"></div>
-	
 	<jsp:include page="../main/footer.jsp"/>
+	<div class="d-none confirmResult"></div>
+	<div class="card rounded-0 border-0" id="cartResult">
+		<div class="header p-2">
+			<h5 class="m-0">장바구니담기</h5>
+		</div>
+		<div class="content px-3 py-5">
+			<p class="m-0">장바구니에 정상적으로 상품이 담겼습니다</p>
+		</div>
+		<div class="d-flex text-center">
+			<a class="d-block w-50 caca p-3" href="${conPath}/cart/list.do">장바구니보기</a>
+			<a class="d-block w-50 gogo p-3" id="cancel" href="#">쇼핑계속하기</a>
+		</div>
+	</div>
 
-<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	
 	// 초기값 변수
@@ -395,25 +426,45 @@
 				
 				var confirmResult = $('.confirmResult').text().trim();
 				if(confirmResult > 0){
-					var result = confirm('중복된 상품이 존재합니다. 추가하시겠습니까? ' + confirmResult);
+					var result = confirm('중복된 상품이 존재합니다. 추가하시겠습니까? ');
 					if(result){
 						// 중복된거 포함해서 장바구니에 추가하는로직
+						$.ajax({
+							url : '${conPath}/cart/insertCart.do',
+							type : 'post',
+							data : sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode,
+							dataType : 'html',
+							success : function(data){
+								if ($('#cartResult').css('display') == 'none') {
+							        $('#cartResult').css('display', 'block');
+							    }
+							}
+						});
 					}
-					
 				}else{
-					alert('중복없음 : '+confirmResult);
-					
 					// 장바구니에 추가하는 로직
-					
-		 			//location.href='${conPath}/cart/insertCart.do';
+					$.ajax({
+						url : '${conPath}/cart/insertCart.do',
+						type : 'post',
+						data : sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode,
+						dataType : 'html',
+						success : function(data){
+							if ($('#cartResult').css('display') == 'none') {
+						        $('#cartResult').css('display', 'block');
+						    }
+						}
+					});
 				}
-				
 			}
 		});
 		
-		
-		
 	});//장바구니 클릭 로직 끝
+	
+	$('#cancel').click(function(){
+		if ($('#cartResult').css('display') == 'block') {
+	        $('#cartResult').css('display', 'none');
+	    }
+	});
 	
 	const getProductBoth = function(size, color, sizeName, colorName){
 		var product = $('<tr>'
