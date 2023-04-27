@@ -143,6 +143,7 @@ body{
 	margin-right:20px;
 	font-size: 0px;
 	border:none;
+	cursor:pointer;
 }
 #header .header-top .header-bottom .gnb .gnb-right .cart{
 	background:url("../img/shopping-cart.png")center no-repeat;

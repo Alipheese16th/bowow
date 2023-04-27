@@ -16,5 +16,6 @@ public interface CartDao {
 	public List<Sizes> sizeList();
 	public List<Color> colorList();
 	public int insertCart(Cart cart);
+	public int updateCart(Cart cart);
 	
 }

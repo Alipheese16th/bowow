@@ -395,9 +395,16 @@
 				
 				var confirmResult = $('.confirmResult').text().trim();
 				if(confirmResult > 0){
-					alert('중복된 상품이 존재합니다. 추가하시겠습니까? ' + confirmResult);
+					var result = confirm('중복된 상품이 존재합니다. 추가하시겠습니까? ' + confirmResult);
+					if(result){
+						// 중복된거 포함해서 장바구니에 추가하는로직
+					}
+					
 				}else{
 					alert('중복없음 : '+confirmResult);
+					
+					// 장바구니에 추가하는 로직
+					
 		 			//location.href='${conPath}/cart/insertCart.do';
 				}
 				

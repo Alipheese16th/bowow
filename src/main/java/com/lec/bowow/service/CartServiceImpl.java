@@ -18,7 +18,7 @@ public class CartServiceImpl implements CartService {
 	
 	@Autowired
 	private CartDao cartDao;
-	
+	// 장바구니 중복확인
 	@Override
 	public int confirmCart(String productCode, String memberId, int[] sizeNum, int[] colorNum, int[] qty) {
 		int result = 0;
@@ -43,22 +43,22 @@ public class CartServiceImpl implements CartService {
 		}
 		return result;
 	}
-
+	// 헤더에 장바구니 갯수 확인하는거
+	@Override
+	public int totCntCart(HttpSession httpSession) {
+		Member member = (Member)httpSession.getAttribute("member");
+		return cartDao.totCntCart(member.getMemberId());
+	}
+	// 장바구니 리스트
 	@Override
 	public List<Cart> cartList(HttpSession httpSession) {
 		Member member = (Member)httpSession.getAttribute("member");
 		return cartDao.cartList(member.getMemberId());
 	}
 	@Override
-	public int totCntCart(HttpSession httpSession) {
-		Member member = (Member)httpSession.getAttribute("member");
-		return cartDao.totCntCart(member.getMemberId());
-	}
-	@Override
 	public List<Sizes> sizeList() {
 		return cartDao.sizeList();
 	}
-
 	@Override
 	public List<Color> colorList() {
 		return cartDao.colorList();
@@ -84,7 +84,19 @@ public class CartServiceImpl implements CartService {
 			System.out.println(cart.getSizeNum());
 			System.out.println(cart.getColorNum());
 			System.out.println(cart.getQty());
+			
+			if(cartDao.confirmCart(cart) == 0) { // 해당 상품이 존재하지 않는다면
+				// 상품등록
+				cartDao.insertCart(cart);
+			}else { // 만약 해당 상품이 이미 존재한다면?
+				// 상품 수량 업데이트
+				cartDao.updateCart(cart);
+			}
+			
+			
 			result += cartDao.insertCart(cart);
+			
+			
 		}
 		return result;
 	}
