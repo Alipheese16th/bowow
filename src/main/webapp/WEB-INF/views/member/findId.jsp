@@ -54,6 +54,11 @@
 					$(".memailResult").html("");
 				}
 			});
+			$("form").submit(function(){
+				var mnameResult = $(".mnameResult").text().trim();
+				var memberEmail = $(".memberEmail").text().trim();
+				if()
+			});
 		});
 	</script>
 </head>

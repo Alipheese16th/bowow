@@ -77,10 +77,6 @@
 					$(".mnameResult").html("<p style='color:red;'>필수 정보입니다.</p>");
 				}else if(!memberName.match(patternName)|| memberName.match(patternSpace)){
 					$(".mnameResult").html("<p style='color:red;'>한글과 영문 대 소문자를 사용하세요.</p>");
-/* 					if(memberName.match(patternSpc)){
-						memberName = memberName.replace(patternSpc, '');				
-						$(this).val(memberName);
-					} */
 				}else{
 					$(".mnameResult").html("");
 				}
