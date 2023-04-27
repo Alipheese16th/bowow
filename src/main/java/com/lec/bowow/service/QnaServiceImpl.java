@@ -28,26 +28,6 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public int writeQna(Qna qna, HttpServletRequest request) {
 		qna.setQnaIp(request.getRemoteAddr());
-//		String uploadPath = mRequest.getRealPath("qnaFileImage/");
-//		Iterator<String> params = mRequest.getFileNames();
-//		String qimg = "";
-//		if(params.hasNext()) {
-//			String param = params.next();
-//			MultipartFile mFile = mRequest.getFile(param);
-//			qimg = mFile.getOriginalFilename();
-//			if(qimg!=null && !qimg.equals("")) {
-//				if(new File(uploadPath+qimg).exists()) {
-//					qimg = System.currentTimeMillis()+"_"+qimg;
-//				}
-//				try {
-//					mFile.transferTo(new File(uploadPath+qimg));
-//					System.out.println("서버파일 : " + uploadPath + qimg);
-//				} catch (Exception e) {
-//					System.out.println(e.getMessage());
-//				}
-//			}
-//		}
-//		qna.setQnaImage(qimg);
 		return qnaDao.writeQna(qna);
 	}
 	@Override
