@@ -8,6 +8,6 @@ import com.lec.bowow.model.Qna;
 
 @Mapper
 public interface AdminDao {
-	public List<Admin> adminList();
+	// public List<Admin> adminList();
 	public Admin getAdmin(String adminId);
 }

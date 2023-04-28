@@ -12,6 +12,9 @@ DROP TABLE NOTICE;
 DROP TABLE ADMIN;
 
 
+SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+    		WHERE P.PRODUCTCODE = I.PRODUCTCODE AND TYPE='title' ORDER BY PRODUCTDATE DESC;
+
 ----------------------------------------------<ADMIN>----------------------------------------------
 CREATE TABLE ADMIN(
     adminId VARCHAR2(100) PRIMARY KEY,
@@ -336,3 +339,31 @@ UPDATE PRODUCTIMAGE
     
 -- PRODUCTIMAGE 삭제(imageNum)
 DELETE FROM PRODUCTIMAGE WHERE imageNum = 1;
+
+
+
+
+-- 이미지 출력
+SELECT * FROM
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' ORDER BY qnaGroup DESC, qnaStep) A)
+    WHERE RN BETWEEN 1 AND 26;
+SELECT * FROM
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' AND qnaTitle LIKE '%'||''||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+    WHERE RN BETWEEN 1 AND 26;
+SELECT * FROM
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' AND qnaContent LIKE '%'||''||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+    WHERE RN BETWEEN 1 AND 26;
+    
+    
+    
+    
+    
+    
+    
+SELECT Q.*, I.IMAGE from QNA Q, PRODUCTIMAGE I
+    where Q.productCode=I.productCode(+) and i.type='title';
+select * from qna where productCode='P0001';
+select * from productImage;

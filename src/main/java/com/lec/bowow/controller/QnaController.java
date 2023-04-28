@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Qna;
 import com.lec.bowow.service.ProductService;
 import com.lec.bowow.service.QnaService;
@@ -23,19 +24,19 @@ public class QnaController {
 	private ProductService productService;
 	
 	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
-	public String list(String pageNum, Model model, Qna qna) {
+	public String list(String pageNum, Model model, Product product, Qna qna) {
 		model.addAttribute("qnaList", qnaService.qnaList(qna, pageNum));
 		model.addAttribute("paging", new Paging(qnaService.totCntQna(qna), pageNum));
 		return "qna/list";
 	}
 	@RequestMapping(value="write", method=RequestMethod.GET)
-	public String write(Qna qna, String pageNum, Model model) {
-		model.addAttribute("qnaList", qnaService.qnaList(qna, pageNum));
+	public String write(Qna qna, String selectCode, String pageNum, Model model) {
 		model.addAttribute("productList",productService.allProductList());
+		// model.addAttribute("product", productService.productDetail(selectCode));
 		return "qna/write";
 	}
 	@RequestMapping(value="write", method=RequestMethod.POST)
-	public String write(Qna qna, HttpServletRequest request, HttpSession httpSession, Model model) {
+	public String write(Qna qna, String selectCode, HttpServletRequest request, HttpSession httpSession, Model model) {
 		model.addAttribute("writeQResult", qnaService.writeQna(qna, request, httpSession));
 		return "forward:list.do";
 	}
@@ -47,7 +48,7 @@ public class QnaController {
 	@RequestMapping(value="modify", method=RequestMethod.GET)
 	public String modify(Qna qna, int qnaNum, String pageNum, Model model) {
 		model.addAttribute("qna", qnaService.contentQna(qnaNum));
-		model.addAttribute("qnaList", qnaService.qnaList(qna, pageNum));
+		// model.addAttribute("qnaList", qnaService.qnaList(qna, pageNum));
 		 return "qna/modify";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.POST)
@@ -66,9 +67,8 @@ public class QnaController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value="reply", method=RequestMethod.GET)
-	public String reply(Qna qna, int qnaNum, String pageNum, Model model) {
+	public String reply(int qnaNum, Model model) {
 		model.addAttribute("qna", qnaService.contentQna(qnaNum));
-		model.addAttribute("qnaList", qnaService.qnaList(qna, pageNum));
 		return "qna/reply";
 	}
 	@RequestMapping(value="reply", method=RequestMethod.POST)

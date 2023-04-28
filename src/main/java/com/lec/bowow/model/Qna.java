@@ -21,4 +21,5 @@ public class Qna {
 	private int endRow;
 	private String schItem;
 	private String schWord;
+	private String image;
 }

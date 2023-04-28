@@ -72,9 +72,9 @@
 				<c:forEach var="qna" items="${qnaList }">
 					<tr onclick="clickTr(${qna.qnaNum})">
 						<td>${qna.qnaNum }</td>
-						<td>${qna.productCode }
-						${product.productCode }
-						${param.productCode }</td>
+						<td>
+							<img src="${conPath }/productImage/${qna.image}" style="width: 150px;">
+						</td>
 				  		<td style="text-align: left;">
 				  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
 				  				<c:if test="${i eq qna.qnaIndent }">
