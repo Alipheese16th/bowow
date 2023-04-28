@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.lec.bowow.dao.OrderDao">
+
+	<resultMap type="Order" id="OrderResult">
+		<result property="orderCode" column="orderCode"/>
+		<result property="memberId" column="memberId"/>
+		<result property="orderDate" column="orderDate"/>
+		<result property="orderName" column="orderName"/>
+		<result property="orderPost" column="orderPost"/>
+		<result property="orderAddr1" column="orderAddr1"/>
+		<result property="orderAddr2" column="orderAddr2"/>
+		<result property="orderTel" column="orderTel"/>
+	</resultMap>
+	
+	<insert id="insertOrder" parameterType="Order">
+		INSERT INTO ORDERS (orderCode, MEMBERID, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
+  			VALUES (CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')), #{memberId}, #{orderName}, #{orderPost}, #{orderAddr1}, #{orderAddr2}, #{orderTel})
+	</insert>
+	
+	
+	
+	
+	
+	
+</mapper>

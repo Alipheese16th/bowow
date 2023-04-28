@@ -223,7 +223,6 @@
 		location.href = '${conPath}/product/content.do?productCode='+productCode;
 	});
 	
-	
 	/////// 체크박스 선택시 상품 객체배열로 저장 , 선택 해제시 객체배열에서 삭제
 	$('.chk').change(function(){
 		
@@ -269,7 +268,6 @@
 		}
 		
 	});
-	
 	
 	///////// 상품 수량 업데이트
 	$('.change').click(function(){

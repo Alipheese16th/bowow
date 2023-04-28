@@ -122,14 +122,32 @@ DELETE FROM CART WHERE MEMBERID = 'aaa';
 select * from orders;
 SELECT * FROM ORDERDETAIL;
 
--- 주문테이블에 데이터 입력
-INSERT INTO ORDERS (ORDERNUM, MEMBERID, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
+-- 주문테이블에 데이터 1행 입력
+INSERT INTO ORDERS (orderCode, MEMBERID, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
   VALUES (CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')), 'aaa', '택배받는사람', '12132', '배송지기본주소', '배송지상세주소', '010-9999-9999');
 
--- 주문상세테이블에 입력 (상품코드, 사이즈, 컬러, 수량, 총가격(서브쿼리에서 상품별 할인 적용))
-INSERT INTO ORDERDETAIL (ODNO, ORDERNUM, PRODUCTCODE, SIZENUM, COLORNUM, QTY, COST)
+-- 주문상세테이블에 1행 입력 (상품코드, 사이즈, 컬러, 수량, 총가격(서브쿼리에서 상품별 할인 적용))
+INSERT INTO ORDERDETAIL (ODNO, orderCode, PRODUCTCODE, SIZENUM, COLORNUM, QTY, COST)
   VALUES (ORDERDETAIL_SEQ.NEXTVAL, CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')), 
          'P0001',12, 12, 3, 3*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE PRODUCTCODE = 'P0001'));
+
+
+
+-- 서브쿼리이용 - 해당 회원의 장바구니 전체주문 (orderCode, productCode, sizeNum, colorNum, qty, cost)
+insert into orderdetail (odno, orderCode, productCode, sizeNum, colorNum, qty, cost)
+  select orderdetail_seq.nextval, CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')),
+          c.productCode, c.sizeNum, c.colorNum, c.qty, c.cost from cart c where memberId = 'aaa';
+
+select * from cart where memberId = 'aaa';
+
+-- 서브쿼리 이용 선택주문 (orderCode, productCode, sizeNum, colorNum, qty, cost, cartNum배열)
+insert into orderdetail (odno, orderCode, productCode, sizeNum, colorNum, qty, cost)
+  select orderdetail_seq.nextval, CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')),
+          c.productCode, c.sizeNum, c.colorNum, c.qty, c.cost from cart c where memberId = 'aaa' and cartNum in (1, 2, 3 , 4);
+
+
+
+
 
 
 -- 주문되고나면
@@ -140,7 +158,7 @@ UPDATE PRODUCT SET PRODUCTSTOCK = PRODUCTSTOCK - 3 WHERE PRODUCTCODE = 'P0001';
 -- 주문한 상품 장바구니 비우기 (cartNum)
 DELETE FROM CART WHERE CARTNUM = 1;
 
--- 'aaa'의 주문내역
+-- 'aaa'의 주문내역 (memberId)
 SELECT * FROM ORDERS WHERE MEMBERID = 'aaa' ORDER BY ORDERDATE DESC;
 
 

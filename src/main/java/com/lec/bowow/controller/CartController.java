@@ -48,10 +48,9 @@ public class CartController {
 		return "forward:list.do";
 	}
 	
-	
 	// 장바구니에서 선택삭제
 	@RequestMapping(value = "select", method = {RequestMethod.GET,RequestMethod.POST})
-	public String deleteCart(String submit, int[] cartNum) {
+	public String deleteCart(Model model, String submit, int[] cartNum) {
 		
 		System.out.println(submit);
 		
@@ -60,7 +59,8 @@ public class CartController {
 			cartService.deleteCart(cartNum);
 		}else {
 			System.out.println("주문하시죠");
-			return "";
+			model.addAttribute("cartNumList",cartNum);
+			return "forward:../order/write.do";
 		}
 		
 		return "forward:list.do";

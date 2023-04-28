@@ -15,9 +15,12 @@
 .container{
 	min-width: 1300px !important;
 }
-.imageArea, .infoArea, .titleImage{
+.imageArea, .titleImage{
 	width:600px;
 	height:600px;
+}
+.infoArea{
+	width:600px;
 }
 .infoLeft{
 	text-align: left !important;
@@ -78,6 +81,13 @@
 	backgorund-color:white;
 	color:#BE8D6E;
 }
+.qty{
+	width:40px;
+	height:20px !important;
+}
+.productFont{
+	font-size:12px;
+}
 
 </style>
 </head>
@@ -87,7 +97,7 @@
 	
 	<div class="container">
 		
-		<div class="d-flex justify-content-center mt-5">
+		<div class="d-flex justify-content-center my-5">
 			
 			<div class="imageArea">
 				<c:forEach items="${imageList}" var="image">
@@ -468,7 +478,7 @@
 	
 	const getProductBoth = function(size, color, sizeName, colorName){
 		var product = $('<tr>'
-				+'<td class="d-flex justify-content-between align-items-center">'
+				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+sizeName+' '+colorName
 				+'<img class="delete" src="${conPath}/img/delete.gif">'
 				+'</td>'
@@ -494,7 +504,7 @@
 	};
 	const getProductSize = function(size, sizeName){
 		var product = $('<tr>'
-				+'<td class="d-flex justify-content-between align-items-center">'
+				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+sizeName
 				+'<img class="delete" src="${conPath}/img/delete.gif">'
 				+'</td>'
@@ -519,7 +529,7 @@
 	};
 	const getProductColor = function(color, colorName){
 		var product = $('<tr>'
-				+'<td class="d-flex justify-content-between align-items-center">'
+				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+colorName
 				+'<img class="delete" src="${conPath}/img/delete.gif">'
 				+'</td>'
@@ -544,7 +554,7 @@
 	};
 	const getProductNo = function(){
 		var product = $('<tr>'
-				+'<td>'
+				+'<td class="productFont">'
 				+'${product.productName}'
 				+'</td>'
 				+'<td>'
