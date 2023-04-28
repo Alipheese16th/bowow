@@ -28,6 +28,7 @@ INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMB
 SELECT * FROM MEMBER;
 -- 아이디 찾기 id = searchIdMember
 SELECT MEMBERID FROM MEMBER WHERE MEMBERTEL = '010-5468-3213';
+
 -- 비밀번호 찾기 id = searchPwMember
 SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = 'aaa';
 -- mid로 dto가져오기 (로그인 성공시 session에 넣기 위해) id = getDetailMember

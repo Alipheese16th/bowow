@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,8 +51,21 @@ public class MemberController {
 		}
 	}
 	@RequestMapping(value="findId", method=RequestMethod.GET)
-	public String findId() {
+	public String findIdView() {
 		return "member/findId";
+	}
+	@RequestMapping(value="findId", method=RequestMethod.POST)
+	public String findId(@Param("memberName") String memberName, @Param("memberEmail") String memberEmail, Model model) {
+		String idResult = memberService.searchIdMember(memberName, memberEmail);
+		if(idResult.equals("가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.")) {
+			model.addAttribute("idResult", idResult);
+			model.addAttribute("memberName", memberName);
+			model.addAttribute("memberEmail", memberEmail);
+			return "redirect:member/findId.jsp";
+		}else {
+			model.addAttribute("idResult", idResult);
+			return "member/findIdSuccess";
+		}
 	}
 	@RequestMapping(value="logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {

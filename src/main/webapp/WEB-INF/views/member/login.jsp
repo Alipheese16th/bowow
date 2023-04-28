@@ -32,7 +32,7 @@
 		<div class="login-title">로그인</div>
 		<div class="login-wrap">
 			<form action="login.do" method="post">
-			<input type="hidden" name="after" value="${empty param.after ? 'main.do':param.after}">
+			<input type="text" name="after" value="${empty param.after ? 'main.do':param.after}">
 			<input type="hidden" name="productCode" value="${param.productCode}">
 				<table>
 					<tr>
@@ -50,8 +50,8 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<button type="submit" class="btnStyle">로그인</button>
-							<button type="button" class="btnStyle" onclick="location='${conPath }/join.do'">회원가입</button>
+							<button type="submit" class="btnStyle1">로그인</button>
+							<button type="button" class="btnStyle2" onclick="location='${conPath }/join.do'">회원가입</button>
 						</td>
 					</tr>
 				</table>
