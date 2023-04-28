@@ -8,9 +8,9 @@
 		<result property="adminPw" column="adminPw"/>
 		<result property="adminName" column="adminName"/>
 	</resultMap>
-	<select id="adminList" resultMap="AdminResult">
+	<!-- <select id="adminList" resultMap="AdminResult">
 		SELECT * FROM ADMIN
-	</select>
+	</select> -->
 	<select id="getAdmin" parameterType="String" resultType="Admin">
 		SELECT * FROM ADMIN WHERE adminId = #{adminId}
 	</select>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Qna;
 
 public interface QnaService {

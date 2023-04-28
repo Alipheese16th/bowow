@@ -13,7 +13,7 @@
 	<style>
 		.qna {min-width: 1400px;}
 		.qna h1 {text-align: center; height: 100px; line-height: 100px;}
-		.qna .select {margin: 10px 0;}
+		.qna .select {text-align: center;}
 		.qna .form-label {left: 0;}
 		.qna .form-control {border: 1px solid #BE8D6E;}
 		.qna label {font-size: 1.2em; font-weight: bold;}
@@ -31,13 +31,14 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 	<script>
-		$(document).on('ready', function(){
+		$(document).ready(function() {
 			$('.my-select').selectpicker();
 			
 			$('select').change(function() {
-				$('.select').submit();
+				var productCode = $(this).val();
+				$('form.select').submit();
 			});
-		}
+		});
 	</script>
 </head>
 <body>
@@ -50,26 +51,37 @@
 	
 	<jsp:include page="../main/header.jsp"/>
 	
-	<form action="${conPath }/qna/write.do?pageNum" method="get" class="select">
-		<select id="selectId" name="selectId" class="selectpicker my-select" data-live-search="true">
-			<option>상품명을 입력해주세요</option>
-			<c:forEach var="product" items="${productList }">
-				<option value="${product.productCode }">
-					${product.productName }
-				</option>
-			</c:forEach>
-		</select>
-	</form>
-	<c:if test="${product.productCode eq param.productCode }">
-		<div>img</div>
-	</c:if>
-	<c:if test="${product.productCode != param.productCode }">
-		<div>ddd</div>
-	</c:if>
-	
 	<div class="qna">
 		<h1>상품문의 게시판 작성</h1>
-		<form action="${conPath }/qna/write.do" method="post">
+		<div class="select">
+			<form action="${conPath }/qna/write.do" method="get" class="select">
+				<select id="selectId" name="selectCode" class="selectpicker my-select" data-live-search="true">
+					<option>상품명을 입력해주세요</option>
+					<c:forEach var="product" items="${productList }">
+						<option value="${product.productCode }">
+							${product.productName }
+						</option>
+					</c:forEach>
+				</select>
+			</form>
+			
+			<c:forEach var="product" items="${productList }">
+				<c:if test="${product.productCode eq param.selectCode}">
+					${product.productName }<br>
+					<img src="${conPath }/productImage/${product.image}" style="width: 150px;">
+				</c:if>
+			</c:forEach>
+			
+			<%-- <c:if test="${empty product.image }">
+				이미지 없음
+			</c:if>
+			<c:if test="${not empty product.image }">
+				<img src="${conPath }/productImage/${product.image}">
+			</c:if>
+			 --%>
+		</div>
+		 
+		<form action="${conPath }/qna/write.do?selectCode" method="post">
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
 				<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력해주세요" required="required">
