@@ -92,6 +92,13 @@
 	</script>
 </head>
 <body>
+
+	<c:if test="${not empty param.asdf}">
+		<script>
+		alert('아이디가 일치하지않습니다dfsadfsa');
+		</script>
+	</c:if>
+
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content-form">
 		<div class="login-title">아이디 찾기</div>

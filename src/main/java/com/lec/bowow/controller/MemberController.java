@@ -57,15 +57,24 @@ public class MemberController {
 	@RequestMapping(value="findId", method=RequestMethod.POST)
 	public String findId(@Param("memberName") String memberName, @Param("memberEmail") String memberEmail, Model model) {
 		String idResult = memberService.searchIdMember(memberName, memberEmail);
-		if(idResult.equals("가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.")) {
-			model.addAttribute("idResult", idResult);
-			model.addAttribute("memberName", memberName);
-			model.addAttribute("memberEmail", memberEmail);
-			return "redirect:member/findId.jsp";
+		model.addAttribute("idResult",idResult);
+//		if(idResult.equals("가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.")) {
+//			model.addAttribute("idResult", idResult);
+//			model.addAttribute("memberName", memberName);
+//			model.addAttribute("memberEmail", memberEmail);
+//			return "redirect:member/findId.jsp";
+//		}else {
+//			model.addAttribute("idResult", idResult);
+//			return "member/findIdSuccess";
+//		}
+		if(idResult==null) {
+			return "redirect:member/findId.jsp?asdf="+"asdf";
 		}else {
-			model.addAttribute("idResult", idResult);
 			return "member/findIdSuccess";
 		}
+		
+		
+		
 	}
 	@RequestMapping(value="logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {

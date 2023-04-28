@@ -105,13 +105,17 @@ public class MemverServiceImpl implements MemberService {
 	}
 	@Override
 	public String searchIdMember(String memberName, String memberEmail) {
-		String findIdResult = memberDao.searchIdMember(memberName, memberEmail);
-		Member member = memberDao.searchIDgetMember(memberName);
-		if(member==null) {
-			findIdResult = "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.";
-		}else if(!member.getMemberName().equals(memberName) || !member.getMemberEmail().equals(memberEmail)){
-			findIdResult = "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.";
-		}
+		Member member = new Member();
+		member.setMemberName(memberName);
+		member.setMemberEmail(memberEmail);
+		String findIdResult = memberDao.searchIdMember(member);
+//		Member member = memberDao.searchIDgetMember(memberName);
+//		if(member==null) {
+//			findIdResult = "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.";
+//		}else if(!member.getMemberName().equals(memberName) || !member.getMemberEmail().equals(memberEmail)){
+//			findIdResult = "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.";
+//		}
+		
 		return findIdResult;
 	}
 	@Override
