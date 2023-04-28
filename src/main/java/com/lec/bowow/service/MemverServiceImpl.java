@@ -78,7 +78,7 @@ public class MemverServiceImpl implements MemberService {
 				// 받을 메일 설정 
 				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(member.getMemberEmail()));
 				mimeMessage.setFrom(new InternetAddress("sykim789456@gmail.com"));
-				mimeMessage.setSubject("[HTML 가입인사]" + member.getMemberName() + "님 회원가입 감사합니다.");
+				mimeMessage.setSubject("[BOWOW]" + member.getMemberName() + "님 회원가입 감사합니다.");
 				mimeMessage.setText(content, "utf-8", "html");
 			}
 		};
@@ -104,8 +104,19 @@ public class MemverServiceImpl implements MemberService {
 		return result;
 	}
 	@Override
-	public String searchIdMember(String memberEmail) {
-		return memberDao.searchIdMember(memberEmail);
+	public String searchIdMember(String memberName, String memberEmail) {
+		String findIdResult = memberDao.searchIdMember(memberName, memberEmail);
+		Member member = memberDao.searchIDgetMember(memberName);
+		if(member==null) {
+			findIdResult = "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.";
+		}else if(!member.getMemberName().equals(memberName) || !member.getMemberEmail().equals(memberEmail)){
+			findIdResult = "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.";
+		}
+		return findIdResult;
+	}
+	@Override
+	public Member searchIDgetMember(String memberName) {
+		return memberDao.searchIDgetMember(memberName);
 	}
 	@Override
 	public String searchPwMember(String memberId) {

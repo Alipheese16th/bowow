@@ -30,8 +30,11 @@
 			INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH)
     			VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberTel}, #{memberPost}, #{memberAddr1}, #{memberAddr2}, #{memberBirth})
 	</insert>
-	<select id="searchIdMember" parameterType="String" resultType="String">
-		SELECT MEMBERID FROM MEMBER WHERE MEMBERTEL = #{memberTel}
+	<select id="searchIdMember" parameterType="Member" resultType="String">
+		SELECT MEMBERID FROM MEMBER WHERE MEMBERNAME = #{memberName} AND MEMBEREMAIL = #{memberEmail}
+	</select>
+	<select id="searchIDgetMember" parameterType="String" resultType="Member">
+		SELECT * FROM MEMBER WHERE MEMBERNAME = #{memberName}
 	</select>
 	<select id="searchPwMember" parameterType="String" resultType="String">
 		SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = #{memberId}

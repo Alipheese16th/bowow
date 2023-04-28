@@ -64,7 +64,7 @@ li{
 #content-form .login-wrap table tr:last-child{
 	text-align:center;
 }
-#content-form .login-wrap table td button:nth-child(1){
+#content-form .login-wrap table td .btnStyle1{
 	width:100%;
 	height:50px;
 	border-radius: 5px;
@@ -75,7 +75,7 @@ li{
 	font-weight: 600;
 	padding:0 10px;
 }
-#content-form .login-wrap table td button:nth-child(2){
+#content-form .login-wrap table td .btnStyle2{
 	width:100%;
 	height:50px;
 	border-radius: 5px;
