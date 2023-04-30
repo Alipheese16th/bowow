@@ -14,6 +14,18 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 	<style>
+		.faq {min-width: 1270px; text-align: center;}
+		.faq h1 {font-size: 2.7em; height: 100px; line-height: 100px;}
+		.faq .write {
+			background-color: #BE8D6E; color: #fff;
+			font-size: 1.2em;
+		}
+		.faq .write:hover {background-color: gray;}
+		.faq .write a {
+			color: #fff;
+		}
+		.faq .paging {margin: 30px 0 30px;}
+		.faq .paging b {color: red;}
 		.accordion-button{
 		    display: block;
 		    width: 700px;
@@ -73,7 +85,11 @@
 		    color: #fff;
 		}
 	</style>	
-	
+	<!-- <script>
+		const clickTr = function(faqTitle) {
+			location.href = "${conPath}/faq/content.do?faqTitle=" + faqTitle + '&pageNum=${paging.currentPage}';
+		};
+	</script> -->
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
@@ -100,47 +116,58 @@
 			</table>
 		</div>
 	</div> --%>
+	<div class="faq">
+		<h1>자주 묻는 질문(FAQ)</h1>
 		<div class="accordion-container">
-		    <div class="accordion-button">dd<i id="cross" class="cross"></i></div>
-		    <div class="accordion-text-wrapper"><p class="accordion-text">Lorem ipsum dolor sit amet, vix mandamus expetenda adolescens te, vivendo ponderum per ea. Ullum tincidunt dissentiet pro at. Usu atqui paulo soleat in, no est vide iisque quaerendum, ipsum antiopam in vix. Ex cum cibo quodsi luptatum, eu utamur intellegat usu.
-		        Eligendi assueverit te sit, ad putant iuvaret disputando ius. Ipsum maluisset ne vim, dicta decore semper his in. Mel justo labores an, mea at diam impedit percipit. Ut cum adipisci necessitatibus, illum neglegentur an vel, alii elit hendrerit in per. Te cum volumus reprimique, no omnesque accusata consectetuer vel, ex dico wisi exerci sea. His legimus graecis ea. Duo cu possim persius indoctum, mea vidit salutandi id.</p></div>
-		    <div class="accordion-button">dd<i id="cross" class="cross"></i></div>
-		    <div class="accordion-text-wrapper"><p class="accordion-text">Lorem ipsum dolor sit amet, vix mandamus expetenda adolescens te, vivendo ponderum per ea. Ullum tincidunt dissentiet pro at. Usu atqui paulo soleat in, no est vide iisque quaerendum, ipsum antiopam in vix. Ex cum cibo quodsi luptatum, eu utamur intellegat usu.
-		        Eligendi assueverit te sit, ad putant iuvaret disputando ius. Ipsum maluisset ne vim, dicta decore semper his in. Mel justo labores an, mea at diam impedit percipit. Ut cum adipisci necessitatibus, illum neglegentur an vel, alii elit hendrerit in per. Te cum volumus reprimique, no omnesque accusata consectetuer vel, ex dico wisi exerci sea. His legimus graecis ea. Duo cu possim persius indoctum, mea vidit salutandi id.</p></div>
-		    <div class="accordion-button">dd<i id="cross" class="cross"></i></div>
-		    <div class="accordion-text-wrapper"><p class="accordion-text">Lorem ipsum dolor sit amet, vix mandamus expetenda adolescens te, vivendo ponderum per ea. Ullum tincidunt dissentiet pro at. Usu atqui paulo soleat in, no est vide iisque quaerendum, ipsum antiopam in vix. Ex cum cibo quodsi luptatum, eu utamur intellegat usu.
-		        Eligendi assueverit te sit, ad putant iuvaret disputando ius. Ipsum maluisset ne vim, dicta decore semper his in. Mel justo labores an, mea at diam impedit percipit. Ut cum adipisci necessitatibus, illum neglegentur an vel, alii elit hendrerit in per. Te cum volumus reprimique, no omnesque accusata consectetuer vel, ex dico wisi exerci sea. His legimus graecis ea. Duo cu possim persius indoctum, mea vidit salutandi id.</p></div>
-		</div>
-	
-	<%-- <div class="paging">
-		<c:if test="${paging.startPage > paging.blockSize }">
-			<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${paging.startPage-1}'">
-				<
+			<c:forEach var="faq" items="${faqList }">
+				<tr onclick="clickTr(${faq.faqTitle})">
+					<th>
+					    <div class="accordion-button">${faq.faqTitle }<i id="cross" class="cross"></i>
+					    </div>
+					    <div class="accordion-text-wrapper">
+					    	<p class="accordion-text">${faq.faqContent }</p>
+						    <button class="btn write" type="button">수정</button>
+						    <button class="btn write" type="button">삭제</button>
+					    </div>
+					</th>
+					<th>
+					</th>
+				</tr>
+			</c:forEach>
+			<button class="btn write" type="button" onclick="location.href='${conPath }/faq/write.do'">
+				WRITE
 			</button>
-		</c:if>
-		<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
-			<c:if test="${paging.currentPage == i }">
-				<button type="button" class="btn btn-outline-secondary"><b>${i }</b></button>
-			</c:if>
-			<c:if test="${paging.currentPage != i }">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${i }'">
-					${i }
+		</div>
+		<div class="paging">
+			<c:if test="${paging.startPage > paging.blockSize }">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${paging.startPage-1}'">
+					<
 				</button>
 			</c:if>
-		</c:forEach>
-		<c:if test="${paging.endPage < paging.pageCnt }">
-			<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${paging.endPage+1}'">
-				>
-			</button>
-		</c:if>
-	</div> --%>
+			<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
+				<c:if test="${paging.currentPage == i }">
+					<button type="button" class="btn btn-outline-secondary"><b>${i }</b></button>
+				</c:if>
+				<c:if test="${paging.currentPage != i }">
+					<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${i }'">
+						${i }
+					</button>
+				</c:if>
+			</c:forEach>
+			<c:if test="${paging.endPage < paging.pageCnt }">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${paging.endPage+1}'">
+					>
+				</button>
+			</c:if>
+		</div>
+	</div>
 	
 	<jsp:include page="../main/footer.jsp"/>
 	
 </body>
 	<script>
 		var accordionTab = document.querySelectorAll(".accordion-button");
-		var buttons = [accordionTab[0], accordionTab[1], accordionTab[2]];
+		var buttons = [accordionTab[0], accordionTab[1], accordionTab[2], accordionTab[3], accordionTab[4], accordionTab[5], accordionTab[6], accordionTab[7], accordionTab[8], accordionTab[9]];
 	
 		buttons.forEach(function(item){
 		    item.addEventListener("click", function(){
@@ -151,7 +178,7 @@
 		        this.classList.toggle("active");
 		    });
 		});
-		const clickTr = function(qnaNum) {
+		const clickTr = function(faqTitle) {
 			location.href = "${conPath}/qna/content.do?qnaNum=" + qnaNum + '&pageNum=${paging.currentPage}';
 		};
 	</script>
