@@ -1,6 +1,8 @@
 package com.lec.bowow.service;
 
 import java.sql.Date;
+import java.util.List;
+
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -10,6 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import com.lec.bowow.dao.MemberDao;
+import com.lec.bowow.model.Coupon;
 import com.lec.bowow.model.Member;
 @Service
 public class MemverServiceImpl implements MemberService {
@@ -133,5 +136,11 @@ public class MemverServiceImpl implements MemberService {
 	@Override
 	public int deleteMember(String memberId, HttpSession session) {
 		return memberDao.deleteMember(memberId);
+	}
+	
+	@Override
+	public List<Coupon> couponList(HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		return memberDao.couponList(member.getMemberId());
 	}
 }

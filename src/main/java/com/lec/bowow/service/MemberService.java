@@ -1,7 +1,10 @@
 package com.lec.bowow.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import com.lec.bowow.model.Coupon;
 import com.lec.bowow.model.Member;
 
 public interface MemberService {
@@ -15,4 +18,7 @@ public interface MemberService {
 	public Member getDetailMember(String memberId);
 	public Member modifyMember(Member member, HttpSession session);
 	public int deleteMember(String memberId, HttpSession session);
+	
+	//쿠폰리스트
+	public List<Coupon> couponList(HttpSession session);
 }

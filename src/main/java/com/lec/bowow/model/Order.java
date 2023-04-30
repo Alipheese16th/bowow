@@ -8,6 +8,7 @@ import lombok.Data;
 public class Order {
 	private String orderCode;
 	private String memberId;
+	private int totalPrice;
 	private Date orderDate;
 	private String orderName;
 	private String orderPost;

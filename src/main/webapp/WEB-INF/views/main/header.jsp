@@ -114,7 +114,12 @@
 					</div>
 					<div class="gnb-right">
 						<button class="search">검색하기</button>
-						<button class="cart">장바구니<span>0</span></button>
+						<button class="cart">
+							장바구니
+							<c:if test="${not empty totCntCart}">
+								<span>${totCntCart}</span>
+							</c:if>
+						</button>
 					</div>
 					<div class="search-view">
 						<form action="${conPath}/product/search.do">

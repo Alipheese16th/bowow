@@ -20,6 +20,13 @@
 		<result property="gradeno" column="gradeno"/>
 	</resultMap>
 	
+	<resultMap type="Coupon" id="CouponResult">
+		<result property="couponNum" column="couponNum"/>
+		<result property="memberId" column="memberId"/>
+		<result property="couponName" column="couponName"/>
+		<result property="couponDiscount" column="couponDiscount"/>
+	</resultMap>
+	
 	<select id="memberIdConfirm" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId}
 	</select>
@@ -57,4 +64,11 @@
 	<delete id="deleteMember" parameterType="String">
 		DELETE FROM MEMBER WHERE MEMBERID = #{memberId}
 	</delete>
+	
+	<!-- 해당 회원의 쿠폰리스트 -->
+	<select id="couponList" parameterType="String" resultMap="CouponResult">
+		select * from coupon where memberid = #{memberId}
+	</select>
+	
+	
 </mapper>

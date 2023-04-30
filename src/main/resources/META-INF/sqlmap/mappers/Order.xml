@@ -8,6 +8,7 @@
 	<resultMap type="Order" id="OrderResult">
 		<result property="orderCode" column="orderCode"/>
 		<result property="memberId" column="memberId"/>
+		<result property="totalPrice" column="totalPrice"/>
 		<result property="orderDate" column="orderDate"/>
 		<result property="orderName" column="orderName"/>
 		<result property="orderPost" column="orderPost"/>
@@ -16,14 +17,42 @@
 		<result property="orderTel" column="orderTel"/>
 	</resultMap>
 	
+	<!-- 주문작성하기전에 주문번호 뽑아서 가기 -->
+	<insert id="createOrderCode">
+		INSERT INTO ORDERCODE VALUES(CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')))
+	</insert>
+	<select id="getOrderCode" resultType="String">
+		SELECT ORDERCODE FROM ORDERCODE O WHERE ROWNUM = 1 ORDER BY ORDERCODE DESC
+	</select>
+	
+	<!-- 주문테이블입력 -->
 	<insert id="insertOrder" parameterType="Order">
-		INSERT INTO ORDERS (orderCode, MEMBERID, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
-  			VALUES (CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')), #{memberId}, #{orderName}, #{orderPost}, #{orderAddr1}, #{orderAddr2}, #{orderTel})
+		INSERT INTO ORDERS (orderCode, MEMBERID, TOTALPRICE, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
+  			VALUES (#{orderCode}, #{memberId}, #{totalPrice}, #{orderName, jdbcType=VARCHAR}, #{orderPost, jdbcType=VARCHAR}, #{orderAddr1, jdbcType=VARCHAR}, #{orderAddr2, jdbcType=VARCHAR}, #{orderTel, jdbcType=VARCHAR})
+	</insert>
+	<!-- 주문상세입력  상품여러개면 반복해야함 -->
+	<insert id="insertOrderDetail" parameterType="Cart">
+		insert into orderdetail (odno, orderCode, productCode, sizeNum, colorNum, qty, cost)
+  			select orderdetail_seq.nextval, #{orderCode}, c.productCode, c.sizeNum, c.colorNum, c.qty, c.cost from cart c where cartNum = #{cartNum}
 	</insert>
 	
+	<!-- 상품 재고 업데이트 -->
+	<update id="stockUpdate" parameterType="Cart">
+		UPDATE PRODUCT SET PRODUCTSTOCK = PRODUCTSTOCK - #{qty} WHERE PRODUCTCODE = #{productCode}
+	</update>
 	
+	<update id="updateMember" parameterType="Order">
+		UPDATE MEMBER SET
+	        MEMBERPOINT = MEMBERPOINT + (#{totalPrice} * 0.05),
+	        MEMBERAMOUNT = MEMBERAMOUNT + #{totalPrice},
+	        GRADENO = (SELECT G.GRADENO FROM MEMBER, MEMBERGRADE G WHERE MEMBERAMOUNT + #{totalPrice} BETWEEN LOWAMOUNT AND HIAMOUNT AND MEMBERID = #{memberId})
+	    WHERE MEMBERID = #{memberId}
+	</update>
 	
-	
+	<!-- 쿠폰 사용후 삭제 -->
+	<delete id="deleteCoupon" parameterType="int">
+		delete from coupon where couponnum = #{couponNum}
+	</delete>
 	
 	
 </mapper>

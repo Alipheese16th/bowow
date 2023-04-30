@@ -34,7 +34,6 @@
 	
 	<!-- 장바구니에 기존 상품 (옵션존재하면 옵션까지) 중복확인 -->
 	<select id="confirmCart" parameterType="Cart" resultType="int">
-		
 		<if test="sizeNum == 0 and colorNum == 0">
 			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
 		</if>
@@ -47,15 +46,12 @@
 		<if test="sizeNum != 0 and colorNum != 0">
 			SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
 		</if>
-		
 	</select>
+	
 	<!-- 장바구니 리스트 -->
 	<select id="cartList" parameterType="String" resultMap="CartResult">
 		SELECT C.*, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK, IMAGE  FROM CART C, PRODUCT P, IMAGE I
   			WHERE C.PRODUCTCODE = P.PRODUCTCODE AND P.PRODUCTCODE = I.PRODUCTCODE AND TYPE = 'title' AND MEMBERID = #{memberId}
-	</select>
-	<select id="totCntCart" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId}
 	</select>
 	<select id="sizeList" resultMap="SizeResult">
 		SELECT * FROM SIZES
@@ -66,8 +62,6 @@
 	
 	<!-- 상품상세에서 상품 추가 -->
 	<insert id="insertCart" parameterType="Cart">
-		<!-- INSERT INTO CART (cartNUM, memberID, productCODE, sizeNum, colorNum, QTY, COST)
-		    	VALUES (CART_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{sizeNum, jdbcType=NUMERIC}, #{colorNum, jdbcType=NUMERIC}, #{qty}, #{qty}*(SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})) -->
     	<if test="sizeNum == 0 and colorNum == 0">
 			INSERT INTO CART (cartNUM, memberID, productCODE, QTY, COST)
 		    	VALUES (CART_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{qty}, #{qty}*(SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode}))
@@ -84,7 +78,6 @@
 			INSERT INTO CART (cartNUM, memberID, productCODE, sizeNum, colorNum, QTY, COST)
 		    	VALUES (CART_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{sizeNum}, #{colorNum}, #{qty}, #{qty}*(SELECT productPRICE- PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode}))
 		</if>
-		
 	</insert>
 	<!-- 상품상세에서 상품 수량 추가 -->
 	<update id="plusCart" parameterType="Cart">
@@ -113,64 +106,47 @@
 			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
 		</if>
 	</update>
+	<!-- 상품상세 -> 주문하기 할때 cartNum 확보 -->
+	<select id="getCartNum" parameterType="Cart" resultType="int">
+		<if test="sizeNum == 0 and colorNum == 0">
+			SELECT CARTNUM FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
+		</if>
+		<if test="sizeNum != 0 and colorNum == 0">
+			SELECT CARTNUM FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum}
+		</if>
+		<if test="sizeNum == 0 and colorNum != 0">
+			SELECT CARTNUM FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND COLORNUM = #{colorNum}
+		</if>
+		<if test="sizeNum != 0 and colorNum != 0">
+			SELECT CARTNUM FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
+		</if>
+	</select>
 	
 	<!-- 장바구니에서 상품 수량 업데이트 -->
 	<update id="updateCart" parameterType="Cart">
-		  
 	  UPDATE CART 
 		  SET QTY = #{qty},
 		      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
 		  WHERE CARTNUM = #{cartNum}
-	
-		<!-- <if test="sizeNum == 0 and colorNum == 0">
-			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
-			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
-		</if>
-		<if test="sizeNum != 0 and colorNum == 0">
-			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
-			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum}
-		</if>
-		<if test="sizeNum == 0 and colorNum != 0">
-			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
-			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND COLORNUM = #{colorNum}
-		</if>
-		<if test="sizeNum != 0 and colorNum != 0">
-			UPDATE CART 
-			  SET QTY = #{qty},
-			      COST = #{qty}*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE productCODE = #{productCode})
-			  WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
-		</if> -->
 	</update>
 	
 	<!-- 장바구니에서 상품삭제 -->
 	<delete id="deleteCart" parameterType="int">
-	
 		DELETE FROM CART WHERE CARTNUM = #{cartNum}
-	
-		<!-- <if test="sizeNum == 0 and colorNum == 0">
-			DELETE FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode}
-		</if>
-		<if test="sizeNum != 0 and colorNum == 0">
-			DELETE FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum}
-		</if>
-		<if test="sizeNum == 0 and colorNum != 0">
-			DELETE FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND COLORNUM = #{colorNum}
-		</if>
-		<if test="sizeNum != 0 and colorNum != 0">
-			DELETE FROM CART WHERE MEMBERID = #{memberId} AND PRODUCTCODE = #{productCode} AND SIZENUM = #{sizeNum} AND COLORNUM = #{colorNum}
-		</if> -->
 	</delete>
-	
+	<!-- 장바구니에서 전체삭제 -->
 	<delete id="deleteAll" parameterType="String">
 		DELETE FROM CART WHERE MEMBERID = #{memberId}
 	</delete>
+	<!-- aop에서 장바구니 갯수구하기 -->
+	<select id="totCntCart" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CART WHERE MEMBERID = #{memberId}
+	</select>
 	
+	<!-- 주문처리할때 cartNum으로 상품정보필요 -->
+	<select id="getCart" parameterType="int" resultType="Cart">
+		select * from cart where cartNum = #{cartNum}
+	</select>
 	
 	
 	

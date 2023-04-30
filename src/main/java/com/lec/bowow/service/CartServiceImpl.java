@@ -113,6 +113,40 @@ public class CartServiceImpl implements CartService {
 		cartDao.deleteAll(memberId);
 	}
 	
+	@Override
+	public int[] orderProduct(String productCode, String memberId, int[] sizeNum, int[] colorNum, int[] qty) {
+		
+		int[] cartNumList = new int[qty.length];
+		
+		for (int i = 0; i < qty.length; i++) {
+			Cart cart = new Cart();
+			cart.setProductCode(productCode);
+			cart.setMemberId(memberId);
+			if(sizeNum != null) {
+				cart.setSizeNum(sizeNum[i]);
+			}
+			if(colorNum != null) {
+				cart.setColorNum(colorNum[i]);
+			}
+			cart.setQty(qty[i]);
+			System.out.println("orderProduct 서비스로직 실행중");
+			System.out.println(cart.getProductCode());
+			System.out.println(cart.getMemberId());
+			System.out.println(cart.getSizeNum());
+			System.out.println(cart.getColorNum());
+			System.out.println(cart.getQty());
+			
+			if(cartDao.confirmCart(cart) == 0) { // 해당 상품이 존재하지 않는다면
+				cartDao.insertCart(cart);
+			}else { // 만약 해당 상품이 이미 존재한다면?
+				cartDao.plusCart(cart);
+			}
+			cartNumList[i] = cartDao.getCartNum(cart);
+		}
+		
+		return cartNumList;
+	}
+	
 	
 	
 	

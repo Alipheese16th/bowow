@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .container{
-	min-width: 1300px !important;
+	min-width: 1200px !important;
 }
 
 .pagination > li > a{

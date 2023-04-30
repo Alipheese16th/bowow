@@ -41,6 +41,13 @@ public class CartController {
 		cartService.updateCart(cart);
 		return "forward:list.do";
 	}
+	// 장바구니에서 하나삭제
+	@RequestMapping(value = "deleteCart", method = {RequestMethod.GET,RequestMethod.POST})
+	public String deleteCart(Model model, int[] cartNum) {
+		System.out.println("삭제하시죠");
+		cartService.deleteCart(cartNum);
+		return "forward:list.do";
+	}
 	// 장바구니에서 전체삭제
 	@RequestMapping(value = "deleteAll", method = {RequestMethod.GET,RequestMethod.POST})
 	public String deleteAll(String memberId) {
@@ -48,9 +55,9 @@ public class CartController {
 		return "forward:list.do";
 	}
 	
-	// 장바구니에서 선택삭제
+	// 장바구니에서 선택해서 삭제 혹은 주문으로 갈리는 분기
 	@RequestMapping(value = "select", method = {RequestMethod.GET,RequestMethod.POST})
-	public String deleteCart(Model model, String submit, int[] cartNum) {
+	public String select(Model model, String submit, int[] cartNum) {
 		
 		System.out.println(submit);
 		

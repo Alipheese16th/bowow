@@ -10,6 +10,7 @@
 	<typeAliases>
 		<!-- 김소연 시작 -->
 		<typeAlias type="com.lec.bowow.model.Member" alias="Member"/>
+		<typeAlias type="com.lec.bowow.model.Coupon" alias="Coupon"/>
 		<!-- 김소연 끝 -->
 		
 		<!-- 유민상 시작 -->

@@ -17,4 +17,6 @@ public class Cart {
 	private int productDiscount;
 	private int productStock;
 	private String image;
+	// 주문입력할때 필요한 주문코드
+	private String orderCode;
 }

@@ -13,14 +13,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .container{
-	min-width: 1300px !important;
+	min-width: 1200px !important;
 }
-.titleImg{
+.plist .titleImg{
 	width:80px;
 	height:80px;
 	cursor:pointer;
 }
-.title{
+.plist .title{
 	cursor:pointer;
 }
 .plist td, th{
@@ -35,9 +35,42 @@
 	text-align:right;
 }
 
-.qty{
+.plist .qty{
 	width:40px;
 	height:20px !important;
+}
+.mybtn{
+	background: #BE8D6E;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+}
+.lastorder{
+	width:50%;
+	margin:0 auto;
+	background: #BE8D6E;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	height:50px;
+	vertical-align:middle;
+	cursor:pointer;
+}
+
+.mytable{
+	width:80%;
+	margin:50px auto;
+	box-sizing:border-box;
+	border-collapse: collapse;
+}
+.mytable th{
+	font-weight:normal;
+	text-align:left;
+	padding:5px 0;
+}
+.mytable td{
+	text-align:right;
+	padding:5px 0;
 }
 
 </style>
@@ -50,7 +83,22 @@
 	
 		<h3 class="text-center py-5">CART</h3>
 		
-		<form action="${conPath}/cart/select.do">
+		<c:if test="${empty cartList}">
+		
+			<div class="p-3">
+				<h1 class="text-center py-5">상품이 존재하지 않습니다</h1>
+				<hr class="pb-3">
+				<div class="d-flex justify-content-between">
+					<button type="button" class="btn mybtn" onclick="location.href='${conPath}/main.do'">메인 페이지</button>
+					<button type="button" class="btn mybtn" onclick="location.href='${conPath}/product/list.do'">상품 추가하러 가기</button>
+				</div>
+			</div>
+		
+		</c:if>
+		
+		<c:if test="${not empty cartList}">
+		
+		<form action="${conPath}/cart/select.do" class="selectForm">
 		
 		<table class="table">
 			<thead>
@@ -138,7 +186,7 @@
 						</td>
 						<td>
 							<div class="d-flex flex-column">
-								<input type="button" class="btn btn-outline-dark" value="주문하기">
+								<input type="button" class="btn btn-outline-dark order" value="주문하기">
 								<input type="button" class="btn btn-outline-dark delete" value="삭제">
 							</div>
 						</td>
@@ -168,42 +216,33 @@
 				<input type="button" class="btn btn-outline-dark deleteAll" value="전체삭제">
 			</div>
 			<div>
-				<input type="submit" class="btn btn-outline-dark" name="submit" value="선택주문">
-				<input type="button" class="btn btn-outline-dark" value="전체주문">
+				<input type="submit" class="btn btn-outline-dark selectOrder" name="submit" value="선택주문">
+				<input type="button" class="btn btn-outline-dark orderAll" value="전체주문">
 			</div>
 		</div>
 		
 		</form>
 		
+		<table class="mytable">
+			<tr>
+				<th>주문금액</th><td>${totalPrice}원</td>
+			</tr>
+			<tr>
+				<th>배송비</th><td>3,000원</td>
+			</tr>
+			<tr>
+				<th>합계</th><td>${totalPrice + 3000}원</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class="d-flex justify-content-center px-5 py-1 lastorder">
+						주문하기
+					</div>
+				</td>
+			</tr>
+		</table>
 		
-		<div class="d-flex justify-content-between px-5 py-1">
-			<span>
-				주문금액
-			</span>
-			<span>
-				${totalPrice}원
-			</span>
-		</div>
-		<div class="d-flex justify-content-between px-5 py-1">
-			<span>
-				배송비
-			</span>
-			<span>
-				3,000원
-			</span>
-		</div>
-		<hr>
-		<div class="d-flex justify-content-between  px-5 py-1">
-			<span>
-				합계
-			</span>
-			<span>
-				${totalPrice + 3000}원
-			</span>
-		</div>
-		<div class="d-flex justify-content-center px-5 py-1">
-			<button type="button" class="btn btn-dark w-75">주문하기</button>
-		</div>
+		</c:if>
 		
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
@@ -211,7 +250,7 @@
 <script>
 	
 	var memberId = $('#memberId').val();
-	var products = [];
+	//var products = [];
 	
 	// 이미지나 상품명 누르면 상품상세보기로 이동
 	$('.titleImg').click(function(){
@@ -223,20 +262,16 @@
 		location.href = '${conPath}/product/content.do?productCode='+productCode;
 	});
 	
-	/////// 체크박스 선택시 상품 객체배열로 저장 , 선택 해제시 객체배열에서 삭제
+/* 	/////// 체크박스 선택시 상품 객체배열로 저장 , 선택 해제시 객체배열에서 삭제
 	$('.chk').change(function(){
-		
 		console.log($(this).val);
-		
 		var num = $(this).parents('.plist').find('.num').val();
 		var productCode = $(this).parents('.plist').attr('id');
 		var sizeNum = $(this).parents('.plist').find('.sizeNum').attr('id');
 		var colorNum = $(this).parents('.plist').find('.colorNum').attr('id');
 		var qty = $(this).parents('.plist').find('.qty').val();
 		var cost = $(this).parents('.plist').find('.cost').attr('id');
-		
 		if($('.chk').is(':checked')){	// 체크박스 선택
-			
 			let product = {
 				"num": num,
 				"productCode": productCode,
@@ -245,19 +280,14 @@
 				"qty": qty,
 				"cost": cost
 			}
-			
 			products.push(product);
 			console.log(products);
-			
 		}else{	// 체크박스 해제
-			
 			products = products.filter(product => product.num !== num);		// 배열 수정
 			console.log('배열바뀜');
 			console.log(products);
-			
 		}
-		
-	});// 체크박스로직
+	});// 체크박스로직 */
 	
 	// 전체체크박스 선택시 전체선택
 	$('.chkAll').change(function(){
@@ -266,7 +296,6 @@
 		}else{
 			$('.chk').prop('checked',false);
 		}
-		
 	});
 	
 	///////// 상품 수량 업데이트
@@ -299,11 +328,32 @@
 		var cartNum = Number($(this).parents('.plist').find('.chk').val());
 		location.href='${conPath}/cart/deleteCart.do?cartNum='+cartNum;
 	});
+	//// 상품 하나 주문버튼
+	$('.order').click(function(){
+		var cartNum = Number($(this).parents('.plist').find('.chk').val());
+		location.href='${conPath}/order/orderCart.do?cartNum='+cartNum;
+	});
 	//// 전체삭제 버튼
 	$('.deleteAll').click(function(){
 		location.href='${conPath}/cart/deleteAll.do?memberId='+memberId;
 	});
-	
+	// 전체주문 버튼
+	$('.orderAll').click(function(){
+		$('.chk').prop('checked',true);
+		$('.selectOrder').click();
+	});
+	// 선택이 하나도 없을경우 서브밋 금지
+	$('.selectForm').submit(function(){
+		if($('.chk:checked').length < 1){
+			alert('선택된 상품이 없습니다');
+			return false;
+		}
+	});
+	// 맨아래 주문하기버튼
+	$('.lastorder').click(function(){
+		$('.chk').prop('checked',true);
+		$('.selectOrder').click();
+	});
 	
 </script>
 </body>

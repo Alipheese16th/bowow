@@ -1,7 +1,10 @@
 package com.lec.bowow.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.lec.bowow.model.Coupon;
 import com.lec.bowow.model.Member;
 
 @Mapper
@@ -15,4 +18,8 @@ public interface MemberDao {
 	public Member getDetailMember(String memberId);
 	public Member modifyMember(Member member);
 	public int deleteMember(String memberId);
+	
+	//쿠폰
+	public List<Coupon> couponList(String memberId);
+	
 }

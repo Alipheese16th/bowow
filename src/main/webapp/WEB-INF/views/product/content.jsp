@@ -11,9 +11,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
 <style>
 .container{
-	min-width: 1300px !important;
+	min-width: 1200px !important;
 }
 .imageArea, .titleImage{
 	width:600px;
@@ -98,14 +99,61 @@
 	<div class="container">
 		
 		<div class="d-flex justify-content-center my-5">
+		
+		<!-- 타이틀 혹은 서브타이틀 이미지 갯수 구하기 -->
+		<c:set var="carnum" value="${0}"/>
+		<c:forEach var="img" items="${imageList}">
+			<c:if test="${img.type ne 'content'}">
+				<c:set var="carnum" value="${carnum + 1}"/>
+			</c:if>
+		</c:forEach>
+		<input type="hidden" id="carnum" value="${carnum}">
+		<script>
+			console.log($('#carnum').val());
+		</script>
 			
 			<div class="imageArea">
-				<c:forEach items="${imageList}" var="image">
-					<c:if test="${image.type eq 'title'}">
-						<img src="${conPath}/productImage/${image.image}" class="titleImage">
-					</c:if>
-				</c:forEach>
-			</div>
+				<!-- 캐러셀 시작 -->
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+				  <c:if test="${carnum > 1}">
+					  <div class="carousel-indicators">
+					  	<c:forEach begin="0" end="${carnum-1}" varStatus="status">
+					  		<c:if test="${status.first eq true}">
+							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index}" class="active"></button>
+					  		</c:if>
+					  		<c:if test="${status.first ne true}">
+							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index}"></button>
+					  		</c:if>
+					  	</c:forEach>
+					  </div>
+				  </c:if>
+				  <div class="carousel-inner">
+				  	<c:forEach items="${imageList}" var="image">
+						<c:if test="${image.type eq 'title'}">
+							<div class="carousel-item active titleImage">
+						  	 	<img class="d-block w-100" src="${conPath}/productImage/${image.image}">
+						    </div>
+					    </c:if>
+						<c:if test="${image.type eq 'subTitle'}">
+							<div class="carousel-item titleImage">
+						    	<img class="d-block w-100" src="${conPath}/productImage/${image.image}">
+						    </div>
+					    </c:if>
+					</c:forEach>
+				  </div>
+				  	 <c:if test="${carnum > 1}">
+						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Previous</span>
+						  </button>
+						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Next</span>
+						  </button>
+				  	 </c:if>
+				</div> <!-- carousel -->
+				
+			</div><!-- imageArea -->
 			
 			<div class="infoArea px-5">
 				
@@ -208,7 +256,7 @@
 				</table>
 			
 				<button type="button" class="btn btn-myColor" id="cart">장바구니 담기</button>
-				<button type="button" class="btn btn-outline-dark">즉시 구매하기</button>
+				<button type="button" class="btn btn-myColor" id="order">즉시 구매하기</button>
 				
 				
 			</div><!-- infoArea -->
@@ -469,6 +517,58 @@
 		});
 		
 	});//장바구니 클릭 로직 끝
+	
+//////////////////////////////////////////////////////////////////주문하기 클릭시
+	$('#order').click(function(){
+		
+		if(products.length == 0){	// 상품 아무것도 안고르고 클릭시에 경고문
+			alert('필수 옵션을 선택하세요');
+			return;
+		}else if(!memberId){
+			alert('로그인 한 회원만 가능합니다');
+			location.href='${conPath}/login.do?after=product/content.do&productCode='+productCode;
+			return;
+		}
+		
+		// 객체 배열의 옵션들을 파라미터로 보내려고 이어붙임
+		var sizeNums = '';
+		var colorNums = '';
+		var qtys = '';
+		products.forEach(function(product){
+			if(product.size !== undefined){
+				sizeNums += 'sizeNum='+product.size+'&';
+			}
+			if(product.color !== undefined){
+				colorNums += 'colorNum='+product.color+'&';
+			}
+			qtys += 'qty='+product.qty+'&';
+		});
+		
+		// 이미 장바구니에 해당 아이템이 존재하는지 확인
+		$.ajax({
+			url : '${conPath}/cart/confirmCart.do',
+			type : 'post',
+			data : sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode,
+			dataType : 'html',
+			success : function(data){
+				$('.confirmResult').html(data);
+				
+				var confirmResult = $('.confirmResult').text().trim();
+				if(confirmResult > 0){
+					var result = confirm('중복된 상품이 존재합니다. 추가해서 주문하시겠습니까?');
+					if(result){
+						// 장바구니에 추가하고 주문form으로
+						location.href='${conPath}/order/orderProduct.do?'+sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode;
+					}
+				}else{
+					// 장바구니에 추가하고 주문 form으로
+					location.href='${conPath}/order/orderProduct.do?'+sizeNums+colorNums+qtys+'memberId='+memberId+'&productCode='+productCode;
+				}
+			}
+		});
+		
+	});//주문하기 클릭 로직 끝
+	
 	
 	$('#cancel').click(function(){
 		if ($('#cartResult').css('display') == 'block') {

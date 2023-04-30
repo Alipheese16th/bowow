@@ -62,14 +62,14 @@ UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';
 
 ----------------------------------- CART 관련 ----------------------------------
 
+-- 메인에서 해당 회원의 장바구니 갯수 /헤더에서 계속 보일 갯수 (param : memberId)
+SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa';
+
 -- 상품상세에서 장바구니에 동일한 상품을 담았는지 확인 (memberId, productCode, sizeNum, colorNum)
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001';
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001' AND SIZENUM = 1;
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001' AND COLORNUM = 2;
 SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0001' AND SIZENUM = 1 AND COLORNUM = 2;
-
--- 메인에서 해당 회원의 장바구니 갯수 /헤더에서 계속 보일 갯수 (param : memberId)
-SELECT COUNT(*) FROM CART WHERE MEMBERID = 'aaa';
 
 -- 장바구니에서 장바구니 리스트 (파라미터: 회원아이디)
 SELECT C.*, PRODUCTNAME, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK, IMAGE  FROM CART C, PRODUCT P, IMAGE I
@@ -116,50 +116,69 @@ DELETE FROM CART WHERE CARTNUM = 16;
 -- 장바구니에서 해당 회원의 장바구니 전체 비우기
 DELETE FROM CART WHERE MEMBERID = 'aaa';
 
-
 --------------------------------- ORDERS ---------------------------------------
-
+select * from ordercode;
 select * from orders;
 SELECT * FROM ORDERDETAIL;
-
--- 주문테이블에 데이터 1행 입력
-INSERT INTO ORDERS (orderCode, MEMBERID, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
-  VALUES (CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')), 'aaa', '택배받는사람', '12132', '배송지기본주소', '배송지상세주소', '010-9999-9999');
-
--- 주문상세테이블에 1행 입력 (상품코드, 사이즈, 컬러, 수량, 총가격(서브쿼리에서 상품별 할인 적용))
-INSERT INTO ORDERDETAIL (ODNO, orderCode, PRODUCTCODE, SIZENUM, COLORNUM, QTY, COST)
-  VALUES (ORDERDETAIL_SEQ.NEXTVAL, CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')), 
-         'P0001',12, 12, 3, 3*(SELECT PRODUCTPRICE - PRODUCTPRICE * (PRODUCTDISCOUNT/100) FROM PRODUCT WHERE PRODUCTCODE = 'P0001'));
-
-
-
--- 서브쿼리이용 - 해당 회원의 장바구니 전체주문 (orderCode, productCode, sizeNum, colorNum, qty, cost)
-insert into orderdetail (odno, orderCode, productCode, sizeNum, colorNum, qty, cost)
-  select orderdetail_seq.nextval, CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')),
-          c.productCode, c.sizeNum, c.colorNum, c.qty, c.cost from cart c where memberId = 'aaa';
-
 select * from cart where memberId = 'aaa';
 
--- 서브쿼리 이용 선택주문 (orderCode, productCode, sizeNum, colorNum, qty, cost, cartNum배열)
+
+-- 상품상세->주문하기에서 방금 카트에 추가한 상품 CARTNUM가져오기 (memberId, productCode, qty, sizeNum, colorNum)
+SELECT CARTNUM FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0006';
+SELECT CARTNUM FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0006' AND SIZENUM = 5;
+SELECT CARTNUM FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0006' AND COLORNUM = 5;
+SELECT CARTNUM FROM CART WHERE MEMBERID = 'aaa' AND PRODUCTCODE = 'P0006' AND SIZENUM = 5 AND COLORNUM = 5;
+
+-- 주문번호 생성기
+CREATE TABLE ORDERCODE(
+  orderCODE VARCHAR2(20) PRIMARY KEY
+);
+-- 주문번호 생성
+INSERT INTO ORDERCODE VALUES(CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')));
+-- 주문번호 뽑기
+SELECT ORDERCODE FROM ORDERCODE O WHERE ROWNUM = 1 ORDER BY ORDERCODE DESC ;
+
+---------------------------------------------------- 주문처리
+-- 주문테이블에 데이터 1행 입력
+INSERT INTO ORDERS (orderCode, MEMBERID, totalPrice, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
+  VALUES ('2304290016', 'aaa', 100000, '택배받는사람', '12132', '배송지기본주소', '배송지상세주소', '010-9999-9999');
+-- 주문상세테이블입력 서브쿼리사용 (orderCode, productCode, sizeNum, colorNum, qty, cost, cartNum) 상품이여러개면 반복문
 insert into orderdetail (odno, orderCode, productCode, sizeNum, colorNum, qty, cost)
-  select orderdetail_seq.nextval, CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')),
-          c.productCode, c.sizeNum, c.colorNum, c.qty, c.cost from cart c where memberId = 'aaa' and cartNum in (1, 2, 3 , 4);
+  select orderdetail_seq.nextval, '2304300001', c.productCode, c.sizeNum, c.colorNum, c.qty, c.cost from cart c where cartNum = 10;
 
-
-
-
-
-
--- 주문되고나면
-
+-- 상품 정보 필요 (재고업데이트 파라미터 얻기위해)  (cartNum)
+select * from cart where cartNum = 10;
 -- 상품 재고 업데이트 (qty, productCode)
 UPDATE PRODUCT SET PRODUCTSTOCK = PRODUCTSTOCK - 3 WHERE PRODUCTCODE = 'P0001';
-
--- 주문한 상품 장바구니 비우기 (cartNum)
+-- 주문한 상품 장바구니 비우기 (cartNum 배열 반복문)
 DELETE FROM CART WHERE CARTNUM = 1;
+-- 회원 누적구매금액, 적립금, 등급 업데이트 (totalPrice, memberId)
+UPDATE MEMBER SET
+        MEMBERPOINT = MEMBERPOINT + (400000 * 0.05),
+        MEMBERAMOUNT = MEMBERAMOUNT + 400000,
+        GRADENO = (SELECT G.GRADENO FROM MEMBER, MEMBERGRADE G WHERE MEMBERAMOUNT + 400000 BETWEEN LOWAMOUNT AND HIAMOUNT AND MEMBERID = 'aaa')
+    WHERE MEMBERID = 'aaa';
 
+-- 해당 회원의 쿠폰리스트 (memberId)
+select * from coupon where memberid = 'aaa';
+-- 쿠폰 사용후 쿠폰삭제
+delete from coupon where couponnum = 1;
+
+------------------------------------------------------- 주문완료
+
+
+select * from image;
+
+
+
+--------------------------------------주문내역
 -- 'aaa'의 주문내역 (memberId)
 SELECT * FROM ORDERS WHERE MEMBERID = 'aaa' ORDER BY ORDERDATE DESC;
+-- 주문 상세보기 (orderCode)
+select * from orders where orderCode = '2304290016';
+-- 주문 상세보기 내 상품리스트 (orderCode)
+select * from orderdetail where orderCode = '2304290016';
+
 
 
 
