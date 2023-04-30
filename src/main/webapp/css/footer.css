@@ -7,6 +7,9 @@
 	text-align:center;
 	position: relative;
 }
+#footer{
+	height:247px;
+}
 #footer li{
 	list-style:none;
 }
@@ -57,7 +60,6 @@
 	display:none;
 }
 #footer .footer-in .footer-content{
-
     display: -webkit-box;
 }
 #footer .footer-in .footer-content p{

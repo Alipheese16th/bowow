@@ -13,13 +13,14 @@ li{
 	list-style: none;
 }
 #content-form{
-	padding-top:200px;
+	padding-top:100px;
 	margin-bottom:60px;
 	min-width:1250px;
 	background:#fff;
-	min-height:100%;
+	padding-bottom:80px;
 	height:auto;
-	padding-bottom:200px;	
+	min-height:100%;
+	padding-bottom:110px;	
 }
 #content-form .login-title{
 	text-align:center;

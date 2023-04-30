@@ -77,7 +77,7 @@ public class MemverServiceImpl implements MemberService {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				// 받을 메일 설정 
 				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(member.getMemberEmail()));
-				mimeMessage.setFrom(new InternetAddress("sykim789456@gmail.com"));
+				//mimeMessage.setFrom(new InternetAddress("sykim789456@gmail.com"));
 				mimeMessage.setSubject("[BOWOW]" + member.getMemberName() + "님 회원가입 감사합니다.");
 				mimeMessage.setText(content, "utf-8", "html");
 			}
@@ -115,16 +115,39 @@ public class MemverServiceImpl implements MemberService {
 //		}else if(!member.getMemberName().equals(memberName) || !member.getMemberEmail().equals(memberEmail)){
 //			findIdResult = "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.";
 //		}
-		
 		return findIdResult;
 	}
 	@Override
-	public Member searchIDgetMember(String memberName) {
-		return memberDao.searchIDgetMember(memberName);
-	}
-	@Override
-	public String searchPwMember(String memberId) {
-		return memberDao.searchPwMember(memberId);
+	public String searchPwMember(final String memberId, final String memberEmail) {
+		final Member member = new Member();
+		member.setMemberId(memberId);
+		member.setMemberEmail(memberEmail);
+		String findPwResult = memberDao.searchPwMember(member);
+		MimeMessagePreparator message = new MimeMessagePreparator() {
+			String content = "<head>\n" + 
+					"	<link href=\"https://webfontworld.github.io/pretendard/Pretendard.css\" rel=\"stylesheet\">\n" + 
+					"</head>\n" + 
+					"<body style=\"margin:0;padding:0; text-align:center;font-size: 14px; font-family: 'Pretendard';\">\n" + 
+					"	<div style=\"background:#fff; padding:25px;width:300px; margin: 0 auto;text-align:center;font-size: 14px; font-family: 'Pretendard';\">\n" + 
+					"		<div>\n" + 
+					"			<img src=\"http://localhost:8098/bowow/img/bowow_logo.png\" style=\"width:200px; height:auto;margin:0; padding:0;\">\n" + 
+					"			<br><br>\n" + 
+					"			<p>"+ memberId +"님 안녕하세요 BOWOW입니다.<br>요청하신 <b>비밀번호</b>를 안내드립니다.</p>\n" + 
+					"			<p style=\"font-weight: 600;margin-top:20px;\">"+ memberDao.searchPwMember(member) +"</p>\n" + 
+					"		</div>\n" + 
+					"	</div>\n" + 
+					"</body>";
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				// 받을 메일 설정 
+				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(memberEmail));
+				//mimeMessage.setFrom(new InternetAddress("sykim789456@gmail.com"));
+				mimeMessage.setSubject("[BOWOW] 비밀번호를 안내드립니다.");
+				mimeMessage.setText(content, "utf-8", "html");
+			}
+		};
+		mailSender.send(message); // 메일 전송
+		return findPwResult;
 	}
 	@Override
 	public Member getDetailMember(String memberId) {

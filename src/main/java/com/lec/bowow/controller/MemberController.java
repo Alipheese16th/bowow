@@ -68,13 +68,31 @@ public class MemberController {
 //			return "member/findIdSuccess";
 //		}
 		if(idResult==null) {
-			return "redirect:member/findId.jsp?asdf="+"asdf";
+			return "redirect:findId.do?asdf="+"asdf";
 		}else {
 			return "member/findIdSuccess";
 		}
-		
-		
-		
+		// 학원에서 실행했을 때 되던거
+//		if(idResult==null) {
+//			return "redirect:member/findId.jsp?asdf="+"asdf";
+//		}else {
+//			return "member/findIdSuccess";
+//		}
+	}
+	@RequestMapping(value="findPw",method=RequestMethod.GET)
+	public String findPwView() {
+		return "member/findPw";
+	}
+	@RequestMapping(value="findPw", method=RequestMethod.POST)
+	public String findPw(String memberId, String memberEmail, Model model) {
+		String pwResult = memberService.searchPwMember(memberId, memberEmail);
+		model.addAttribute("pwResult", pwResult);
+		if(pwResult==null) {
+			return "redirect:findPw.do?asdf="+"asdf";
+		}else {
+			model.addAttribute("memberEmail", memberEmail);
+			return "member/findPwSuccess";			
+		}
 	}
 	@RequestMapping(value="logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {

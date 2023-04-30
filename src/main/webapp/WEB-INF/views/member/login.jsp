@@ -32,7 +32,7 @@
 		<div class="login-title">로그인</div>
 		<div class="login-wrap">
 			<form action="login.do" method="post">
-			<input type="text" name="after" value="${empty param.after ? 'main.do':param.after}">
+			<input type="hidden" name="after" value="${empty param.after ? 'main.do':param.after}">
 			<input type="hidden" name="productCode" value="${param.productCode}">
 				<table>
 					<tr>
@@ -45,7 +45,8 @@
 					</tr>
 					<tr>
 						<td style="text-align:right;display: block;">
-							<a href="${conPath}/findId.do" style="font-size:12px; color:#000;">아이디 찾기</a><span class="find-style"></span><a href="${conPath}/findPw.do" style="font-size:12px; color:#000;">비밀번호 찾기</a>
+							<a href="${conPath}/findId.do" style="font-size:12px; color:#000;">아이디 찾기</a><span class="find-style"></span>
+							<a href="${conPath}/findPw.do" style="font-size:12px; color:#000;">비밀번호 찾기</a>
 						</td>
 					</tr>
 					<tr>

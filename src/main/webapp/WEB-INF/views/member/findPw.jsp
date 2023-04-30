@@ -30,24 +30,22 @@
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script>
-		let mnameOk = false;
+		let midOk = false;
 		let memail = false;
 		$(document).ready(function(){
-			const patternName = /^[a-zA-Z가-힣]{1,}$/; // 이름 정규표현식 
+			const patternId = /^[a-z]{1}[a-z0-9_\-]{2,15}$/; // 아이디 정규표현식
 			const patternMail = /^\w+@\w+(\.\w+){1,2}$/; // 이메일 정규표현식
 			var memberName, memberEmail;
-			$("#mname").keyup(function(){
+			$("#mid").keyup(function(){
 				//mnameOk = false;
-				memberName = $(this).val();
-				if(!memberName){
-					$(".mnameResult").html("<p style='color:red;'>가입 시 등록한 이름을 입력해 주세요.</p>");
-				}else if(!memberName.match(patternName)){
-					$(".mnameResult").html("<p style='color:red;'>한글과 영문 대 소문자를 사용하세요.</p>");
+				memberId = $(this).val();
+				if(!memberId){
+					$(".midResult").html("<p style='color:red;'>가입 시 등록한 아이디를 입력해 주세요.</p>");
 				}else{
-					$(".mnameResult").html("");
-					mnameOk= true;
+					$(".midResult").html("");
+					midOk= true;
 				}
-				if(mnameOk &&  memail){
+				if(midOk &&  memail){
 					$(".confirm-btn").css("background", "#BE8D6E").css("color", "#fff");
 				}else{
 					$(".confirm-btn").css("background", "#f1f1f1");
@@ -64,18 +62,18 @@
 					$(".memailResult").html("");
 					memail = true;
 				}
-				if(mnameOk &&  memail){
+				if(midOk &&  memail){
 					$(".confirm-btn").css("background", "#BE8D6E").css("color", "#fff");
 				}else{
 					$(".confirm-btn").css("background", "#f1f1f1");
 				}
 			});
 			$("form").submit(function(){
-				var mnameResult = $(".mnameResult").text().trim();
+				var midResult = $(".midResult").text().trim();
 				var memailResult = $(".memailResult").text().trim();
-				if(!mnameResult == "" || !memberName){
-					alert("이름을 입력해주세요.");
-					$("#mname").focus();
+				if(!midResult == "" || !memberId){
+					alert("아이디를 입력해주세요.");
+					$("#mid").focus();
 					return false;
 				}else if(!memailResult == ""|| !memberEmail){
 					alert("이메일을 입력해주세요.");
@@ -99,17 +97,17 @@
 	</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content-form">
-		<div class="login-title">아이디 찾기</div>
+		<div class="login-title">비밀번호 찾기</div>
 		<div class="login-wrap">
-			<form action="findId.do" method="post" autocomplete="off">
+			<form action="findPw.do" method="post" autocomplete="off">
 				<table>
 					<tr>
-						<td style="font-size:14px;">이름</td>
+						<td style="font-size:14px;">아이디</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="memberName" id="mname" class="focusB" placeholder="이름을 입력해주세요.">
-							<div class="mnameResult bottom"></div>
+							<input type="text" name="memberId" id="mid" class="focusB" placeholder="아이디를 입력해주세요.">
+							<div class="midResult bottom"></div>
 						</td>
 					</tr>
 					<tr>
