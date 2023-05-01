@@ -19,4 +19,7 @@ public class Order {
 	private String productName;
 	private String image;
 	private int cnt;
+	/*페이징*/
+	private int startRow;
+	private int endRow;
 }

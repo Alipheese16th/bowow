@@ -1,5 +1,7 @@
 package com.lec.bowow.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.lec.bowow.model.Cart;
@@ -21,7 +23,7 @@ public interface OrderDao {
 	// 쿠폰사용후 삭제
 	public int deleteCoupon(int couponNum);
 	
-	public int orderList(Order order);
+	public List<Order> orderList(Order order);
 	public int totCntOrder(String memberId);
 	public int contentOrder(String orderCode);
 	public int contentOrderDetail(String orderCode);

@@ -36,6 +36,7 @@ ul{
 	font-size: 18px;
     font-weight: 500;
     margin-bottom: 20px;
+    
 }
 .mypage-content .mypage-content-left ul{
 	border: 1px solid rgb(242, 242, 242);
@@ -59,11 +60,11 @@ ul{
 	width:17px;
 	height:17px;
 }
-.mypage-content .mypage-content-left ul li .myleft.active, .mypage-content .mypage-content-left ul li a:hover{
+.mypage-content .mypage-content-left ul li a.active, .mypage-content .mypage-content-left ul li a:hover{
 	background-color: rgb(250, 250, 250);
     color: #be8d6e;
     font-weight: 500;
 }
-.mypage-content .mypage-content-left ul li a:hover .st0{
+.mypage-content .mypage-content-left ul li a:hover .st0, .mypage-content .mypage-content-left ul li a.active .st0{
 	fill:#be8d6e;
 }

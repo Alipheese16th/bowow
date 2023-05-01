@@ -43,6 +43,11 @@
 								<td>결제금액</td>
 								<td>결제상태</td>
 							</tr>
+							<tr>
+								<c:forEach var="order" items="${orderList}">
+									<td>${order}</td>
+								</c:forEach>
+							</tr>
 						</table>
 						<div class="paging">
 							

@@ -274,8 +274,9 @@ COMMIT;
 
 
 
-
-
+CREATE TABLE REGISTER_TIME (
+    
+);
 
 
 
