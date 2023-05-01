@@ -13,8 +13,7 @@ public interface MemberService {
 	public int joinMember(Member member, String memberBirthTemp, HttpSession session);
 	public String loginCheck(String memberId, String memberPw, HttpSession session);
 	public String searchIdMember(String memberName, String memberEmail);
-	public Member searchIDgetMember(String memberName);
-	public String searchPwMember(String memberId);
+	public String searchPwMember(String memberId, String memberEmail);
 	public Member getDetailMember(String memberId);
 	public Member modifyMember(Member member, HttpSession session);
 	public int deleteMember(String memberId, HttpSession session);

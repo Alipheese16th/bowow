@@ -16,4 +16,6 @@ public class Member {
 	private int memberAmount;
 	private int memberPoint;
 	private int gradeno;
+	private int startRow;
+	private int endRow;
 }

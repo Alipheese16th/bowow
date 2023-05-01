@@ -40,11 +40,8 @@
 	<select id="searchIdMember" parameterType="Member" resultType="String">
 		SELECT MEMBERID FROM MEMBER WHERE MEMBERNAME = #{memberName} AND MEMBEREMAIL = #{memberEmail}
 	</select>
-	<select id="searchIDgetMember" parameterType="String" resultType="Member">
-		SELECT * FROM MEMBER WHERE MEMBERNAME = #{memberName}
-	</select>
-	<select id="searchPwMember" parameterType="String" resultType="String">
-		SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = #{memberId}
+	<select id="searchPwMember" parameterType="Member" resultType="String">
+		SELECT MEMBERPW FROM MEMBER WHERE MEMBERID = #{memberId} AND MEMBEREMAIL = #{memberEmail}
 	</select>
 	<select id="getDetailMember" parameterType="String" resultType="Member">
 		SELECT * FROM MEMBER WHERE MEMBERID = #{memberId}

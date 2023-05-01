@@ -15,6 +15,7 @@
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="${conPath}/js/address.js"></script>
 	<script>
+		let memberIdOk = false;
 		$(document).ready(function(){
 			const patternId = /^[a-z]{1}[a-z0-9_\-]{2,15}$/; // 아이디 정규표현식
 			const patternPw = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~`!@#$%^&*()-_+=|\\\[\]{}'";:?,.\/]).{8,16}$/; // 비밀번호 정규표현식
@@ -23,8 +24,9 @@
 			const patternMail = /^\w+@\w+(\.\w+){1,2}$/; // 이메일 정규표현식
 			const patternTel = /^\d{2,3}[\-)]?\d{3,4}[\-]?\d{4}$/; // 전화번호 정규표현식
 			const patternSpace = /\s/g; 
-			var memberId, memberPw, memberPwchk, memberName, memberEmail, memberTel;
- 			$(".idconfirm").click(function(){
+			var memberId, memberPw, memberName, memberPwchk, memberEmail, memberTel;
+  			$(".idconfirm").click(function(){
+  				memberIdOk = true;
  				if(memberId.match(patternId) && memberId.length > 2){
 					$.ajax({
 						url : '${conPath}/memberIdConfirm.do',
@@ -35,10 +37,10 @@
 						},
 					});
 				}
-			}); // memberId 중복확인 
+			}); // memberId 중복확인
 			// memberId를 입력했으면 idconfirm
 			$("#id").keyup(function(){
-				memberId = $("#id").val();
+				memberId = $(this).val();
 				if(!memberId || memberId.length < 1){
 					$(".midResult").html("<p style='color:red;'>필수 정보입니다.</p>");
 				}else if(!memberId.match(patternId)){
@@ -163,7 +165,7 @@
 				<span class="point">*</span>필수입력사항
 			</div>
 			<div class="join-form">
-				<form action="join.do" method="post">
+				<form action="join.do" method="post" autocomplete="off">
 					<div class="join-row">
 						<div class="join-form-wrap">
 							<div class="join-form-title"><label for="id">아이디<span class="point">*</span></label></div>

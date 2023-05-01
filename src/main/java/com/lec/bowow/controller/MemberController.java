@@ -57,14 +57,41 @@ public class MemberController {
 	@RequestMapping(value="findId", method=RequestMethod.POST)
 	public String findId(@Param("memberName") String memberName, @Param("memberEmail") String memberEmail, Model model) {
 		String idResult = memberService.searchIdMember(memberName, memberEmail);
-		if(idResult.equals("가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.")) {
-			model.addAttribute("idResult", idResult);
-			model.addAttribute("memberName", memberName);
-			model.addAttribute("memberEmail", memberEmail);
-			return "redirect:member/findId.jsp";
+		model.addAttribute("idResult",idResult);
+//		if(idResult.equals("가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.")) {
+//			model.addAttribute("idResult", idResult);
+//			model.addAttribute("memberName", memberName);
+//			model.addAttribute("memberEmail", memberEmail);
+//			return "redirect:member/findId.jsp";
+//		}else {
+//			model.addAttribute("idResult", idResult);
+//			return "member/findIdSuccess";
+//		}
+		if(idResult==null) {
+			return "redirect:findId.do?asdf="+"asdf";
 		}else {
-			model.addAttribute("idResult", idResult);
 			return "member/findIdSuccess";
+		}
+		// 학원에서 실행했을 때 되던거
+//		if(idResult==null) {
+//			return "redirect:member/findId.jsp?asdf="+"asdf";
+//		}else {
+//			return "member/findIdSuccess";
+//		}
+	}
+	@RequestMapping(value="findPw",method=RequestMethod.GET)
+	public String findPwView() {
+		return "member/findPw";
+	}
+	@RequestMapping(value="findPw", method=RequestMethod.POST)
+	public String findPw(String memberId, String memberEmail, Model model) {
+		String pwResult = memberService.searchPwMember(memberId, memberEmail);
+		model.addAttribute("pwResult", pwResult);
+		if(pwResult==null) {
+			return "redirect:findPw.do?asdf="+"asdf";
+		}else {
+			model.addAttribute("memberEmail", memberEmail);
+			return "member/findPwSuccess";			
 		}
 	}
 	@RequestMapping(value="logout", method=RequestMethod.GET)
