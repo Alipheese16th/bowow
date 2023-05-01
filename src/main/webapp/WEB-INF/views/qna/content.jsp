@@ -59,7 +59,9 @@
 		</tr>
 		<tr>
 			<th>이미지</th>
-			<td></td>
+			<td>
+				<img src="${conPath }/productImage/${contentQna.image}" style="width: 50px;">
+			</td>
 		</tr>
 		<tr>
 			<th>제목</th>

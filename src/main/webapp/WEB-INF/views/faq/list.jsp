@@ -18,7 +18,7 @@
 		.faq h1 {font-size: 2.7em; height: 100px; line-height: 100px;}
 		.faq .write {
 			background-color: #BE8D6E; color: #fff;
-			font-size: 1.2em;
+			font-size: 1.2em; margin: 30px 0;
 		}
 		.faq .write:hover {background-color: gray;}
 		.faq .write a {
@@ -126,19 +126,23 @@
 					    </div>
 					    <div class="accordion-text-wrapper">
 					    	<p class="accordion-text">${faq.faqContent }</p>
-						    <button class="btn write" type="button">수정</button>
-						    <button class="btn write" type="button">삭제</button>
+					    	<c:if test="${not empty admin }">
+							    <button class="btn write" type="button" onclick="location.href='${conPath}/faq/modify.do?faqTitle=${faq.faqTitle }'">수정</button>
+							    <button class="btn write" type="button" onclick="location.href='${conPath}/faq/delete.do?faqTitle=${faq.faqTitle }'">삭제</button>
+					    	</c:if>
 					    </div>
 					</th>
 					<th>
 					</th>
 				</tr>
 			</c:forEach>
-			<button class="btn write" type="button" onclick="location.href='${conPath }/faq/write.do'">
-				WRITE
-			</button>
+			<c:if test="${not empty admin }">
+				<button class="btn write" type="button" onclick="location.href='${conPath }/faq/write.do'">
+					WRITE
+				</button>
+			</c:if>
 		</div>
-		<div class="paging">
+		<%-- <div class="paging">
 			<c:if test="${paging.startPage > paging.blockSize }">
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${paging.startPage-1}'">
 					<
@@ -159,7 +163,7 @@
 					>
 				</button>
 			</c:if>
-		</div>
+		</div> --%>
 	</div>
 	
 	<jsp:include page="../main/footer.jsp"/>
@@ -179,7 +183,7 @@
 		    });
 		});
 		const clickTr = function(faqTitle) {
-			location.href = "${conPath}/qna/content.do?qnaNum=" + qnaNum + '&pageNum=${paging.currentPage}';
+			location.href = "${conPath}/faq/content.do?faqTitle=" + faqTitle + '&pageNum=${paging.currentPage}';
 		};
 	</script>
 </html>

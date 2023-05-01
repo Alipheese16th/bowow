@@ -73,7 +73,10 @@
 					<tr onclick="clickTr(${qna.qnaNum})">
 						<td>${qna.qnaNum }</td>
 						<td>
-							<img src="${conPath }/productImage/${qna.image}" style="width: 150px;">
+							<c:if test="${empty qna.image }"></c:if>
+							<c:if test="${not empty qna.image }">
+								<img src="${conPath }/productImage/${qna.image}" style="width: 50px;">
+							</c:if>
 						</td>
 				  		<td style="text-align: left;">
 				  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">

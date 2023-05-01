@@ -7,20 +7,36 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.111.3">
 	<title>Insert title here</title>
 	<link href="${conPath }/css/style.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+	<link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	
+	    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+	<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+	<meta name="theme-color" content="#712cf9">
 	<style>
 		* {
 			margin: 0 auto;
 			text-align: center;
 		}
 		.wrap {
-			min-width: 600px;
+			min-width: 1435px;
 		}
 		.pagename h1 {
 			text-align: left;
-			margin: 50px 0 50px 125px;
+			margin: 50px 0 50px 250px;
 		}
 		.btn {
 			background: #BE8D6E;
@@ -64,8 +80,12 @@
 		h2 {
 			padding-top: 20px;
 		}
-		.box1, .box2, .box3, .box4, .box5, .box6 {
+		.box1, .box2, .box3, .box4{
 			height: 400px;
+			border: 1px solid #BE8D6E;
+			border-radius: 5px;
+		}
+		.box5, .box6 {
 			border: 1px solid #BE8D6E;
 			border-radius: 5px;
 		}
@@ -74,6 +94,7 @@
 			height: 440px;
 			margin-top: 50px;
 			margin-right: 20px;
+			margin: 50px 20px 0 0;
 		}
 		.box2 {
 			min-width: 400px;
@@ -82,9 +103,7 @@
 			margin-left: 20px;
 		}
 		.box3 {
-			margin-top: 50px;
-			margin-bottom: 50px;
-			margin-right: 20px;
+			margin: 50px 20px 50px 280px;
 		}
 		.box4 {
 			min-width: 700px;
@@ -94,10 +113,150 @@
 		}
 		.box5 {
 			margin-right: 20px;
+			margin-left: 280px;
 		}
 		.box6 {
+			min-height: 400px;
+			max-height: 800px;
+			min-width: 400px;
 			margin-left: 20px;
 		}
+		.accordion-button{
+		    display: block;
+		    width: 375px;
+		    margin-right: 1000px;
+		    font-size: 30px;
+		    font-family: Arial, sans-serif;
+		    background-color: #f2f2f2;
+		    border-bottom: 1px #cccccc solid;
+		    cursor: pointer;
+		    transition: 1s;
+		    height: 50px;
+		}
+		
+		.accordion-container{
+		    display: block;
+		    width: 400px;
+		    margin: 15px auto;
+		}
+		
+		.accordion-text-wrapper{
+		    width: 200px;
+		    max-height: 0;
+		    overflow: hidden;
+		    transition: max-height .6s ease-out;
+		}
+		
+		.accordion-text{
+		    font-size: 14px;
+		    margin: 40px 10px 20px 10px;
+		}
+		
+		
+		.toggle{
+		    max-height: 200px;
+		}
+		
+		.cross{
+		    width: 30px;
+		    height: 30px;
+		    background-image: url('https://cdn0.iconfinder.com/data/icons/feather/96/circle-cross-512.png');
+		    background-size: cover;
+		    transform: rotate(45deg);
+		    transition: .5s ease-out;
+		    position: absolute;
+		    margin: 10px 10px;
+		}
+		
+		.cross-active{
+		    position: absolute;
+		    margin: 56px 0 0 10px;
+		    transform: rotate(0deg);
+		    transition: .5s ease-out;
+		    opacity: .4;
+		}
+		
+		.active{
+		    background: #bbb;
+		    color: #fff;
+		}
+		
+	    .bd-placeholder-img {
+	    	font-size: 1.125rem;
+	        text-anchor: middle;
+	        -webkit-user-select: none;
+	        -moz-user-select: none;
+	        user-select: none;
+		}
+	
+	      @media (min-width: 768px) {
+	        .bd-placeholder-img-lg {
+	          font-size: 3.5rem;
+	        }
+	      }
+	
+	      .b-example-divider {
+	        width: 100%;
+	        height: 3rem;
+	        background-color: rgba(0, 0, 0, .1);
+	        border: solid rgba(0, 0, 0, .15);
+	        border-width: 1px 0;
+	        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+	      }
+	
+	      .b-example-vr {
+	        flex-shrink: 0;
+	        width: 1.5rem;
+	        height: 100vh;
+	      }
+	
+	      .bi {
+	        vertical-align: -.125em;
+	        fill: currentColor;
+	      }
+	
+	      .nav-scroller {
+	        position: relative;
+	        z-index: 2;
+	        height: 2.75rem;
+	        overflow-y: hidden;
+	      }
+	
+	      .nav-scroller .nav {
+	        display: flex;
+	        flex-wrap: nowrap;
+	        padding-bottom: 1rem;
+	        margin-top: -1px;
+	        overflow-x: auto;
+	        text-align: center;
+	        white-space: nowrap;
+	        -webkit-overflow-scrolling: touch;
+	      }
+	
+	      .btn-bd-primary {
+	        --bd-violet-bg: #712cf9;
+	        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+	
+	        --bs-btn-font-weight: 600;
+	        --bs-btn-color: var(--bs-white);
+	        --bs-btn-bg: var(--bd-violet-bg);
+	        --bs-btn-border-color: var(--bd-violet-bg);
+	        --bs-btn-hover-color: var(--bs-white);
+	        --bs-btn-hover-bg: #6528e0;
+	        --bs-btn-hover-border-color: #6528e0;
+	        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+	        --bs-btn-active-color: var(--bs-btn-hover-color);
+	        --bs-btn-active-bg: #5a23c8;
+	        --bs-btn-active-border-color: #5a23c8;
+	      }
+	      .bd-mode-toggle {
+	        z-index: 1500;
+	      }
+	      .flex-shrink-0 {
+	      	margin: 0;
+	      }
+	      .mb-1 {width: 200px;}
+	      .btn-toggle {width: 200px; text-align: right;}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
@@ -117,32 +276,91 @@
 	</c:if>
 	
 	<jsp:include page="../main/header.jsp"/>
+	
 	<div class="wrap">
-		<div class="pagename">
-			<%-- <input type="text" name="adminId" value="${admin.adminId }">
-			<input type="text" name="adminPw" value="${admin.adminPw }"> --%>
-			<h1>관리자 페이지</h1>
-		</div>
 		<div class="row">
-		  <div class="col-5">
-		    <div class="card">
-		      <div class="card-body">
-		        <h5 class="card-title">Register product</h5>
-		        <a href="#" class="btn">상품등록</a>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="col-5">
-		    <div class="card">
-		      <div class="card-body">
-		        <h5 class="card-title">Register for Notice</h5>
-		        <a href="#" class="btn">공지사항 추가하기</a>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		<div class="row">
-			<div class="box1 col-7">
+			<span class="flex-shrink-0 p-3 col-2" style="width: 280px;">
+			    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+			      <span class="fs-5 fw-semibold">관리자 페이지</span>
+			    </a>
+			    <ul class="list-unstyled ps-0">
+			      <li class="mb-1">
+			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+			        	상품관리▽
+			        </button>
+			        <div class="collapse" id="home-collapse">
+			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+			            <li><a href="${conPath }/product.add.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품등록</a></li>
+			            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품수정</a></li>
+			            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품삭제</a></li>
+			          </ul>
+			        </div>
+			      </li>
+			      <li class="mb-1">
+			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+			        	공지사항 관리▽
+			        </button>
+			        <div class="collapse" id="dashboard-collapse" style="">
+			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+			            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 등록</a></li>
+			            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 수정</a></li>
+			            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 삭제</a></li>
+			          </ul>
+			        </div>
+			      </li>
+			      <li class="mb-1">
+			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+			        	QnA관리▽
+			        </button>
+			        <div class="collapse" id="orders-collapse">
+			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+			            <li><a href="${conPath }/qna/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 답변</a></li>
+			            <li><a href="${conPath }/qna/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 삭제</a></li>
+			          </ul>
+			        </div>
+			      </li>
+			      <li class="mb-1">
+			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+			          1:1문의 관리▽
+			        </button>
+			        <div class="collapse" id="account-collapse" style="">
+			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+			            <li><a href="${conPath }/inquiry/list.do" class="link-dark d-inline-flex text-decoration-none rounded">1:1문의 답변</a></li>
+			            <li><a href="${conPath }/inquiry/list.do" class="link-dark d-inline-flex text-decoration-none rounded">1:1문의 삭제</a></li>
+			          </ul>
+			        </div>
+			      </li>
+			      <li class="mb-1">
+			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#faq-collapse" aria-expanded="false">
+						FAQ관리▽
+			        </button>
+			        <div class="collapse" id="faq-collapse" style="">
+			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+			            <li><a href="${conPath }/faq/write.do" class="link-dark d-inline-flex text-decoration-none rounded">FAQ 등록</a></li>
+			            <li><a href="${conPath }/faq/list.do" class="link-dark d-inline-flex text-decoration-none rounded">FAQ 수정</a></li>
+			            <li><a href="${conPath }/faq/list.do" class="link-dark d-inline-flex text-decoration-none rounded">FAQ 삭제</a></li>
+			          </ul>
+			        </div>
+			      </li>
+			    </ul>
+		    </span>
+			<!-- <div class="col-3">
+			  <div class="card">
+			    <div class="card-body">
+			      <h5 class="card-title">Register product</h5>
+			      <a href="#" class="btn">상품등록</a>
+			    </div>
+			  </div>
+			</div>
+			<div class="col-3">
+			  <div class="card">
+			    <div class="card-body">
+			      <h5 class="card-title">Register for Notice</h5>
+			      <a href="#" class="btn">공지사항 추가하기</a>
+			    </div>
+			  </div>W
+			</div> -->
+			<div class="box1 col-6">
 				<h2>일일 매출 현황</h2>
 				<hr>
 				<canvas id="myChart1"></canvas>
@@ -157,11 +375,11 @@
 			<div class="box3 col-3">
 				<h2>공지사항</h2>
 				<hr>
-				<a href="#">
+				<a href="${conPath }/notice/list.do">
 					view >
 				</a>
 			</div>
-			<div class="box4 col-7">
+			<div class="box4 col-6">
 				<h2>상담문의</h2>
 				<hr>
 				<table class="table table-hover">
@@ -172,10 +390,12 @@
 					<tr><td colspan="6">해당 페이지의 글이 없습니다</td>
 				  </c:if>
 				  <c:if test="${totCntQna != 0 }">
-					<c:forEach var="qna" items="${qnaList }" begin="0" end="4">
+					<c:forEach var="qna" items="${qnaList }" begin="0" end="3">
 						<tr onclick="clickTr(${qna.qnaNum})">
 							<td>${qna.qnaNum }</td>
-							<td></td>
+							<td>
+								<img src="${conPath }/productImage/${qna.image}" style="width: 35px;">
+							</td>
 					  		<td style="text-align: left;">
 					  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
 					  				<c:if test="${i eq qna.qnaIndent }">
@@ -198,16 +418,31 @@
 					view >
 				</a>
 			</div>
-			<div class="box5 col-7">
+			<div class="box5 col-6">
 				<h2>1:1문의</h2>
 				<hr>
-				<a href="#">
+				<a href="${conPath}/inquiry/list.do">
 					view >
 				</a>
 			</div>
 			<div class="box6 col-3">
 				<h2>자주 묻는 질문</h2>
 				<hr>
+				<div class="accordion-container">
+					<c:forEach var="faq" items="${faqList }" begin="0" end="3">
+						<tr onclick="clickTr(${faq.faqTitle})">
+							<th>
+							    <div class="accordion-button">${faq.faqTitle }<i id="cross" class="cross"></i>
+							    </div>
+							    <div class="accordion-text-wrapper">
+							    	<p class="accordion-text">${faq.faqContent }</p>
+							    </div>
+							</th>
+							<th>
+							</th>
+						</tr>
+					</c:forEach>
+				</div>
 				<a href="${conPath }/faq/list">
 					view >
 				</a>
@@ -336,6 +571,20 @@
 	    document.getElementById('myChart2'),
 	    config
 	  );
+	</script>
+	<script>
+		var accordionTab = document.querySelectorAll(".accordion-button");
+		var buttons = [accordionTab[0], accordionTab[1], accordionTab[2], accordionTab[3], accordionTab[4], accordionTab[5], accordionTab[6], accordionTab[7], accordionTab[8], accordionTab[9]];
+	
+		buttons.forEach(function(item){
+		    item.addEventListener("click", function(){
+		        var text = this.nextElementSibling;
+		        var cross = this.firstChild;
+		        text.classList.toggle("toggle");
+		        cross.classList.toggle("cross-active");
+		        this.classList.toggle("active");
+		    });
+		});
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<jsp:include page="../main/footer.jsp"/>

@@ -24,19 +24,19 @@
 		<if test="schItem==null or schItem==''">
 			SELECT * FROM
 			    (SELECT ROWNUM RN, A.* FROM
-			        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' ORDER BY qnaGroup DESC, qnaStep) A)
+			        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) ORDER BY qnaGroup DESC, qnaStep) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='schItem=="qnaTitle"'>
 			SELECT * FROM
 			    (SELECT ROWNUM RN, A.* FROM
-			        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' AND qnaTitle LIKE '%'||#{schWord}||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+			        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaTitle LIKE '%'||#{schWord}||'%' ORDER BY qnaGroup DESC, qnaStep) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='schItem=="qnaContent"'>
 			SELECT * FROM
 			    (SELECT ROWNUM RN, A.* FROM
-			        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' AND qnaContent LIKE '%'||#{schWord}||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+			        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaContent LIKE '%'||#{schWord}||'%' ORDER BY qnaGroup DESC, qnaStep) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 	</select>
@@ -72,7 +72,7 @@
     		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode, jdbcType=VARCHAR}, #{qnaTitle}, #{qnaContent}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp})
 	</insert>
 	<select id="contentQna" parameterType="int" resultType="Qna">
-		SELECT * FROM QNA WHERE qnaNum = #{qnaNum}
+		SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND Q.QNANUM = #{QNANUM}
 	</select>
 	<update id="modifyQna" parameterType="Qna">
 		UPDATE QNA SET qnaTitle = #{qnaTitle},
