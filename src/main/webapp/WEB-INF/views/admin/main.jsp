@@ -279,71 +279,7 @@
 	
 	<div class="wrap">
 		<div class="row">
-			<span class="flex-shrink-0 p-3 col-2" style="width: 280px;">
-			    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
-			      <span class="fs-5 fw-semibold">관리자 페이지</span>
-			    </a>
-			    <ul class="list-unstyled ps-0">
-			      <li class="mb-1">
-			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-			        	상품관리▽
-			        </button>
-			        <div class="collapse" id="home-collapse">
-			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-			            <li><a href="${conPath }/product.add.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품등록</a></li>
-			            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품수정</a></li>
-			            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품삭제</a></li>
-			          </ul>
-			        </div>
-			      </li>
-			      <li class="mb-1">
-			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-			        	공지사항 관리▽
-			        </button>
-			        <div class="collapse" id="dashboard-collapse" style="">
-			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-			            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 등록</a></li>
-			            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 수정</a></li>
-			            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 삭제</a></li>
-			          </ul>
-			        </div>
-			      </li>
-			      <li class="mb-1">
-			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-			        	QnA관리▽
-			        </button>
-			        <div class="collapse" id="orders-collapse">
-			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-			            <li><a href="${conPath }/qna/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 답변</a></li>
-			            <li><a href="${conPath }/qna/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 삭제</a></li>
-			          </ul>
-			        </div>
-			      </li>
-			      <li class="mb-1">
-			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-			          1:1문의 관리▽
-			        </button>
-			        <div class="collapse" id="account-collapse" style="">
-			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-			            <li><a href="${conPath }/inquiry/list.do" class="link-dark d-inline-flex text-decoration-none rounded">1:1문의 답변</a></li>
-			            <li><a href="${conPath }/inquiry/list.do" class="link-dark d-inline-flex text-decoration-none rounded">1:1문의 삭제</a></li>
-			          </ul>
-			        </div>
-			      </li>
-			      <li class="mb-1">
-			        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#faq-collapse" aria-expanded="false">
-						FAQ관리▽
-			        </button>
-			        <div class="collapse" id="faq-collapse" style="">
-			          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-			            <li><a href="${conPath }/faq/write.do" class="link-dark d-inline-flex text-decoration-none rounded">FAQ 등록</a></li>
-			            <li><a href="${conPath }/faq/list.do" class="link-dark d-inline-flex text-decoration-none rounded">FAQ 수정</a></li>
-			            <li><a href="${conPath }/faq/list.do" class="link-dark d-inline-flex text-decoration-none rounded">FAQ 삭제</a></li>
-			          </ul>
-			        </div>
-			      </li>
-			    </ul>
-		    </span>
+			<jsp:include page="side.jsp"/>
 			<!-- <div class="col-3">
 			  <div class="card">
 			    <div class="card-body">
@@ -375,6 +311,41 @@
 			<div class="box3 col-3">
 				<h2>공지사항</h2>
 				<hr>
+				<table class="table table-striped mx-2">
+					<thead>
+						<tr class="text-center">
+							<th><i class="bi bi-justify"></i> 번호</th>
+							<th class="text-start"><i class="bi bi-chat-dots-fill"></i> 제목</th>
+							<th><i class="bi bi-person-fill"></i> 작성자</th>
+							<th><i class="bi bi-calendar3"></i> 날짜</th>
+							<th><i class="bi bi-fire"></i> 조회수</th>
+						</tr>
+					</thead>
+					<tbody class="table-group-divider">
+						<c:if test="${noticeList.size() eq 0}">
+							<tr><td colspan="5">해당 페이지의 글이 없습니다</td></tr>
+						</c:if>
+						<c:if test="${noticeList.size() ne 0}">
+							<c:forEach var="notice" items="${noticeList}">
+							
+							<tr>
+								<td class="text-center">${notice.noticeNum}</td>
+								<td class="w-50">
+									${notice.noticeTitle}
+								</td>
+								<td class="text-center">${notice.adminId}</td>
+								<td class="text-center">
+									<fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd"/>
+								</td>
+								<td class="text-center">${notice.noticeHit}</td>
+								
+							</tr>
+							
+							</c:forEach>
+						
+						</c:if>
+					</tbody>
+				</table>
 				<a href="${conPath }/notice/list.do">
 					view >
 				</a>
@@ -584,6 +555,12 @@
 		        cross.classList.toggle("cross-active");
 		        this.classList.toggle("active");
 		    });
+		});
+		$('tr').css('cursor','pointer').click(function(){
+			var noticeNum = $(this).children().eq(0).text();
+			if(!isNaN(noticeNum)){
+				location.href = "${conPath}/notice/content.do?noticeNum="+noticeNum+"&pageNum=${paging.currentPage}&search=${param.search}&type=${param.type}";
+			}
 		});
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

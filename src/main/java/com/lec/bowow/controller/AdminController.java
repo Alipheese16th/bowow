@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.lec.bowow.model.Faq;
+import com.lec.bowow.model.Notice;
 import com.lec.bowow.model.Qna;
 import com.lec.bowow.service.AdminService;
 import com.lec.bowow.service.FaqService;
+import com.lec.bowow.service.NoticeService;
 import com.lec.bowow.service.QnaService;
 
 @Controller
@@ -23,11 +25,14 @@ public class AdminController {
 	private QnaService qnaService;
 	@Autowired
 	private FaqService faqService;
+	@Autowired
+	private NoticeService noticeService;
 	@RequestMapping(value="main", method= {RequestMethod.GET, RequestMethod.POST})
-	public String main(Qna qna, Faq faq, Model model, String pageNum) {
+	public String main(Qna qna, Faq faq, String type, String search, Model model, String pageNum) {
 		//model.addAttribute("mainList", adminService.mainList());
 		model.addAttribute("qnaList", qnaService.qnaList(qna, pageNum));
 		model.addAttribute("faqList", faqService.faqList(faq, pageNum));
+		model.addAttribute("noticeList", noticeService.getNoticeList(pageNum, type, search));
 		return "admin/main";
 	}
 	@RequestMapping(value="login", method=RequestMethod.GET)
