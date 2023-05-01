@@ -25,8 +25,10 @@
 		<result property="colorNum" column="colorNum"/>
 		<result property="qty" column="qty"/>
 		<result property="cost" column="cost"/>
+		<result property="productName" column="productName"/>
+		<result property="image" column="image"/>
+		<result property="cnt" column="cnt"/>
 	</resultMap>
-	
 	<!-- 주문작성하기전에 주문번호 뽑아서 가기 -->
 	<insert id="createOrderCode">
 		INSERT INTO ORDERCODE VALUES(CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')))
@@ -65,7 +67,7 @@
 	
 	
 	
-	
+	<!-- 마이페이지 주문내역 -->
 	<select id="orderList" parameterType="Order" resultMap="OrderResult">
 		SELECT * FROM (
 			SELECT ROWNUM RN, A.* FROM 
