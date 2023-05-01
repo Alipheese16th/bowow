@@ -32,7 +32,7 @@
 			text-align: center;
 		}
 		.wrap {
-			min-width: 1435px;
+			min-width: 1535px;
 		}
 		.pagename h1 {
 			text-align: left;
@@ -133,30 +133,30 @@
 		    transition: 1s;
 		    height: 50px;
 		}
-		
+	
 		.accordion-container{
 		    display: block;
 		    width: 400px;
 		    margin: 15px auto;
 		}
-		
+	
 		.accordion-text-wrapper{
 		    width: 200px;
 		    max-height: 0;
 		    overflow: hidden;
 		    transition: max-height .6s ease-out;
 		}
-		
+	
 		.accordion-text{
 		    font-size: 14px;
 		    margin: 40px 10px 20px 10px;
 		}
-		
-		
+	
+	
 		.toggle{
-		    max-height: 200px;
+	    	max-height: 200px;
 		}
-		
+	
 		.cross{
 		    width: 30px;
 		    height: 30px;
@@ -167,7 +167,7 @@
 		    position: absolute;
 		    margin: 10px 10px;
 		}
-		
+	
 		.cross-active{
 		    position: absolute;
 		    margin: 56px 0 0 10px;
@@ -175,54 +175,54 @@
 		    transition: .5s ease-out;
 		    opacity: .4;
 		}
-		
+	
 		.active{
 		    background: #bbb;
 		    color: #fff;
 		}
-		
-	    .bd-placeholder-img {
+	
+		.bd-placeholder-img {
 	    	font-size: 1.125rem;
 	        text-anchor: middle;
 	        -webkit-user-select: none;
 	        -moz-user-select: none;
 	        user-select: none;
 		}
-	
-	      @media (min-width: 768px) {
+
+		@media (min-width: 768px) {
 	        .bd-placeholder-img-lg {
 	          font-size: 3.5rem;
 	        }
-	      }
-	
-	      .b-example-divider {
+		}
+
+		.b-example-divider {
 	        width: 100%;
 	        height: 3rem;
 	        background-color: rgba(0, 0, 0, .1);
 	        border: solid rgba(0, 0, 0, .15);
 	        border-width: 1px 0;
 	        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-	      }
-	
-	      .b-example-vr {
+		}
+
+		.b-example-vr {
 	        flex-shrink: 0;
 	        width: 1.5rem;
 	        height: 100vh;
-	      }
-	
-	      .bi {
+		}
+
+		.bi {
 	        vertical-align: -.125em;
 	        fill: currentColor;
-	      }
-	
-	      .nav-scroller {
+		}
+
+		.nav-scroller {
 	        position: relative;
 	        z-index: 2;
 	        height: 2.75rem;
 	        overflow-y: hidden;
-	      }
-	
-	      .nav-scroller .nav {
+        }
+
+		.nav-scroller .nav {
 	        display: flex;
 	        flex-wrap: nowrap;
 	        padding-bottom: 1rem;
@@ -231,9 +231,9 @@
 	        text-align: center;
 	        white-space: nowrap;
 	        -webkit-overflow-scrolling: touch;
-	      }
-	
-	      .btn-bd-primary {
+		}
+
+		.btn-bd-primary {
 	        --bd-violet-bg: #712cf9;
 	        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
 	
@@ -248,15 +248,35 @@
 	        --bs-btn-active-color: var(--bs-btn-hover-color);
 	        --bs-btn-active-bg: #5a23c8;
 	        --bs-btn-active-border-color: #5a23c8;
-	      }
-	      .bd-mode-toggle {
-	        z-index: 1500;
-	      }
-	      .flex-shrink-0 {
-	      	margin: 0;
-	      }
-	      .mb-1 {width: 200px;}
-	      .btn-toggle {width: 200px; text-align: right;}
+		}
+		.bd-mode-toggle {
+        	z-index: 1500;
+		}
+		.flex-shrink-0 {
+      		margin: 0;
+		}
+		.mb-1 {width: 200px;}
+		.btn-toggle {width: 200px; text-align: right;}
+		.table, form-select{
+			color: #BE8D6E;
+			border-color:#BE8D6E;
+		}
+		.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+			color: #BE8D6E;
+			border-color:#BE8D6E;
+		}
+		.table-striped > tbody > tr:nth-child(2n+1):hover, .table-striped > tbody > tr:nth-child(2n+1):hover {
+			background-color: #BE8D6E;
+		}
+		.table-striped > tbody > tr:nth-child(2n):hover, .table-striped > tbody > tr:nth-child(2n):hover {
+			background-color: #BE8D6E;
+		}
+		.table-striped > tbody > tr:nth-child(2n):hover > td, .table-striped > tbody > tr:nth-child(2n):hover > th {
+		    color:white;
+		}
+		.table-striped > tbody > tr:nth-child(2n+1):hover > td, .table-striped > tbody > tr:nth-child(2n+1):hover > th {
+		    color:white;
+		}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
@@ -308,7 +328,7 @@
 				<canvas id="myChart2"></canvas>
 				<a href="#">view ></a>
 			</div>
-			<div class="box3 col-3">
+			<div class="box3 col-4">
 				<h2>공지사항</h2>
 				<hr>
 				<table class="table table-striped mx-2">
@@ -326,7 +346,7 @@
 							<tr><td colspan="5">해당 페이지의 글이 없습니다</td></tr>
 						</c:if>
 						<c:if test="${noticeList.size() ne 0}">
-							<c:forEach var="notice" items="${noticeList}">
+							<c:forEach var="notice" items="${noticeList}" begin="0" end="4">
 							
 							<tr>
 								<td class="text-center">${notice.noticeNum}</td>
@@ -350,15 +370,15 @@
 					view >
 				</a>
 			</div>
-			<div class="box4 col-6">
+			<div class="box4 col-5">
 				<h2>상담문의</h2>
 				<hr>
 				<table class="table table-hover">
 				  <tr>
-				  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th>
+				  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th><th>조회수</th>
 				  </tr>
 				  <c:if test="${totCntQna eq 0 }">
-					<tr><td colspan="6">해당 페이지의 글이 없습니다</td>
+					<tr><td colspan="7">해당 페이지의 글이 없습니다</td>
 				  </c:if>
 				  <c:if test="${totCntQna != 0 }">
 					<c:forEach var="qna" items="${qnaList }" begin="0" end="3">
@@ -381,6 +401,7 @@
 					  			<fmt:formatDate value="${qna.qnaDate }" type="date" pattern="yyyy-MM-dd"/>
 					  		</td>
 					  		<td>${qna.qnaIp }</td>
+					  		<td>${qna.qnaHit }</td>
 						</tr>
 					</c:forEach>
 				  </c:if>
@@ -556,11 +577,15 @@
 		        this.classList.toggle("active");
 		    });
 		});
-		$('tr').css('cursor','pointer').click(function(){
-			var noticeNum = $(this).children().eq(0).text();
-			if(!isNaN(noticeNum)){
-				location.href = "${conPath}/notice/content.do?noticeNum="+noticeNum+"&pageNum=${paging.currentPage}&search=${param.search}&type=${param.type}";
-			}
+	</script>
+	<script>
+		$(document).ready(function(){
+			$('tr').css('cursor','pointer').click(function(){
+				var noticeNum = $(this).children().eq(0).text();
+				if(!isNaN(noticeNum)){
+					location.href = "${conPath}/notice/content.do?noticeNum="+noticeNum+"&pageNum=${paging.currentPage}&search=${param.search}&type=${param.type}";
+				}
+			});
 		});
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

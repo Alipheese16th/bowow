@@ -47,7 +47,7 @@
 	<div class="faq">
 		<h1>FAQ 게시판 수정</h1>
 		<form action="${conPath }/faq/modify.do" method="post">
-			<input type="hidden" name="oldFaqTitle" value="${faq.faqTitle }">
+		<input type="hidden" name="oldFaqTitle" value="${faq.faqTitle }">
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
 				<input type="text" name="faqTitle" class="form-control" id="exampleFormControlInput1" value="${faq.faqTitle }" required="required">

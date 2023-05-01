@@ -17,12 +17,16 @@
 		.faq .form-control {border: 1px solid #BE8D6E;}
 		.faq label {font-size: 1.2em; font-weight: bold;}
 		.faq textarea {height: 300px;}
-		.faq .btn {background: #BE8D6E; font-size: 1.2em;}
+		.faq .btn {
+			background: #BE8D6E; font-size: 1.2em;
+			width: 200px; margin-bottom: 20px; text-align: center;
+		}
 		.faq .btn:hover {
 			background: gray;
 			border: 1px solid lightgray;
 			font-weight: bold;
 		}
+		.faq .input {text-align: center; min-width: 620px;}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -56,7 +60,9 @@
 				<label for="exampleFormControlInput1" class="form-label">파일첨부</label>
 				<input type="file" class="form-control" id="exampleFormControlInput1">
 			</div> -->
-			<input class="btn btn-primary form-control" type="submit" value="작성하기">
+			<div class="input">
+				<input class="btn btn-primary form-control" type="submit" value="작성하기">
+			</div>
 		</form>
 	</div>
 	

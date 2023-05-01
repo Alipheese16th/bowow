@@ -92,6 +92,20 @@
 	</script> -->
 </head>
 <body>
+	<c:set var="success" value="1"/>
+	<c:set var="fail" value="0"/>
+	<c:if test="${not empty writeFResult }"><script>alert('FAQ 글을 등록 하였습니다');</script></c:if>
+	<c:if test="${not empty deleteFResult }"><script>alert('FAQ 글을 삭제 하였습니다');</script></c:if>
+	<c:if test="${modifyFResult eq success }">
+		<script>alert('FAQ 글을 수정 하였습니다');</script>
+	</c:if>
+	<c:if test="${modifyFResult eq fail }">
+		<script>
+			alert('FAQ 수정을 실패 하였습니다');
+			history.back();
+		</script>
+	</c:if>
+
 	<jsp:include page="../main/header.jsp"/>
 	
 	<%-- <div class="faq">

@@ -34,8 +34,8 @@ public class FaqServiceImpl implements FaqService {
 		return faqDao.contentFaq(faqTitle);
 	}
 	@Override
-	public int modifyFaq(Faq faq, HttpSession httpSession) {
-		return faqDao.modifyFaq(faq, httpSession);
+	public int modifyFaq(Faq faq) {
+		return faqDao.modifyFaq(faq);
 	}
 	@Override
 	public int deleteFaq(String faqTitle) {
