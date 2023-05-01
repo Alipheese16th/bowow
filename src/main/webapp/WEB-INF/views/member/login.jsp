@@ -12,12 +12,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 </head>
 <body>
-	<c:if test="${joinResult eq 1}">
-		<script>
-			alert("${mDto} 회원가입 감사합니다.");
-		</script>
-	</c:if>
-		<c:if test="${not empty loginResult}">
+	<c:if test="${not empty loginResult}">
 		<script>
 			alert("${loginResult}");
 		</script>

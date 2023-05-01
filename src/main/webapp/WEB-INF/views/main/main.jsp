@@ -217,7 +217,8 @@
 			     </div>
 		      </div>
 		    </div>
-
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 		    <div class="swiper-scrollbar"></div>
 		  </div>
 		 </div><!-- main-slide -->
@@ -356,6 +357,10 @@
 	      scrollbar: {
 	          el: ".swiper-scrollbar",
 	          hide: true,
+	      },
+          navigation: {
+	          nextEl: ".swiper-button-next",
+	          prevEl: ".swiper-button-prev",
 	      },
 	    });
 	    var swiper3 = new Swiper(".mySwiper3", {

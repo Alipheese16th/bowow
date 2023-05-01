@@ -16,6 +16,7 @@
 	<script src="${conPath}/js/address.js"></script>
 	<script>
 		let memberIdOk = false;
+		let memberEmailOk = false;
 		$(document).ready(function(){
 			const patternId = /^[a-z]{1}[a-z0-9_\-]{2,15}$/; // 아이디 정규표현식
 			const patternPw = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~`!@#$%^&*()-_+=|\\\[\]{}'";:?,.\/]).{8,16}$/; // 비밀번호 정규표현식
@@ -34,6 +35,19 @@
 						data: "memberId="+memberId,
 						success : function(data, status){
 							$(".midResult").html(data);
+						},
+					});
+				}
+			}); // memberId 중복확인
+  			$(".emailConfirm").click(function(){
+  				memberEmailOk = true;
+ 				if(memberEmail.match(patternMail)){
+					$.ajax({
+						url : '${conPath}/memberEmailConfrim.do',
+						dataType : 'html',
+						data: "memberEmail="+memberEmail,
+						success : function(data, status){
+							$(".memailResult").html(data);
 						},
 					});
 				}
@@ -129,8 +143,8 @@
 					alert("전화번호를 확인하세요.");
 					$("#tel").focus();
 					return false;
-				}else if(!memberEmail || !memailResult==""){
-					alert("이메일을 확인하세요.");
+				}else if(memailResult!="사용가능한 이메일입니다"){
+					alert("사용가능한 이메일인지 확인 요망");
 					$("#email").focus();
 					return false;
 				}
@@ -207,7 +221,9 @@
 								<input type="text" name="memberEmail" id="email" class="focusB" placeholder="예 : bowow@bowow.com">
 								<div class="memailResult bottom"></div>
 							</div>
-							<div class="join-form-btn"></div>
+							<div class="join-form-btn">
+								<button type="button" class="emailConfirm">중복확인</button>
+							</div>
 						</div>
 						<div class="join-form-wrap">
 							<div class="join-form-title"><label for="tel">전화번호</label></div>

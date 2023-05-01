@@ -1,0 +1,69 @@
+@charset "UTF-8";
+/*mypage-content-left*/
+html,body{
+	font-family: 'Pretendard';
+}
+.mypage-content *{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: 'Pretendard';
+}
+a{
+	text-decoration: none;
+	color:#ccc;
+}
+li{
+	list-style: none;
+}
+ul{
+	margin:0;
+	padding:0;
+}
+.mypage-content{
+	display: flex;
+    width: 1250px;
+    margin: 0 auto;
+    padding: 50px 0 80px;
+    flex-direction: row;
+    justify-content: space-between;
+    -webkit-box-pack: justify;
+}
+.mypage-content .mypage-content-left{
+	width:200px;
+}
+.mypage-content .mypage-content-left .content-left-title{
+	font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.mypage-content .mypage-content-left ul{
+	border: 1px solid rgb(242, 242, 242);
+}
+.mypage-content .mypage-content-left ul li .myleft{
+	cursor: pointer;
+    border-bottom: 1px solid rgb(242, 242, 242);
+    padding: 15px 13px 15px 20px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    font-size: 14px;
+    color: rgb(102, 102, 102);
+    font-weight: 500;
+}
+.mypage-content .mypage-content-left ul li .myleft span{
+	width:17px;
+	height:17px;
+}
+.mypage-content .mypage-content-left ul li .myleft.active, .mypage-content .mypage-content-left ul li a:hover{
+	background-color: rgb(250, 250, 250);
+    color: #be8d6e;
+    font-weight: 500;
+}
+.mypage-content .mypage-content-left ul li a:hover .st0{
+	fill:#be8d6e;
+}

@@ -29,6 +29,11 @@ public class MemberController {
 		model.addAttribute("midConfirmResult", memberService.memberIdConfirm(memberId));
 		return "member/memberIdConfirm";
 	}
+	@RequestMapping(value="memberEmailConfrim", method=RequestMethod.GET)
+	public String memberEmailConfrim(String memberEmail, Model model) {
+		model.addAttribute("mEmailConfirmResult", memberService.memberMailConfirm(memberEmail));
+		return "member/memberEmailConfrim";
+	}
 	@RequestMapping(value="join", method=RequestMethod.POST)
 	public String joinMember(@ModelAttribute("mDto") Member member, String memberBirthTemp ,Model model, HttpSession session) {
 		model.addAttribute("joinResult", memberService.joinMember(member, memberBirthTemp, session));
