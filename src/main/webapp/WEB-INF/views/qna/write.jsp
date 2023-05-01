@@ -81,7 +81,12 @@
 			 --%>
 		</div>
 		 
-		<form action="${conPath }/qna/write.do?selectCode" method="post">
+		<form action="${conPath }/qna/write.do" method="post">
+			<c:forEach var="product" items="${productList }">
+				<c:if test="${product.productCode eq param.selectCode}">
+					<input type="hidden" name="productCode" value="${product.productCode}">
+				</c:if>
+			</c:forEach>
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
 				<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력해주세요" required="required">

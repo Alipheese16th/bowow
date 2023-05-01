@@ -8,8 +8,7 @@
 		<result property="faqContent" column="faqContent"/>
 	</resultMap>
 	<select id="faqList" parameterType="Faq" resultMap="FaqResult">
-		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM FAQ) A ORDER BY RN DESC)
-    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		SELECT * FROM FAQ ORDER BY faqTitle
 	</select>
 	<select id="totCntFaq" resultType="int">
 		SELECT COUNT(*) FROM FAQ
@@ -18,7 +17,7 @@
 		INSERT INTO FAQ(faqTitle, faqContent)
     		VALUES (#{faqTitle}, #{faqContent})
 	</insert>
-	<select id="contentFaq" parameterType="int" resultType="Faq">
+	<select id="contentFaq" parameterType="String" resultType="Faq">
 		SELECT * FROM FAQ WHERE faqTitle = #{faqTitle}
 	</select>
 	<update id="modifyFaq" parameterType="Faq">
@@ -27,7 +26,7 @@
 		        faqContent = #{faqContent}
 		    WHERE faqTitle = #{faqTitle}
 	</update>
-	<delete id="deleteFaq" parameterType="int">
+	<delete id="deleteFaq" parameterType="String">
 		DELETE FROM FAQ WHERE faqTitle = #{faqTitle}
 	</delete>
 </mapper>

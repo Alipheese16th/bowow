@@ -230,8 +230,7 @@ INSERT INTO FAQ(faqTitle, faqContent)
     VALUES ('자주묻는질문4', '자주묻는질문의답4');
 
 -- FAQ 목록(페이징)
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM FAQ) A ORDER BY RN DESC)
-    WHERE RN BETWEEN 1 AND 123;
+SELECT * FROM FAQ ORDER BY faqTitle;
 
 -- FAQ 전체 글 개수
 SELECT COUNT(*) FROM FAQ;
@@ -245,14 +244,14 @@ SELECT * FROM FAQ WHERE faqTitle = '자주묻는질문4';
 
 -- FAQ 수정
 UPDATE FAQ
-    SET faqTitle = '자주묻는질문4수정',
+    SET faqTitle = '111',
         faqContent = '자주묻는질문의답4수정'
-    WHERE faqTitle = '자주묻는질문4';
+    WHERE faqTitle = 'ssss';
     
 -- FAQ 삭제
-DELETE FROM FAQ WHERE faqTitle = '자주묻는질문';
+DELETE FROM FAQ WHERE faqTitle = '자주묻는문';
 
-
+select * from faq;
 ----------------------------------------------<INQUIRY>----------------------------------------------
 CREATE SEQUENCE INQUIRY_SEQ MAXVALUE 9999 NOCACHE NOCYCLE;
 CREATE TABLE INQUIRY(
@@ -346,19 +345,18 @@ DELETE FROM PRODUCTIMAGE WHERE imageNum = 1;
 -- 이미지 출력
 SELECT * FROM
     (SELECT ROWNUM RN, A.* FROM
-        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' ORDER BY qnaGroup DESC, qnaStep) A)
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) ORDER BY qnaGroup DESC, qnaStep) A)
     WHERE RN BETWEEN 1 AND 26;
 SELECT * FROM
     (SELECT ROWNUM RN, A.* FROM
-        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' AND qnaTitle LIKE '%'||''||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaTitle LIKE '%'||'품'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
     WHERE RN BETWEEN 1 AND 26;
 SELECT * FROM
     (SELECT ROWNUM RN, A.* FROM
-        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE AND TYPE = 'title' AND qnaContent LIKE '%'||''||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaContent LIKE '%'||'d'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
     WHERE RN BETWEEN 1 AND 26;
     
-    
-    
+SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND Q.QNANUM = 1;
     
     
     

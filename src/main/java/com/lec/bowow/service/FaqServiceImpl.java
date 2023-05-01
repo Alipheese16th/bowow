@@ -2,6 +2,8 @@ package com.lec.bowow.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,8 @@ public class FaqServiceImpl implements FaqService {
 	@Autowired
 	private FaqDao faqDao;
 	@Override
-	public List<Faq> faqList(String pageNum) {
+	public List<Faq> faqList(Faq faq, String pageNum) {
 		Paging paging = new Paging(faqDao.totCntFaq(), pageNum);
-		Faq faq = new Faq();
 		faq.setStartRow(paging.getStartRow());
 		faq.setEndRow(paging.getEndRow());
 		return faqDao.faqList(faq);
@@ -33,8 +34,8 @@ public class FaqServiceImpl implements FaqService {
 		return faqDao.contentFaq(faqTitle);
 	}
 	@Override
-	public int modifyFaq(Faq faq) {
-		return faqDao.modifyFaq(faq);
+	public int modifyFaq(Faq faq, HttpSession httpSession) {
+		return faqDao.modifyFaq(faq, httpSession);
 	}
 	@Override
 	public int deleteFaq(String faqTitle) {
