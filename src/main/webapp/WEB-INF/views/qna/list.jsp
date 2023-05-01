@@ -63,10 +63,10 @@
 		<form action="${conPath }/qna/list.do">
 			<table class="table table-hover">
 			  <tr>
-			  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th>
+			  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th><th>조회수</th>
 			  </tr>
 			  <c:if test="${totCntQna eq 0 }">
-				<tr><td colspan="6">해당 페이지의 글이 없습니다</td></tr>
+				<tr><td colspan="7">해당 페이지의 글이 없습니다</td></tr>
 			  </c:if>
 			  <c:if test="${totCntQna != 0 }">
 				<c:forEach var="qna" items="${qnaList }">
@@ -92,6 +92,7 @@
 				  			<fmt:formatDate value="${qna.qnaDate }" type="date" pattern="yyyy-MM-dd"/>
 				  		</td>
 				  		<td>${qna.qnaIp }</td>
+				  		<td>${qna.qnaHit }</td>
 					</tr>
 				</c:forEach>
 			  </c:if>

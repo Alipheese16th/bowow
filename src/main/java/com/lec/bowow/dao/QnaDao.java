@@ -12,6 +12,7 @@ public interface QnaDao {
 	public List<Qna> qnaList(Qna qna);
 	public int totCntQna(Qna qna);
 	public int writeQna(Qna qna);
+	public void hitUpQna(int qnaNum);
 	public Qna contentQna(int qnaNum);
 	public int modifyQna(Qna qna);
 	public int deleteQna(int qnaNum);

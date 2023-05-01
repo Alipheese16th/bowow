@@ -42,6 +42,7 @@ public class QnaServiceImpl implements QnaService {
 	}
 	@Override
 	public Qna contentQna(int qnaNum) {
+		qnaDao.hitUpQna(qnaNum);
 		return qnaDao.contentQna(qnaNum);
 	}
 	@Override

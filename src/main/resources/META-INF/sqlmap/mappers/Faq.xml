@@ -24,7 +24,7 @@
 		UPDATE FAQ
 		    SET faqTitle = #{faqTitle},
 		        faqContent = #{faqContent}
-		    WHERE faqTitle = #{faqTitle}
+		    WHERE faqTitle = #{oldFaqTitle}
 	</update>
 	<delete id="deleteFaq" parameterType="String">
 		DELETE FROM FAQ WHERE faqTitle = #{faqTitle}

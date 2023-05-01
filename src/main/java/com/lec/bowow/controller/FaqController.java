@@ -43,9 +43,9 @@ public class FaqController {
 		return "faq/modify";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.POST)
-	public String modify(Faq faq, HttpSession httpSession, Model model) {
+	public String modify(Faq faq, Model model) {
 		try {
-			model.addAttribute("modifyFResult", faqService.modifyFaq(faq, httpSession));
+			model.addAttribute("modifyFResult", faqService.modifyFaq(faq));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			model.addAttribute("modifyFResult", "수정 실패");

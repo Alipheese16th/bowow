@@ -8,4 +8,5 @@ public class Faq {
 	private String faqContent;
 	private int startRow;
 	private int endRow;
+	private String oldFaqTitle;
 }

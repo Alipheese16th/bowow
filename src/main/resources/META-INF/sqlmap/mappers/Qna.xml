@@ -72,6 +72,9 @@
 		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode, jdbcType=VARCHAR}, #{qnaTitle}, #{qnaContent}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp})
 	</insert>
+	<update id="hitUpQna" parameterType="int">
+		UPDATE QNA SET qnaHit = qnaHit + 1 WHERE qnaNum = #{qnaNum}
+	</update>
 	<select id="contentQna" parameterType="int" resultType="Qna">
 		SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND Q.QNANUM = #{QNANUM}
 	</select>

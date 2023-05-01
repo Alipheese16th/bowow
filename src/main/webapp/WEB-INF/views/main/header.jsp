@@ -113,7 +113,7 @@
 										<li><a href="${conPath}/qna/list.do">QnA</a></li>
 										<li><a href="${conPath}/notice/list.do">공지사항</a></li>
 										<li><a href="${conPath}/faq/list.do">자주하는질문</a></li>
-										<li><a href="#">1:1문의</a></li>
+										<li><a href="${conPath }/inquiry/list.do">1:1문의</a></li>
 										<li><a href="#">리뷰게시판</a></li>
 									</ul>
 							</li>

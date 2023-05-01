@@ -14,6 +14,6 @@ public interface FaqDao {
 	public int totCntFaq();
 	public int writeFaq(Faq faq);
 	public Faq contentFaq(String faqTitle);
-	public int modifyFaq(Faq faq, HttpSession httpSession);
+	public int modifyFaq(Faq faq);
 	public int deleteFaq(String faqTitle);
 }
