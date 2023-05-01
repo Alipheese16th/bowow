@@ -16,29 +16,29 @@
 	min-width: 1200px !important;
 }
 
-.pagination > li > a{
-    background-color: white;
-    color: #5A4181;
-}
-
 .pagination > li > a:focus,
 .pagination > li > a:hover,
 .pagination > li > span:focus,
 .pagination > li > span:hover{
-    color: #5a5a5a;
-    background-color: #eee;
-    border-color: #ddd;
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
 }
-
+.pagination > li > a{
+    background-color: white;
+    color: #BE8D6E;
+}
+.pagination > .disabled > a{
+    color: #BE8D6E;
+    background-color: white;
+}
 .pagination > .active > a{
     color: white;
-    background-color: #444444 !Important;
-    border: solid 1px #444444 !Important;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
 }
-
 .pagination > .active > a:hover{
-    background-color: #444444 !Important;
-    border: solid 1px #444444;
+    background-color: #9E6D4E;
 }
 
 .card img, .card-title, .card-text{
@@ -89,7 +89,7 @@
 		
 		<!-- 페이지 네비게이션 시작 -->
 		<nav aria-label="Page navigation example pt-5 mt-5">
-		  <ul class="pagination pagination-sm justify-content-center">
+		  <ul class="pagination justify-content-center">
 		  	<c:if test="${paging.startPage <= paging.blockSize }">
 			    <li class="page-item disabled">
 				    <a class="page-link">

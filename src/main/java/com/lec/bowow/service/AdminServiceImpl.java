@@ -1,12 +1,8 @@
 package com.lec.bowow.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.lec.bowow.dao.AdminDao;
 import com.lec.bowow.model.Admin;
 @Service
@@ -26,6 +22,7 @@ public class AdminServiceImpl implements AdminService {
 		} else if(! admin.getAdminPw().equals(adminPw)) {
 			result = "비밀번호가 맞지 않습니다";
 		} else {
+			//httpSession.invalidate();
 			httpSession.setAttribute("admin", admin);
 		}
 		return result;

@@ -9,22 +9,78 @@
 		<result property="noticeTitle" column="noticeTitle"/>
 		<result property="noticeContent" column="noticeContent"/>
 		<result property="noticeDate" column="noticeDate"/>
+		<result property="noticeHit" column="noticeHit"/>
 	</resultMap>
-	<select id="noticeList" parameterType="Notice" resultMap="NoticeResult">
+	
+	<!-- 공지사항 리스트 (기본) -->
+	<select id="noticeListAll" parameterType="Notice" resultMap="NoticeResult">
 		SELECT * FROM
 		       (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NOTICE ORDER BY NOTICENUM DESC) A)
-		    WHERE RN BETWEEN #{startRow} AND #{endRow};
+		    WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
-	<select id="totCntNotice" resultType="int">
+	<select id="totCntNoticeAll" resultType="int">
 		SELECT COUNT(*) FROM NOTICE
 	</select>
+	
+	<!-- 공지사항 리스트 검색 (전체) -->
+	<select id="noticeListFull" parameterType="Notice" resultMap="NoticeResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, N.* FROM 
+		    (SELECT * FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%' OR NOTICECONTENT LIKE '%' || #{search} || '%' OR ADMINID LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntNoticeFull" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%' OR NOTICECONTENT LIKE '%' || #{search} || '%' OR ADMINID LIKE '%' || #{search} || '%'
+	</select>
+	
+	<!-- 공지사항 리스트 검색 (제목) -->
+	<select id="noticeListTitle" parameterType="Notice" resultMap="NoticeResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, N.* FROM 
+		    (SELECT * FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntNoticeTitle" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%'
+	</select>
+	
+	<!-- 공지사항 리스트 검색 (내용) -->
+	<select id="noticeListContent" parameterType="Notice" resultMap="NoticeResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, N.* FROM 
+		    (SELECT * FROM NOTICE WHERE NOTICECONTENT LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntNoticeContent" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM NOTICE WHERE NOTICECONTENT LIKE '%' || #{search} || '%'
+	</select>
+	
+	<!-- 공지사항 리스트 검색 (작성자) -->
+	<select id="noticeListWriter" parameterType="Notice" resultMap="NoticeResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, N.* FROM 
+		    (SELECT * FROM NOTICE WHERE ADMINID LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntNoticeWriter" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM NOTICE WHERE ADMINID LIKE '%' || #{search} || '%'
+	</select>
+	
+	<select id="contentNotice" parameterType="int" resultType="Notice">
+		SELECT * FROM NOTICE WHERE noticeNum = #{noticeNum}
+	</select>
+	<update id="noticeHitUp" parameterType="int">
+		UPDATE NOTICE SET NOTICEHIT = NOTICEHIT + 1 WHERE NOTICENUM = #{noticeNum}
+	</update>
+	
+	
+	
+	
 	<insert id="writeNotice" parameterType="Notice">
 		INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 			VALUES (notice_SEQ.NEXTVAL, #{adminId}, #{noticeTitle}, #{noticeContent})
 	</insert>
-	<select id="contentNotice" parameterType="int" resultType="Notice">
-		SELECT * FROM NOTICE WHERE noticeNum = #{noticeNum}
-	</select>
+	
 	<update id="modifyNotice" parameterType="Notice">
 		UPDATE NOTICE
 		    SET noticeTitle = #{noticeTitle},

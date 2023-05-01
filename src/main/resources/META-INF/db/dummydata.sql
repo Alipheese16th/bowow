@@ -116,7 +116,6 @@ INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('자주묻는문', '자주묻는�
 INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('주묻질문2', '자주묻는질문의답2');
 INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('자는질문3', '자주묻는질문의답3');
 INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('주묻는질문4', '자주묻는질문의답4');
-select * from faq;
 
 ----------------------------- 14. INQUIRY --------------------------------------
 INSERT INTO INQUIRY (INQUIRYNUM, MEMBERID, INQUIRYTITLE, INQUIRYCONTENT, INQUIRYEMAIL)

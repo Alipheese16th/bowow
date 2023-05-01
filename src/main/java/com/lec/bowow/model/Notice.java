@@ -11,7 +11,10 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private Date noticeDate;
+	private int noticeHit;
 	// 페이징
 	private int startRow;
 	private int endRow;
+	// 검색
+	private String search;
 }

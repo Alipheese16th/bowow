@@ -17,6 +17,7 @@ public class Qna {
 	private int qnaStep;
 	private int qnaIndent;
 	private String qnaIp;
+	private int qnaHit;
 	private int startRow;
 	private int endRow;
 	private String schItem;

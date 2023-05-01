@@ -16,6 +16,7 @@ public class Product {
 	private int productStock;
 	private String prooductUsed;
 	private String image;
+	private int productHit;
 	// 페이징을 위한 필드
 	private int startRow;
 	private int endRow;

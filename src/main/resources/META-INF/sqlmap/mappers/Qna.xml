@@ -15,6 +15,7 @@
 		<result property="qnaStep" column="qnaStep"/>
 		<result property="qnaIndent" column="qnaIndent"/>
 		<result property="qnaIp" column="qnaIp"/>
+		<result property="qnaHit" column="qnaHit"/>
 	</resultMap>
 	<select id="qnaAList" resultMap="QnaResult">
 		SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep

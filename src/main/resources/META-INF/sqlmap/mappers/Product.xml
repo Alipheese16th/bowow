@@ -15,6 +15,7 @@
 		<result property="productDate" column="productDate"/>
 		<result property="productStock" column="productStock"/>
 		<result property="prooductUsed" column="prooductUsed"/>
+		<result property="prooductHit" column="prooductHit"/>
 		<result property="image" column="image"/>
 	</resultMap>
 	
@@ -43,48 +44,48 @@
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-			        AND TYPE='title' ORDER BY PRODUCTDATE DESC) A)
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="fashion"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-			        AND TYPE='title' AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="food"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-			        AND TYPE='title' AND CATEGORY = 'food' ORDER BY PRODUCTDATE DESC) A)
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'food' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="toy"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-			        AND TYPE='title' AND CATEGORY = 'toy' ORDER BY PRODUCTDATE DESC) A)
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'toy' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="walking"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-			        AND TYPE='title' AND CATEGORY = 'walking' ORDER BY PRODUCTDATE DESC) A)
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'walking' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="clean"'>
 			SELECT * FROM 
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-			      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-			        AND TYPE='title' AND CATEGORY = 'clean' ORDER BY PRODUCTDATE DESC) A)
+			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'clean' ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 	</select>
@@ -122,14 +123,17 @@
 	<select id="colorList" parameterType="String" resultMap="ColorResult">
 		SELECT * FROM COLOR WHERE PRODUCTCODE = #{productCode}
 	</select>
-	
+	<!-- 조회수 UP -->
+	<update id="productHitUp" parameterType="String">
+		UPDATE PRODUCT SET PRODUCTHIT = PRODUCTHIT + 1 WHERE PRODUCTCODE = #{productCode}
+	</update>
 	<!-- 상품 검색하기 -->
 	<select id="searchProduct" parameterType="Product" resultMap="ProductResult">
 		SELECT * FROM 
 		  (SELECT ROWNUM RN, A.* FROM 
 		    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-		      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-		        AND TYPE='title' AND productName LIKE '%' || TRIM(#{searchName}) || '%' ORDER BY PRODUCTDATE DESC) A)
+		      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+		        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND productName LIKE '%' || TRIM(#{searchName}) || '%' ORDER BY PRODUCTDATE DESC) A)
 		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntSearch" parameterType="Product" resultType="int">
@@ -139,7 +143,7 @@
 	<!-- 질문게시판 상품선택 모든 상품 리스트 -->
 	<select id="allProductList" resultMap="ProductResult">
 		SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-    		WHERE P.PRODUCTCODE = I.PRODUCTCODE AND TYPE='title' ORDER BY PRODUCTDATE DESC
+    		WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE='title' or I.PRODUCTCODE IS NULL) ORDER BY PRODUCTDATE DESC
 	</select>
 	
 	

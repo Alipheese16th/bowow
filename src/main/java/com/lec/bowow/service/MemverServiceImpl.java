@@ -101,7 +101,8 @@ public class MemverServiceImpl implements MemberService {
 			result = "유효하지 않은 아이디입니다.";
 		}else if(!member.getMemberPw().equals(memberPw)) {
 			result = "비밀번호가 일치하지 않습니다.";
-		}else {			
+		}else {	
+			//session.invalidate();
 			session.setAttribute("member", member);
 		}
 		return result;

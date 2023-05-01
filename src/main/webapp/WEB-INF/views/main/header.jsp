@@ -42,6 +42,15 @@
 				$("#header").css("box-shadow","0px 0px 0px 0px");
 			}
 		});
+		
+		$('.headerSearch').submit(function(){
+			var shname = $('.searchHeaderName').val();
+			if(shname.trim() == ''){
+				alert('빈칸은 검색할 수 없습니다');
+				return false;
+			}
+		});
+		
 	</script>
 </head>
 <body>
@@ -103,9 +112,9 @@
 							<li class="lnb-down">
 								<a href="#">고객센터</a>
 									<ul class="lnb">
-										<li><a href="${conPath }/qna/list.do">QnA</a></li>
-										<li><a href="#">공지사항</a></li>
-										<li><a href="${conPath }/faq/list.do">자주하는질문</a></li>
+										<li><a href="${conPath}/qna/list.do">QnA</a></li>
+										<li><a href="${conPath}/notice/list.do">공지사항</a></li>
+										<li><a href="${conPath}/faq/list.do">자주하는질문</a></li>
 										<li><a href="#">1:1문의</a></li>
 										<li><a href="#">리뷰게시판</a></li>
 									</ul>
@@ -122,8 +131,8 @@
 						</button>
 					</div>
 					<div class="search-view">
-						<form action="${conPath}/product/search.do">
-							<input type="text" name="searchName">
+						<form action="${conPath}/product/search.do" class="headerSearch">
+							<input type="text" name="searchName" class="searchHeaderName">
 							<input type="submit" class="searchP">
 							<input type="button" class="search">
 						</form>

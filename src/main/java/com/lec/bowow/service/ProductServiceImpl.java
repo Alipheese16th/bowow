@@ -18,6 +18,7 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 	
+	// 상품리스트
 	@Override
 	public List<Product> productList(Product product, String pageNum) {
 		Paging paging = new Paging(totCntProduct(product), pageNum, 16, 5);
@@ -29,9 +30,11 @@ public class ProductServiceImpl implements ProductService {
 	public int totCntProduct(Product product) {
 		return productDao.totCntProduct(product);
 	}
-	
+	// 상품상세보기
 	@Override
 	public Product productDetail(String productCode) {
+		// 조회수업
+		productDao.productHitUp(productCode);
 		return productDao.productDetail(productCode);
 	}
 	@Override

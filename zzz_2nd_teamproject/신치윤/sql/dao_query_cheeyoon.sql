@@ -5,9 +5,10 @@
 SELECT * FROM 
   (SELECT ROWNUM RN, A.* FROM 
     (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-        AND TYPE='title' AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
+      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
   WHERE RN BETWEEN 1 AND 10;
+
 -- 상품 갯수 (카테고리별)
 SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion';
 
@@ -19,6 +20,8 @@ SELECT * FROM IMAGE WHERE PRODUCTCODE = 'P0001';
 SELECT * FROM SIZES WHERE PRODUCTCODE = 'P0001';
 -- 상품 상세보기 (색상)
 SELECT * FROM COLOR WHERE PRODUCTCODE = 'P0001';
+-- 상품 상세보기시 조회수 1UP
+UPDATE PRODUCT SET PRODUCTHIT = PRODUCTHIT + 1 WHERE PRODUCTCODE = 'P0001';
 
 -- 상품 검색 (이름, )
 SELECT * FROM 
@@ -167,7 +170,13 @@ delete from coupon where couponnum = 1;
 ------------------------------------------------------- 주문완료
 
 
-select * from image;
+
+
+
+
+
+
+
 
 
 
@@ -181,25 +190,58 @@ select * from orderdetail where orderCode = '2304290016';
 
 
 
-
+------------------- 오늘매출통계
+select sum(totalPrice) from orders where orderdate between '23/05/01' and '23/05/02';
 
 
 --------------------------------- NOTICE ---------------------------------------
 
--- NOTICE 목록(페이징)
+-- NOTICE 목록
 SELECT * FROM
        (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NOTICE ORDER BY NOTICEDATE DESC) A)
     WHERE RN BETWEEN 1 AND 10;
-
--- NOTICE 전체 글 개수
+-- NOTICE 전체 글 개수 (페이징)
 SELECT COUNT(*) FROM NOTICE;
+-- NOTICE 검색 전체
+SELECT * FROM
+  (SELECT ROWNUM RN, N.* FROM 
+    (SELECT * FROM NOTICE WHERE NOTICETITLE LIKE '%' || '' || '%' OR NOTICECONTENT LIKE '%' || '' || '%' OR ADMINID LIKE '%' || '' || '%' ORDER BY NOTICEDATE DESC) N)
+  WHERE RN BETWEEN 2 AND 3;
+-- 전체검색 갯수 (페이징)
+SELECT COUNT(*) FROM NOTICE WHERE NOTICETITLE LIKE '%' || '' || '%' OR NOTICECONTENT LIKE '%' || '' || '%' OR ADMINID LIKE '%' || '' || '%';
+-- NOTICE 검색 제목
+SELECT * FROM
+  (SELECT ROWNUM RN, N.* FROM 
+    (SELECT * FROM NOTICE WHERE NOTICETITLE LIKE '%' || '' || '%' ORDER BY NOTICEDATE DESC) N)
+  WHERE RN BETWEEN 2 AND 3;
+-- 제목검색 갯수 (페이징)
+SELECT COUNT(*) FROM NOTICE WHERE NOTICETITLE LIKE '%' || '' || '%';
+-- NOTICE 검색 내용
+SELECT * FROM
+  (SELECT ROWNUM RN, N.* FROM 
+    (SELECT * FROM NOTICE WHERE NOTICECONTENT LIKE '%' || '' || '%' ORDER BY NOTICEDATE DESC) N)
+  WHERE RN BETWEEN 2 AND 3;
+-- 내용검색 갯수 (페이징)
+SELECT COUNT(*) FROM NOTICE WHERE NOTICECONTENT LIKE '%' || '' || '%';
+-- NOTICE 검색 작성자
+SELECT * FROM
+  (SELECT ROWNUM RN, N.* FROM 
+    (SELECT * FROM NOTICE WHERE ADMINID LIKE '%' || '' || '%' ORDER BY NOTICEDATE DESC) N)
+  WHERE RN BETWEEN 2 AND 3;
+-- 작성자검색 갯수 (페이징)
+SELECT COUNT(*) FROM NOTICE WHERE ADMINID LIKE '%' || '' || '%';
 
 -- NOTICE 글 상세보기(noticeNum)
 SELECT * FROM NOTICE WHERE noticeNum = 1;
+-- NOTICE 글 조회수 up (noticeNum)
+UPDATE NOTICE SET NOTICEHIT = NOTICEHIT + 1 WHERE NOTICENUM = 1;
+
+
 
 -- NOTICE 글 작성
 INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '제목', '내용');
+
 
 -- NOTICE 글 수정
 UPDATE NOTICE

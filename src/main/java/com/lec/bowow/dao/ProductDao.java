@@ -18,6 +18,8 @@ public interface ProductDao {
 	public List<Image> imageList(String productCode);
 	public List<Sizes> sizeList(String productCode);
 	public List<Color> colorList(String productCode);
+	// 조회수 업
+	public void productHitUp(String productCode);
 	// 상품 검색
 	public List<Product> searchProduct(Product product);
 	public int totCntSearch(Product product);

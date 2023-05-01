@@ -10,33 +10,89 @@ import com.lec.bowow.util.Paging;
 public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private NoticeDao noticeDao;
+	
+	// 공지사항 리스트 (검색 가능)
 	@Override
-	public List<Notice> noticeList(String pageNum) {
-		Paging paging = new Paging(noticeDao.totCntNotice(), pageNum);
-		Notice notice = new Notice();
-		notice.setStartRow(paging.getStartRow());
-		notice.setEndRow(paging.getEndRow());
-		return noticeDao.noticeList(notice);
+	public List<Notice> getNoticeList(String pageNum, String type, String search) {
+		if(type == null || type.equals("")) {
+			Paging paging = getPaging(pageNum, type, search);
+			Notice notice = new Notice();
+			notice.setStartRow(paging.getStartRow());
+			notice.setEndRow(paging.getEndRow());
+			return noticeDao.noticeListAll(notice);
+		}else if(type.equals("full")) {
+			Paging paging = getPaging(pageNum, type, search);
+			Notice notice = new Notice();
+			notice.setStartRow(paging.getStartRow());
+			notice.setEndRow(paging.getEndRow());
+			notice.setSearch(search);
+			return noticeDao.noticeListFull(notice);
+		}else if(type.equals("title")) {
+			Paging paging = getPaging(pageNum, type, search);
+			Notice notice = new Notice();
+			notice.setStartRow(paging.getStartRow());
+			notice.setEndRow(paging.getEndRow());
+			notice.setSearch(search);
+			return noticeDao.noticeListTitle(notice);
+		}else if(type.equals("content")) {
+			Paging paging = getPaging(pageNum, type, search);
+			Notice notice = new Notice();
+			notice.setStartRow(paging.getStartRow());
+			notice.setEndRow(paging.getEndRow());
+			notice.setSearch(search);
+			return noticeDao.noticeListContent(notice);
+		}else if(type.equals("writer")) {
+			Paging paging = getPaging(pageNum, type, search);
+			Notice notice = new Notice();
+			notice.setStartRow(paging.getStartRow());
+			notice.setEndRow(paging.getEndRow());
+			notice.setSearch(search);
+			return noticeDao.noticeListWriter(notice);
+		}else {
+			Paging paging = getPaging(pageNum, type, search);
+			Notice notice = new Notice();
+			notice.setStartRow(paging.getStartRow());
+			notice.setEndRow(paging.getEndRow());
+			return noticeDao.noticeListAll(notice);
+		}
 	}
 	@Override
-	public int totCntNotice() {
-		return noticeDao.totCntNotice();
+	public Paging getPaging(String pageNum, String type, String search) {
+		if(type == null || type.equals("")) {
+			return new Paging(noticeDao.totCntNoticeAll(), pageNum, 10, 5);
+		}else if(type.equals("full")) {
+			return new Paging(noticeDao.totCntNoticeFull(search), pageNum, 10, 5);
+		}else if(type.equals("title")) {
+			return new Paging(noticeDao.totCntNoticeTitle(search), pageNum, 10, 5);
+		}else if(type.equals("content")) {
+			return new Paging(noticeDao.totCntNoticeContent(search), pageNum, 10, 5);
+		}else if(type.equals("writer")) {
+			return new Paging(noticeDao.totCntNoticeWriter(search), pageNum, 10, 5);
+		}else {
+			return new Paging(noticeDao.totCntNoticeAll(), pageNum, 10, 5);
+		}
 	}
+	// 공지 상세보기
+	@Override
+	public Notice contentNotice(int noticeNum) {
+		// 조회수 업
+		noticeDao.noticeHitUp(noticeNum);
+		return noticeDao.contentNotice(noticeNum);
+	}
+	// 공지 작성
 	@Override
 	public int writeNotice(Notice notice) {
 		return noticeDao.writeNotice(notice);
 	}
-	@Override
-	public Notice contentNotice(int noticeNum) {
-		return noticeDao.contentNotice(noticeNum);
-	}
+	// 공지 수정
 	@Override
 	public int modifyNotice(Notice notice) {
 		return noticeDao.modifyNotice(notice);
 	}
-
+	// 공지 삭제
 	@Override
 	public int deleteNotice(int noticeNum) {
 		return noticeDao.deleteNotice(noticeNum);
 	}
+	
 }
