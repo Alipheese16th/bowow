@@ -27,6 +27,7 @@
 		<typeAlias type="com.lec.bowow.model.Image" alias="Image"/>
 		<typeAlias type="com.lec.bowow.model.Cart" alias="Cart"/>
 		<typeAlias type="com.lec.bowow.model.Order" alias="Order"/>
+		<typeAlias type="com.lec.bowow.model.OrderDetail" alias="OrderDetail"/>
 		<typeAlias type="com.lec.bowow.model.Notice" alias="Notice"/>
 		<!-- 신치윤 끝 -->
 

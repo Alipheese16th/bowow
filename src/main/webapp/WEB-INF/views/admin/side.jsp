@@ -7,9 +7,23 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+<style>
+.sidebar .btn {
+	background: #BE8D6E;
+	border: 1px solid #BE8D6E;
+	color: white;
+}
+.sidebar .btn:hover {
+	background: #BE8D6E;
+	color: black;
+}
+.sidebar .mb-1 {width: 200px;}
+.sidebar .btn-toggle {width: 200px; text-align: right;}
+
+</style>
 </head>
 <body>
-	<span class="flex-shrink-0 p-3 col-2" style="width: 280px;">
+	<span class="sidebar flex-shrink-0 p-3 col-2" style="width: 280px;">
 	    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
 	      <span class="fs-5 fw-semibold">관리자 페이지</span>
 	    </a>
@@ -20,7 +34,7 @@
 	        </button>
 	        <div class="collapse" id="home-collapse">
 	          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-	            <li><a href="${conPath }/product.add.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품등록</a></li>
+	            <li><a href="${conPath }/product/insert.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품등록</a></li>
 	            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품수정</a></li>
 	            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품삭제</a></li>
 	          </ul>

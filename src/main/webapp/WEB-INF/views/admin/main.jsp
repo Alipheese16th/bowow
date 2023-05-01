@@ -38,15 +38,7 @@
 			text-align: left;
 			margin: 50px 0 50px 250px;
 		}
-		.btn {
-			background: #BE8D6E;
-			border: 1px solid #BE8D6E;
-			color: white;
-		}
-		.btn:hover {
-			background: #BE8D6E;
-			color: black;
-		}
+		
 		.card {
 			border: 1px solid #BE8D6E;
 			width: 300px;

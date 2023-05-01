@@ -20,4 +20,9 @@ public interface OrderDao {
 	public int updateMember(Order order);
 	// 쿠폰사용후 삭제
 	public int deleteCoupon(int couponNum);
+	
+	public int orderList(Order order);
+	public int totCntOrder(String memberId);
+	public int contentOrder(String orderCode);
+	public int contentOrderDetail(String orderCode);
 }

@@ -17,6 +17,16 @@
 		<result property="orderTel" column="orderTel"/>
 	</resultMap>
 	
+	<resultMap type="Order" id="OrderResult">
+		<result property="odno" column="odno"/>
+		<result property="orderCode" column="orderCode"/>
+		<result property="productCode" column="productCode"/>
+		<result property="sizeNum" column="sizeNum"/>
+		<result property="colorNum" column="colorNum"/>
+		<result property="qty" column="qty"/>
+		<result property="cost" column="cost"/>
+	</resultMap>
+	
 	<!-- 주문작성하기전에 주문번호 뽑아서 가기 -->
 	<insert id="createOrderCode">
 		INSERT INTO ORDERCODE VALUES(CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')))
@@ -48,11 +58,37 @@
 	        GRADENO = (SELECT G.GRADENO FROM MEMBER, MEMBERGRADE G WHERE MEMBERAMOUNT + #{totalPrice} BETWEEN LOWAMOUNT AND HIAMOUNT AND MEMBERID = #{memberId})
 	    WHERE MEMBERID = #{memberId}
 	</update>
-	
 	<!-- 쿠폰 사용후 삭제 -->
 	<delete id="deleteCoupon" parameterType="int">
 		delete from coupon where couponnum = #{couponNum}
 	</delete>
+	
+	
+	
+	
+	<select id="orderList" parameterType="Order" resultMap="OrderResult">
+		SELECT * FROM (
+			SELECT ROWNUM RN, A.* FROM 
+			  (SELECT O.*, P.PRODUCTNAME, I.IMAGE, (SELECT COUNT(*) FROM ORDERDETAIL WHERE ORDERCODE = O.ORDERCODE) CNT 
+			    FROM ORDERS O, ORDERDETAIL OD, IMAGE I, PRODUCT P 
+			    WHERE O.ORDERCODE = OD.ORDERCODE AND OD.PRODUCTCODE = P.PRODUCTCODE AND OD.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL) AND MEMBERID = #{memberId} ORDER BY ORDERDATE DESC) A
+			) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntOrder" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM ORDERS WHERE MEMBERID = #{memberId}
+	</select>
+	<select id="contentOrder" parameterType="String" resultType="Order">
+		SELECT * FROM ORDERDETAIL WHERE ORDERCODE = #{orderCode}
+	</select>
+	<select id="contentOrderDetail" parameterType="String" resultMap="OrderDetailResult">
+		SELECT * FROM ORDERS WHERE ORDERCODE = #{orderCode}
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

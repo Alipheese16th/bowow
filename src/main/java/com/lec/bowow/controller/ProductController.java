@@ -40,7 +40,10 @@ public class ProductController {
 		return "product/search";
 	}
 	
-	
+	@RequestMapping(value="insert", method=RequestMethod.GET)
+	public String insert() {
+		return "admin/productInsert";
+	}
 	
 	
 	
