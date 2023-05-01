@@ -14,6 +14,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<style>
 		.inquiry h2 {text-align: center; margin: 30px 0;}
+		.inquiry .write {margin: 20px 0;}
+		.inquiry .btn {
+			background-color: #BE8D6E; border: 1px solid #BE8D6E; 
+			color: #fff; font-size: 1.2em;
+		}
 	</style>
 </head>
 <body>
@@ -21,60 +26,42 @@
 	
 	<div class="inquiry">
 		<div class="container">
-		    <form id="boardForm" name="boardForm" method="post">
 		    	<h2>1:1문의</h2>
-		        <table class="table table-striped table-hover">
-		            <thead>
-		                <tr>
-		                    <th>No</th>
-		                    <th>작성자</th>
-		                    <th>제목</th>
-		                    <th>내용</th>
-		                    <th>이메일</th>
-		                </tr>
-		            </thead>
-		            <tbody>
-		                <c:forEach var="result" items="${list }" varStatus="status">
-		                    <tr>
-		                        <td><c:out value="${result.code }"/></td>
-		                        <td><a href='#' onClick='fn_view(${result.code})'><c:out value="${result.title }"/></a></td>
-		                        <td><c:out value="${result.writer }"/></td>
-		                        <td><c:out value="${result.reg_datetime }"/></td>
-		                        <td></td>
-		                    </tr>
-		                </c:forEach>
-		            </tbody>
-		        </table>
+		    	<c:if test="${totCntInquiry eq 0 }">
+		    		<tr><td colspan="5">문의한 글이 없습니다</td></tr>
+		    	</c:if>
+		    	<c:if test="${totCntInquiry != 0 }">
+			        <table class="table table-striped table-hover">
+			            <thead>
+			                <tr>
+			                    <th>No</th>
+			                    <th>작성자</th>
+			                    <th>제목</th>
+			                    <th>내용</th>
+			                    <th>이메일</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <c:forEach var="inquiry" items="${inquiryList }" varStatus="status">
+				            	<c:if test="${member.memberId eq inquiry.memberId}">
+				                    <tr>
+				                        <td><c:out value="${inquiry.inquiryNum }"/></td>
+				                        <td><c:out value="${inquiry.memberId }"/></td>
+				                        <td><c:out value="${inquiry.inquiryTitle }"/></td>
+				                        <td><c:out value="${inquiry.inquiryContent }"/></td>
+				                        <td><c:out value="${inquiry.inquiryEmail }"/></td>
+				                    </tr>
+				            	</c:if>
+			                </c:forEach>
+			            </tbody>
+			        </table>
+		    	</c:if>
 		        
-		        <div>            
-		            <a href='#' onClick='fn_write()' class="btn btn-success">글쓰기</a>            
+		        <div class="write">            
+		            <a href="location.href='${conPath }/inquiry/write.do'" onClick='fn_write()' class="btn btn-success">글쓰기</a>            
 		        </div>
-		    </form>
 		</div>
 	</div>
-	
-	<script>
-	//글쓰기
-	function fn_write(){
-	    
-	    var form = document.getElementById("boardForm");
-	    
-	    form.action = "<c:url value='/board/writeForm.do'/>";
-	    form.submit();
-	    
-	}
-	 
-	//글조회
-	function fn_view(code){
-	    
-	    var form = document.getElementById("boardForm");
-	    var url = "<c:url value='/board/viewContent.do'/>";
-	    url = url + "?code=" + code;
-	    
-	    form.action = url;    
-	    form.submit(); 
-	}
-	</script>
 	
 	<jsp:include page="../main/footer.jsp"/>
 </body>
