@@ -23,7 +23,7 @@
 	<select id="memberIdConfirm" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = #{memberId}
 	</select>
-	<select id="memberMailConfirm">
+	<select id="memberMailConfirm" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBEREMAIL = #{memberEmail}
 	</select>
 	<insert id="joinMember" parameterType="Member">

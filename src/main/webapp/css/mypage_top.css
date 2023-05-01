@@ -1,0 +1,54 @@
+@charset "UTF-8";
+html,body{
+	font-family: 'Pretendard';
+}
+#mypage *{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: 'Pretendard';
+}
+a{
+	text-decoration: none;
+	color:#ccc;
+}
+li{
+	list-style: none;
+}
+ul{
+	margin:0;
+	padding:0;
+}
+#mypage{
+	padding-top: 60px;
+  	padding-bottom: 20px;
+}
+#mypage .mypage-wrap{
+	width:1250px;
+	margin:0 auto;
+	background: #fff;
+    border-top: 3px solid #be8D6e;
+    border-bottom: 1px solid #f1f1f1;
+    border-left: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
+    display: flex;
+}
+/*mypage-left*/
+#mypage .mypage-wrap .mypage-left{
+	padding: 30px;
+ 	 		width: 70%;
+}
+#mypage .mypage-wrap .mypage-left .mypage-info{
+	padding-top: 10px;
+}
+/*mypage-right*/
+#mypage .mypage-wrap .mypage-right{
+	width: 30%;
+  		padding: 30px;
+}
+#mypage .mypage-right .mypage-point{
+	margin-top: 37px;
+}
+#mypage .mypage-right .mypage-coupon{
+	margin-top: 10px
+}
