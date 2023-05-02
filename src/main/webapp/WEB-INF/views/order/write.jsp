@@ -16,8 +16,20 @@
 <script src="${conPath}/js/address.js"></script>
 <style>
 .container{
-	min-width: 1200px !important;
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
 }
+.heading{
+	text-align:center;
+	text-weight:bold;
+	width:1250px;
+	margin:60px auto;
+	padding-top:30px;
+	padding-bottom:30px;
+	background: #fff;
+    border-top: 3px solid #be8D6e;
+}
+
 .plist .titleImg{
 	width:80px;
 	height:80px;
@@ -143,6 +155,8 @@
 	box-sizing:border-box;
 	border: 1px solid #DDDDDD;
 	border-collapse: collapse;
+	margin:0 auto;
+	width:1250px;
 }
 .payresult{
 	height:100px;
@@ -175,6 +189,11 @@
 			location.href='${conPath}/login.do';
 		</script>
 	</c:if>
+	<c:if test="${not empty insertOrderError}">
+		<script>
+			alert('${insertOrderError}');
+		</script>
+	</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="container pb-5">
@@ -185,7 +204,8 @@
 		<input type="hidden" name="memberTel" id="memberTel" value="${member.memberTel}">
 		<input type="hidden" name="memberPost" id="memberPost" value="${member.memberPost}">
 		<input type="hidden" name="memberAddr1" id="memberAddr1" value="${member.memberAddr1}">
-		<h3 class="text-center py-5">ORDER</h3>
+
+		<h1 class="heading">ORDER</h1>
 		
 		<table class="table">
 			<thead>

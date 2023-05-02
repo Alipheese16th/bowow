@@ -23,6 +23,7 @@ public class OrderController {
 	@Autowired
 	private MemberService memberService;
 	
+	// 주문 작성form
 	@RequestMapping(value="write", method = RequestMethod.GET)
 	public String write(Model model, HttpSession httpSession) {
 		model.addAttribute("cartList",cartService.cartList(httpSession));
@@ -32,13 +33,25 @@ public class OrderController {
 		model.addAttribute("couponList",memberService.couponList(httpSession));
 		return "order/write";
 	}
-	
+	// 주문 처리
 	@RequestMapping(value="write", method = RequestMethod.POST)
 	public String write(Model model, HttpSession httpSession, Order order, int[] cartNum, int[] chkNum, String submit, int coupon) {
 		System.out.println("컨트롤러왔음");
-		orderService.insertOrder(httpSession, order, cartNum, coupon);
-		model.addAttribute("order",order);
-		return "order/result";
+		int result = orderService.insertOrder(httpSession, order, cartNum, coupon);
+		if(result == 0) {
+			model.addAttribute("insertOrderError","주문 오류 - 다시 시도해주십시오");
+			model.addAttribute("cartNumList",cartNum);
+			return "forward:write.do";
+		}else {
+			System.out.println("이제 주문결과 뿌릴거임");
+			model.addAttribute("order",orderService.contentOrder(order.getOrderCode()));
+			System.out.println("주문정보가져왔음");
+			model.addAttribute("orderDetail",orderService.contentOrderDetail(order.getOrderCode()));
+			System.out.println("주문디테일정보가져왔음");
+			model.addAttribute("sizeList",cartService.sizeList());
+			model.addAttribute("colorList",cartService.colorList());
+			return "order/result";
+		}
 	}
 	
 	// 상품상세에서 장바구니추가후 바로 주문form

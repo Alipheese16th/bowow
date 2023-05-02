@@ -13,11 +13,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .container{
-	min-width: 1200px !important;
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
 }
-.noticeTitle a{
-	color: #BE8D6E;
+.heading{
+	text-align:center;
+	text-weight:bold;
+	width:1250px;
+	margin:60px auto;
+	padding-top:30px;
+	padding-bottom:30px;
+	background: #fff;
+    border-top: 3px solid #be8D6e;
 }
+
 #content{
 	min-height:200px;
 }
@@ -27,7 +36,7 @@
 	<jsp:include page="../main/header.jsp"/>
 	<div class="container">
 	
-		<h1 class="my-5 text-center noticeTitle"><a href="${conPath}/notice/list.do" class="text-decoration-none"><b>NOTICE</b></a></h1>
+		<h1 class="heading"><a href="${conPath}/notice/list.do" class="text-decoration-none text-black"><b>NOTICE</b></a></h1>
 		
 		<hr>
 		    <div class="mx-2">

@@ -33,35 +33,10 @@ SELECT * FROM
 -- 상품 검색 결과 갯수
 SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(' 티 ') || '%';
 
--- 질문게시판 상품검색용 (모든 상품 탑앤구문없이)
+
+---------- 질문게시판 상품검색용 (모든 상품 탑앤구문없이)
 SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-    WHERE P.PRODUCTCODE = I.PRODUCTCODE AND TYPE='title' ORDER BY PRODUCTDATE DESC;
-
-
---------------------- 관리자기능
--- 상품 등록
-INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK) 
-  VALUES (CONCAT('P',LPAD(PRODUCT_SEQ.NEXTVAL,4,'0')), 'fashion', '꽃무늬 티셔츠', '이뻐요', 5000, 15, 50);
--- 상품 사이즈 등록
-INSERT INTO SIZES(SIZENUM, PRODUCTCODE, PRODUCTSIZE) 
-  VALUES(SIZES_SEQ.NEXTVAL, 'P0001', 'XL');
--- 상품 색상 등록
-INSERT INTO COLOR (COLORNUM, PRODUCTCODE, PRODUCTCOLOR) 
-  VALUES (COLOR_SEQ.NEXTVAL, 'P0001', '레드');
--- 상품 이미지 등록
-INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
-  VALUES (IMAGE_SEQ.NEXTVAL, 'P0001', 'title', 'flowershirt1.jpg');
--- 상품 수정
-UPDATE PRODUCT
-		SET CATEGORY = 'food',
-    PRODUCTNAME = '맛있는 사료',
-    PRODUCTCONTENT = '사료에요 이건',
-		productPrice = 34000,
-    PRODUCTDISCOUNT = 10,
-		productStock = 20
-	WHERE productCode = 'P0001';
--- 상품 삭제
-UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';
+    WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE='title' OR I.PRODUCTCODE IS NULL) ORDER BY PRODUCTDATE DESC;
 
 ----------------------------------- CART 관련 ----------------------------------
 
@@ -141,6 +116,7 @@ INSERT INTO ORDERCODE VALUES(CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NE
 -- 주문번호 뽑기
 SELECT ORDERCODE FROM ORDERCODE O WHERE ROWNUM = 1 ORDER BY ORDERCODE DESC ;
 
+
 ---------------------------------------------------- 주문처리
 -- 주문테이블에 데이터 1행 입력
 INSERT INTO ORDERS (orderCode, MEMBERID, totalPrice, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
@@ -148,7 +124,6 @@ INSERT INTO ORDERS (orderCode, MEMBERID, totalPrice, ORDERNAME, ORDERPOST, ORDER
 -- 주문상세테이블입력 서브쿼리사용 (orderCode, productCode, sizeNum, colorNum, qty, cost, cartNum) 상품이여러개면 반복문
 insert into orderdetail (odno, orderCode, productCode, sizeNum, colorNum, qty, cost)
   select orderdetail_seq.nextval, '2304300001', c.productCode, c.sizeNum, c.colorNum, c.qty, c.cost from cart c where cartNum = 10;
-
 -- 상품 정보 필요 (재고업데이트 파라미터 얻기위해)  (cartNum)
 select * from cart where cartNum = 10;
 -- 상품 재고 업데이트 (qty, productCode)
@@ -161,25 +136,14 @@ UPDATE MEMBER SET
         MEMBERAMOUNT = MEMBERAMOUNT + 400000,
         GRADENO = (SELECT G.GRADENO FROM MEMBER, MEMBERGRADE G WHERE MEMBERAMOUNT + 400000 BETWEEN LOWAMOUNT AND HIAMOUNT AND MEMBERID = 'aaa')
     WHERE MEMBERID = 'aaa';
-
 -- 해당 회원의 쿠폰리스트 (memberId)
 select * from coupon where memberid = 'aaa';
 -- 쿠폰 사용후 쿠폰삭제
 delete from coupon where couponnum = 1;
 
 ------------------------------------------------------- 주문완료
-
-
-
-
-
-
-
-
-
 --------------------------------------주문내역
-
--- 리스트 aaa 멤버의 주문리스트 (상품정보join, image 조인, 상품갯수 서브쿼리)
+-- 리스트 aaa 멤버의 주문리스트 (상품정보join, image 조인, 상품갯수 서브쿼리)( jsp에서 같은주문번호일경우 하나만 출력하게 조건문)
 SELECT * FROM (
 SELECT ROWNUM RN, A.* FROM 
   (SELECT O.*, P.PRODUCTNAME, I.IMAGE, (SELECT COUNT(*) FROM ORDERDETAIL WHERE ORDERCODE = O.ORDERCODE) CNT 
@@ -188,48 +152,50 @@ SELECT ROWNUM RN, A.* FROM
 ) WHERE RN BETWEEN 1 AND 10;
 -- 리스트 페이징 총갯수
 SELECT COUNT(*) FROM ORDERS WHERE MEMBERID = 'aaa';
--- 상세보기 orders 정보
-SELECT * FROM ORDERDETAIL WHERE ORDERCODE = '2305010001';
--- 상세보기 orderdetail 뿌리기
-SELECT * FROM ORDERS WHERE ORDERCODE = '2305010001';
-
-
-
-select * from orders o, orderdetail od where o.ordercode = od.ordercode and memberid = 'aaa' and productcode = 'P0001';
-
-select count(*) from review where memberid = 'aaa' and productcode = 'P0001';
-
-select * from coupon where memberid = 'aaa';
-
-SELECT ORDERCODE, PRODUCTCODE FROM ORDERDETAIL;
-
--- 주문디테일 상품 정보, 대표이미지 조인
-SELECT OD.*, P.PRODUCTNAME, I.IMAGE 
+-- 상세보기 ORDERS 정보 (ORDERCODE)
+SELECT * FROM ORDERS WHERE ORDERCODE = '2305020001';
+-- 상세보기 ORDERDETAIL 뿌리기
+SELECT OD.*, P.*, I.IMAGE 
   FROM ORDERDETAIL OD, PRODUCT P, IMAGE I
-  WHERE OD.PRODUCTCODE = P.PRODUCTCODE AND OD.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL) AND ROWNUM = 1;
-
-
-SELECT * FROM ORDERDETAIL WHERE ORDERCODE = '';
-
-
-SELECT COUNT(*) 
-  FROM ORDERDETAIL OD, PRODUCT P, IMAGE I
-  WHERE OD.PRODUCTCODE = P.PRODUCTCODE AND OD.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL);
+  WHERE OD.PRODUCTCODE = P.PRODUCTCODE 
+    AND OD.PRODUCTCODE = I.PRODUCTCODE(+) 
+    AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL)
+    AND OD.ORDERCODE = '2305020001';
+----------------------------------------------------
 
 
 
 
 
 
--- 주문 상세보기 (orderCode)
-select * from orders where orderCode = '2304290016';
--- 주문 상세보기 내 상품리스트 (orderCode)
-select * from orderdetail where orderCode = '2304290016';
+
+
+select sum(totalprice) from orders group by orderdate;
+select * from orderdetail;
+
+
+
+select 
+    TO_CHAR(BF_REG_DATE, 'YYYYMMDD') as 날짜,
+    count(*) as 게시글수
+from 
+    board_free
+where
+    BF_REG_DATE >='20180101' and BF_REG_DATE < to_char(sysdate,'YYYYMMDD')
+GROUP BY
+    to_char(bf_reg_date, 'YYYYMMDD');
+
+
 
 
 
 ------------------- 오늘매출통계
+
 select sum(totalPrice) from orders where orderdate between '23/05/01' and '23/05/02';
+
+select o.*, (select sum(totalPrice) from orders where o.orderdate between '23/05/01' and '23/05/02') sum from orders o;
+
+
 
 
 --------------------------------- NOTICE ---------------------------------------
@@ -274,12 +240,15 @@ SELECT * FROM NOTICE WHERE noticeNum = 1;
 -- NOTICE 글 조회수 up (noticeNum)
 UPDATE NOTICE SET NOTICEHIT = NOTICEHIT + 1 WHERE NOTICENUM = 1;
 
-
-
 -- NOTICE 글 작성
 INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '제목', '내용');
 
+
+
+
+
+------------------------------관리자
 
 -- NOTICE 글 수정
 UPDATE NOTICE
@@ -290,4 +259,27 @@ UPDATE NOTICE
 -- NOTICE 글 삭제
 DELETE FROM NOTICE WHERE noticeNum = 1;
 
-
+--------------------- 관리자기능
+-- 상품 등록
+INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK) 
+  VALUES (CONCAT('P',LPAD(PRODUCT_SEQ.NEXTVAL,4,'0')), 'fashion', '꽃무늬 티셔츠', '이뻐요', 5000, 15, 50);
+-- 상품 사이즈 등록
+INSERT INTO SIZES(SIZENUM, PRODUCTCODE, PRODUCTSIZE) 
+  VALUES(SIZES_SEQ.NEXTVAL, 'P0001', 'XL');
+-- 상품 색상 등록
+INSERT INTO COLOR (COLORNUM, PRODUCTCODE, PRODUCTCOLOR) 
+  VALUES (COLOR_SEQ.NEXTVAL, 'P0001', '레드');
+-- 상품 이미지 등록
+INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
+  VALUES (IMAGE_SEQ.NEXTVAL, 'P0001', 'title', 'flowershirt1.jpg');
+-- 상품 수정
+UPDATE PRODUCT
+		SET CATEGORY = 'food',
+    PRODUCTNAME = '맛있는 사료',
+    PRODUCTCONTENT = '사료에요 이건',
+		productPrice = 34000,
+    PRODUCTDISCOUNT = 10,
+		productStock = 20
+	WHERE productCode = 'P0001';
+-- 상품 삭제
+UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';

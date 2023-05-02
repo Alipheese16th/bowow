@@ -20,10 +20,18 @@ div.note-popover{
 display:none;
 }
 .container{
-	min-width: 1200px !important;
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
 }
-.noticeTitle a{
-	color: #BE8D6E;
+.heading{
+	text-align:center;
+	text-weight:bold;
+	width:1250px;
+	margin:60px auto;
+	padding-top:30px;
+	padding-bottom:30px;
+	background: #fff;
+    border-top: 3px solid #be8D6e;
 }
 </style>
 </head>
@@ -34,7 +42,7 @@ display:none;
 		<form action="${conPath}/notice/write.do" method="post">
 			<input type="hidden" name="adminId" value="${admin.adminId}">
 		
-			<h1 class="my-5 text-center noticeTitle"><a href="${conPath}/notice/list.do" class="text-decoration-none"><b>NOTICE</b></a></h1>
+			<h1 class="heading"><a href="${conPath}/notice/list.do" class="text-decoration-none text-black"><b>NOTICE</b></a></h1>
 		    
 		    <hr>
 		    
