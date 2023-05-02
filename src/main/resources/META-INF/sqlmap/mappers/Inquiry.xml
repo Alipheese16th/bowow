@@ -11,10 +11,12 @@
 		<result property="inquiryEmail" column="inquiryEmail"/>
 	</resultMap>
 	<select id="inquiryList" parameterType="Inquiry" resultMap="InquiryResult">
-		SELECT * FROM INQUIRY ORDER BY INQUIRYNUM DESC
+		SELECT * FROM INQUIRY
+		    <!-- WHERE memberId = #{memberId} -->
+		    ORDER BY INQUIRYNUM DESC
 	</select>
 	<select id="totCntInquiry" resultType="int">
-		SELECT COUNT(*) FROM INQUIRY
+		SELECT COUNT(*) FROM INQUIRY WHERE memberId = #{memberId}
 	</select>
 	<insert id="writeInquiry" parameterType="Inquiry">
 		INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)

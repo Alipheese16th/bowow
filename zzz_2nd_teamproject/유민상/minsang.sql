@@ -274,8 +274,7 @@ INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiry
     VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목3', '문의내용3', 'mmm@naver.com');
 
 -- INQUIRY 목록
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM INQUIRY) A ORDER BY RN DESC)
-    WHERE RN BETWEEN 2 AND 3;
+
 SELECT * FROM INQUIRY ORDER BY INQUIRYNUM DESC;
 
 -- INQUIRY 전체 글 개수

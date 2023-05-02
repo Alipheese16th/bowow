@@ -195,6 +195,12 @@ SELECT * FROM ORDERS WHERE ORDERCODE = '2305010001';
 
 
 
+select * from orders o, orderdetail od where o.ordercode = od.ordercode and memberid = 'aaa' and productcode = 'P0001';
+
+select count(*) from review where memberid = 'aaa' and productcode = 'P0001';
+
+select * from coupon where memberid = 'aaa';
+
 SELECT ORDERCODE, PRODUCTCODE FROM ORDERDETAIL;
 
 -- 주문디테일 상품 정보, 대표이미지 조인
