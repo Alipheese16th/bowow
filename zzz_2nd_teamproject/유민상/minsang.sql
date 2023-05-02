@@ -190,6 +190,9 @@ SELECT COUNT(*) FROM QNA WHERE qnaContent LIKE '%'||'먹'||'%';
 INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     VALUES (QNA_SEQ.NEXTVAL, 'aaa', 'P0001', '상품문의 제목', '색깔은 어떤게 있나요?', QNA_SEQ.CURRVAL, 0, 0, '192.168.0.1');
 
+-- QNA 조회수 올리기
+UPDATE QNA SET qnaHit = qnaHit + 1 WHERE qnaNum = 1;
+
 -- QNA 상세보기(qnaNum)
 SELECT * FROM QNA WHERE qnaNum = 1;
 
@@ -357,7 +360,6 @@ SELECT * FROM
     WHERE RN BETWEEN 1 AND 26;
     
 SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND Q.QNANUM = 1;
-    
     
     
     
