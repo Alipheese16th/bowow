@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.lec.bowow.model.Cart;
 import com.lec.bowow.model.Order;
+import com.lec.bowow.model.OrderDetail;
 
 @Mapper
 public interface OrderDao {
@@ -23,8 +24,14 @@ public interface OrderDao {
 	// 쿠폰사용후 삭제
 	public int deleteCoupon(int couponNum);
 	
+	// 주문 리스트
 	public List<Order> orderList(Order order);
 	public int totCntOrder(String memberId);
-	public int contentOrder(String orderCode);
-	public int contentOrderDetail(String orderCode);
+	
+	// 주문 상세보기
+	public Order contentOrder(String orderCode);
+	public List<OrderDetail> contentOrderDetail(String orderCode);
+	
+	
+	
 }

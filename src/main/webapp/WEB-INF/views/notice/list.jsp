@@ -44,14 +44,14 @@
 	background: #BE8D6E;
 	color: white;
 }
-.table, form-select{
+/* .table, form-select{
 	color: #BE8D6E;
 	border-color:#BE8D6E;
 }
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
     color: #BE8D6E;
 	border-color:#BE8D6E;
-}
+} */
 .table-striped > tbody > tr:nth-child(2n+1):hover, .table-striped > tbody > tr:nth-child(2n+1):hover {
    background-color: #BE8D6E;
 }

@@ -15,6 +15,10 @@
 		<result property="orderAddr1" column="orderAddr1"/>
 		<result property="orderAddr2" column="orderAddr2"/>
 		<result property="orderTel" column="orderTel"/>
+		<!-- 상품정보 추가 -->
+		<result property="productName" column="productName"/>
+		<result property="image" column="image"/>
+		<result property="cnt" column="cnt"/>
 	</resultMap>
 	
 	<resultMap type="OrderDetail" id="OrderDetailResult">
@@ -25,10 +29,13 @@
 		<result property="colorNum" column="colorNum"/>
 		<result property="qty" column="qty"/>
 		<result property="cost" column="cost"/>
+		<!-- 상품정보 추가 -->
 		<result property="productName" column="productName"/>
+		<result property="productPrice" column="productPrice"/>
+		<result property="productDiscount" column="productDiscount"/>
 		<result property="image" column="image"/>
-		<result property="cnt" column="cnt"/>
 	</resultMap>
+	
 	<!-- 주문작성하기전에 주문번호 뽑아서 가기 -->
 	<insert id="createOrderCode">
 		INSERT INTO ORDERCODE VALUES(CONCAT(TO_CHAR(SYSDATE,'RRMMDD'),LPAD(ORDERS_SEQ.NEXTVAL,4,'0')))
@@ -64,10 +71,8 @@
 	<delete id="deleteCoupon" parameterType="int">
 		delete from coupon where couponnum = #{couponNum}
 	</delete>
-	
-	
-	
-	<!-- 마이페이지 주문내역 -->
+		
+	<!-- 주문리스트 -->
 	<select id="orderList" parameterType="Order" resultMap="OrderResult">
 		SELECT * FROM (
 			SELECT ROWNUM RN, A.* FROM 
@@ -79,18 +84,20 @@
 	<select id="totCntOrder" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM ORDERS WHERE MEMBERID = #{memberId}
 	</select>
+	
+	<!-- 주문상세보기 -->
 	<select id="contentOrder" parameterType="String" resultType="Order">
-		SELECT * FROM ORDERDETAIL WHERE ORDERCODE = #{orderCode}
-	</select>
-	<select id="contentOrderDetail" parameterType="String" resultMap="OrderDetailResult">
 		SELECT * FROM ORDERS WHERE ORDERCODE = #{orderCode}
 	</select>
+	<select id="contentOrderDetail" parameterType="String" resultMap="OrderDetailResult">
+		SELECT OD.*, P.*, I.IMAGE 
+		  FROM ORDERDETAIL OD, PRODUCT P, IMAGE I
+		  WHERE OD.PRODUCTCODE = P.PRODUCTCODE 
+		    AND OD.PRODUCTCODE = I.PRODUCTCODE(+) 
+		    AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL)
+		    AND OD.ORDERCODE = #{orderCode}
+	</select>
 	
-	
-	
-	
-	
-	
-	
+
 	
 </mapper>

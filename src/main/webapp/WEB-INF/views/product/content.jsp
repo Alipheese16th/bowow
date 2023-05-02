@@ -14,7 +14,8 @@
 
 <style>
 .container{
-	min-width: 1200px !important;
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
 }
 .imageArea, .titleImage{
 	width:600px;
@@ -86,9 +87,9 @@
 	width:40px;
 	height:20px !important;
 }
-.productFont{
+/* .productFont{
 	font-size:12px;
-}
+} */
 
 </style>
 </head>

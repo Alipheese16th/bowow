@@ -13,8 +13,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .container{
-	min-width: 1200px !important;
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
 }
+.heading{
+	text-align:center;
+	text-weight:bold;
+	width:1250px;
+	margin:60px auto;
+	padding-top:30px;
+	padding-bottom:30px;
+	background: #fff;
+    border-top: 3px solid #be8D6e;
+}
+
 .plist .titleImg{
 	width:80px;
 	height:80px;
@@ -58,7 +70,7 @@
 }
 
 .mytable{
-	width:80%;
+	width:60%;
 	margin:50px auto;
 	box-sizing:border-box;
 	border-collapse: collapse;
@@ -81,7 +93,7 @@
 	
 	<div class="container pb-5">
 	
-		<h3 class="text-center py-5">CART</h3>
+		<h1 class="heading">CART</h1>
 		
 		<c:if test="${empty cartList}">
 		
