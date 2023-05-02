@@ -26,13 +26,6 @@
 	</style>
 </head>
 <body>
-	<%-- <c:if test="${empty member or empty admin }">
-		<script>
-			alert('로그인 후 작성이 가능합니다');
-			history.back();
-		</script>
-	</c:if> --%>
-
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="inquiry">
@@ -40,12 +33,12 @@
 	    	<h2>1:1문의 답변</h2>
 	    	<form action="${conPath }/inquiry/reply.do" method="post">
 	    		<input type="hidden" name="inquiryNum" value="${inquiry.inquiryNum }">
+	    		<input type="hidden" name="adminId" value="${admin.adminId }">
 		        <table class="table table-striped table-hover">
 		            <thead>
 		                <tr>
 		                    <th>작성자</th>
-		                    <%-- <td name="memberId">${inquiry.memberId } 님</td> --%>
-		                    <td><input type="text" name="memberId" placeholder="${inquiry.memberId }" readonly="readonly" style="border: 1px solid white;"></td>
+		                    <td><input type="text" name="memberId" value="${inquiry.memberId }" readonly="readonly" style="border: 1px solid white;"></td>
 		                </tr>
 		                <tr>
 		                    <th>제목</th>
@@ -53,7 +46,7 @@
 		                </tr>
 		                <tr>
 		                    <th style="padding-bottom: 185px;">내용</th>
-		                    <td><textarea name="inquiryContent" rows="8" placeholder="${inquiry.inquiryContent }의 답변내용" style="max-height: 500px;"></textarea></td>
+		                    <td><textarea name="inquiryContent" rows="8" placeholder="${inquiry.inquiryContent }의 답변내용" required="required" style="max-height: 500px;"></textarea></td>
 		                </tr>
 		                <tr>
 		                    <th>수신 이메일</th>

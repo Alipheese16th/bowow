@@ -150,7 +150,9 @@ CREATE TABLE INQUIRY(
     adminId VARCHAR2(100) REFERENCES ADMIN(adminId),
     inquiryTitle VARCHAR2(500) NOT NULL,
     inquiryContent VARCHAR2(4000) NOT NULL,
-    inquiryEmail VARCHAR2(500) NOT NULL
+    inquiryEmail VARCHAR2(500) NOT NULL,
+    inquiryGroup NUMBER(4) NOT NULL,
+    inquiryStep NUMBER(4) NOT NULL
 );
 CREATE TABLE QNA(
   qnaNUM NUMBER(4) PRIMARY KEY,

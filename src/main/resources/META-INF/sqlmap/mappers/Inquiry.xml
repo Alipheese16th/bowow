@@ -10,18 +10,18 @@
 		<result property="inquiryTitle" column="inquiryTitle"/>
 		<result property="inquiryContent" column="inquiryContent"/>
 		<result property="inquiryEmail" column="inquiryEmail"/>
+		<result property="inquiryGroup" column="inquiryGroup"/>
+		<result property="inquiryStep" column="inquiryStep"/>
 	</resultMap>
 	<select id="inquiryList" parameterType="Inquiry" resultMap="InquiryResult">
-		SELECT * FROM INQUIRY
-		    <!-- WHERE memberId = #{memberId} -->
-		    ORDER BY INQUIRYNUM DESC
+		SELECT * FROM INQUIRY WHERE INQUIRYSTEP = 0 ORDER BY INQUIRYNUM DESC
 	</select>
 	<select id="totCntInquiry" resultType="int">
 		SELECT COUNT(*) FROM INQUIRY WHERE memberId = #{memberId}
 	</select>
 	<insert id="writeInquiry" parameterType="Inquiry">
-		INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
-    		VALUES (INQUIRY_SEQ.NEXTVAL, #{memberId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+		INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail, inquiryGroup, inquiryStep)
+    		VALUES (INQUIRY_SEQ.NEXTVAL, #{memberId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail}, INQUIRY_SEQ.CURRVAL, 0)
 	</insert>
 	<select id="contentInquiry" parameterType="int" resultType="Inquiry">
 		SELECT * FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
@@ -36,8 +36,15 @@
 	<delete id="deleteInquiry" parameterType="int">
 		DELETE FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
 	</delete>
+	<select id="replyInquiryList" parameterType="Inquiry" resultMap="InquiryResult">
+		SELECT * FROM INQUIRY WHERE inquiryStep > 0 AND inquiryGroup = #{inquiryGroup}
+	</select>
+	<update id="preReplyInquiry" parameterType="Inquiry">
+		UPDATE INQUIRY SET inquiryStep = inquiryStep + 1
+			WHERE inquiryGroup = #{inquiryGroup} AND inquiryStep > #{inquiryStep}
+	</update>
 	<insert id="replyInquiry" parameterType="Inquiry">
-		INSERT INTO INQUIRY (inquiryNum, memberId, adminId, inquiryTitle, inquiryContent, inquiryEmail)
-    		VALUES (INQUIRY_SEQ.NEXTVAL, #{memberId}, #{adminId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+		INSERT INTO INQUIRY (inquiryNum, memberId, adminId, inquiryTitle, inquiryContent, inquiryEmail, inquiryGroup, inquiryStep)
+    		VALUES (INQUIRY_SEQ.NEXTVAL, #{memberId}, #{adminId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail}, #{inquiryGroup}, #{inquiryStep}+1)
 	</insert>
 </mapper>

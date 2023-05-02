@@ -10,4 +10,6 @@ public class Inquiry {
 	private String inquiryTitle;
 	private String inquiryContent;
 	private String inquiryEmail;
+	private int inquiryGroup;
+	private int inquiryStep;
 }
