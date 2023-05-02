@@ -38,15 +38,15 @@
 	<div class="qna">
 		<h1>${param.qnaNum }번 상품문의 게시판 수정</h1>
 		<form action="${conPath }/qna/modify.do" method="post">
-		<input type="hidden" name="pageNum" value="${param.pageNum }">
-		<input type="hidden" name="qnaNum" value="${qna.qnaNum }">
+			<input type="hidden" name="pageNum" value="${param.pageNum }">
+			<input type="hidden" name="qnaNum" value="${qna.qnaNum }">
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
 				<input type="text" name="qnaTitle" class="form-control" id="exampleFormControlInput1" value="${qna.qnaTitle }" required="required">
 			</div>
 			<div class="mb-3">
 				<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-				<textarea name="qnaContent" class="form-control" id="exampleFormControlTextarea1" rows="3" required="required">${qna.qnaContent }</textarea>
+				<textarea name="qnaContent" class="form-control" id="exampleFormControlTextarea1" rows="3" required="required" style="max-height: 500px;">${qna.qnaContent }</textarea>
 			</div>
 			<!-- <div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">파일첨부</label>

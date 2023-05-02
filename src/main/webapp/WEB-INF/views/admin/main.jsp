@@ -81,6 +81,7 @@
 		.box5, .box6 {
 			border: 1px solid #BE8D6E;
 			border-radius: 5px;
+			margin-bottom: 50px;
 		}
 		.box1 {
 			min-width: 680px;
@@ -275,8 +276,11 @@
 	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
 	<script>
-		const clickTr = function(qnaNum) {
+		const clickQ = function(qnaNum) {
 			location.href = "${conPath}/qna/content.do?qnaNum=" + qnaNum + '&pageNum=${paging.currentPage}';
+		};
+		const clickN = function(noticeNum) {
+			location.href = "${conPath}/notice/content.do?noticeNum=" + noticeNum + '&pageNum=${paging.currentPage}';
 		};
 	</script>
 </head>
@@ -341,7 +345,7 @@
 						<c:if test="${noticeList.size() ne 0}">
 							<c:forEach var="notice" items="${noticeList}" begin="0" end="4">
 							
-							<tr>
+							<tr onclick="clickN(${notice.noticeNum})">
 								<td class="text-center">${notice.noticeNum}</td>
 								<td class="w-50">
 									${notice.noticeTitle}
@@ -375,7 +379,7 @@
 				  </c:if>
 				  <c:if test="${totCntQna != 0 }">
 					<c:forEach var="qna" items="${qnaList }" begin="0" end="3">
-						<tr onclick="clickTr(${qna.qnaNum})">
+						<tr onclick="clickQ(${qna.qnaNum})">
 							<td>${qna.qnaNum }</td>
 							<td>
 								<img src="${conPath }/productImage/${qna.image}" style="width: 35px;">
@@ -405,6 +409,28 @@
 			</div>
 			<div class="box5 col-6">
 				<h2>1:1문의</h2>
+				<table class="table table-striped table-hover">
+		            <thead>
+		                <tr>
+		                    <th>작성자</th>
+		                    <th>제목</th>
+		                    <th>내용</th>
+		                    <th>이메일</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach var="inquiry" items="${inquiryList }" varStatus="status" begin="0" end="4">
+			            	<c:if test="${member.memberId eq inquiry.memberId or not empty admin}">
+			                    <tr>
+			                        <td><c:out value="${inquiry.memberId }"/></td>
+			                        <td><c:out value="${inquiry.inquiryTitle }"/></td>
+			                        <td><c:out value="${inquiry.inquiryContent }"/></td>
+			                        <td><c:out value="${inquiry.inquiryEmail }"/></td>
+			                    </tr>
+			            	</c:if>
+		                </c:forEach>
+		            </tbody>
+		        </table>
 				<hr>
 				<a href="${conPath}/inquiry/list.do">
 					view >
@@ -571,7 +597,7 @@
 		    });
 		});
 	</script>
-	<script>
+	<!-- <script>
 		$(document).ready(function(){
 			$('tr').css('cursor','pointer').click(function(){
 				var noticeNum = $(this).children().eq(0).text();
@@ -580,7 +606,7 @@
 				}
 			});
 		});
-	</script>
+	</script> -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<jsp:include page="../main/footer.jsp"/>
 </body>

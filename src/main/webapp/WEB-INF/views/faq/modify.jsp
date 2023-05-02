@@ -54,7 +54,7 @@
 			</div>
 			<div class="mb-3">
 				<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-				<textarea name="faqContent" class="form-control" id="exampleFormControlTextarea1" rows="3" required="required">${faq.faqContent }</textarea>
+				<textarea name="faqContent" class="form-control" id="exampleFormControlTextarea1" rows="3" required="required" style="max-height: 500px;">${faq.faqContent }</textarea>
 			</div>
 			<!-- <div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">파일첨부</label>

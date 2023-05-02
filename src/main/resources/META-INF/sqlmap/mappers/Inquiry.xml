@@ -11,14 +11,16 @@
 		<result property="inquiryEmail" column="inquiryEmail"/>
 	</resultMap>
 	<select id="inquiryList" parameterType="Inquiry" resultMap="InquiryResult">
-		SELECT * FROM INQUIRY ORDER BY INQUIRYNUM DESC
+		SELECT * FROM INQUIRY
+		    <!-- WHERE memberId = #{memberId} -->
+		    ORDER BY INQUIRYNUM DESC
 	</select>
 	<select id="totCntInquiry" resultType="int">
-		SELECT COUNT(*) FROM INQUIRY
+		SELECT COUNT(*) FROM INQUIRY WHERE memberId = #{memberId}
 	</select>
 	<insert id="writeInquiry" parameterType="Inquiry">
 		INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
-    		VALUES (INQUIRY_SEQ.NEXTVAL, '#{memberId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+    		VALUES (INQUIRY_SEQ.NEXTVAL, #{memberId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
 	</insert>
 	<select id="contentInquiry" parameterType="int" resultType="Inquiry">
 		SELECT * FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
@@ -33,4 +35,8 @@
 	<delete id="deleteInquiry" parameterType="int">
 		DELETE FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
 	</delete>
+	<!-- <insert id="replyInquiry" parameterType="Inquiry">
+		INSERT INTO INQUIRY (inquiryNum, adminId, inquiryTitle, inquiryContent, inquiryEmail)
+    		VALUES (INQUIRY_SEQ.NEXTVAL, #{adminId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+	</insert> -->
 </mapper>
