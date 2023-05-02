@@ -10,9 +10,10 @@ import com.lec.bowow.model.OrderDetail;
 public interface OrderService {
 	public String getOrderCode();
 	public int insertOrder(HttpSession httpSession, Order order, int[] cartNum, int coupon);
-
-	public List<Order> getOrderList(String pageNum, String memberId);
-	public int totCntOrder(String memberId);
+	
+	// 주문내역
+	public List<Order> getOrderList(String pageNum, HttpSession session);
+	public int totCntOrder(HttpSession session);
   
 	// 주문 상세보기
 	public Order contentOrder(String orderCode);
