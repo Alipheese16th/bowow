@@ -10,23 +10,51 @@
 	<title>Insert title here</title>
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />	
-	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<style>
+		.inquiry {margin: 0 auto; min-width: 800px;}
+		.inquriy .table {min-width: 950px;}
 		.inquiry h2 {text-align: center; margin: 30px 0;}
-		.inquiry .write {margin: 20px 0;}
+		.inquiry .write {margin: 20px 0; text-align: right;}
+		.inquiry .write a:hover {background-color: gray; border: 1px solid lightgray; font-weight: bold;}
+		.inquiry .write a {
+			color: #fff;
+		}
 		.inquiry .btn {
 			background-color: #BE8D6E; border: 1px solid #BE8D6E; 
-			color: #fff; font-size: 1.2em;
+			color: #fff; font-size: .8em;
 		}
+		.inquiry .btn:hover {background-color: gray; border: 1px solid lightgray; font-weight: bold;}
 	</style>
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		const clickModify = function(inquiryNum) {
+			location.href = "${conPath}/inquiry/modify.do?inquiryNum=" + inquiryNum;
+		};
+		const clickDelete = function(inquiryNum) {
+			location.href = "${conPath}/inquiry/delete.do?inquiryNum=" + inquiryNum;
+		};
+		const clickReply = function(inquiryNum) {
+			location.href = "${conPath}/inquiry/reply.do?inquiryNum=" + inquiryNum;
+		};
+	</script>
 </head>
 <body>
+	<c:if test="${not empty writeIResult }">
+		<script>alert('문의 글이 작성되었습니다');</script>
+	</c:if>
+	<c:if test="${not empty modifyIResult }">
+		<script>alert('문의 글이 수정되었습니다');</script>
+	</c:if>
+	<c:if test="${not empty deleteIResult }">
+		<script>alert('문의 글이 삭제되었습니다');</script>
+	</c:if>
+
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="inquiry">
 		<div class="container">
-		    	<h2>1:1문의</h2>
+		    	<h2>1:1문의 게시판</h2>
 		    	<c:if test="${totCntInquiry eq 0 }">
 		    		<tr><td colspan="5">문의한 글이 없습니다</td></tr>
 		    	</c:if>
@@ -34,7 +62,6 @@
 			        <table class="table table-striped table-hover">
 			            <thead>
 			                <tr>
-			                    <th>No</th>
 			                    <th>작성자</th>
 			                    <th>제목</th>
 			                    <th>내용</th>
@@ -43,13 +70,31 @@
 			            </thead>
 			            <tbody>
 			                <c:forEach var="inquiry" items="${inquiryList }" varStatus="status">
-				            	<c:if test="${member.memberId eq inquiry.memberId}">
+				            	<c:if test="${member.memberId eq inquiry.memberId or not empty admin}">
 				                    <tr>
-				                        <td><c:out value="${inquiry.inquiryNum }"/></td>
 				                        <td><c:out value="${inquiry.memberId }"/></td>
 				                        <td><c:out value="${inquiry.inquiryTitle }"/></td>
 				                        <td><c:out value="${inquiry.inquiryContent }"/></td>
 				                        <td><c:out value="${inquiry.inquiryEmail }"/></td>
+				                        <%-- <td onclick="clickTd(${inquiry.inquiryNum})" style="background-image: url(${conPath}/productImage/ddoyangpeachnec_content.jpg);">
+				                        	<c:out value="${inquiry.inquiryNum }"/>
+				                        </td> --%>
+				                        <c:if test="${not empty member }">
+					                        <td onclick="clickModify(${inquiry.inquiryNum})">
+					                        	<button value="${inquiry.inquiryNum }" class="btn">수정</button>
+					                        </td>
+					                        <td onclick="clickDelete(${inquiry.inquiryNum})">
+					                        	<button value="${inquiry.inquiryNum }" class="btn">삭제</button>
+					                        </td>
+				                        </c:if>
+				                        <c:if test="${not empty admin }">
+					                        <td onclick="clickDelete(${inquiry.inquiryNum})">
+					                        	<button value="${inquiry.inquiryNum }" class="btn">삭제</button>
+					                        </td>
+					                        <td onclick="clickReply(${inquiry.inquiryNum})">
+					                        	<button value="${inquiry.inquiryNum }" class="btn">답변</button>
+					                        </td>
+				                        </c:if>
 				                    </tr>
 				            	</c:if>
 			                </c:forEach>
@@ -57,8 +102,8 @@
 			        </table>
 		    	</c:if>
 		        
-		        <div class="write">            
-		            <a href="location.href='${conPath }/inquiry/write.do'" onClick='fn_write()' class="btn btn-success">글쓰기</a>            
+		        <div class="write">
+		            <a href="${conPath }/inquiry/write.do" class="btn btn-success" style="width: 150px;">글쓰기</a>            
 		        </div>
 		</div>
 	</div>

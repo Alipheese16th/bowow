@@ -20,7 +20,7 @@
 	</select>
 	<insert id="writeInquiry" parameterType="Inquiry">
 		INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
-    		VALUES (INQUIRY_SEQ.NEXTVAL, '#{memberId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+    		VALUES (INQUIRY_SEQ.NEXTVAL, #{memberId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
 	</insert>
 	<select id="contentInquiry" parameterType="int" resultType="Inquiry">
 		SELECT * FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
@@ -35,4 +35,8 @@
 	<delete id="deleteInquiry" parameterType="int">
 		DELETE FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
 	</delete>
+	<!-- <insert id="replyInquiry" parameterType="Inquiry">
+		INSERT INTO INQUIRY (inquiryNum, adminId, inquiryTitle, inquiryContent, inquiryEmail)
+    		VALUES (INQUIRY_SEQ.NEXTVAL, #{adminId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+	</insert> -->
 </mapper>

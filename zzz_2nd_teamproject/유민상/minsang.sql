@@ -279,6 +279,7 @@ SELECT * FROM INQUIRY ORDER BY INQUIRYNUM DESC;
 
 -- INQUIRY 전체 글 개수
 SELECT COUNT(*) FROM INQUIRY;
+SELECT COUNT(*) FROM INQUIRY WHERE memberId = 'bbb';
 
 -- INQUIRY 등록
 INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)

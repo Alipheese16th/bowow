@@ -37,32 +37,28 @@
 	
 	<div class="inquiry">
 		<div class="container">
-	    	<h2>1:1문의 작성</h2>
-	    	<form action="${conPath }/inquiry/write.do" method="post">
+	    	<h2>1:1문의 답변</h2>
+	    	<form action="${conPath }/inquiry/modify.do" method="post">
+	    		<input type="hidden" name="inquiryNum" value="${inquiry.inquiryNum }">
 		        <table class="table table-striped table-hover">
 		            <thead>
 		                <tr>
 		                    <th>제목</th>
-		                    <td><input type="text" name="inquiryTitle" placeholder="제목을 입력해주세요" required="required"></td>
+		                    <td><input type="text" name="inquiryTitle" value="${inquiry.inquiryTitle }" readonly="readonly"></td>
 		                </tr>
 		                <tr>
 		                    <th style="padding-bottom: 185px;">내용</th>
-		                    <td><textarea name="inquiryContent" rows="8" placeholder="내용을 입력해주세요" required="required" style="max-height: 500px;"></textarea></td>
+		                    <td><textarea name="inquiryContent" rows="8" readonly="readonly" style="max-height: 500px;">${inquiry.inquiryContent }</textarea></td>
 		                </tr>
 		                <tr>
 		                    <th>수신 이메일</th>
-		                    <td><input type="text" name="inquiryEmail" placeholder="수신 받을 이메일을 입력해주세요" required="required"></td>
+		                    <td><input type="text" name="inquiryEmail" value="${inquiry.inquiryEmail }" readonly="readonly"></td>
 		                </tr>
 		            </thead>
-		            <%-- <tbody>
-	                    <tr>
-	                        <td><a href='${conPath }/inquiry/content.do' onClick='fn_view(${inquiry.inquiryNum})'><c:out value="${inquiry.inquiryTitle }"/></a></td>
-	                        <td><c:out value="${inquiry.inquiryContent }"/></td>
-	                        <td><c:out value="${inquiry.inquiryEmail }"/></td>
-	                    </tr>
-		            </tbody> --%>
 		        </table>
-		        <input type="submit" value="작성하기" class="btn" style="width: 200px;">
+		        <input type="submit" value="수정하기" class="btn" style="width: 200px;">
+		        <input type="reset" value="취소하기" class="btn" style="width: 200px;">
+				<input type="button" value="목록가기" class="btn" style="width: 200px;" onclick="location.href='${conPath}/inquiry/list.do'">
 	    	</form>
 		</div>
 	</div>

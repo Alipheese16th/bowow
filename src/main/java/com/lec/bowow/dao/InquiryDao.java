@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.lec.bowow.model.Inquiry;
+import com.lec.bowow.model.Qna;
 
 @Mapper
 public interface InquiryDao {
@@ -14,4 +15,5 @@ public interface InquiryDao {
 	public Inquiry contentInquiry(int inquiryNum);
 	public int modifyInquiry(Inquiry inquiry);
 	public int deleteInquiry(int inquiryNum);
+	public int replyInquiry(Inquiry inquiry);
 }
