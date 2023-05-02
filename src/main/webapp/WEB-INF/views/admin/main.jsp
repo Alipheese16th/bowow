@@ -32,9 +32,11 @@
 			text-align: center;
 			font-family: 'Pretendard';
 		}
-		.wrap {
-			min-width: 1535px;
+		.maincontent{
+			margin-left:280px;
+			min-width:1200px;
 		}
+		
 		.pagename h1 {
 			text-align: left;
 			margin: 50px 0 50px 250px;
@@ -94,20 +96,17 @@
 			min-width: 400px;
 			height: 440px;
 			margin-top: 50px;
-			margin-left: 20px;
 		}
 		.box3 {
-			margin: 50px 20px 50px 280px;
+			margin: 50px 20px 50px 0;
 		}
 		.box4 {
-			min-width: 700px;
-			margin-top: 50px;
-			margin-bottom: 50px;
-			margin-left: 20px;
+			min-width: 650px;
+			margin: 50px 0;
 		}
 		.box5 {
 			margin-right: 20px;
-			margin-left: 280px;
+			margin-left: 20px;
 		}
 		.box6 {
 			min-height: 400px;
@@ -295,8 +294,10 @@
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="wrap">
-		<div class="row">
+	
 			<jsp:include page="side.jsp"/>
+			
+			<div class="maincontent">
 			<!-- <div class="col-3">
 			  <div class="card">
 			    <div class="card-body">
@@ -313,151 +314,164 @@
 			    </div>
 			  </div>W
 			</div> -->
-			<div class="box1 col-6">
-				<h2>일일 매출 현황</h2>
-				<hr>
-				<canvas id="myChart1"></canvas>
-				<a href="#">view ></a>
-			</div>
-			<div class="box2 col-3">
-				<h2>카테고리별 매출 현황</h2>
-				<hr>
-				<canvas id="myChart2"></canvas>
-				<a href="#">view ></a>
-			</div>
-			<div class="box3 col-4">
-				<h2>공지사항</h2>
-				<hr>
-				<table class="table table-striped mx-2">
-					<thead>
-						<tr class="text-center">
-							<th><i class="bi bi-justify"></i> 번호</th>
-							<th class="text-start"><i class="bi bi-chat-dots-fill"></i> 제목</th>
-							<th><i class="bi bi-person-fill"></i> 작성자</th>
-							<th><i class="bi bi-calendar3"></i> 날짜</th>
-							<th><i class="bi bi-fire"></i> 조회수</th>
-						</tr>
-					</thead>
-					<tbody class="table-group-divider">
-						<c:if test="${noticeList.size() eq 0}">
-							<tr><td colspan="5">해당 페이지의 글이 없습니다</td></tr>
-						</c:if>
-						<c:if test="${noticeList.size() ne 0}">
-							<c:forEach var="notice" items="${noticeList}" begin="0" end="4">
-							
-							<tr onclick="clickN(${notice.noticeNum})">
-								<td class="text-center">${notice.noticeNum}</td>
-								<td class="w-50">
-									${notice.noticeTitle}
-								</td>
-								<td class="text-center">${notice.adminId}</td>
-								<td class="text-center">
-									<fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd"/>
-								</td>
-								<td class="text-center">${notice.noticeHit}</td>
-								
-							</tr>
-							
-							</c:forEach>
-						
-						</c:if>
-					</tbody>
-				</table>
-				<a href="${conPath }/notice/list.do">
-					view >
-				</a>
-			</div>
-			<div class="box4 col-5">
-				<h2>상담문의</h2>
-				<hr>
-				<table class="table table-hover">
-				  <tr>
-				  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th><th>조회수</th>
-				  </tr>
-				  <c:if test="${totCntQna eq 0 }">
-					<tr><td colspan="7">해당 페이지의 글이 없습니다</td>
-				  </c:if>
-				  <c:if test="${totCntQna != 0 }">
-					<c:forEach var="qna" items="${qnaList }" begin="0" end="3">
-						<tr onclick="clickQ(${qna.qnaNum})">
-							<td>${qna.qnaNum }</td>
-							<td>
-								<img src="${conPath }/productImage/${qna.image}" style="width: 35px;">
-							</td>
-					  		<td style="text-align: left;">
-					  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
-					  				<c:if test="${i eq qna.qnaIndent }">
-					  					<img src="${conPath }/img/re.png" width="20">
-					  				</c:if>
-					  				<c:if test="${i != qna.qnaIndent }"> &nbsp; &nbsp; </c:if>
-					  			</c:forEach>
-					  			${qna.qnaTitle }
-					  		</td>
-					  		<td>${qna.qnaContent }</td>
-					  		<td>
-					  			<fmt:formatDate value="${qna.qnaDate }" type="date" pattern="yyyy-MM-dd"/>
-					  		</td>
-					  		<td>${qna.qnaIp }</td>
-					  		<td>${qna.qnaHit }</td>
-						</tr>
-					</c:forEach>
-				  </c:if>
-				</table>
-				<a href="${conPath }/qna/list.do">
-					view >
-				</a>
-			</div>
-			<div class="box5 col-6">
-				<h2>1:1문의</h2>
-				<table class="table table-striped table-hover">
-		            <thead>
-		                <tr>
-		                    <th>작성자</th>
-		                    <th>제목</th>
-		                    <th>내용</th>
-		                    <th>이메일</th>
-		                </tr>
-		            </thead>
-		            <tbody>
-		                <c:forEach var="inquiry" items="${inquiryList }" varStatus="status" begin="0" end="4">
-			            	<c:if test="${member.memberId eq inquiry.memberId or not empty admin}">
-			                    <tr>
-			                        <td><c:out value="${inquiry.memberId }"/></td>
-			                        <td><c:out value="${inquiry.inquiryTitle }"/></td>
-			                        <td><c:out value="${inquiry.inquiryContent }"/></td>
-			                        <td><c:out value="${inquiry.inquiryEmail }"/></td>
-			                    </tr>
-			            	</c:if>
-		                </c:forEach>
-		            </tbody>
-		        </table>
-				<hr>
-				<a href="${conPath}/inquiry/list.do">
-					view >
-				</a>
-			</div>
-			<div class="box6 col-3">
-				<h2>자주 묻는 질문</h2>
-				<hr>
-				<div class="accordion-container">
-					<c:forEach var="faq" items="${faqList }" begin="0" end="3">
-						<tr onclick="clickTr(${faq.faqTitle})">
-							<th>
-							    <div class="accordion-button">${faq.faqTitle }<i id="cross" class="cross"></i>
-							    </div>
-							    <div class="accordion-text-wrapper">
-							    	<p class="accordion-text">${faq.faqContent }</p>
-							    </div>
-							</th>
-							<th>
-							</th>
-						</tr>
-					</c:forEach>
+			<div class="row">
+			
+				<div class="box1 col-6">
+					<h2>일일 매출 현황</h2>
+					<hr>
+					<canvas id="myChart1"></canvas>
+					<a href="#">view ></a>
 				</div>
-				<a href="${conPath }/faq/list">
-					view >
-				</a>
+				<div class="box2 col-5">
+					<h2>카테고리별 매출 현황</h2>
+					<hr>
+					<canvas id="myChart2"></canvas>
+					<a href="#">view ></a>
+				</div>
+				
 			</div>
+			
+			<div class="row">
+			
+				<div class="box3 col-5">
+					<h2>공지사항</h2>
+					<hr>
+					<table class="table table-striped mx-2">
+						<thead>
+							<tr class="text-center">
+								<th><i class="bi bi-justify"></i> 번호</th>
+								<th class="text-start"><i class="bi bi-chat-dots-fill"></i> 제목</th>
+								<th><i class="bi bi-person-fill"></i> 작성자</th>
+								<th><i class="bi bi-calendar3"></i> 날짜</th>
+								<th><i class="bi bi-fire"></i> 조회수</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<c:if test="${noticeList.size() eq 0}">
+								<tr><td colspan="5">해당 페이지의 글이 없습니다</td></tr>
+							</c:if>
+							<c:if test="${noticeList.size() ne 0}">
+								<c:forEach var="notice" items="${noticeList}" begin="0" end="4">
+								
+								<tr onclick="clickN(${notice.noticeNum})">
+									<td class="text-center">${notice.noticeNum}</td>
+									<td class="w-50">
+										${notice.noticeTitle}
+									</td>
+									<td class="text-center">${notice.adminId}</td>
+									<td class="text-center">
+										<fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd"/>
+									</td>
+									<td class="text-center">${notice.noticeHit}</td>
+									
+								</tr>
+								
+								</c:forEach>
+							
+							</c:if>
+						</tbody>
+					</table>
+					<a href="${conPath }/notice/list.do">
+						view >
+					</a>
+				</div>
+				<div class="box4 col-5">
+					<h2>상담문의</h2>
+					<hr>
+					<table class="table table-hover">
+					  <tr>
+					  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th><th>조회수</th>
+					  </tr>
+					  <c:if test="${totCntQna eq 0 }">
+						<tr><td colspan="7">해당 페이지의 글이 없습니다</td>
+					  </c:if>
+					  <c:if test="${totCntQna != 0 }">
+						<c:forEach var="qna" items="${qnaList }" begin="0" end="3">
+							<tr onclick="clickQ(${qna.qnaNum})">
+								<td>${qna.qnaNum }</td>
+								<td>
+									<img src="${conPath }/productImage/${qna.image}" style="width: 35px;">
+								</td>
+						  		<td style="text-align: left;">
+						  			<c:forEach var="i" begin="1" end="${qna.qnaIndent }">
+						  				<c:if test="${i eq qna.qnaIndent }">
+						  					<img src="${conPath }/img/re.png" width="20">
+						  				</c:if>
+						  				<c:if test="${i != qna.qnaIndent }"> &nbsp; &nbsp; </c:if>
+						  			</c:forEach>
+						  			${qna.qnaTitle }
+						  		</td>
+						  		<td>${qna.qnaContent }</td>
+						  		<td>
+						  			<fmt:formatDate value="${qna.qnaDate }" type="date" pattern="yyyy-MM-dd"/>
+						  		</td>
+						  		<td>${qna.qnaIp }</td>
+						  		<td>${qna.qnaHit }</td>
+							</tr>
+						</c:forEach>
+					  </c:if>
+					</table>
+					<a href="${conPath }/qna/list.do">
+						view >
+					</a>
+				</div>
+			
+			</div>
+			
+			<div class="row">
+				<div class="box5 col-6">
+					<h2>1:1문의</h2>
+					<table class="table table-striped table-hover">
+			            <thead>
+			                <tr>
+			                    <th>작성자</th>
+			                    <th>제목</th>
+			                    <th>내용</th>
+			                    <th>이메일</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <c:forEach var="inquiry" items="${inquiryList }" varStatus="status" begin="0" end="4">
+				            	<c:if test="${member.memberId eq inquiry.memberId or not empty admin}">
+				                    <tr>
+				                        <td><c:out value="${inquiry.memberId }"/></td>
+				                        <td><c:out value="${inquiry.inquiryTitle }"/></td>
+				                        <td><c:out value="${inquiry.inquiryContent }"/></td>
+				                        <td><c:out value="${inquiry.inquiryEmail }"/></td>
+				                    </tr>
+				            	</c:if>
+			                </c:forEach>
+			            </tbody>
+			        </table>
+					<hr>
+					<a href="${conPath}/inquiry/list.do">
+						view >
+					</a>
+				</div>
+				<div class="box6 col-5">
+					<h2>자주 묻는 질문</h2>
+					<hr>
+					<div class="accordion-container">
+						<c:forEach var="faq" items="${faqList }" begin="0" end="3">
+							<tr onclick="clickTr(${faq.faqTitle})">
+								<th>
+								    <div class="accordion-button">${faq.faqTitle }<i id="cross" class="cross"></i>
+								    </div>
+								    <div class="accordion-text-wrapper">
+								    	<p class="accordion-text">${faq.faqContent }</p>
+								    </div>
+								</th>
+								<th>
+								</th>
+							</tr>
+						</c:forEach>
+					</div>
+					<a href="${conPath }/faq/list">
+						view >
+					</a>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	<!-- <script>

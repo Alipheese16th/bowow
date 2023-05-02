@@ -9,7 +9,10 @@
 	<meta charset="UTF-8">
 <style>
 .sidebar{
-	margin-top:60px;
+	width: 280px;
+	position:fixed;
+	top:250px;
+	left:0;
 }
 .sidebar *{
 	text-align:center;
@@ -36,7 +39,7 @@
 </style>
 </head>
 <body>
-	<span class="sidebar flex-shrink-0 p-3 col-2" style="width: 280px;">
+	<span class="sidebar flex-shrink-0 p-3">
 	    <a href="${conPath}/admin/main.do" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
 	      <span class="fs-5 fw-semibold text-center adminlogo">관리자 페이지</span>
 	    </a>

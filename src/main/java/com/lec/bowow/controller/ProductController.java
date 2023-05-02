@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.lec.bowow.model.Image;
 import com.lec.bowow.model.Product;
 import com.lec.bowow.service.ProductService;
 import com.lec.bowow.util.Paging;
@@ -16,6 +18,7 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
 	// 상품 리스트
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public String list(Model model, Product product, String pageNum) {
@@ -40,22 +43,41 @@ public class ProductController {
 		return "product/search";
 	}
 	
+	
 	// 관리자 상품 등록form
-	@RequestMapping(value="insert", method=RequestMethod.GET)
-	public String insert() {
+	@RequestMapping(value="insert", method= {RequestMethod.GET,RequestMethod.POST})
+	public String insert(Model model) {
+		// 상품리스트 가져와야함 (옵션에서 상품골랴아됨)
+		model.addAttribute("productList",productService.allProductList());
 		return "admin/insert";
 	}
 	// 관리자 상품 등록처리
-	@RequestMapping(value="insert", method=RequestMethod.POST)
+	@RequestMapping(value="insertProduct", method=RequestMethod.POST)
 	public String insert(Model model, Product product) {
-		int result = productService.registerProduct(product);
-		if(result == 1) {
-			model.addAttribute("registerProductResult","상품 등록 성공");
-		}else {
-			model.addAttribute("registerProductResult","상품 등록 실패 오류");
-		}
-		return "admin/insert";
+		model.addAttribute("productCode",productService.registerProduct(product));
+		return "forward:insert.do";
 	}
+	// 관리자 상품이미지 등록처리
+	@RequestMapping(value="insertImage", method=RequestMethod.POST)
+	public String insertImage(Model model, Image image, String productCode, MultipartHttpServletRequest mRequest) {
+		System.out.println("product컨트롤러 insertImage.do 로 들어옴");
+		productService.registerImage(image, mRequest);
+		model.addAttribute("productCode",productCode);
+		return "forward:insert.do";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 관리자 상품 검색 및 수정
 	@RequestMapping(value="modify", method=RequestMethod.GET)
 	public String modify() {

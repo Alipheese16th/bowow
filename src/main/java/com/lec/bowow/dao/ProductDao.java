@@ -26,12 +26,19 @@ public interface ProductDao {
 	// 질문게시판 상품선택
 	public List<Product> allProductList();
 	
-	
+	// 상품 등록
 	public int registerProduct(Product product);
+	// 방금등록한 상품의 코드
+	public String getProductCode();
+	// 상품 이미지 등록
+	public int registerImage(Image image);
+	
 	public int registerSize(Sizes sizes);
+	
 	public int registerColor(Color color);
-	public int registerProductImage(Image productImage);
+	
 	public int modifyProduct(Product product);
+	
 	public int deleteProduct(String productCode);
 	
 }

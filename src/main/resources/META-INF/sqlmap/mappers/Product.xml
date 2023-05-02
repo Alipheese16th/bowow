@@ -148,11 +148,23 @@
 	
 	
 	
-	
+	<!-- 상품등록 -->
 	<insert id="registerProduct" parameterType="Product">
 		INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK) 
   			VALUES (CONCAT('P',LPAD(PRODUCT_SEQ.NEXTVAL,4,'0')), #{category}, #{productName}, #{productContent}, #{productPrice}, #{productDiscount}, #{productStock})
 	</insert>
+	<!-- 방금 등록한 상품코드 가져오기 -->
+	<select id="getProductCode" resultType="String">
+		SELECT MAX(PRODUCTCODE) FROM PRODUCT
+	</select>
+	<!-- 상품이미지 등록 -->
+	<insert id="registerImage" parameterType="Image">
+		INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
+  			VALUES (IMAGE_SEQ.NEXTVAL, #{productCode}, #{type}, #{image})
+	</insert>
+	
+	
+	
 	
 	<insert id="registerSize" parameterType="Sizes">
 		INSERT INTO SIZES(SIZENUM, PRODUCTCODE, PRODUCTSIZE) 
@@ -164,10 +176,7 @@
   			VALUES (COLOR_SEQ.NEXTVAL, #{productCode}, #{productColor})
 	</insert>
 	
-	<insert id="registerImage" parameterType="Image">
-		INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
-  			VALUES (IMAGE_SEQ.NEXTVAL, #{productCode}, #{type}, #{image})
-	</insert>
+	
 	
 	<update id="modifyProduct" parameterType="Product">
 		UPDATE PRODUCT

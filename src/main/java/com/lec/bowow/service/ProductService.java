@@ -1,6 +1,9 @@
 package com.lec.bowow.service;
 
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.lec.bowow.model.Color;
 import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Image;
@@ -21,10 +24,12 @@ public interface ProductService {
 	// 질문게시판 상품선택
 	public List<Product> allProductList();
 	
-	public int registerProduct(Product product);
+	// 상품등록하고 상품코드 가져오기
+	public String registerProduct(Product product);
+	public int registerImage(Image image, MultipartHttpServletRequest mRequest);
+	
 	public int registerSize(Sizes sizes);
 	public int registerColor(Color color);
-	public int registerProductImage(Image productImage);
 	public int modifyProduct(Product product);
 	public int deleteProduct(String productCode);
 	
