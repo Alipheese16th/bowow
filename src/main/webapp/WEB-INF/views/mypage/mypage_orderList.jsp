@@ -43,11 +43,30 @@
 								<td>결제금액</td>
 								<td>결제상태</td>
 							</tr>
-							<tr>
-								<c:forEach var="order" items="${orderList}">
-									<td>${order}</td>
-								</c:forEach>
-							</tr>
+							<c:if test="${paging.totCnt eq 0}">
+								<tr><td colspan="7">해당페이지에 글이 없습니다.</td></tr>
+							</c:if>
+							<c:if test="${paging.totCnt != 0}">
+							<c:forEach items="${orderList}" var="order">
+								<c:set var="code" value=""/>
+								<c:if test="${code !=  order.orderCode}">
+									<tr onclick="trClicked('${order.orderCode}')">
+									<td>${order.ordercode}</td>
+									<td>&nbsp;&nbsp;&nbsp;</td>
+									<td>${order.orderName}</td>
+									<td>&nbsp;&nbsp;&nbsp;</td>
+									<c:if test="${order.cnt eq 1}">
+										<td>${order.cnt}</td>
+									</c:if>
+									<c:if test="${order.cnt > 1}">
+										<td>${order.cnt-1}</td>
+									</c:if>
+									<td>${order.totalPrice}</td>
+									<td>배송완료</td>
+								</tr>
+								</c:if>
+							</c:forEach>
+							</c:if>
 						</table>
 						<div class="paging">
 							
