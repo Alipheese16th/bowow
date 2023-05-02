@@ -18,6 +18,7 @@
 		<result property="memberAmount" column="memberAmount"/>
 		<result property="memberPoint" column="memberPoint"/>
 		<result property="gradeno" column="gradeno"/>
+		<result property="grade" column="grade"/>
 	</resultMap>
 	
 	<resultMap type="Coupon" id="CouponResult">
@@ -66,6 +67,8 @@
 	<select id="couponList" parameterType="String" resultMap="CouponResult">
 		select * from coupon where memberid = #{memberId}
 	</select>
-	
-	
+	<!-- 해당 회원의 등급 -->
+	<select id="">
+		
+	</select>
 </mapper>

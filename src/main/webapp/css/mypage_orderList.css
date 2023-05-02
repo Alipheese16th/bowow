@@ -69,9 +69,9 @@ ul{
 .mypage-content-right .right-txt table tr td{
     text-align: center;
     padding: 15px 10px 15px 30px;
-    font-weight: 400;
+    font-weight: 500;
     vertical-align: center;
-    font-size:15px;
+    font-size:13px;
     color:#515151;
     cursor:pointer;
 }
@@ -81,4 +81,56 @@ ul{
 .mypage-content-right .right-txt table tr td img.fileimg{
 	width:16px;
 	height:16px;
+}
+.mypage-content .mypage-content-right .paging{
+	text-align: center;
+    margin-top: 50px;
+}
+.mypage-content .mypage-content-right .paging a{
+	display:inline-block;
+	width:40px;
+	height:40px;
+	font-size:16px;
+	color:#333;
+	line-height:40px;
+	text-align:center;
+	cursor:pointer;
+	vertical-align: middle;
+}
+.mypage-content .mypage-content-right .paging a.move{
+	font-size:13px;
+}
+.mypage-content .mypage-content-right .paging a.first{
+	background: url(../img/first.png)center/ auto 12px no-repeat;
+	margin:0 3px;
+	border:1px solid #ccc;
+	border-radius: 100%;
+	text-indent: -9999em;
+}
+.mypage-content .mypage-content-right .paging a.prev{
+	background: url(../img/prev.png)center/ auto 12px no-repeat;
+	margin:0 25px 0 3px;
+	border:1px solid #ccc;
+	border-radius: 100%;
+	text-indent: -9999em;
+}
+.mypage-content .mypage-content-right .paging a.next{
+	background: url(../img/next.png)center/ auto 12px no-repeat;
+	margin:0 3px 0 25px;
+	border:1px solid #ccc;
+	border-radius: 100%;
+	text-indent: -9999em;
+}
+.mypage-content .mypage-content-right .paging a.last{
+	background: url(../img/last.png)center/ auto 12px no-repeat;
+	margin:0 3px;
+	border:1px solid #ccc;
+	border-radius: 100%;
+	text-indent: -9999em;
+}
+.mypage-content .mypage-content-right .paging a.now{
+	margin:0 3px;
+	color:#fff;
+	background:#333;
+	border-radius: 100%;
 }
