@@ -6,6 +6,7 @@
 	<resultMap type="Inquiry" id="InquiryResult">
 		<result property="inquiryNum" column="inquiryNum"/>
 		<result property="memberId" column="memberId"/>
+		<result property="adminId" column="adminId"/>
 		<result property="inquiryTitle" column="inquiryTitle"/>
 		<result property="inquiryContent" column="inquiryContent"/>
 		<result property="inquiryEmail" column="inquiryEmail"/>
@@ -35,8 +36,8 @@
 	<delete id="deleteInquiry" parameterType="int">
 		DELETE FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
 	</delete>
-	<!-- <insert id="replyInquiry" parameterType="Inquiry">
-		INSERT INTO INQUIRY (inquiryNum, adminId, inquiryTitle, inquiryContent, inquiryEmail)
-    		VALUES (INQUIRY_SEQ.NEXTVAL, #{adminId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
-	</insert> -->
+	<insert id="replyInquiry" parameterType="Inquiry">
+		INSERT INTO INQUIRY (inquiryNum, memberId, adminId, inquiryTitle, inquiryContent, inquiryEmail)
+    		VALUES (INQUIRY_SEQ.NEXTVAL, #{memberId}, #{adminId}, #{inquiryTitle}, #{inquiryContent}, #{inquiryEmail})
+	</insert>
 </mapper>
