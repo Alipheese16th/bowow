@@ -10,6 +10,16 @@
 	<title>Insert title here</title>
 	<link href="${conPath}/css/mypage_orderList.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("tr").click(function(){
+				var ono = Number($(this).children.eq(0).text());
+				if(!isNaN(ono)){
+					locatin.href="${conPath}/orderListContent.do?ono="+ono+"&pageNum=${paging.currentPage}";
+				}
+			})
+		});
+	</script>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
@@ -24,8 +34,8 @@
 				</div>
 				<div class="detail">
 					<select>
-						<option>1</option>
-						<option>2</option>
+						<option></option>
+						<option></option>
 					</select>
 				</div>
 			</div>
@@ -47,29 +57,58 @@
 								<tr><td colspan="7">해당페이지에 글이 없습니다.</td></tr>
 							</c:if>
 							<c:if test="${paging.totCnt != 0}">
+							<c:set var="code" value=""/>
 							<c:forEach items="${orderList}" var="order">
-								<c:set var="code" value=""/>
 								<c:if test="${code !=  order.orderCode}">
 									<tr onclick="trClicked('${order.orderCode}')">
-									<td>${order.ordercode}</td>
+									<td>
+										${order.orderDate}<br>
+										<span style="background:#be8d6e;color:#fff;padding:0px 5px; border-radius:3px;">${order.orderCode}</span>
+									</td>
+									<td>
+										<a href="${conPath}/product/content.do?productCode=${order.productCode}"><img src="${conPath}/productImage/${order.image}" style="width:50px;height:50px;"></a>
+									</td>
+									<td style="text-align: left;">
+										${order.productName}
+										<c:if test="${order.cnt > 1}">
+											외 ${order.cnt-1}건
+										</c:if>
+									</td>
 									<td>&nbsp;&nbsp;&nbsp;</td>
-									<td>${order.orderName}</td>
-									<td>&nbsp;&nbsp;&nbsp;</td>
-									<c:if test="${order.cnt eq 1}">
-										<td>${order.cnt}</td>
-									</c:if>
-									<c:if test="${order.cnt > 1}">
-										<td>${order.cnt-1}</td>
-									</c:if>
-									<td>${order.totalPrice}</td>
+									<td>${order.cnt}</td>
+									<td style="font-weight:700;">
+										<fmt:formatNumber value="${order.totalPrice}" pattern="#,###"/>원
+									</td>
 									<td>배송완료</td>
 								</tr>
 								</c:if>
+								<c:set var="code" value="${order.orderCode}"/>
 							</c:forEach>
 							</c:if>
 						</table>
 						<div class="paging">
-							
+							<a href="${conPath}/mypage/order.do?pageNum=1&memberId=${member.memberId}" class="first">1</a>
+							<c:if test="${paging.startPage > paging.blockSize}">
+								<a href="${conPath}/mypage/order.do?pageNum=${paging.startPage-1}&memberId=${param.memberId}" class="prev">이전</a>
+							</c:if>
+							<c:if test="${paging.blockSize >= paging.startPage}">
+								<a class="prev">1</a>
+							</c:if>
+							<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+								<c:if test="${i eq paging.currentPage}">
+									<a class="now">${i }</a>
+								</c:if>
+								<c:if test="${i != paging.currentPage }">
+									<a href="${conPath}/mypage/order.do?pageNum=${i}&memberId=${member.memberId}" class="move">${i}</a>
+								</c:if>
+							</c:forEach>
+							<c:if test="${paging.endPage < paging.pageCnt}">
+								<a href="${conPath}/mypage/order.do?pageNum=${paging.endPage+1}&memberId=${member.memberId}" class="next"></a>
+							</c:if>
+							<c:if test="${paging.endPage eq paging.pageCnt}">
+								<a></a>
+							</c:if>
+							<a href="${conPath}/mypage/order.do?pageNum=${paging.pageCnt}&memberId=${member.memberId}" class="last">마지막페이지</a>
 						</div>
 					</div>
 				</div>

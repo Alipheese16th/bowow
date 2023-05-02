@@ -14,7 +14,7 @@
 		$(document).ready(function(){
 			var myleft = $(".mypage-content .mypage-content-left ul li a");
 			$(myleft).click(function(){
-				  $(this).removeClass("active");
+				  $(myleft).removeClass("active");
 				  $(this).addClass("active");
 			});
 		});
@@ -24,7 +24,7 @@
 	<div class="mypage-content-left">
 		<!-- <div class="content-left-title">마이 바우와우</div> -->
 		<ul>
-			<li><a href="#" class="myleft">주문내역
+			<li><a href="${conPath}/mypage/order.do?memberId=${member.memberId}" class="myleft">주문내역
 					<span>
 						<svg id="Layer_1" style="enable-background:new 0 0 64 64;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 						<g>

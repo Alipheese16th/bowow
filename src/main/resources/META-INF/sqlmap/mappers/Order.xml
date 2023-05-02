@@ -16,6 +16,7 @@
 		<result property="orderAddr2" column="orderAddr2"/>
 		<result property="orderTel" column="orderTel"/>
 		<!-- 상품정보 추가 -->
+		<result property="productCode" column="productCode"/>
 		<result property="productName" column="productName"/>
 		<result property="image" column="image"/>
 		<result property="cnt" column="cnt"/>
@@ -76,7 +77,7 @@
 	<select id="orderList" parameterType="Order" resultMap="OrderResult">
 		SELECT * FROM (
 			SELECT ROWNUM RN, A.* FROM 
-			  (SELECT O.*, P.PRODUCTNAME, I.IMAGE, (SELECT COUNT(*) FROM ORDERDETAIL WHERE ORDERCODE = O.ORDERCODE) CNT 
+			  (SELECT O.*, P.PRODUCTNAME, P.PRODUCTCODE, I.IMAGE, (SELECT COUNT(*) FROM ORDERDETAIL WHERE ORDERCODE = O.ORDERCODE) CNT 
 			    FROM ORDERS O, ORDERDETAIL OD, IMAGE I, PRODUCT P 
 			    WHERE O.ORDERCODE = OD.ORDERCODE AND OD.PRODUCTCODE = P.PRODUCTCODE AND OD.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL) AND MEMBERID = #{memberId} ORDER BY ORDERDATE DESC) A
 			) WHERE RN BETWEEN #{startRow} AND #{endRow}

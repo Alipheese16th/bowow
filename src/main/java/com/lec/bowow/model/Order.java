@@ -16,6 +16,7 @@ public class Order {
 	private String orderAddr2;
 	private String orderTel;
 	/*주문내역*/
+	private String productCode;
 	private String productName;
 	private String image;
 	private int cnt;
