@@ -50,4 +50,14 @@ public class InquiryController {
 		model.addAttribute("deleteIResult", inquiryService.deleteInquiry(inquiryNum));
 		return "forward:list.do";
 	}
+	@RequestMapping(value="reply", method=RequestMethod.GET)
+	public String reply(int inquiryNum, Model model) {
+		model.addAttribute("inquiry", inquiryService.contentInquiry(inquiryNum));
+		return "inquiry/reply";
+	}
+	@RequestMapping(value="reply", method=RequestMethod.POST)
+	public String reply(Inquiry inquiry, Model model, HttpSession httpSession) {
+		model.addAttribute("replyIResult", inquiryService.replyInquiry(inquiry, httpSession));
+		return "forward:list.do";
+	}
 }

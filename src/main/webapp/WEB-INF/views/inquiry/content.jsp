@@ -37,32 +37,42 @@
 	
 	<div class="inquiry">
 		<div class="container">
-	    	<h2>1:1문의 답변</h2>
-	    	<form action="${conPath }/inquiry/reply.do" method="post">
+	    	<h2>1:1문의 상세보기</h2>
+	    	<form action="${conPath }" method="post">
 	    		<input type="hidden" name="inquiryNum" value="${inquiry.inquiryNum }">
 		        <table class="table table-striped table-hover">
 		            <thead>
 		                <tr>
+		                    <th>No</th>
+		                    <td name="inquiryNum">${inquiry.inquiryNum }</td>
+		                </tr>
+		                <tr>
 		                    <th>작성자</th>
-		                    <%-- <td name="memberId">${inquiry.memberId } 님</td> --%>
-		                    <td><input type="text" name="memberId" placeholder="${inquiry.memberId }" readonly="readonly" style="border: 1px solid white;"></td>
+		                    <td name="inquiryTitle">${inquiry.memberId }</td>
 		                </tr>
 		                <tr>
 		                    <th>제목</th>
-		                    <td><input type="text" name="inquiryTitle" placeholder="${inquiry.inquiryTitle }의 답변제목" required="required"></td>
+		                    <td name="inquiryTitle">${inquiry.inquiryTitle }</td>
 		                </tr>
 		                <tr>
-		                    <th style="padding-bottom: 185px;">내용</th>
-		                    <td><textarea name="inquiryContent" rows="8" placeholder="${inquiry.inquiryContent }의 답변내용" style="max-height: 500px;"></textarea></td>
+		                    <th>내용</th>
+		                    <td name="inquiryContent">${inquiry.inquiryContent }</td>
 		                </tr>
 		                <tr>
 		                    <th>수신 이메일</th>
-		                    <td><input type="text" name="inquiryEmail" value="${inquiry.inquiryEmail }" readonly="readonly" style="border: 1px solid white"></td>
+		                    <td name="inquiryEmail">${inquiry.inquiryEmail }</td>
 		                </tr>
 		            </thead>
+		            <%-- <tbody>
+	                    <tr>
+	                        <td><a href='${conPath }/inquiry/content.do' onClick='fn_view(${inquiry.inquiryNum})'><c:out value="${inquiry.inquiryTitle }"/></a></td>
+	                        <td><c:out value="${inquiry.inquiryContent }"/></td>
+	                        <td><c:out value="${inquiry.inquiryEmail }"/></td>
+	                    </tr>
+		            </tbody> --%>
 		        </table>
-		        <input type="submit" value="답변하기" class="btn" style="width: 200px;">
-		        <input type="reset" value="취소하기" class="btn" style="width: 200px;">
+		        <input type="button" value="수정하기" class="btn" style="width: 200px;" onclick="location.href='${conPath}/inquiry/modify.do?inquiryNum=${inquiry.inquiryNum }'">
+		        <input type="button" value="삭제하기" class="btn" style="width: 200px;" onclick="location.href='${conPath}/inquiry/delete.do?inquiryNum=${inquiry.inquiryNum }'">
 				<input type="button" value="목록가기" class="btn" style="width: 200px;" onclick="location.href='${conPath}/inquiry/list.do'">
 	    	</form>
 		</div>

@@ -28,6 +28,9 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
+		const clickContent = function(inquiryNum) {
+			location.href = "${conPath}/inquiry/content.do?inquiryNum=" + inquiryNum;
+		};
 		const clickModify = function(inquiryNum) {
 			location.href = "${conPath}/inquiry/modify.do?inquiryNum=" + inquiryNum;
 		};
@@ -80,19 +83,17 @@
 				                        	<c:out value="${inquiry.inquiryNum }"/>
 				                        </td> --%>
 				                        <c:if test="${not empty member }">
-					                        <td onclick="clickModify(${inquiry.inquiryNum})">
-					                        	<button value="${inquiry.inquiryNum }" class="btn">수정</button>
-					                        </td>
-					                        <td onclick="clickDelete(${inquiry.inquiryNum})">
-					                        	<button value="${inquiry.inquiryNum }" class="btn">삭제</button>
+					                        <td >
+					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickContent(${inquiry.inquiryNum})">보기</button>
+					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickModify(${inquiry.inquiryNum})">수정</button>
+					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickDelete(${inquiry.inquiryNum})">삭제</button>
 					                        </td>
 				                        </c:if>
 				                        <c:if test="${not empty admin }">
-					                        <td onclick="clickDelete(${inquiry.inquiryNum})">
-					                        	<button value="${inquiry.inquiryNum }" class="btn">삭제</button>
-					                        </td>
-					                        <td onclick="clickReply(${inquiry.inquiryNum})">
-					                        	<button value="${inquiry.inquiryNum }" class="btn">답변</button>
+					                        <td >
+					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickContent(${inquiry.inquiryNum})">보기</button>
+					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickDelete(${inquiry.inquiryNum})">삭제</button>
+					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickReply(${inquiry.inquiryNum})">답변</button>
 					                        </td>
 				                        </c:if>
 				                    </tr>
