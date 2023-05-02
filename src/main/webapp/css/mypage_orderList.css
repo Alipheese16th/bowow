@@ -37,13 +37,20 @@ ul{
     width: 100%;
     -webkit-box-align: center;
     align-items: center;
-    border-bottom: 2px solid rgb(51, 51, 51);
+    border-bottom: 1px solid #ccc;
 }
 .mypage-content .mypage-content-right .content-detail .detail{
 	display: flex;
     flex-direction: row;
     -webkit-box-align: center;
     align-items: center;
+}
+.mypage-content .mypage-content-right .content-detail .detail h2{
+	font-weight: 500;
+    font-size: 24px;
+    color: rgb(51, 51, 51);
+    letter-spacing: -0.5px;
+    line-height: 48px;
 }
 .mypage-content .mypage-content-left ul li .myleft .st0{fill:rgba(102,102,102);}
 /*table*/
@@ -53,7 +60,7 @@ ul{
 	border-collapse: collapse
 }
 .mypage-content-right .right-txt table tr{
-	border-bottom:1px solid #e0e0e0;
+	border-bottom:1px solid #ddd;
 }
 .mypage-content-right .right-txt table tr:first-child td{
 	font-weight:500;

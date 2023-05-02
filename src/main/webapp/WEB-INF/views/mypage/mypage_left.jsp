@@ -12,16 +12,17 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script>
 		$(document).ready(function(){
-			var myleft = $(".mypage-content .mypage-content-left ul li .myleft");
+			var myleft = $(".mypage-content .mypage-content-left ul li a");
 			$(myleft).click(function(){
-				$(this).addClass("active");
+				  $(this).removeClass("active");
+				  $(this).addClass("active");
 			});
 		});
 	</script>
 </head>
 <body>
 	<div class="mypage-content-left">
-		<div class="content-left-title">마이 바우와우</div>
+		<!-- <div class="content-left-title">마이 바우와우</div> -->
 		<ul>
 			<li><a href="#" class="myleft">주문내역
 					<span>

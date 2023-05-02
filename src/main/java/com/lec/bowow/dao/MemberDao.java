@@ -20,5 +20,4 @@ public interface MemberDao {
 	
 	//쿠폰
 	public List<Coupon> couponList(String memberId);
-	
 }

@@ -79,7 +79,7 @@
 					<c:if test="${not empty member and empty admin}">
 						<ul class="inner-right">
 							<li><a href="${conPath}/logout.do">${member.memberId}님 로그아웃</a></li>
-							<li><a href="${conPath}/mypage.do">마이페이지</a></li>
+							<li><a href="${conPath}/mypage/order.do?memberId=${member.memberId}">마이페이지</a></li>
 							<li><a href="#">주문내역</a></li>
 						</ul>
 					</c:if>

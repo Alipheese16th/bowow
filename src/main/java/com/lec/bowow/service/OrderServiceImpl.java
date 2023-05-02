@@ -12,7 +12,9 @@ import com.lec.bowow.dao.OrderDao;
 import com.lec.bowow.model.Cart;
 import com.lec.bowow.model.Member;
 import com.lec.bowow.model.Order;
+import com.lec.bowow.util.Paging;
 import com.lec.bowow.model.OrderDetail;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 	
@@ -66,7 +68,24 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result;
 	}
-	
+
+	/*마이페이지 주문내역*/
+	@Override
+	public List<Order> getOrderList(String pageNum, String memberId) {
+		Paging paging = new Paging(orderDao.totCntOrder(memberId), pageNum, 10, 5);
+		Order order = new Order();
+		order.setStartRow(paging.getStartRow());
+		order.setEndRow(paging.getEndRow());
+		order.setMemberId(memberId);
+		return orderDao.orderList(order);
+	}
+  
+  @Override
+	public int totCntOrder(String memberId) {
+		return orderDao.totCntOrder(memberId);
+	}
+
+
 	// 주문상세보기
 	@Override
 	public Order contentOrder(String orderCode) {
@@ -79,6 +98,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.contentOrderDetail(orderCode);
 	}
 	
-	
 
+	
 }
