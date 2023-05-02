@@ -142,7 +142,7 @@ select * from coupon where memberid = 'aaa';
 delete from coupon where couponnum = 1;
 
 ------------------------------------------------------- 주문완료
---------------------------------------주문내역
+--------------------------------------주문리스트
 -- 리스트 aaa 멤버의 주문리스트 (상품정보join, image 조인, 상품갯수 서브쿼리)( jsp에서 같은주문번호일경우 하나만 출력하게 조건문)
 SELECT * FROM (
 SELECT ROWNUM RN, A.* FROM 
@@ -152,6 +152,7 @@ SELECT ROWNUM RN, A.* FROM
 ) WHERE RN BETWEEN 1 AND 10;
 -- 리스트 페이징 총갯수
 SELECT COUNT(*) FROM ORDERS WHERE MEMBERID = 'aaa';
+-------------------------------------주문상세보기
 -- 상세보기 ORDERS 정보 (ORDERCODE)
 SELECT * FROM ORDERS WHERE ORDERCODE = '2305020001';
 -- 상세보기 ORDERDETAIL 뿌리기
@@ -162,39 +163,17 @@ SELECT OD.*, P.*, I.IMAGE
     AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL)
     AND OD.ORDERCODE = '2305020001';
 ----------------------------------------------------
-
-
-
-
-
-
-
-
-select sum(totalprice) from orders group by orderdate;
-select * from orderdetail;
-
-
-
+---------------------------------------매출통계
+------------------------------- 일별 매출통계
 select 
-    TO_CHAR(BF_REG_DATE, 'YYYYMMDD') as 날짜,
-    count(*) as 게시글수
+  to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate,
+  sum(totalprice) as sumTotal
 from 
-    board_free
-where
-    BF_REG_DATE >='20180101' and BF_REG_DATE < to_char(sysdate,'YYYYMMDD')
+  orders
 GROUP BY
-    to_char(bf_reg_date, 'YYYYMMDD');
-
-
-
-
-
-------------------- 오늘매출통계
-
-select sum(totalPrice) from orders where orderdate between '23/05/01' and '23/05/02';
-
-select o.*, (select sum(totalPrice) from orders where o.orderdate between '23/05/01' and '23/05/02') sum from orders o;
-
+  to_Date(TO_CHAR(orderdate, 'RRMMDD'));
+------------------------------ 카테고리별 매출통계
+select category, sum(cost) as sumTotal from orderdetail od, product p where od.productcode = p.productcode group by category;
 
 
 
@@ -245,21 +224,9 @@ INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '제목', '내용');
 
 
-
-
-
-------------------------------관리자
-
--- NOTICE 글 수정
-UPDATE NOTICE
-    SET noticeTitle = '수정제목',
-        noticeContent = '수정내용'
-    WHERE noticeNum = 1;
-
--- NOTICE 글 삭제
-DELETE FROM NOTICE WHERE noticeNum = 1;
-
---------------------- 관리자기능
+select * from product;
+--------------------------------------------------------관리자
+--------------------- 관리자 상품 관리
 -- 상품 등록
 INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK) 
   VALUES (CONCAT('P',LPAD(PRODUCT_SEQ.NEXTVAL,4,'0')), 'fashion', '꽃무늬 티셔츠', '이뻐요', 5000, 15, 50);
@@ -283,3 +250,20 @@ UPDATE PRODUCT
 	WHERE productCode = 'P0001';
 -- 상품 삭제
 UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';
+
+----------------------------------- 관리자 공지사항 기능
+-- NOTICE 글 수정
+UPDATE NOTICE
+    SET noticeTitle = '수정제목',
+        noticeContent = '수정내용'
+    WHERE noticeNum = 1;
+
+-- NOTICE 글 삭제
+DELETE FROM NOTICE WHERE noticeNum = 1;
+
+
+
+
+
+
+

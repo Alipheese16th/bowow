@@ -149,10 +149,6 @@
 	
 	
 	
-	
-	
-	
-	
 	<insert id="registerProduct" parameterType="Product">
 		INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK) 
   			VALUES (CONCAT('P',LPAD(PRODUCT_SEQ.NEXTVAL,4,'0')), #{category}, #{productName}, #{productContent}, #{productPrice}, #{productDiscount}, #{productStock})

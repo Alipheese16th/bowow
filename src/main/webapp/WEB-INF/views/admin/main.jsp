@@ -30,6 +30,7 @@
 		* {
 			margin: 0 auto;
 			text-align: center;
+			font-family: 'Pretendard';
 		}
 		.wrap {
 			min-width: 1535px;

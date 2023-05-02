@@ -14,7 +14,7 @@ INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '두번째 공지사항', '회원가입 후 다양한 기능을 사용하실 수 있습니다!');
 
 
---------------------- 3. PRODUCT ( 카테고리 : fasion / food / toy / walking / clean ) -------------------------
+--------------------- 3. PRODUCT ( 카테고리 : fashion / food / toy / walking / clean ) -------------------------
 INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK, PRODUCTUSED) 
   VALUES ( CONCAT('P',LPAD(PRODUCT_SEQ.NEXTVAL,4,'0')), 'fashion', '럭셔리티셔츠', '멋있어요', 3000, 5, 50, 'Y');
 INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK, PRODUCTUSED)

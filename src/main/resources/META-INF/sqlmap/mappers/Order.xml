@@ -98,6 +98,19 @@
 		    AND OD.ORDERCODE = #{orderCode}
 	</select>
 	
+	<!-- 일별 매출통계 -->
+	<select id="salesOfDate" resultMap="OrderResult">
+		select 
+		  to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate,
+		  sum(totalprice) as sumTotal
+		from 
+		  orders
+		GROUP BY
+		  to_Date(TO_CHAR(orderdate, 'RRMMDD'))
+	</select>
+	<select id="salesOfCategory" resultMap="OrderResult">
+		select category, sum(cost) from orderdetail od, product p where od.productcode = p.productcode group by category
+	</select>
 
 	
 </mapper>

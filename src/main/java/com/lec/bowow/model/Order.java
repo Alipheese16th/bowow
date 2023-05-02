@@ -19,7 +19,11 @@ public class Order {
 	private String productName;
 	private String image;
 	private int cnt;
-	/*페이징*/
+	/*주문내역 페이징*/
 	private int startRow;
 	private int endRow;
+	
+	/*매출통계*/
+	private int sumTotal;
+	private String category;
 }

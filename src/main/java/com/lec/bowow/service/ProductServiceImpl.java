@@ -50,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.colorList(productCode);
 	}
 	
+	// 상품 검색
 	@Override
 	public List<Product> searchProduct(Product product, String pageNum) {
 		Paging paging = new Paging(totCntSearch(product), pageNum, 16, 5);
@@ -61,19 +62,17 @@ public class ProductServiceImpl implements ProductService {
 	public int totCntSearch(Product product) {
 		return productDao.totCntSearch(product);
 	}
-	
+	// 질문게시판 상품 선택용
 	@Override
 	public List<Product> allProductList() {
 		return productDao.allProductList();
 	}
 	
 	
-	
-
+	// 상품등록
 	@Override
 	public int registerProduct(Product product) {
-		// TODO Auto-generated method stub
-		return 0;
+		return productDao.registerProduct(product);
 	}
 
 	@Override

@@ -16,14 +16,14 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
-	
+	// 상품 리스트
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public String list(Model model, Product product, String pageNum) {
 		model.addAttribute("productList",productService.productList(product, pageNum));
 		model.addAttribute("paging",new Paging(productService.totCntProduct(product), pageNum, 16, 5));
 		return "product/list";
 	}
-	
+	// 상품 상세보기
 	@RequestMapping(value="content", method=RequestMethod.GET)
 	public String content(Model model, String productCode) {
 		model.addAttribute("product",productService.productDetail(productCode));
@@ -32,7 +32,7 @@ public class ProductController {
 		model.addAttribute("colorList",productService.colorList(productCode));
 		return "product/content";
 	}
-	
+	// 상품 검색
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(Model model, Product product, String pageNum) {
 		model.addAttribute("productList",productService.searchProduct(product, pageNum));
@@ -40,9 +40,26 @@ public class ProductController {
 		return "product/search";
 	}
 	
+	// 관리자 상품 등록form
 	@RequestMapping(value="insert", method=RequestMethod.GET)
 	public String insert() {
-		return "admin/productInsert";
+		return "admin/insert";
+	}
+	// 관리자 상품 등록처리
+	@RequestMapping(value="insert", method=RequestMethod.POST)
+	public String insert(Model model, Product product) {
+		int result = productService.registerProduct(product);
+		if(result == 1) {
+			model.addAttribute("registerProductResult","상품 등록 성공");
+		}else {
+			model.addAttribute("registerProductResult","상품 등록 실패 오류");
+		}
+		return "admin/insert";
+	}
+	// 관리자 상품 검색 및 수정
+	@RequestMapping(value="modify", method=RequestMethod.GET)
+	public String modify() {
+		return "admin/modify";
 	}
 	
 	
