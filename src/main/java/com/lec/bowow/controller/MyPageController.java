@@ -1,5 +1,7 @@
 package com.lec.bowow.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,16 @@ import com.lec.bowow.util.Paging;
 public class MyPageController {
 	@Autowired
 	private OrderService orderService;
-	@RequestMapping(value="order", method={RequestMethod.GET, RequestMethod.POST})
-	public String mypage(String memberId, String pageNum, Model model) {
-		model.addAttribute("orderList", orderService.getOrderList(pageNum, memberId));
-		model.addAttribute("paging", new Paging(orderService.totCntOrder(memberId), pageNum, 10, 5));
-		return "mypage/mypage_orderList";
+	@RequestMapping(value="orderList", method=RequestMethod.GET)
+	public String mypage(HttpSession session, String pageNum, Model model) {
+		model.addAttribute("orderList", orderService.getOrderList(pageNum, session));
+		model.addAttribute("paging", new Paging(orderService.totCntOrder(session), pageNum, 10, 5));
+		return "mypage/orderList";
+	}
+	@RequestMapping(value="orderDetail", method=RequestMethod.GET)
+	public String orderListContent(String orderCode, Model model) {
+		model.addAttribute("contentorder",orderService.contentOrder(orderCode));
+		model.addAttribute("orderDetail", orderService.contentOrderDetail(orderCode));
+		return "mypage/orderDetail";
 	}
 }

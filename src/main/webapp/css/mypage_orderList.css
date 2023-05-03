@@ -71,9 +71,19 @@ ul{
     padding: 15px 10px 15px 30px;
     font-weight: 500;
     vertical-align: center;
-    font-size:13px;
+    font-size:14px;
     color:#515151;
     cursor:pointer;
+}
+.mypage-content-right .right-txt table tr td > .oCode{
+	background:#be8d6e;
+	color:#fff;
+	padding:0px 5px; 
+	border-radius:3px;
+	cursor:pointer;
+	display:inline-block;
+	margin-top:2px;
+	letter-spacing: 1px;
 }
 .mypage-content-right .right-txt table tr .left{
 	text-align:left;

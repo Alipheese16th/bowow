@@ -71,18 +71,20 @@ public class OrderServiceImpl implements OrderService {
 
 	/*마이페이지 주문내역*/
 	@Override
-	public List<Order> getOrderList(String pageNum, String memberId) {
-		Paging paging = new Paging(orderDao.totCntOrder(memberId), pageNum, 10, 5);
+	public List<Order> getOrderList(String pageNum, HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		Paging paging = new Paging(orderDao.totCntOrder(member.getMemberId()), pageNum, 10, 5);
 		Order order = new Order();
 		order.setStartRow(paging.getStartRow());
 		order.setEndRow(paging.getEndRow());
-		order.setMemberId(memberId);
+		order.setMemberId(member.getMemberId());
 		return orderDao.orderList(order);
 	}
   
   @Override
-	public int totCntOrder(String memberId) {
-		return orderDao.totCntOrder(memberId);
+	public int totCntOrder(HttpSession session) {
+	  Member member = (Member) session.getAttribute("member");
+		return orderDao.totCntOrder(member.getMemberId());
 	}
 
 
