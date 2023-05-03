@@ -1,0 +1,135 @@
+@charset "UTF-8";
+html,body{
+	font-family: 'Pretendard';
+}
+.mypage-content *{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: 'Pretendard';
+}
+a{
+	text-decoration: none;
+	color:#333;
+}
+li{
+	list-style: none;
+}
+ul{
+	margin:0;
+	padding:0;
+}
+.mypage-content{
+	width: 1250px;
+  		margin: 0 auto;
+  		position: relative;
+}
+.mypage-content .content-detail {
+	position: relative;
+    width: 100%;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+.mypage-content .content-detail .detail{
+	padding:35px 0;
+	margin-top:15px;
+}
+.mypage-content .detail-ordercode{
+	padding:15px 0;
+	text-align: right;
+}
+.mypage-content .detail-ordercode span>a{
+	margin-left:5px;
+	font-size: 14px;
+}
+.mypage-content .content-detail .mypage-content-line{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+/*table*/
+.mypage-content-wrap .right-txt table{
+	width:100%;
+	margin:0 auto;
+	border-collapse: collapse
+}
+.mypage-content-wrap .right-txt table tr{
+	border-bottom:1px solid #ddd;
+}
+.mypage-content-wrap .right-txt table tr:first-child td{
+	font-weight:500;
+	color:#000;
+}
+.mypage-content-wrap .right-txt table tr td{
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 500;
+    vertical-align: center;
+    font-size:14px;
+    color:#515151;
+    cursor:pointer;
+}
+/*각 테이블 width*/
+.mypage-content-wrap .right-txt table tr .pimg{
+	width:100px;
+}
+.mypage-content-wrap .right-txt table tr .pname{
+	width:400px;
+}
+.mypage-content-wrap .right-txt table tr .pqty{
+	width:80px;
+}
+.mypage-content-wrap .right-txt table tr .pcost{
+	width:100px;
+}
+.mypage-content-wrap .right-txt table tr .pnow{
+	width:130px;
+}
+.mypage-content-wrap .right-txt table tr .left{
+	text-align:left;
+}
+.mypage-content-wrap .right-txt table tr .row{
+	width:120px;
+	text-align: left;
+}
+.mypage-content-wrap .right-txt table tr td:nth-child(2) {
+	width: auto;
+}
+.mypage-content-wrap .secP table tr{
+	border-bottom:1px solid #f1f1f1;
+}
+.mypage-content-wrap .secP table tr>th, 
+.mypage-content-wrap .secP table tr>td{
+	padding:13px 20px 12px 20px;
+	text-align: left;
+}
+.mypage-content-wrap .secP table tr>th{
+	font-size:14px;
+	background:#f9f9f9;
+	color:#666;
+	font-weight: 500;
+}
+.mypage_btn{
+	padding: 15px 5px;
+    background: none;
+    border: none;
+    outline: none;
+    border: 1px solid #be8d6e;
+    border-radius: 3px;
+    color: #be8d6e;
+    background: #fff;
+    cursor: pointer;
+}
+.mypage_btn > span{
+	width:17px;
+	height:17px;
+	display: inline-block;
+    vertical-align: bottom;
+}
+.mypage_btn > span .st0{
+	fill:#be8d6e;
+}

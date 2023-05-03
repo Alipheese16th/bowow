@@ -79,7 +79,7 @@
 					<c:if test="${not empty member and empty admin}">
 						<ul class="inner-right">
 							<li><a href="${conPath}/logout.do">${member.memberId}님 로그아웃</a></li>
-							<li><a href="${conPath}/mypage/order.do?memberId=${member.memberId}">마이페이지</a></li>
+							<li><a href="${conPath}/mypage/orderList.do">마이페이지</a></li>
 							<li><a href="#">주문내역</a></li>
 						</ul>
 					</c:if>
@@ -114,7 +114,7 @@
 										<li><a href="${conPath}/notice/list.do">공지사항</a></li>
 										<li><a href="${conPath}/faq/list.do">자주하는질문</a></li>
 										<li><a href="${conPath }/inquiry/list.do">1:1문의</a></li>
-										<li><a href="#">리뷰게시판</a></li>
+										<li><a href="${conPath}/review/list.do">리뷰게시판</a></li>
 									</ul>
 							</li>
 						</ul>

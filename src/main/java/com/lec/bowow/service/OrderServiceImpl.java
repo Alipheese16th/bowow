@@ -71,18 +71,24 @@ public class OrderServiceImpl implements OrderService {
 
 	/*마이페이지 주문내역*/
 	@Override
-	public List<Order> getOrderList(String pageNum, String memberId) {
-		Paging paging = new Paging(orderDao.totCntOrder(memberId), pageNum, 10, 5);
-		Order order = new Order();
-		order.setStartRow(paging.getStartRow());
-		order.setEndRow(paging.getEndRow());
-		order.setMemberId(memberId);
-		return orderDao.orderList(order);
+	public List<Order> getOrderList(String pageNum, HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		if(member==null) {
+			return null;
+		}else {
+			Paging paging = new Paging(orderDao.totCntOrder(member.getMemberId()), pageNum, 10, 5);
+			Order order = new Order();
+			order.setStartRow(paging.getStartRow());
+			order.setEndRow(paging.getEndRow());
+			order.setMemberId(member.getMemberId());
+			return orderDao.orderList(order);			
+		}
 	}
   
   @Override
-	public int totCntOrder(String memberId) {
-		return orderDao.totCntOrder(memberId);
+	public int totCntOrder(HttpSession session) {
+	  Member member = (Member) session.getAttribute("member");
+		return orderDao.totCntOrder(member.getMemberId());
 	}
 
 
@@ -96,6 +102,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderDetail> contentOrderDetail(String orderCode) {
 		System.out.println("주문상세디테일 서비스");
 		return orderDao.contentOrderDetail(orderCode);
+	}
+
+	@Override
+	public int getorderdetailDiscount(String orderCode) {
+		System.out.println("주문상세디테일 총할인 가격");
+		return orderDao.orderdetailDiscount(orderCode);
 	}
 	
 

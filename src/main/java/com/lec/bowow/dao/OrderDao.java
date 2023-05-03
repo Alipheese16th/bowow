@@ -31,6 +31,7 @@ public interface OrderDao {
 	// 주문 상세보기
 	public Order contentOrder(String orderCode);
 	public List<OrderDetail> contentOrderDetail(String orderCode);
+	public int orderdetailDiscount(String orderCode);
 	
 	// 매출통계
 	public List<Integer> salesOfDate();

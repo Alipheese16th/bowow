@@ -1,11 +1,17 @@
 package com.lec.bowow.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.lec.bowow.model.Order;
+import com.lec.bowow.service.CartService;
 import com.lec.bowow.service.OrderService;
 import com.lec.bowow.util.Paging;
 
@@ -14,10 +20,26 @@ import com.lec.bowow.util.Paging;
 public class MyPageController {
 	@Autowired
 	private OrderService orderService;
-	@RequestMapping(value="order", method={RequestMethod.GET, RequestMethod.POST})
-	public String mypage(String memberId, String pageNum, Model model) {
-		model.addAttribute("orderList", orderService.getOrderList(pageNum, memberId));
-		model.addAttribute("paging", new Paging(orderService.totCntOrder(memberId), pageNum, 10, 5));
-		return "mypage/mypage_orderList";
+	@Autowired
+	private CartService cartService;
+	@RequestMapping(value="orderList", method=RequestMethod.GET)
+	public String mypage(HttpSession session, String pageNum, Model model) {
+		List<Order> orderList = orderService.getOrderList(pageNum, session);
+		if(orderList==null) {
+			return "redirect:../login.do?after=mypage/orderList.do";
+		}else {
+			model.addAttribute("orderList", orderList);
+			model.addAttribute("paging", new Paging(orderService.totCntOrder(session), pageNum, 10, 5));
+			return "mypage/orderList";
+		}
+	}
+	@RequestMapping(value="orderDetail", method=RequestMethod.GET)
+	public String orderListContent(String orderCode, Model model) {
+		model.addAttribute("contentorder",orderService.contentOrder(orderCode));
+		model.addAttribute("orderDetail", orderService.contentOrderDetail(orderCode));
+		model.addAttribute("totaldiscount", orderService.getorderdetailDiscount(orderCode));
+		model.addAttribute("sizeList",cartService.sizeList());
+		model.addAttribute("colorList",cartService.colorList());
+		return "mypage/orderDetail";
 	}
 }

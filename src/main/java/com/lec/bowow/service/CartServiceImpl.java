@@ -52,8 +52,15 @@ public class CartServiceImpl implements CartService {
 	// 장바구니 리스트
 	@Override
 	public List<Cart> cartList(HttpSession httpSession) {
+		
 		Member member = (Member)httpSession.getAttribute("member");
-		return cartDao.cartList(member.getMemberId());
+		if(member == null) {
+			return null;
+		}else {
+			return cartDao.cartList(member.getMemberId());
+		}
+		
+		
 	}
 	@Override
 	public List<Sizes> sizeList() {
