@@ -34,6 +34,8 @@
 	    	<form action="${conPath }/inquiry/reply.do" method="post">
 	    		<input type="hidden" name="inquiryNum" value="${inquiry.inquiryNum }">
 	    		<input type="hidden" name="adminId" value="${admin.adminId }">
+	    		<input type="hidden" name="inquiryGroup" value="${inquiry.inquiryGroup }">
+				<input type="hidden" name="inquiryStep" value="${inquiry.inquiryStep }">
 		        <table class="table table-striped table-hover">
 		            <thead>
 		                <tr>

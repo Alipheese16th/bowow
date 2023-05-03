@@ -33,7 +33,7 @@ public interface OrderDao {
 	public List<OrderDetail> contentOrderDetail(String orderCode);
 	
 	// 매출통계
-	public List<Order> salesOfDate();
+	public List<Integer> salesOfDate();
 	public List<Order> salesOfCategory();
 	
 	

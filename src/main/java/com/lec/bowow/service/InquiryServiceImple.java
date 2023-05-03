@@ -102,7 +102,7 @@ public class InquiryServiceImple implements InquiryService {
 		return inquiryDao.replyInquiry(inquiry);
 	}
 	@Override
-	public List<Inquiry> replyInquiryList(Inquiry inquiry) {
-		return inquiryDao.replyInquiryList(inquiry);
+	public List<Inquiry> replyInquiryList(int inquiryNum) {
+		return inquiryDao.replyInquiryList(inquiryNum);
 	}
 }

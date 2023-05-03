@@ -31,9 +31,9 @@ public class InquiryController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value="content", method= {RequestMethod.GET, RequestMethod.POST})
-	public String content(Inquiry inquiry, int inquiryNum, Model model) {
+	public String content(int inquiryNum, Model model) {
 		model.addAttribute("inquiry", inquiryService.contentInquiry(inquiryNum));
-		model.addAttribute("reInquiry", inquiryService.replyInquiryList(inquiry));
+		model.addAttribute("reInquiry", inquiryService.replyInquiryList(inquiryNum));
 		return "inquiry/content";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)

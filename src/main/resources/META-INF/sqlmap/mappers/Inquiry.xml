@@ -36,8 +36,8 @@
 	<delete id="deleteInquiry" parameterType="int">
 		DELETE FROM INQUIRY WHERE inquiryNum = #{inquiryNum}
 	</delete>
-	<select id="replyInquiryList" parameterType="Inquiry" resultMap="InquiryResult">
-		SELECT * FROM INQUIRY WHERE inquiryStep > 0 AND inquiryGroup = #{inquiryGroup}
+	<select id="replyInquiryList" parameterType="int" resultMap="InquiryResult">
+		SELECT * FROM INQUIRY WHERE inquiryStep > 0 AND inquiryGroup = #{inquiryNum} ORDER BY INQUIRYNUM DESC
 	</select>
 	<update id="preReplyInquiry" parameterType="Inquiry">
 		UPDATE INQUIRY SET inquiryStep = inquiryStep + 1

@@ -15,7 +15,7 @@ public interface InquiryDao {
 	public Inquiry contentInquiry(int inquiryNum);
 	public int modifyInquiry(Inquiry inquiry);
 	public int deleteInquiry(int inquiryNum);
-	public List<Inquiry> replyInquiryList(Inquiry inquiry);
+	public List<Inquiry> replyInquiryList(int inquiryNum);
 	public void preReplyInquiry(Inquiry inquiry);
 	public int replyInquiry(Inquiry inquiry);
 }
