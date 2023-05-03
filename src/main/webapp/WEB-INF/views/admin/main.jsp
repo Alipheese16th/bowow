@@ -284,13 +284,6 @@
 	</script>
 </head>
 <body>
-	<c:if test="${empty admin}">
-		<script>
-			alert('관리자 아이디를 통해 이용해주세요');
-			history.back();
-		</script>
-	</c:if>
-	
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="wrap">

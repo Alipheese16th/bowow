@@ -75,13 +75,13 @@
 	</script>
 </head>
 <body>
-	<c:if test="${not empty member }">
+	<c:if test="${not empty member}">
 		<script>
 			alert('접근 제한 페이지 입니다');
-			history.back();
+			location.href='${conPath}/main.do';
 		</script>
 	</c:if>
-	<c:if test="${not empty admin }">
+	<c:if test="${not empty admin}">
 		<script>location.href="${conPath}/admin/main.do"</script>
 	</c:if>
 

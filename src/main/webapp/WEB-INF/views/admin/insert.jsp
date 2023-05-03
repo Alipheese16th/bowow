@@ -21,30 +21,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <style>
 .container{
-	min-width: 1535px !important;
+	min-width: 1000px;
 	margin-left:280px;
 	font-family: 'Pretendard';
 }
 </style>
 </head>
 <body>
-
-	<c:if test="${not empty registerProductResult}">
-		<script>
-			alert('${registerProductResult}');
-		</script>
-	</c:if>
-
 	<jsp:include page="../main/header.jsp"/>
 	<div class="container">
-		<div class="row">
+	
 			<jsp:include page="side.jsp"/>
 			
-			<div class="col-9">
 				<h1 class="my-5 text-center">상품 등록</h1>
 				
-				<div class="insertProduct">
-					<form action="${conPath}/product/insertProduct.do" method="post">
+				<div id="insertProduct">
+					<form action="${conPath}/product/insertProduct.do#insertProduct" method="post">
 						<table class="table">
 							<tr>
 								<th>상품명</th>
@@ -67,7 +59,7 @@
 							<tr>
 								<th>상품설명</th>
 								<td>
-									<pre><textarea id="summernote" name="productContent"></textarea></pre>
+									<textarea id="summernote" name="productContent"></textarea>
 								</td>
 							</tr>
 							<tr>
@@ -99,8 +91,8 @@
 				
 				<h1 class="my-5 text-center">상품이미지 등록</h1>
 				
-				<div class="insertImage">
-					<form action="${conPath}/product/insertImage.do" method="post" enctype="multipart/form-data">
+				<div id="insertImage">
+					<form action="${conPath}/product/insertImage.do#insertImage" method="post" enctype="multipart/form-data">
 						<table class="table">
 							<tr>
 								<th>상품</th>
@@ -120,8 +112,8 @@
 								<th>타입</th>
 								<td>
 									<select name="type" class="form-select">
+										<option value="title">대표이미지(1개만)</option>
 										<option value="content">본문이미지</option>
-										<option value="title">대표이미지</option>
 										<option value="subTitle">서브타이틀이미지</option>
 									</select>
 								</td>
@@ -141,13 +133,74 @@
 					</form>
 				</div>
 				
+				<h1 class="my-5 text-center">옵션(사이즈) 등록</h1>
 				
+				<div id="insertSize">
+					<form action="${conPath}/product/insertSize.do#insertSize" method="post">
+						<table class="table">
+							<tr>
+								<th>상품</th>
+								<td>
+									<select name="productCode" class="selectpicker" data-live-search="true">
+										<c:forEach var="product" items="${productList}">
+											<option value="${product.productCode}"
+												<c:if test="${product.productCode eq productCode}">
+													selected="selected"
+												</c:if>
+											>${product.productName}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>사이즈 명</th>
+								<td>
+									<input type="text" name="productSize" class="form-control">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center">
+									<input type="submit" class="btn btn-primary" value="사이즈 등록하기">
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
 				
+				<h1 class="my-5 text-center">옵션(색상) 등록</h1>
 				
+				<div id="insertColor">
+					<form action="${conPath}/product/insertColor.do#insertColor" method="post">
+						<table class="table">
+							<tr>
+								<th>상품</th>
+								<td>
+									<select name="productCode" class="selectpicker" data-live-search="true">
+										<c:forEach var="product" items="${productList}">
+											<option value="${product.productCode}"
+												<c:if test="${product.productCode eq productCode}">
+													selected="selected"
+												</c:if>
+											>${product.productName}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>색상 명</th>
+								<td>
+									<input type="text" name="productColor" class="form-control">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center">
+									<input type="submit" class="btn btn-primary" value="사이즈 등록하기">
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
 				
-			</div><!-- col-9 -->
-			
-		</div><!-- row -->
 	</div><!-- container -->
 	<jsp:include page="../main/footer.jsp"/>
 

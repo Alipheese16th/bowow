@@ -28,7 +28,15 @@
 		<div class="login-wrap">
 			<form action="login.do" method="post">
 			<input type="hidden" name="after" value="${empty param.after ? 'main.do':param.after}">
-			<input type="hidden" name="productCode" value="${param.productCode}">
+			
+			<c:if test="${not empty param.productCode}">
+				<input type="hidden" name="productCode" value="${param.productCode}">
+			</c:if>
+			
+			<c:if test="${not empty param.noticeNum}">
+				<input type="hidden" name="noticeNum" value="${param.noticeNum}">
+			</c:if>
+			
 				<table>
 					<tr>
 						<td><input type="text" name="memberId" class="focusB" placeholder="아이디를 입력해주세요."></td>

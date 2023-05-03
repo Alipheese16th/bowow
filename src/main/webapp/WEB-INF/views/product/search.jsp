@@ -105,7 +105,7 @@
 		<div class="d-flex justify-content-evenly">
 			
 			<c:forEach items="${productList}" var="product" varStatus="i">
-			
+			<c:if test="${product.productUsed eq 'Y'}">
 			
 				<div class="card border-0 rounded-0" id="${product.productCode}" style="width: 18rem;">
 				  <img src="${conPath}/productImage/${product.image}" class="card-img-top rounded-0">
@@ -122,6 +122,7 @@
 				
 				</c:if>
 				
+			</c:if>
 			</c:forEach>
 		
 		</div>

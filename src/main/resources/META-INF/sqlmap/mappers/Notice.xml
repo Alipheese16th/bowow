@@ -9,6 +9,7 @@
 		<result property="noticeTitle" column="noticeTitle"/>
 		<result property="noticeContent" column="noticeContent"/>
 		<result property="noticeDate" column="noticeDate"/>
+		<result property="noticeUpdate" column="noticeUpdate"/>
 		<result property="noticeHit" column="noticeHit"/>
 	</resultMap>
 	
@@ -74,8 +75,6 @@
 	</update>
 	
 	
-	
-	
 	<insert id="writeNotice" parameterType="Notice">
 		INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 			VALUES (notice_SEQ.NEXTVAL, #{adminId}, #{noticeTitle}, #{noticeContent})
@@ -84,7 +83,8 @@
 	<update id="modifyNotice" parameterType="Notice">
 		UPDATE NOTICE
 		    SET noticeTitle = #{noticeTitle},
-		        noticeContent = #{noticeContent}
+		        noticeContent = #{noticeContent},
+		        noticeUpdate = sysdate
 		    WHERE noticeNum = #{noticeNum}
 	</update>
 	<delete id="deleteNotice" parameterType="Notice">

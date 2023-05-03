@@ -1,15 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="conPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- 부트스트랩 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <style>
+.container{
+	min-width: 1000px;
+	margin-left:280px;
+	font-family: 'Pretendard';
+}
 
 .pagination > li > a:focus,
 .pagination > li > a:hover,
@@ -44,27 +53,16 @@
 	background: #BE8D6E;
 	color: white;
 }
-/* .table, form-select{
-	color: #BE8D6E;
-	border-color:#BE8D6E;
+.listImage{
+	width:20px;
+	height:20px;
 }
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-    color: #BE8D6E;
-	border-color:#BE8D6E;
-} */
-.table-striped > tbody > tr:nth-child(2n+1):hover, .table-striped > tbody > tr:nth-child(2n+1):hover {
-   background-color: #BE8D6E;
+.table tr td:not(.left){
+	text-align:center;
 }
-.table-striped > tbody > tr:nth-child(2n):hover, .table-striped > tbody > tr:nth-child(2n):hover {
-   background-color: #BE8D6E;
+.table tr td{
+	vertical-align: middle;
 }
-.table-striped > tbody > tr:nth-child(2n):hover > td, .table-striped > tbody > tr:nth-child(2n):hover > th {
-    color:white;
-}
-.table-striped > tbody > tr:nth-child(2n+1):hover > td, .table-striped > tbody > tr:nth-child(2n+1):hover > th {
-    color:white;
-}
-
 </style>
 </head>
 <body>
@@ -73,7 +71,14 @@
 			alert('${noticeWriteResult}');
 		</script>
 	</c:if>
-	<table class="table table-striped mx-2">
+	<jsp:include page="../main/header.jsp"/>
+	<div class="container">
+		
+		<jsp:include page="side.jsp"/>
+		
+		<h1 class="my-5 text-center">공지사항 관리</h1>
+		
+		<table class="table table-striped mx-2">
 		<thead>
 			<tr class="text-center">
 				<th><i class="bi bi-justify"></i> 번호</th>
@@ -81,6 +86,7 @@
 				<th><i class="bi bi-person-fill"></i> 작성자</th>
 				<th><i class="bi bi-calendar3"></i> 날짜</th>
 				<th><i class="bi bi-fire"></i> 조회수</th>
+				<th><i class="bi bi-fire"></i> 삭제</th>
 			</tr>
 		</thead>
 		<tbody class="table-group-divider">
@@ -91,16 +97,18 @@
 				<c:forEach var="notice" items="${noticeList}">
 				
 				<tr>
-					<td class="text-center">${notice.noticeNum}</td>
-					<td class="w-50">
+					<td>${notice.noticeNum}</td>
+					<td class="w-50 left ntitle">
 						${notice.noticeTitle}
 					</td>
-					<td class="text-center">${notice.adminId}</td>
-					<td class="text-center">
-						<fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd HH:mm"/>
+					<td>${notice.adminId}</td>
+					<td>
+						<fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd"/>
 					</td>
-					<td class="text-center">${notice.noticeHit}</td>
-					
+					<td>${notice.noticeHit}</td>
+					<td>
+						<button type="button" class="btn mybtn delete" id="${notice.noticeNum}">삭제</button>
+					</td>
 				</tr>
 				
 				</c:forEach>
@@ -109,10 +117,6 @@
 			
 		</tbody>
 	</table>
-	
-		<c:if test="${not empty admin}">
-		   <button class="write btn mybtn">글쓰기</button>
-		</c:if>
 	   
 	   <!-- 페이징 -->
 	   <nav aria-label="Page navigation example">
@@ -126,7 +130,7 @@
 	  	 	</c:if>
 	  	 	<c:if test="${paging.startPage > paging.blockSize}">
 		    <li class="page-item">
-			    <a class="page-link" href="${conPath}/notice/list.do?pageNum=${paging.startPage-1}&search=${param.search}&type=${param.type}">
+			    <a class="page-link" href="${conPath}/notice/manage.do?pageNum=${startPage-1}&search=${param.search}&type=${param.type}">
 			    <span aria-hidden="true">&laquo;</span>
 			    </a>
 		    </li>
@@ -137,14 +141,14 @@
 				<li class="page-item active"><a class="page-link">${i}</a></li>
 			</c:if>
 	  	 		<c:if test="${i ne paging.currentPage}">
-				<li class="page-item"><a class="page-link" href="${conPath}/notice/list.do?pageNum=${i}&search=${param.search}&type=${param.type}">${i}</a></li>
+				<li class="page-item"><a class="page-link" href="${conPath}/notice/manage.do?pageNum=${i}&search=${param.search}&type=${param.type}">${i}</a></li>
 			</c:if>
 	  	 	
 	  	 	</c:forEach>
 	  	 	
 	  	 	<c:if test="${paging.endPage < paging.pageCnt}">
 			<li class="page-item">
-				<a class="page-link" href="${conPath}/notice/list.do?pageNum=${paging.endPage+1}&search=${param.search}&type=${param.type}">
+				<a class="page-link" href="${conPath}/notice/manage.do?pageNum=${endPage+1}&search=${param.search}&type=${param.type}">
 				<span aria-hidden="true">&raquo;</span>
 				</a>
 			</li>
@@ -162,8 +166,8 @@
 	<!-- 페이징 끝 -->
 	
 	<!-- 검색 기능 시작 -->
-	<div class="container my-3 text-center">
-		<form action="${conPath}/notice/list.do" class="d-flex forma" role="search">
+	<div class="my-3 text-center">
+		<form action="${conPath}/notice/manage.do" class="d-flex forma" role="search">
 		<input type="hidden" name="pageNum" value="${pageNum}">
 			<div class="d-flex w-75 m-auto justify-content-center">
 			
@@ -182,39 +186,35 @@
 		</form>
 	</div>
 	<!-- 검색 기능 끝 -->
-	
-<script>
-$(document).ready(function(){
 		
-	$('.write').click(function(){
-		var user = "<c:out value='${admin}'/>";
-		if(!user){
-			alert('글쓰기는 관리자로 로그인한  경우만 가능합니다');
-			location.href="${conPath}/admin/login.do";
-		}else{
-			location.href ="${conPath}/notice/write.do";
-		}
-	});
-	
-	$('tr').css('cursor','pointer').click(function(){
-		var noticeNum = $(this).children().eq(0).text();
-		if(!isNaN(noticeNum)){
-			location.href = "${conPath}/notice/content.do?noticeNum="+noticeNum+"&pageNum=${paging.currentPage}&search=${param.search}&type=${param.type}";
-		}
-	});
-	
-	$('.forma').submit(function(){
-		var qa = $('#qa').val();
-		if(qa.trim() == ''){
-			alert('빈칸은 검색할 수 없습니다');
-			return false;
-		}
-	});
-	
-	$('#searchbtn').click(function(){
-		$('.forma').submit();
-	});
-	
+	</div>
+	<jsp:include page="../main/footer.jsp"/>
+<script>
+$('.forma').submit(function(){
+	var qa = $('#qa').val();
+	if(qa.trim() == ''){
+		alert('빈칸은 검색할 수 없습니다');
+		return false;
+	}
+});
+
+
+$('.ntitle').css('cursor','pointer').click(function(){
+	var noticeNum = $(this).parents('tr').find('.delete').attr('id');
+	location.href = "${conPath}/notice/modify.do?noticeNum="+noticeNum+"&pageNum=${paging.currentPage}&search=${param.search}&type=${param.type}";
+});
+
+
+/* $('tr').css('cursor','pointer').click(function(){
+	var noticeNum = $(this).children().eq(0).text();
+	if(!isNaN(noticeNum)){
+		location.href = "${conPath}/notice/modify.do?noticeNum="+noticeNum+"&pageNum=${paging.currentPage}&search=${param.search}&type=${param.type}";
+	}
+}); */
+
+$('.delete').click(function(){
+	var noticeNum = $(this).attr('id');
+	location.href='${conPath}/notice/delete.do?noticeNum='+noticeNum+"&pageNum=${paging.currentPage}&search=${param.search}&type=${param.type}";
 });
 </script>
 </body>

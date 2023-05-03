@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.bowow.dao.NoticeCommentDao">
+	<resultMap type="NoticeComment" id="NoticeCommentResult">
+		<result property="ncNum" column="ncNum"/>
+		<result property="memberId" column="memberId"/>
+		<result property="noticeNum" column="noticeNum"/>
+		<result property="ncContent" column="ncContent"/>
+		<result property="ncDate" column="ncDate"/>
+		<result property="ncIp" column="ncIp"/>
+		<result property="memberName" column="memberName"/>
+	</resultMap>
+	
+	<select id="ncList" parameterType="NoticeComment" resultMap="NoticeCommentResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, A.* FROM
+		    (SELECT NC.*, MEMBERNAME FROM NOTICECOMMENT NC, MEMBER M 
+		      WHERE NC.MEMBERID = M.MEMBERID AND NOTICENUM = #{noticeNum} ORDER BY NCDATE DESC) A)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="ncTotCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM NOTICECOMMENT WHERE NOTICENUM = #{noticeNum}
+	</select>
+	
+	<insert id="ncWrite" parameterType="NoticeComment">
+		INSERT INTO NOTICECOMMENT (NCNUM, MEMBERID, NOTICENUM, NCCONTENT, NCIP)
+  			VALUES(NOTICECOMMENT_SEQ.NEXTVAL,#{memberId},#{noticeNum},#{ncContent},#{ncIp})
+	</insert>
+	
+	<update id="ncUpdate" parameterType="NoticeComment">
+		UPDATE NOTICECOMMENT SET NCCONTENT = #{ncContent}, NCIP = #{ncIp} WHERE NCNUM = #{ncNum}
+	</update>
+	<delete id="ncDelete" parameterType="int">
+		DELETE FROM NOTICECOMMENT WHERE NCNUM = #{ncNum}
+	</delete>
+	
+</mapper>

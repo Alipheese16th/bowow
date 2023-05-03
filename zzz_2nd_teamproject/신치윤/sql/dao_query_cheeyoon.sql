@@ -6,11 +6,14 @@ SELECT * FROM
   (SELECT ROWNUM RN, A.* FROM 
     (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
       WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
+        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+        AND CATEGORY = 'fashion' 
+        AND PRODUCTUSED = 'Y'
+        ORDER BY PRODUCTDATE DESC) A)
   WHERE RN BETWEEN 1 AND 10;
 
 -- 상품 갯수 (카테고리별)
-SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion';
+SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion' AND PRODUCTUSED = 'Y';
 
 -- 상품 상세보기
 SELECT * FROM PRODUCT WHERE productCode = 'P0001';
@@ -23,20 +26,25 @@ SELECT * FROM COLOR WHERE PRODUCTCODE = 'P0001';
 -- 상품 상세보기시 조회수 1UP
 UPDATE PRODUCT SET PRODUCTHIT = PRODUCTHIT + 1 WHERE PRODUCTCODE = 'P0001';
 
--- 상품 검색 (이름, )
+-- 상품 검색 (검색명)
 SELECT * FROM 
   (SELECT ROWNUM RN, A.* FROM 
     (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-      WHERE P.PRODUCTCODE = I.PRODUCTCODE 
-        AND TYPE='title' AND productName LIKE '%' || TRIM(' 티 ') || '%' ORDER BY PRODUCTDATE DESC) A)
+      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+        AND (TYPE='title' OR I.PRODUCTCODE IS NULL)
+        AND PRODUCTUSED = 'Y'
+        AND productName LIKE '%' || TRIM(' 티 ') || '%' 
+        ORDER BY PRODUCTDATE DESC) A)
   WHERE RN BETWEEN 1 AND 10;
 -- 상품 검색 결과 갯수
-SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(' 티 ') || '%';
-
+SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(' 티 ') || '%' AND PRODUCTUSED = 'Y';
 
 ---------- 질문게시판 상품검색용 (모든 상품 탑앤구문없이)
 SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-    WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE='title' OR I.PRODUCTCODE IS NULL) ORDER BY PRODUCTDATE DESC;
+    WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+      AND (TYPE='title' OR I.PRODUCTCODE IS NULL) 
+      AND PRODUCTUSED = 'Y'
+      ORDER BY PRODUCTDATE DESC;
 
 ----------------------------------- CART 관련 ----------------------------------
 
@@ -224,14 +232,37 @@ INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '제목', '내용');
 
 
-select * from product;
+
+
+------------------------------------------------ 공지 댓글
+-- 해당글의 공지댓글 가져오기 (NOTICENUM)
+SELECT * FROM
+  (SELECT ROWNUM RN, A.* FROM
+    (SELECT NC.*, MEMBERNAME FROM NOTICECOMMENT NC, MEMBER M 
+      WHERE NC.MEMBERID = M.MEMBERID AND NOTICENUM = 1 ORDER BY NCDATE DESC) A)
+  WHERE RN BETWEEN 1 AND 3;
+-- 해당글의 공지댓글 갯수 페이징 (NOTICENUM)
+SELECT COUNT(*) FROM NOTICECOMMENT WHERE NOTICENUM = 1;
+
+-- 댓글작성 (memberId, noticeNum, ncContent, ncIp)
+INSERT INTO NOTICECOMMENT (NCNUM, MEMBERID, NOTICENUM, NCCONTENT, NCIP)
+  VALUES(NOTICECOMMENT_SEQ.NEXTVAL,'aaa',1,'댓글내용','192.168.0.1');
+-- 댓글 수정 (ncContent, ncIp, ncNum)
+UPDATE NOTICECOMMENT SET NCCONTENT = 'ASDF', NCIP = '111' WHERE NCNUM = 1;
+-- 댓글 삭제 (ncNum)
+DELETE FROM NOTICECOMMENT WHERE NCNUM = 1;
+
+
+
+
 --------------------------------------------------------관리자
 --------------------- 관리자 상품 관리
+
 -- 상품 등록
 INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK) 
   VALUES (CONCAT('P',LPAD(PRODUCT_SEQ.NEXTVAL,4,'0')), 'fashion', '꽃무늬 티셔츠', '이뻐요', 5000, 15, 50);
 -- 최근에 등록한 상품코드 가져오기
-SELECT CONCAT('P',LPAD(PRODUCT_SEQ.CURRVAL,4,'0')) FROM DUAL;
+SELECT MAX(PRODUCTCODE) FROM PRODUCT;
 -- 상품 이미지 등록
 INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
   VALUES (IMAGE_SEQ.NEXTVAL, 'P0001', 'title', 'flowershirt1.jpg');
@@ -241,9 +272,12 @@ INSERT INTO SIZES(SIZENUM, PRODUCTCODE, PRODUCTSIZE)
 -- 상품 색상 등록
 INSERT INTO COLOR (COLORNUM, PRODUCTCODE, PRODUCTCOLOR) 
   VALUES (COLOR_SEQ.NEXTVAL, 'P0001', '레드');
-
-
-
+-- 상품 판매여부 확인
+SELECT PRODUCTUSED FROM PRODUCT WHERE PRODUCTCODE = 'P0001';
+-- 상품 삭제
+UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';
+-- 상품 재판매
+UPDATE PRODUCT SET PRODUCTUSED = 'Y' WHERE PRODUCTCODE = 'P0001';
 -- 상품 수정
 UPDATE PRODUCT
 		SET CATEGORY = 'food',
@@ -253,22 +287,17 @@ UPDATE PRODUCT
     PRODUCTDISCOUNT = 10,
 		productStock = 20
 	WHERE productCode = 'P0001';
--- 상품 삭제
-UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = 'P0001';
 
 ----------------------------------- 관리자 공지사항 기능
 -- NOTICE 글 수정
 UPDATE NOTICE
     SET noticeTitle = '수정제목',
-        noticeContent = '수정내용'
+        noticeContent = '수정내용',
+        noticeUpdate = sysdate
     WHERE noticeNum = 1;
 
 -- NOTICE 글 삭제
 DELETE FROM NOTICE WHERE noticeNum = 1;
 
-
-
-
-
-
+-----------------------------------------------------------------
 

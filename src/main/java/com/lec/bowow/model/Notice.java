@@ -1,7 +1,6 @@
 package com.lec.bowow.model;
 
-import java.sql.Date;
-
+import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
@@ -10,7 +9,8 @@ public class Notice {
 	private String adminId;
 	private String noticeTitle;
 	private String noticeContent;
-	private Date noticeDate;
+	private Timestamp noticeDate;
+	private Timestamp noticeUpdate;
 	private int noticeHit;
 	// 페이징
 	private int startRow;

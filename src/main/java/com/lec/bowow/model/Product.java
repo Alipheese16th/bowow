@@ -14,7 +14,7 @@ public class Product {
 	private int productDiscount;
 	private Date productDate;
 	private int productStock;
-	private String prooductUsed;
+	private String productUsed;
 	private String image;
 	private int productHit;
 	// 페이징을 위한 필드

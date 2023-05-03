@@ -45,7 +45,9 @@
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
 			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) ORDER BY PRODUCTDATE DESC) A)
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+			        AND PRODUCTUSED = 'Y'
+			        ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="fashion"'>
@@ -53,7 +55,10 @@
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
 			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'fashion' ORDER BY PRODUCTDATE DESC) A)
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+			        AND PRODUCTUSED = 'Y'
+			        AND CATEGORY = 'fashion' 
+			        ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="food"'>
@@ -61,7 +66,10 @@
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
 			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'food' ORDER BY PRODUCTDATE DESC) A)
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+			        AND PRODUCTUSED = 'Y'
+			        AND CATEGORY = 'food' 
+			        ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="toy"'>
@@ -69,7 +77,10 @@
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
 			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'toy' ORDER BY PRODUCTDATE DESC) A)
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+			        AND PRODUCTUSED = 'Y'
+			        AND CATEGORY = 'toy' 
+			        ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="walking"'>
@@ -77,7 +88,10 @@
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
 			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'walking' ORDER BY PRODUCTDATE DESC) A)
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+			        AND PRODUCTUSED = 'Y'
+			        AND CATEGORY = 'walking' 
+			        ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='category=="clean"'>
@@ -85,28 +99,31 @@
 			  (SELECT ROWNUM RN, A.* FROM 
 			    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
 			      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND CATEGORY = 'clean' ORDER BY PRODUCTDATE DESC) A)
+			        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+			        AND PRODUCTUSED = 'Y'
+			        AND CATEGORY = 'clean' 
+			        ORDER BY PRODUCTDATE DESC) A)
 			  WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 	</select>
 	<select id="totCntProduct" parameterType="Product" resultType="int">
 		<if test="category==null or category==''">
-			SELECT COUNT(*) FROM PRODUCT
+			SELECT COUNT(*) FROM PRODUCT WHERE PRODUCTUSED = 'Y'
 		</if>
 		<if test='category=="fashion"'>
-			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion'
+			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'fashion' AND PRODUCTUSED = 'Y'
 		</if>
 		<if test='category=="food"'>
-			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'food'
+			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'food' AND PRODUCTUSED = 'Y'
 		</if>
 		<if test='category=="toy"'>
-			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'toy'
+			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'toy' AND PRODUCTUSED = 'Y'
 		</if>
 		<if test='category=="walking"'>
-			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'walking'
+			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'walking' AND PRODUCTUSED = 'Y'
 		</if>
 		<if test='category=="clean"'>
-			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'clean'
+			SELECT COUNT(*) FROM PRODUCT WHERE CATEGORY = 'clean' AND PRODUCTUSED = 'Y'
 		</if>
 	</select>
 	
@@ -127,26 +144,31 @@
 	<update id="productHitUp" parameterType="String">
 		UPDATE PRODUCT SET PRODUCTHIT = PRODUCTHIT + 1 WHERE PRODUCTCODE = #{productCode}
 	</update>
+	
 	<!-- 상품 검색하기 -->
 	<select id="searchProduct" parameterType="Product" resultMap="ProductResult">
 		SELECT * FROM 
 		  (SELECT ROWNUM RN, A.* FROM 
 		    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
 		      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
-		        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND productName LIKE '%' || TRIM(#{searchName}) || '%' ORDER BY PRODUCTDATE DESC) A)
+		        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+		        AND PRODUCTUSED = 'Y' 
+		        AND productName LIKE '%' || TRIM(#{searchName}) || '%' 
+		        ORDER BY PRODUCTDATE DESC) A)
 		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntSearch" parameterType="Product" resultType="int">
-		SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(#{searchName}) || '%'
+		SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(#{searchName}) || '%' AND PRODUCTUSED = 'Y'
 	</select>
 	
-	<!-- 질문게시판 상품선택 모든 상품 리스트 -->
+	<!-- 모든 상품 리스트 (질문게시판 OR 상품등록에서 상품 select)-->
 	<select id="allProductList" resultMap="ProductResult">
 		SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-    		WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) AND (TYPE='title' or I.PRODUCTCODE IS NULL) ORDER BY PRODUCTDATE DESC
+    		WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+    			AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+    			AND PRODUCTUSED = 'Y' 
+    			ORDER BY PRODUCTDATE DESC
 	</select>
-	
-	
 	
 	<!-- 상품등록 -->
 	<insert id="registerProduct" parameterType="Product">
@@ -162,22 +184,43 @@
 		INSERT INTO IMAGE (IMAGENUM, PRODUCTCODE, TYPE, IMAGE)
   			VALUES (IMAGE_SEQ.NEXTVAL, #{productCode}, #{type}, #{image})
 	</insert>
-	
-	
-	
-	
+	<!-- 옵션 사이즈 등록 -->
 	<insert id="registerSize" parameterType="Sizes">
 		INSERT INTO SIZES(SIZENUM, PRODUCTCODE, PRODUCTSIZE) 
   			VALUES(SIZES_SEQ.NEXTVAL, #{productCode}, #{productSize})
 	</insert>
-	
+	<!-- 옵션 색상 등록 -->
 	<insert id="registerColor" parameterType="Color">
 		INSERT INTO COLOR (COLORNUM, PRODUCTCODE, PRODUCTCOLOR) 
   			VALUES (COLOR_SEQ.NEXTVAL, #{productCode}, #{productColor})
 	</insert>
 	
+	<!-- 관리자 상품 검색하기 -->
+	<select id="adminSearchProduct" parameterType="Product" resultMap="ProductResult">
+		SELECT * FROM 
+		  (SELECT ROWNUM RN, A.* FROM 
+		    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+		      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+		        AND (TYPE='title' or I.PRODUCTCODE IS NULL) AND productName LIKE '%' || TRIM(#{searchName}) || '%' ORDER BY PRODUCTDATE DESC) A)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="adminTotCntSearch" parameterType="Product" resultType="int">
+		SELECT COUNT(*) FROM PRODUCT WHERE productName LIKE '%' || TRIM(#{searchName}) || '%'
+	</select>
 	
-	
+	<!-- 상품 판매여부 조회 -->
+	<select id="getUsed" parameterType="String" resultType="String">
+		SELECT PRODUCTUSED FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
+	</select>
+	<!-- 상품 판매정지 -->
+	<update id="deleteProduct" parameterType="String">
+		UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = #{productCode}
+	</update>
+	<!-- 상품 재판매 -->
+	<update id="activeProduct" parameterType="String">
+		UPDATE PRODUCT SET PRODUCTUSED = 'Y' WHERE PRODUCTCODE = #{productCode}
+	</update>
+	<!-- 상품 수정 -->
 	<update id="modifyProduct" parameterType="Product">
 		UPDATE PRODUCT
 			SET CATEGORY = #{category},
@@ -188,9 +231,5 @@
 			productStock = #{productStock}
 		WHERE productCode = #{productCode}
 	</update>
-	
-	<delete id="deleteProduct" parameterType="String">
-		UPDATE PRODUCT SET PRODUCTUSED = 'N' WHERE PRODUCTCODE = #{productCode}
-	</delete>
 	
 </mapper>

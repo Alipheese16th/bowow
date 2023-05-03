@@ -102,7 +102,7 @@ public class MemverServiceImpl implements MemberService {
 		}else if(!member.getMemberPw().equals(memberPw)) {
 			result = "비밀번호가 일치하지 않습니다.";
 		}else {	
-			//session.invalidate();
+			session.removeAttribute("admin");
 			session.setAttribute("member", member);
 		}
 		return result;

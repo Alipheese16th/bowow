@@ -33,6 +33,11 @@
 </style>
 </head>
 <body>
+	<c:if test="${ncWriteResult eq 0}">
+		<script>
+			alert('댓글 작성 오류');
+		</script>
+	</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	<div class="container">
 	
@@ -51,8 +56,8 @@
 			    	<small>댓글  0</small>
 			    	<small>조회수 ${notice.noticeHit}</small>
 			    	<small>작성일 <fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd HH:mm:ss"/></small>
-			    	<c:if test="${not empty notice.noticeDate}">
-				    	<small>수정일 <fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd HH:mm:ss"/></small>
+			    	<c:if test="${not empty notice.noticeUpdate}">
+				    	<small>수정일 <fmt:formatDate value="${notice.noticeUpdate}" pattern="yy/MM/dd HH:mm:ss"/></small>
 			    	</c:if>
 		    	</div>
 		    </div>
@@ -62,29 +67,28 @@
 	    	</div>
 	    	
 	    	<hr>
-	    	전체 댓글 <b style="color:red;">0</b>개
+	    	전체 댓글 <b style="color:red;">${commentPaging.totCnt}</b>개
 	    	<hr>
 	    	
 	    	<!-- 댓글리스트 시작 -->
-	    	<div class="commentList" id="commentList">
+	    	<div class="commentList">
 	    		
 		   		<c:if test="${commentList.size() ne 0}">
-		   			<c:forEach var="dto" items="${commentList}">
+		   			<c:forEach var="comment" items="${commentList}">
 		   			
-		   				<div class="card mb-3" id="comment${dto.commentNo}">
+		   				<div class="card mb-3">
 						  <div class="card-header d-flex justify-content-between py-0">
-						  	<div><small>${dto.userName}(${dto.userId})</small></div>
+						  	<div><small>${comment.memberName}(${comment.memberId})</small></div>
 						  	<div>
-						  		<small><fmt:formatDate value="${dto.commentDate}" pattern="yy/MM/dd HH:mm:ss"/></small>
-						  		<c:if test="${user.userId eq dto.userId or not empty admin}">
+						  		<small><fmt:formatDate value="${comment.ncDate}" pattern="yy/MM/dd HH:mm:ss"/></small>
+						  		<c:if test="${member.memberId eq comment.memberId or not empty admin}">
 							  		<button type="button" id="${dto.commentNo}" class="btn btn-sm btn-outline-dark py-0 px-1 ms-2 commentModifyView">수정</button>
 							  		<button type="button" class="btn btn-sm btn-outline-dark py-0 px-1" onclick="commentDelete()">삭제</button>
 						  		</c:if>
-						  		
 						  	</div>
 						  </div>
 						  <div class="card-body">
-						    <pre class="card-text">${dto.commentContent}</pre>
+						    <pre class="card-text">${comment.ncContent}</pre>
 						  </div>
 						</div>
 		   			
@@ -95,33 +99,55 @@
 		   	<!-- 댓글리스트 끝 -->
 		   	
 		   	<!-- 댓글페이징 시작 -->
-		   	<c:if test="${not empty commentPaging}">
-							
-				<div class="paging text-center">
-					<c:if test="${commentStartPage > commentBLOCKSIZE }">
-						<a href="${conPath}/boardContent.do?commentPageNum=${commentStartPage-1}&boardNo=${board.boardNo}&pageNum=${pageNum}&search=${param.search}&type=${type}">[ 이전 ]</a>
+			   <nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center pb-2">
+			  	<c:if test="${commentPaging.startPage <= commentPaging.blockSize}">
+				    <li class="page-item disabled">
+					    <a class="page-link">
+					    <span aria-hidden="true">&laquo;</span>
+					    </a>
+				    </li>
+			  	 	</c:if>
+			  	 	<c:if test="${commentPaging.startPage > commentPaging.blockSize}">
+				    <li class="page-item">
+					    <a class="page-link" href="${conPath}/notice/content.do?noticeNum=${notice.noticeNum}&pageNum=${commentPaging.startPage-1}&search=${param.search}&type=${param.type}">
+					    <span aria-hidden="true">&laquo;</span>
+					    </a>
+				    </li>
+			   	</c:if>
+			  	 	
+			  	 	<c:forEach var="i" begin="${commentPaging.startPage}" end="${commentPaging.endPage}">
+			  	 		<c:if test="${i eq commentPaging.currentPage}">
+						<li class="page-item active"><a class="page-link">${i}</a></li>
 					</c:if>
-					
-					<c:forEach var="i" begin="${commentStartPage}" end="${commentEndPage}">
-						<c:if test="${i eq commentCurrentPage }">
-							[ <b>${i}</b> ]
-						</c:if>
-						<c:if test="${i ne commentCurrentPage }">
-							<a href="${conPath}/boardContent.do?commentPageNum=${i}&boardNo=${board.boardNo}&pageNum=${pageNum}&search=${param.search}&type=${type}">[ ${i} ]</a>
-						</c:if>
-					</c:forEach>
-					
-					<c:if test="${commentEndPage < commentPageCnt }">
-						<a href="${conPath}/boardContent.do?commentPageNum=${commentEndPage+1}&boardNo=${board.boardNo}&pageNum=${pageNum}&search=${param.search}&type=${type}">[ 다음 ]</a>
+			  	 		<c:if test="${i ne commentPaging.currentPage}">
+						<li class="page-item"><a class="page-link" href="${conPath}/notice/content.do?noticeNum=${notice.noticeNum}&pageNum=${i}&search=${param.search}&type=${param.type}">${i}</a></li>
 					</c:if>
-				</div>
-				
-			</c:if>
+			  	 	
+			  	 	</c:forEach>
+			  	 	
+			  	 	<c:if test="${commentPaging.endPage < commentPaging.pageCnt}">
+					<li class="page-item">
+						<a class="page-link" href="${conPath}/notice/content.do?noticeNum=${notice.noticeNum}&pageNum=${commentPaging.endPage+1}&search=${param.search}&type=${param.type}">
+						<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</c:if>
+			  	 	<c:if test="${commentPaging.endPage >= commentPaging.pageCnt}">
+					<li class="page-item disabled">
+						<a class="page-link">
+						<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</c:if>
+			    
+			  </ul>
+			</nav>
 	    	<!-- 댓글페이징 끝 -->
 	    	
 	    	
 	    	<c:if test="${empty member}">
-	    		<h4>댓글 작성 권한이 없습니다 <button class="nextlogin btn btn-outline-dark" onclick="location.href='${conPath}/loginView.do?next=boardContent.do&boardNo=${board.boardNo}'">로그인</button></h4>
+	    		<h4>댓글 작성 권한이 없습니다 <button class="nextlogin btn btn-outline-dark gologin">로그인</button></h4>
 	    	</c:if>
 	    	
 	    	<c:if test="${not empty member}">
@@ -130,47 +156,41 @@
 					댓글 작성 &nbsp; ${member.memberName}님
 				  </div>
 				  <div class="card-body">
-				    <form action="${conPath}/commentWrite.do" method="post">
+				    <form action="${conPath}/notice/ncWrite.do" method="post">
 				    	<input type="hidden" name="pageNum" id="pageNum" value="${param.pageNum}">
 				    	<input type="hidden" name="search" value="${param.search}">
 				    	<input type="hidden" name="type" value="${param.type}">
-				    	<input type="hidden" name="boardNo" value="${notice.noticeNum}">
+				    	<input type="hidden" name="noticeNum" class="noticeNum" value="${notice.noticeNum}">
 				    	<input type="hidden" name="memberId" value="${member.memberId}">
-				    	<textarea name="commentContent" class="form-control ml-1 shadow-none textarea"></textarea>
+				    	<textarea name="ncContent" class="form-control ml-1 shadow-none textarea"></textarea>
 				    	<input type="submit" class="btn btn-dark mt-3" value="댓글 등록">
 				    </form>
 				  </div>
 				</div>
 	    	</c:if>
 
-	    	<div class="d-flex justify-content-between my-3">
-		    	<div >
-		    		<button type="button" class="btn btn-outline-dark" onclick="location='${conPath}/notice/list.do'">전체글 보기</button>
-		    	</div>
-		    	<div >
-		    		<c:if test="${not empty admin}">
-		    			<button type="button" class="btn btn-dark" 
-		    				onclick="location.href='${conPath}/boardModifyView.do?noticeNum=${notice.noticeNum}&pageNum=${param.pageNum}&search=${param.search}&type=${param.type}'">
-		    				수정
-		    			</button>
-		    			<button type="button" class="btn btn-dark" onclick="boardDelete()">
-		    				삭제
-		    			</button>
-		    		</c:if>
-			    	<c:if test="${not empty user}">
-			    		<button type="button" class="btn btn-dark" 
-			    		onclick="location.href='${conPath}/boardReplyView.do?noticeNum=${notice.noticeNum}&pageNum=${param.pageNum}&search=${param.search}&type=${param.type}'">답변글</button>
-			    	</c:if>
-		    	</div>
-		    </div>
-		
+	    	<div>
+	    		<button type="button" class="btn btn-outline-dark" onclick="location='${conPath}/notice/list.do'">전체글 보기</button>
+	    	</div>
 		
 		<jsp:include page="list.jsp"/>
 		
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
-	
+	<input type="hidden" class="noticeNum" value="${notice.noticeNum}">
 <script>
+
+// 비로그인상태에서 댓글작성하고싶으면 로그인하러가라고 버튼
+$('.gologin').click(function(){
+	var noticeNum = $('.noticeNum').val();
+	location.href='${conPath}/login.do?after=notice/content.do&noticeNum='+noticeNum;
+});
+
+
+
+
+
+
 $(document).ready(function(){
 	
 	$('.commentModifyView').click(function(){

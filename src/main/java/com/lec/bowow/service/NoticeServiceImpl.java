@@ -81,8 +81,13 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	// 공지 작성
 	@Override
-	public int writeNotice(Notice notice) {
-		return noticeDao.writeNotice(notice);
+	public String writeNotice(Notice notice) {
+		int result = noticeDao.writeNotice(notice);
+		if(result == 0) {
+			return "공지 작성 실패 - "+notice;
+		}else {
+			return null;
+		}
 	}
 	// 공지 수정
 	@Override
@@ -93,6 +98,11 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int deleteNotice(int noticeNum) {
 		return noticeDao.deleteNotice(noticeNum);
+	}
+	// 관리자 공지사항 수정용 정보 얻기
+	@Override
+	public Notice getNotice(int noticeNum) {
+		return noticeDao.contentNotice(noticeNum);
 	}
 	
 }

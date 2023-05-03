@@ -1,9 +1,6 @@
 package com.lec.bowow.controller;
 
-import java.sql.Date;
-
 import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.lec.bowow.model.Member;
 import com.lec.bowow.service.MemberService;
 
@@ -44,10 +39,21 @@ public class MemberController {
 		return "member/login";
 	}
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String login(String memberId, String memberPw, String after, String productCode, Model model, HttpSession session) {
+	public String login(String memberId, String memberPw, String after, String productCode, String noticeNum, Model model, HttpSession session) {
 		String loginResult = memberService.loginCheck(memberId, memberPw, session);
+		
 		if(loginResult.equals("로그인 성공")) {
-			return "redirect:"+after+"?productCode="+productCode;
+			
+			if(productCode != null && !productCode.equals("")) {
+				System.out.println("상품상세페이지에서 로그인하러 옴 - productCode : "+productCode);
+				return "redirect:"+after+"?productCode="+productCode;
+				
+			}else if(noticeNum != null && !noticeNum.equals("")) {
+				System.out.println("공지상세페이지에서 로그인하러 옴 - noticeNum : "+noticeNum);
+				return "redirect:"+after+"?noticeNum="+noticeNum;
+			}
+			return "redirect:"+after;
+			
 		}else {
 			model.addAttribute("loginResult", loginResult);
 			model.addAttribute("memberId", memberId);

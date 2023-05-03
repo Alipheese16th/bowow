@@ -88,6 +88,12 @@
 </style>
 </head>
 <body>
+	<c:if test="${empty member}">
+		<script>
+			alert('로그인이 취소되었습니다. 다시 로그인해주십시오');
+			location.href='${conPath}/login.do?after=cart/list.do';
+		</script>
+	</c:if>
 	<input type="hidden" id="memberId" value="${member.memberId}">
 	<jsp:include page="../main/header.jsp"/>
 	

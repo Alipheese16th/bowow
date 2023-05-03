@@ -55,38 +55,36 @@
 	<div class="container py-5">
 		
 		<div class="d-flex justify-content-evenly">
+		
+		<c:forEach items="${productList}" var="product" varStatus="i">
 			
-			<c:forEach items="${productList}" var="product" varStatus="i">
+			<div class="card border-0 rounded-0" id="${product.productCode}" style="width: 18rem;">
+			  <img src="${conPath}/productImage/${product.image}" class="card-img-top rounded-0">
+			  <div class="card-body">
+			    <h5 class="card-title pb-1 mb-0">${product.productName}</h5>
+			    <p class="card-text">
+			    	<c:if test="${product.productDiscount ne 0}">
+						<del>${product.productPrice}원</del>
+						<br>
+						<fmt:parseNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" integerOnly="true"/>원
+					</c:if>
+					<c:if test="${product.productDiscount eq 0}">
+						${product.productPrice}원
+					</c:if>
+			    </p>
+			  </div>
+			</div>
 			
-			
-				<div class="card border-0 rounded-0" id="${product.productCode}" style="width: 18rem;">
-				  <img src="${conPath}/productImage/${product.image}" class="card-img-top rounded-0">
-				  <div class="card-body">
-				    <h5 class="card-title pb-1 mb-0">${product.productName}</h5>
-				    <p class="card-text">
-				    	<c:if test="${product.productDiscount ne 0}">
-							<del>${product.productPrice}원</del>
-							<br>
-							<fmt:parseNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" integerOnly="true"/>원
-						</c:if>
-						<c:if test="${product.productDiscount eq 0}">
-							${product.productPrice}원
-						</c:if>
-				    </p>
-				  </div>
-				</div>
-				
-				<c:if test="${i.count%4 eq 0}">
-				
+			<c:if test="${i.index%4 eq 3}">
 				</div>
 				<div class="d-flex justify-content-evenly">
-				
-				</c:if>
-				
-				
-			</c:forEach>
+			</c:if>
+			
+		</c:forEach>
 		
 		</div>
+
+		
 		
 		<!-- 페이지 네비게이션 시작 -->
 		<nav aria-label="Page navigation example pt-5 mt-5">
@@ -100,7 +98,7 @@
 	   	 	</c:if>
 	   	 	<c:if test="${paging.startPage > paging.blockSize }">
 			    <li class="page-item">
-				    <a class="page-link" href="${conPath}/product/list.do?pageNum=${paging.startPage-1}">
+				    <a class="page-link" href="${conPath}/product/list.do?pageNum=${paging.startPage-1}&category=${param.category}">
 				    <span aria-hidden="true">&laquo;</span>
 				    </a>
 			    </li>
@@ -111,14 +109,14 @@
 					<li class="page-item active"><a class="page-link">${i}</a></li>
 				</c:if>
 	   	 		<c:if test="${i ne paging.currentPage }">
-					<li class="page-item"><a class="page-link" href="${conPath}/product/list.do?pageNum=${i}">${i}</a></li>
+					<li class="page-item"><a class="page-link" href="${conPath}/product/list.do?pageNum=${i}&category=${param.category}">${i}</a></li>
 				</c:if>
 	   	 	
 	   	 	</c:forEach>
 	   	 	
 	   	 	<c:if test="${paging.endPage < paging.pageCnt }">
 				<li class="page-item">
-					<a class="page-link" href="${conPath}/product/list.do?pageNum=${paging.endPage+1}">
+					<a class="page-link" href="${conPath}/product/list.do?pageNum=${paging.endPage+1}&category=${param.category}">
 					<span aria-hidden="true">&raquo;</span>
 					</a>
 				</li>

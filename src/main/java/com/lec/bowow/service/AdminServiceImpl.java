@@ -22,7 +22,7 @@ public class AdminServiceImpl implements AdminService {
 		} else if(! admin.getAdminPw().equals(adminPw)) {
 			result = "비밀번호가 맞지 않습니다";
 		} else {
-			//httpSession.invalidate();
+			httpSession.removeAttribute("member");
 			httpSession.setAttribute("admin", admin);
 		}
 		return result;

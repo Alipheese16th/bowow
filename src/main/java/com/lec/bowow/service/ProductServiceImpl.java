@@ -76,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.allProductList();
 	}
 	
-	
+	///////////////////////// 관리자 상품등록
 	// 상품등록
 	@Override
 	public String registerProduct(Product product) {
@@ -108,13 +108,11 @@ public class ProductServiceImpl implements ProductService {
 				System.out.println(e.getMessage());
 			} 
 		}else {
-			// 파일첨부안함
-			//originalName = "";
+			// 파일첨부안함   originalName = "";
 		}
 		image.setImage(originalName);
 		return productDao.registerImage(image);
 	}
-	
 	// 파일 백업 로직
 	private boolean fileCopy(String serverFile, String backupFile) {
 		boolean isCopy = false;
@@ -143,36 +141,55 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return isCopy;
 	}
-	
-
+	// 옵션 사이즈 등록
 	@Override
 	public int registerSize(Sizes sizes) {
-		// TODO Auto-generated method stub
-		return 0;
+		return productDao.registerSize(sizes);
 	}
-
+	// 옵션 색상 등록
 	@Override
 	public int registerColor(Color color) {
-		// TODO Auto-generated method stub
-		return 0;
+		return productDao.registerColor(color);
 	}
-
 	
-
+	// 관리자 상품검색
 	@Override
-	public int modifyProduct(Product product) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<Product> adminSearchProduct(Product product, String pageNum) {
+		if(product.getSearchName() == null) {
+			System.out.println("관리자 modify 첫방문시 searchName 은 null이니까 빈문자열로 초기화");
+			product.setSearchName("");
+		}
+		Paging paging = new Paging(adminTotCntSearch(product), pageNum, 10, 10);
+		product.setStartRow(paging.getStartRow());
+		product.setEndRow(paging.getEndRow());
+		return productDao.adminSearchProduct(product);
 	}
-
 	@Override
-	public int deleteProduct(String productCode) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int adminTotCntSearch(Product product) {
+		return productDao.adminTotCntSearch(product);
 	}
 	
+	// 상품 판매 정지 or 재판매 전환
+	@Override
+	public int changeProduct(String productCode) {
+		int result = 0;
+		String used = productDao.getUsed(productCode);
+		if(used.equals("Y")) {
+			result = productDao.deleteProduct(productCode);
+		}else if(used.equals("N")) {
+			result = productDao.activeProduct(productCode);
+		}
+		return result;
+	}
 	
-	
-	
+	@Override
+	public String modifyProduct(Product product) {
+		int result = productDao.modifyProduct(product);
+		if(result==0) {
+			return "상품 수정 실패 오류 - "+product;
+		}else {
+			return "상품 수정 성공";
+		}
+	}
 
 }

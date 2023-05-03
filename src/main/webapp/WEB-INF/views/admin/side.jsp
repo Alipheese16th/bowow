@@ -10,8 +10,8 @@
 <style>
 .sidebar{
 	width: 280px;
-	position:fixed;
-	top:250px;
+	position:absolute;
+	top:280px;
 	left:0;
 }
 .sidebar *{
@@ -39,6 +39,12 @@
 </style>
 </head>
 <body>
+	<c:if test="${empty admin}">
+		<script>
+			alert('관리자 아이디를 통해 이용해주세요');
+			location.href='${conPath}/admin/login.do';
+		</script>
+	</c:if>
 	<span class="sidebar flex-shrink-0 p-3">
 	    <a href="${conPath}/admin/main.do" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
 	      <span class="fs-5 fw-semibold text-center adminlogo">관리자 페이지</span>
@@ -51,7 +57,7 @@
 	        <div class="collapse" id="home-collapse">
 	          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 	            <li><a href="${conPath}/product/insert.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품등록</a></li>
-	            <li><a href="${conPath}/product/modify.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품 조회 및 수정</a></li>
+	            <li><a href="${conPath}/product/manage.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">상품 관리</a></li>
 	          </ul>
 	        </div>
 	      </li>
@@ -61,9 +67,8 @@
 	        </button>
 	        <div class="collapse" id="dashboard-collapse" style="">
 	          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-	            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 등록</a></li>
-	            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 수정</a></li>
-	            <li><a href="${conPath }/notice/list.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 삭제</a></li>
+	            <li><a href="${conPath }/notice/noticeWrite.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 등록</a></li>
+	            <li><a href="${conPath }/notice/manage.do" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항 관리</a></li>
 	          </ul>
 	        </div>
 	      </li>

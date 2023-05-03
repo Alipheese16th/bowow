@@ -29,6 +29,7 @@
 		<typeAlias type="com.lec.bowow.model.Order" alias="Order"/>
 		<typeAlias type="com.lec.bowow.model.OrderDetail" alias="OrderDetail"/>
 		<typeAlias type="com.lec.bowow.model.Notice" alias="Notice"/>
+		<typeAlias type="com.lec.bowow.model.NoticeComment" alias="NoticeComment"/>
 		<!-- 신치윤 끝 -->
 
 	</typeAliases>
@@ -49,6 +50,7 @@
 		<mapper resource="META-INF/sqlmap/mappers/Cart.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Order.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Notice.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/NoticeComment.xml"/>
 		<!-- 신치윤 끝 -->
 	</mappers>
 </configuration>

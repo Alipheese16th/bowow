@@ -179,14 +179,26 @@
 	font-weight:bold;
 	cursor:pointer;
 }
-
+.coupondiv{
+	margin:0 auto;
+	width:1250px;
+}
+.coupontext{
+	width:250px;
+	margin-bottom:5px;
+	margin-left:15px;
+}
+#couponList{
+	width:250px;
+	margin-bottom:20px;
+}
 </style>
 </head>
 <body>
 	<c:if test="${empty member}">
 		<script>
-			alert('로그인한 회원만 주문이 가능합니다');
-			location.href='${conPath}/login.do';
+			alert('로그인이 취소되었습니다. 다시 로그인해주십시오');
+			location.href='${conPath}/login.do?after=cart/list.do';
 		</script>
 	</c:if>
 	<c:if test="${not empty insertOrderError}">
@@ -527,9 +539,9 @@
 		
 		<div class="join-title">결제진행</div>
 		
-		<div>
-			<p>보유하신 쿠폰</p>
-			<select name="coupon" id="couponList">
+		<div class="coupondiv">
+			<p class="coupontext">보유하신 쿠폰</p>
+			<select name="coupon" id="couponList" class="form-select">
 				<option value="0" id="0">쿠폰을 선택하세요</option>
 				<c:forEach items="${couponList}" var="coupon">
 					<option value="${coupon.couponNum}" id="${coupon.couponDiscount}">${coupon.couponName}</option>

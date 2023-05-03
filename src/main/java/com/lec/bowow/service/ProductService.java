@@ -21,17 +21,20 @@ public interface ProductService {
 	// 상품검색
 	public List<Product> searchProduct(Product product, String pageNum);
 	public int totCntSearch(Product product);
-	// 질문게시판 상품선택
+	// 모든 상품 리스트 (질문게시판작성 or 상품등록)
 	public List<Product> allProductList();
 	
 	// 상품등록하고 상품코드 가져오기
 	public String registerProduct(Product product);
 	public int registerImage(Image image, MultipartHttpServletRequest mRequest);
-	
 	public int registerSize(Sizes sizes);
 	public int registerColor(Color color);
-	public int modifyProduct(Product product);
-	public int deleteProduct(String productCode);
-	
+	// 관리자 상품검색
+	public List<Product> adminSearchProduct(Product product, String pageNum);
+	public int adminTotCntSearch(Product product);
+	// productUsed 전환
+	public int changeProduct(String productCode);
+	// 상품 수정
+	public String modifyProduct(Product product);
 	
 }
