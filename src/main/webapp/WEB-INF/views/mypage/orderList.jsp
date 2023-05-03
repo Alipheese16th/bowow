@@ -55,7 +55,6 @@
 								<td>&nbsp;&nbsp;&nbsp;</td>
 								<td>상품명</td>
 								<td>&nbsp;&nbsp;&nbsp;</td>
-								<td>수량</td>
 								<td>결제금액</td>
 								<td>결제상태</td>
 							</tr>
@@ -83,7 +82,6 @@
 											</a>
 										</td>
 										<td>&nbsp;&nbsp;&nbsp;</td>
-										<td>${order.cnt}</td>
 										<td style="font-weight:700;">
 											<fmt:formatNumber value="${order.totalPrice}" pattern="#,###"/>원
 										</td>

@@ -16,4 +16,9 @@ public class Review {
 	private Date reviewDate;
 	private String reviewIp;
 	private int reviewHit;
+	//페이징
+	private int startRow;
+	private int endRow;
+	private String reviews;
+	private String category;
 }
