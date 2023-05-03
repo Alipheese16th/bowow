@@ -114,7 +114,7 @@
 		    	order by orderdate
 	</select>
 	<select id="salesOfCategory" resultMap="OrderResult">
-		select category, sum(cost) from OrderDetail od, product p where od.productcode = p.productcode group by category
+		select category, sum(cost) sumTotal from orderdetail od, product p where od.productcode = p.productcode group by category
 	</select>
 
 	

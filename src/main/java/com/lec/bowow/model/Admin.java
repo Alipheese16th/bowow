@@ -8,4 +8,6 @@ public class Admin {
 	private String adminPw;
 	private String adminName;
 	private int sumTotal;
+	private int coin;
+	private String category;
 }

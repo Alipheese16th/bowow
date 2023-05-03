@@ -305,7 +305,7 @@
 	
 	<div class="wrap">
 		<c:forEach var="category" items="${categorySales}">
-			${category }
+			${category.category } / ${category.sumTotal } 
 		</c:forEach>
 			<jsp:include page="side.jsp"/>
 			
