@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.bowow.dao.ReviewDao">
+	<resultMap type="Review" id="ReviewResult">
+		<result property="reviewNum" column="reviewNum"/>
+		<result property="memberId" column="memberId"/>
+		<result property="productCode" column="productCode"/>
+		<result property="reviewTitle" column="reviewTitle"/>
+		<result property="reviewContent" column="reviewContent"/>
+		<result property="reviewScore" column="reviewScore"/>
+		<result property="reviewImage" column="reviewImage"/>
+		<result property="reviewDate" column="reviewDate"/>
+		<result property="reviewIp" column="reviewIp"/>
+		<result property="reviewHit" column="reviewHit"/>
+	</resultMap>
+	<select id="reviewList" parameterType="Review" resultMap="ReviewResult">
+		<!-- 리뷰글 최신순으로 -->
+		<if test="schItem==null or schItem==''">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, R.*
+			        FROM (SELECT * FROM REVIEW ORDER BY reviewDATE DESC)R)
+			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="schItem=='like'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, R.*
+			        FROM (SELECT * FROM REVIEW ORDER BY REVIEWSCORE DESC)R)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+	</select>
+</mapper>

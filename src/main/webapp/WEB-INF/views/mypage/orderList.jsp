@@ -75,10 +75,12 @@
 											<a href="${conPath}/product/content.do?productCode=${order.productCode}"><img src="${conPath}/productImage/${order.image}" style="width:50px;height:50px;"></a>
 										</td>
 										<td style="text-align: left;">
-											${order.productName}
-											<c:if test="${order.cnt > 1}">
-												외 ${order.cnt-1}건
-											</c:if>
+											<a href="${conPath}/product/content.do?productCode=${order.productCode}" style="color:#515151;">
+												${order.productName}
+												<c:if test="${order.cnt > 1}">
+													외 ${order.cnt-1}건
+												</c:if>
+											</a>
 										</td>
 										<td>&nbsp;&nbsp;&nbsp;</td>
 										<td>${order.cnt}</td>

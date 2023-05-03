@@ -1,5 +1,7 @@
 package com.lec.bowow.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,15 @@ public class CartController {
 	// 장바구니 리스트
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession httpSession) {
-		model.addAttribute("cartList",cartService.cartList(httpSession));
-		model.addAttribute("sizeList",cartService.sizeList());
-		model.addAttribute("colorList",cartService.colorList());
-		return "cart/list";
+		List<Cart> cartList = cartService.cartList(httpSession);
+		if(cartList == null) {
+			return "redirect:../login.do?after=cart/list.do";
+		}else {
+			model.addAttribute("cartList",cartList);
+			model.addAttribute("sizeList",cartService.sizeList());
+			model.addAttribute("colorList",cartService.colorList());
+			return "cart/list";
+		}
 	};
 	// 상품상세에서 중복확인
 	@RequestMapping(value = "confirmCart", method = {RequestMethod.GET,RequestMethod.POST})

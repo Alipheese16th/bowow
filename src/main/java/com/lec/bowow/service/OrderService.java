@@ -14,7 +14,8 @@ public interface OrderService {
 	// 주문내역
 	public List<Order> getOrderList(String pageNum, HttpSession session);
 	public int totCntOrder(HttpSession session);
-  
+	public int getorderdetailDiscount(String orderCode);
+	
 	// 주문 상세보기
 	public Order contentOrder(String orderCode);
 	public List<OrderDetail> contentOrderDetail(String orderCode);

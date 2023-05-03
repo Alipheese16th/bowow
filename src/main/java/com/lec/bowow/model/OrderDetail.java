@@ -17,4 +17,5 @@ public class OrderDetail {
 	private int productDiscount;
 	// 이미지 조인
 	private String image;
+	private int discount;
 }

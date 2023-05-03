@@ -73,12 +73,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getOrderList(String pageNum, HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
-		Paging paging = new Paging(orderDao.totCntOrder(member.getMemberId()), pageNum, 10, 5);
-		Order order = new Order();
-		order.setStartRow(paging.getStartRow());
-		order.setEndRow(paging.getEndRow());
-		order.setMemberId(member.getMemberId());
-		return orderDao.orderList(order);
+		if(member==null) {
+			return null;
+		}else {
+			Paging paging = new Paging(orderDao.totCntOrder(member.getMemberId()), pageNum, 10, 5);
+			Order order = new Order();
+			order.setStartRow(paging.getStartRow());
+			order.setEndRow(paging.getEndRow());
+			order.setMemberId(member.getMemberId());
+			return orderDao.orderList(order);			
+		}
 	}
   
   @Override
@@ -98,6 +102,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderDetail> contentOrderDetail(String orderCode) {
 		System.out.println("주문상세디테일 서비스");
 		return orderDao.contentOrderDetail(orderCode);
+	}
+
+	@Override
+	public int getorderdetailDiscount(String orderCode) {
+		System.out.println("주문상세디테일 총할인 가격");
+		return orderDao.orderdetailDiscount(orderCode);
 	}
 	
 

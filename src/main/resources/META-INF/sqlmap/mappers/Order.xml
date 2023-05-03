@@ -34,6 +34,7 @@
 		<result property="productName" column="productName"/>
 		<result property="productPrice" column="productPrice"/>
 		<result property="productDiscount" column="productDiscount"/>
+		<result property="discount" column="discount"/>
 		<result property="image" column="image"/>
 	</resultMap>
 	
@@ -91,14 +92,17 @@
 		SELECT * FROM ORDERS WHERE ORDERCODE = #{orderCode}
 	</select>
 	<select id="contentOrderDetail" parameterType="String" resultMap="OrderDetailResult">
-		SELECT OD.*, P.*, I.IMAGE 
+		SELECT OD.*, P.*, I.IMAGE, (PRODUCTPRICE*(PRODUCTDISCOUNT * 0.01)*NVL(QTY,0))DISCOUNT
 		  FROM ORDERDETAIL OD, PRODUCT P, IMAGE I
 		  WHERE OD.PRODUCTCODE = P.PRODUCTCODE 
 		    AND OD.PRODUCTCODE = I.PRODUCTCODE(+) 
 		    AND (TYPE = 'title' OR I.PRODUCTCODE IS NULL)
 		    AND OD.ORDERCODE = #{orderCode}
 	</select>
-	
+	<select id="orderdetailDiscount" parameterType="String" resultType="int">
+		SELECT SUM((PRODUCTPRICE*(PRODUCTDISCOUNT * 0.01)*NVL(QTY,0)))DISCOUNT 
+			FROM ORDERDETAIL OD, PRODUCT P WHERE OD.PRODUCTCODE = P.PRODUCTCODE AND ORDERCODE = #{orderCode} 
+	</select>
 	<!-- 일별 매출통계 -->
 	<select id="salesOfDate" resultMap="OrderResult">
 		select 
