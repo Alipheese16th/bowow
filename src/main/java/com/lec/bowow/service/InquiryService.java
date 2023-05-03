@@ -13,5 +13,6 @@ public interface InquiryService {
 	public Inquiry contentInquiry(int inquiryNum);
 	public int modifyInquiry(Inquiry inquiry);
 	public int deleteInquiry(int inquiryNum);
+	public List<Inquiry> replyInquiryList(int inquiryNum);
 	public int replyInquiry(Inquiry inquiry, HttpSession httpSession);
 }

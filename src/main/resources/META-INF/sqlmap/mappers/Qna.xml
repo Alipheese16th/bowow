@@ -42,21 +42,6 @@
 		</if>
 	</select>
 	
-	<!-- 이미지 출력 전 
-	<select id="qnaList" parameterType="Qna" resultMap="QnaResult">
-		<if test="schItem==null or schItem==''">
-			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep) A)
-				WHERE RN BETWEEN #{startRow} AND #{endRow}
-		</if>
-		<if test='schItem=="qnaTitle"'>
-			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA WHERE qnaTitle LIKE '%'||#{schWord}||'%' ORDER BY qnaGroup DESC, qnaStep) A)
-				WHERE RN BETWEEN #{startRow} AND #{endRow}
-		</if>
-		<if test='schItem=="qnaContent"'>
-			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA WHERE qnaContent LIKE '%'||#{schWord}||'%' ORDER BY qnaGroup DESC, qnaStep) A)
-				WHERE RN BETWEEN #{startRow} AND #{endRow}
-		</if>
-	</select> -->
 	<select id="totCntQna"  parameterType="Qna" resultType="int">
 		<if test="schItem==null or schItem==''">
 			SELECT COUNT(*) FROM QNA
@@ -68,6 +53,7 @@
 			SELECT COUNT(*) FROM QNA WHERE qnaContent LIKE '%'||#{schWord}||'%'
 		</if>
 	</select>
+	
 	<insert id="writeQna" parameterType="Qna">
 		INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     		VALUES (QNA_SEQ.NEXTVAL, #{memberId}, #{productCode, jdbcType=VARCHAR}, #{qnaTitle}, #{qnaContent}, QNA_SEQ.CURRVAL, 0, 0 , #{qnaIp})

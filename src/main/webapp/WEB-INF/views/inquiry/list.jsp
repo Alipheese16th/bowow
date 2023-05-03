@@ -12,7 +12,6 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />	
 	<style>
 		.inquiry {margin: 0 auto; min-width: 800px;}
-		.inquriy .table {min-width: 950px;}
 		.inquiry h2 {text-align: center; margin: 30px 0;}
 		.inquiry .write {margin: 20px 0; text-align: right;}
 		.inquiry .write a:hover {background-color: gray; border: 1px solid lightgray; font-weight: bold;}
@@ -92,8 +91,8 @@
 				                        <c:if test="${not empty admin }">
 					                        <td >
 					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickContent(${inquiry.inquiryNum})">보기</button>
-					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickDelete(${inquiry.inquiryNum})">삭제</button>
 					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickReply(${inquiry.inquiryNum})">답변</button>
+					                        	<button value="${inquiry.inquiryNum }" class="btn" onclick="clickDelete(${inquiry.inquiryNum})">삭제</button>
 					                        </td>
 				                        </c:if>
 				                    </tr>

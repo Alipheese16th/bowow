@@ -1,17 +1,25 @@
-CREATE USER user_name IDENTIFIED BY password;
-CREATE USER bowow IDENTIFIED BY dog;
-GRANT DBA TO bowow;
+select 
+		  to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate,
+		  sum(totalprice) as sumTotal
+		from 
+		  orders
+		GROUP BY
+		  to_Date(TO_CHAR(orderdate, 'RRMMDD'));
+          
+select SUMTOTAL from 
+        (select to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate,
+        sum(totalprice) as sumTotal
+    from orders 
+        GROUP BY to_Date(TO_CHAR(orderdate, 'RRMMDD')))
+    where orderdate between sysdate-15 and sysdate
+        order by orderdate;
 
-DROP TABLE PRODUCTIMAGE;
-DROP TABLE INQUIRY;
-DROP TABLE FAQ;
-DROP TABLE QNA;
-DROP TABLE MEMBER;
-DROP TABLE PRODUCT;
-DROP TABLE NOTICE;
-DROP TABLE ADMIN;
-
-
+select * from orders;
+INSERT INTO ORDERS (orderCODE, MEMBERID, totalPrice, orderdate, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
+  VALUES (CONCAT(TO_CHAR(SYSDATE-7,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')), 'aaa', 300000, sysdate-4, '택배받는사람', '12323', '택배기본주소','택배상세주소', '010-9999-9999');
+  commit;
+select category, sum(cost) from orderdetail od, product p where od.productcode = p.productcode group by category;
+select * from orderdetail;
 SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
     		WHERE P.PRODUCTCODE = I.PRODUCTCODE AND TYPE='title' ORDER BY PRODUCTDATE DESC;
 
@@ -21,15 +29,13 @@ CREATE TABLE ADMIN(
     adminPw VARCHAR2(100) NOT NULL,
     adminName VARCHAR2(100) NOT NULL
 );
-INSERT INTO ADMIN VALUES ('admin', '1234', '관리자'); -- 관리자 추가 DUMMY
+INSERT INTO ADMIN VALUES ('admin', '1234', '관리자'); -- 관리자 추가
 
 -- ADMIN 메인
 SELECT * FROM ADMIN;
-SELECT ADMINID, QNA.* FROM ADMIN, QNA;S
 
 -- ADMIN 로그인
 SELECT * FROM ADMIN WHERE adminId = 'admin' AND adminPw = '111';
-SELECT * FROM ADMIN WHERE adminId = 'admin';
 
 
 ----------------------------------------------<NOTICE>----------------------------------------------
@@ -89,6 +95,7 @@ CREATE TABLE PRODUCT(
     productStock NUMBER(4) NOT NULL,
     productUsed VARCHAR2(1) NOT NULL
 );
+
 SELECT * FROM PRODUCT;
 -- PRODUCT DUMMY DATA
 INSERT INTO PRODUCT (productCode, category, productName, productContent, productPrice, productDiscount, productStock, productUsed)
@@ -124,20 +131,6 @@ UPDATE PRODUCT
 DELETE FROM PRODUCT WHERE productCode = 'p001';
 
 
-----------------------------------------------<MEMBER>----------------------------------------------
-CREATE TABLE MEMBER(
-    memberId VARCHAR2(100) PRIMARY KEY,
-    memberPw VARCHAR2(100) NOT NULL,
-    memberName VARCHAR2(100) NOT NULL,
-    memeberEmail VARCHAR2(500) NOT NULL,
-    memberTel VARCHAR2(100),
-    memberAddr VARCHAR2(500),
-    memberBirth DATE,
-    memberPoint NUMBER(10) NOT NULL
-);
-INSERT INTO MEMBER (memberId, memberPw, memberName, memeberEmail, memberPoint)
-    VALUES ('aaa', '111', '유민상', 'mmm@naver.com', 5000);
-select * from member;
 ----------------------------------------------<QNA>----------------------------------------------
 CREATE SEQUENCE QNA_SEQ MAXVALUE 9999 NOCACHE NOCYCLE;
 CREATE TABLE QNA(
@@ -162,20 +155,26 @@ INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, 
 INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     VALUES (QNA_SEQ.NEXTVAL, 'aaa', NULL, '사료문의 제목', '고양이도 먹어도 되나요?', QNA_SEQ.CURRVAL, 0, 0 , '192.168.0.1');
 
-
+-- QNA 모든 리스트(admin 메인)
 SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep;
     
 -- QNA 목록(페이징)
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep) A)
-	WHERE RN BETWEEN 1 AND 3;
+SELECT * FROM
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) ORDER BY qnaGroup DESC, qnaStep) A)
+    WHERE RN BETWEEN 1 AND 26;
     
 -- QNA 검색(제목)
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA WHERE qnaTitle LIKE '%'||'제'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
-	WHERE RN BETWEEN 1 AND 3;
+SELECT * FROM
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaTitle LIKE '%'||'품'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+    WHERE RN BETWEEN 1 AND 26;
     
 -- QNA 검색(본문)
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QNA WHERE qnaContent LIKE '%'||'내'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
-	WHERE RN BETWEEN 1 AND 3;
+SELECT * FROM
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaContent LIKE '%'||'d'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
+    WHERE RN BETWEEN 1 AND 26;
     
 -- QNA 전체 글 개수
 SELECT COUNT(*) FROM QNA;
@@ -215,7 +214,7 @@ UPDATE QNA SET qnaStep = qnaStep + 1
 INSERT INTO QNA (qnaNum, adminId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     VALUES (QNA_SEQ.NEXTVAL, 'admin', NULL, 'qna답글제목', 'qna답글내용', 2, 1, 1, '192.168.0.11');
 
-select * from admin, qna;
+
 ----------------------------------------------<FAQ>----------------------------------------------
 CREATE TABLE FAQ(
     faqTitle VARCHAR2(500),
@@ -254,36 +253,38 @@ UPDATE FAQ
 -- FAQ 삭제
 DELETE FROM FAQ WHERE faqTitle = '자주묻는문';
 
-select * from faq;
+
 ----------------------------------------------<INQUIRY>----------------------------------------------
 CREATE SEQUENCE INQUIRY_SEQ MAXVALUE 9999 NOCACHE NOCYCLE;
 CREATE TABLE INQUIRY(
     inquiryNum NUMBER(4) PRIMARY KEY,
-    memberId VARCHAR2(100) REFERENCES MEMBER(memberId) NOT NULL,
+    memberId VARCHAR2(100) REFERENCES MEMBER(memberId),
+    adminId VARCHAR2(100) REFERENCES ADMIN(adminId),
     inquiryTitle VARCHAR2(500) NOT NULL,
     inquiryContent VARCHAR2(4000) NOT NULL,
-    inquiryEmail VARCHAR2(500) NOT NULL
+    inquiryEmail VARCHAR2(500) NOT NULL,
+    inquiryGroup NUMBER(4) NOT NULL,
+    inquiryStep NUMBER(4) NOT NULL
 );
 
 -- INQUIRY DUMMY DATA
-INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
-    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com');
-INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
-    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목2', '문의내용2', 'mmm@naver.com');
-INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
-    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목3', '문의내용3', 'mmm@naver.com');
+INSERT INTO INQUIRY (INQUIRYNUM, MEMBERID, INQUIRYTITLE, INQUIRYCONTENT, INQUIRYEMAIL, INQUIRYGROUP, INQUIRYSTEP)
+  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 0);
+INSERT INTO INQUIRY (INQUIRYNUM, MEMBERID, INQUIRYTITLE, INQUIRYCONTENT, INQUIRYEMAIL, INQUIRYGROUP, INQUIRYSTEP)
+  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목2', '문의내용2', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 0);
 
 -- INQUIRY 목록
-
-SELECT * FROM INQUIRY ORDER BY INQUIRYNUM DESC;
+SELECT * FROM INQUIRY;
+SELECT * FROM INQUIRY WHERE INQUIRYSTEP = 0 ORDER BY INQUIRYNUM DESC;
+SELECT * FROM INQUIRY WHERE INQUIRYSTEP > 0 AND INQUIRYGROUP = 3 ORDER BY INQUIRYNUM DESC;
 
 -- INQUIRY 전체 글 개수
 SELECT COUNT(*) FROM INQUIRY;
-SELECT COUNT(*) FROM INQUIRY WHERE memberId = 'bbb';
+SELECT COUNT(*) FROM INQUIRY WHERE memberId = 'aaa';
 
 -- INQUIRY 등록
-INSERT INTO INQUIRY (inquiryNum, memberId, inquiryTitle, inquiryContent, inquiryEmail)
-    VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com');
+INSERT INTO INQUIRY (INQUIRYNUM, MEMBERID, INQUIRYTITLE, INQUIRYCONTENT, INQUIRYEMAIL, INQUIRYGROUP, INQUIRYSTEP)
+  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목2', '문의내용2', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 0);
 
 -- INQUIRY 상세보기
 SELECT * FROM INQUIRY WHERE inquiryNum = 2;
@@ -300,6 +301,15 @@ DELETE FROM INQUIRY WHERE inquiryNum = 1;
 
 -- 회월탈퇴 시 탈퇴회원 INQUIRY 삭제
 DELETE FROM INQUIRY WHERE memberId = 'aaa';
+
+-- INQUIRY 답변글 저장전 작업
+UPDATE INQUIRY SET INQUIRYSTEP = INQUIRYSTEP + 1
+  WHERE INQUIRYGROUP = 4 AND INQUIRYSTEP > 0;
+  
+-- 답글 달기
+INSERT INTO INQUIRY (INQUIRYNUM, MEMBERID, INQUIRYTITLE, INQUIRYCONTENT, INQUIRYEMAIL, INQUIRYGROUP, INQUIRYSTEP)
+  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목2', '문의내용2', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 1);
+
 
 ----------------------------------------------<PRODUCTIMAGE>----------------------------------------------
 CREATE SEQUENCE PRODUCTIMAGE_SEQ MAXVALUE 9999 NOCACHE NOCYCLE;
@@ -341,29 +351,4 @@ UPDATE PRODUCTIMAGE
     
 -- PRODUCTIMAGE 삭제(imageNum)
 DELETE FROM PRODUCTIMAGE WHERE imageNum = 1;
-
-
-
-
--- 이미지 출력
-SELECT * FROM
-    (SELECT ROWNUM RN, A.* FROM
-        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) ORDER BY qnaGroup DESC, qnaStep) A)
-    WHERE RN BETWEEN 1 AND 26;
-SELECT * FROM
-    (SELECT ROWNUM RN, A.* FROM
-        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaTitle LIKE '%'||'품'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
-    WHERE RN BETWEEN 1 AND 26;
-SELECT * FROM
-    (SELECT ROWNUM RN, A.* FROM
-        (SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND qnaContent LIKE '%'||'d'||'%' ORDER BY qnaGroup DESC, qnaStep) A)
-    WHERE RN BETWEEN 1 AND 26;
     
-SELECT Q.*, I.IMAGE FROM QNA Q, IMAGE I WHERE Q.PRODUCTCODE=I.PRODUCTCODE(+) AND (TYPE = 'title' OR q.productCode IS NULL) AND Q.QNANUM = 1;
-    
-    
-    
-SELECT Q.*, I.IMAGE from QNA Q, PRODUCTIMAGE I
-    where Q.productCode=I.productCode(+) and i.type='title';
-select * from qna where productCode='P0001';
-select * from productImage;

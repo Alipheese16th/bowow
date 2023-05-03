@@ -33,6 +33,7 @@ public class InquiryController {
 	@RequestMapping(value="content", method= {RequestMethod.GET, RequestMethod.POST})
 	public String content(int inquiryNum, Model model) {
 		model.addAttribute("inquiry", inquiryService.contentInquiry(inquiryNum));
+		model.addAttribute("reInquiry", inquiryService.replyInquiryList(inquiryNum));
 		return "inquiry/content";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)

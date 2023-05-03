@@ -40,6 +40,7 @@
 	    	<h2>1:1문의 상세보기</h2>
 	    	<form action="${conPath }" method="post">
 	    		<input type="hidden" name="inquiryNum" value="${inquiry.inquiryNum }">
+	    		<input type="hidden" name="inquiryStep" value="${inquiry.inquiryStep }">
 		        <table class="table table-striped table-hover">
 		            <thead>
 		                <tr>
@@ -48,7 +49,7 @@
 		                </tr>
 		                <tr>
 		                    <th>작성자</th>
-		                    <td name="inquiryTitle">${inquiry.memberId }</td>
+		                    <td name="memberId">${inquiry.memberId }</td>
 		                </tr>
 		                <tr>
 		                    <th>제목</th>
@@ -75,6 +76,14 @@
 		        <input type="button" value="삭제하기" class="btn" style="width: 200px;" onclick="location.href='${conPath}/inquiry/delete.do?inquiryNum=${inquiry.inquiryNum }'">
 				<input type="button" value="목록가기" class="btn" style="width: 200px;" onclick="location.href='${conPath}/inquiry/list.do'">
 	    	</form>
+			<table class="table table-striped table-hover">
+				<h3>관리자 답변</h3>
+				<c:forEach items="${reInquiry }" var="admin" begin="0" end="0">
+				<tr>
+					<th>관리자답변</th><td>${admin.inquiryContent }</td>
+				</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 	
