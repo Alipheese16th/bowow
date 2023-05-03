@@ -486,26 +486,23 @@
 			
 		</div>
 	</div>
-	<%-- var sale = new Array();
-	for (var i=0 ; i<14 ; i++) {
-		if (i != 0) {
-			<c:forEach var="dto" items="${dateSales}">
-			<c:forEach var="category" items="${dateSales}">
-				${category }
-			</c:forEach>
-			push.write(sale);
-		} else {
-			sale[i] = 0;
-		}
-	} --%>
 	<script>
+	var sale = new Array();
+	let dataSales = ${dateSales};
+	let length = dataSales.length;
+	for(let i=0 ; i<15-length ; i++){
+		sale.push(0);
+	}
+	dataSales.forEach(function(item, idx){
+		sale.push(item);
+	});
 	  var labels = arWeek;
 	  let data2023 = {
 	      label: calendarYear + '년',
 		  backgroundColor: 'rgba(54, 162, 235, 0.5)',
 	      borderColor: 'rgba(255, 99, 132, 0.5)',
 	      // data: [7000, 5000, 5000, 2000, 20000, 30000, 45000, 2000, 11000, 9000, 32000, 21000, 50000, 29000, 39000],
-	      data: ${dateSales}
+	      data: sale
 	 };   
 	console.log(data2023.data);
 	  var data = {
