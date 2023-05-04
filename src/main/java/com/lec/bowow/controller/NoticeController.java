@@ -60,8 +60,14 @@ public class NoticeController {
 	// 공지댓글 수정
 	@RequestMapping(value="ncModify", method=RequestMethod.GET)
 	public String ncModify(Model model, int ncNum) {
-		model.addAttribute("nc",noticeCommentService.getNc(ncNum));
-		return null;
+		model.addAttribute("comment",noticeCommentService.getNc(ncNum));
+		return "notice/ncModify";
+	}
+	// 공지댓글 수정
+	@RequestMapping(value="ncModify", method=RequestMethod.POST)
+	public String ncModify(Model model, NoticeComment noticeComment, HttpServletRequest request) {
+		noticeCommentService.ncUpdate(noticeComment, request);
+		return "forward:content.do";
 	}
 	
 	

@@ -229,36 +229,36 @@
 				<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff; float:left; width:400px; margin-right:50px;" class="swiper mySwiper2">
 					<div class="swiper-wrapper">
 				      <div class="swiper-slide newp" style="width:450px;">
-				        <a href="#"><img src="${conPath}/img/new1.jpeg"/>
+				        <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new1.jpeg"/>
 				        </a>
 				        	<p style="font-size:14px;">누기프레시 500ml (냄새 제거제)<br><span style="color:#BE8D6E">2900원</span></p>
 				      </div>
 				      <div class="swiper-slide newp" style="width:450px;">
-				        <a href="#"><img src="${conPath}/img/new2.jpeg"/></a>
+				        <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new2.jpeg"/></a>
 				        <p style="font-size:14px;"> 멍랩 산책 와펜 - 친구 환영<br><span style="color:#BE8D6E">9,900원</span></p>
 				      </div>
 				      <div class="swiper-slide newp" style="width:450px;">
-				         <a href="#"><img src="${conPath}/img/new3.jpeg"/></a>
+				         <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new3.jpeg"/></a>
 				          <p style="font-size:14px;">그루밍잼 퓨어 테라피 이어 클리너 125ml<br><span style="color:#BE8D6E">21,000원</span></p>
 				      </div>
 				      <div class="swiper-slide newp" style="width:450px;">
-				      	 <a href="#"><img src="${conPath}/img/new4.png"/></a>
+				      	 <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new4.png"/></a>
 				      	  <p style="font-size:14px;">SSFW 러브 워크 스트라이프 하네스 (블루)<br><span style="color:#BE8D6E">45,000원</span></p>
 				      </div>
 				      <div class="swiper-slide newp" style="width:450px;">
-				      	 <a href="#"><img src="${conPath}/img/n1.jpeg"/></a>
+				      	 <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/n1.jpeg"/></a>
 				      	  <p style="font-size:14px;">바잇미 비비드 접이식 실리콘 보울 (5컬러)<br><span style="color:#BE8D6E">3,500원</span></p>
 				      </div>
 				      <div class="swiper-slide newp" style="width:450px;">
-				      	 <a href="#"><img src="${conPath}/img/n2.jpeg"/></a>
+				      	 <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/n2.jpeg"/></a>
 				      	  <p style="font-size:14px;">SSFW 러브 워크 스트라이프 하네스 (블루)<br><span style="color:#BE8D6E">45,000원</span></p>
 				      </div>
 				     <div class="swiper-slide newp" style="width:450px;">
-				      	 <a href="#"><img src="${conPath}/img/n4.png"/></a>
+				      	 <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/n4.png"/></a>
 				      	  <p style="font-size:14px;">SSFW 러브 워크 스트라이프 하네스 (블루)<br><span style="color:#BE8D6E">45,000원</span></p>
 				      </div>
 				      <div class="swiper-slide newp" style="width:450px;">
-				      	 <a href="#"><img src="${conPath}/img/n5.jpeg"/></a>
+				      	 <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/n5.jpeg"/></a>
 				      	  <p style="font-size:14px;">SSFW 러브 워크 스트라이프 하네스 (블루)<br><span style="color:#BE8D6E">45,000원</span></p>
 				      </div>
 				    </div>
@@ -305,29 +305,29 @@
 			    <div class="swiper-wrapper">
 			      <div class="swiper-slide">
 			      	<div style="width:1100px;margin:0 auto;">
-			      		<a><img src="${conPath}/img/best1.jpeg"></a>
+			      		<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/best1.jpeg"></a>
 			      	</div>
 			      </div>
 			      <div class="swiper-slide">
-			      	<a><img src="${conPath}/img/best2.jpeg"></a>
+			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/best2.jpeg"></a>
 			      </div>
 			      <div class="swiper-slide">
-			      	<a><img src="${conPath}/img/best3.jpeg"></a>
+			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/best3.jpeg"></a>
 			      </div>
 			      <div class="swiper-slide">
-			      	<a><img src="${conPath}/img/best4.jpeg"></a>
+			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/best4.jpeg"></a>
 			      </div>
 			      <div class="swiper-slide">
-			      	<a><img src="${conPath}/img/new5.jpeg"></a>
+			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new5.jpeg"></a>
 			      </div>
 			      <div class="swiper-slide">
-			      	<a><img src="${conPath}/img/new6.jpeg"></a>
+			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new6.jpeg"></a>
 			      </div>
 			      <div class="swiper-slide">
-			      	<a><img src="${conPath}/img/new7.jpeg"></a>
+			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new7.jpeg"></a>
 			      </div>
 			      <div class="swiper-slide">
-			      	<a><img src="${conPath}/img/new8.jpeg"></a>
+			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new8.jpeg"></a>
 			      </div>
 			    </div>
 			  </div>

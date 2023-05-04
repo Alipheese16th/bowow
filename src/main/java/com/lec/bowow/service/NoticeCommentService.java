@@ -14,6 +14,6 @@ public interface NoticeCommentService {
 	
 	public NoticeComment getNc(int ncNum);
 	
-	public int ncUpdate(NoticeComment noticeComment);
+	public int ncUpdate(NoticeComment noticeComment, HttpServletRequest request);
 	public int ncDelete(int ncNum);
 }

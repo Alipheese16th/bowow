@@ -19,13 +19,7 @@
 
 .heading{
 	text-align:center;
-	text-weight:bold;
-	width:1250px;
-	margin:60px auto;
-	padding-top:30px;
-	padding-bottom:30px;
-	background: #fff;
-    border-top: 3px solid #be8D6e;
+	margin:40px auto;
 }
 
 </style>
@@ -34,7 +28,7 @@
 	<jsp:include page="../main/header.jsp"/>
 	<div class="container">
 		
-		<h1 class="heading"><a href="${conPath}/notice/list.do" class="text-decoration-none text-black"><b>NOTICE</b></a></h1>
+		<h1 class="heading"><a href="${conPath}/notice/list.do" class="text-decoration-none text-black">NOTICE</a></h1>
 		
 		<jsp:include page="list.jsp"/>
 		

@@ -45,9 +45,9 @@ public class NoticeCommentServiceImpl implements NoticeCommentService {
 	}
 	
 	@Override
-	public int ncUpdate(NoticeComment noticeComment) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int ncUpdate(NoticeComment noticeComment, HttpServletRequest request) {
+		noticeComment.setNcIp(request.getRemoteAddr());
+		return noticeCommentDao.ncUpdate(noticeComment);
 	}
 
 	@Override

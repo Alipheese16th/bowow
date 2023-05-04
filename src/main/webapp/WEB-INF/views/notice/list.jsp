@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- 부트스트랩 아이콘 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> -->
 <style>
 
 .pagination > li > a:focus,
@@ -52,6 +52,10 @@
     color: #BE8D6E;
 	border-color:#BE8D6E;
 } */
+.table{
+	width:1250px;
+	margin:0 auto;
+}
 .table-striped > tbody > tr:nth-child(2n+1):hover, .table-striped > tbody > tr:nth-child(2n+1):hover {
    background-color: #BE8D6E;
 }
@@ -64,7 +68,9 @@
 .table-striped > tbody > tr:nth-child(2n+1):hover > td, .table-striped > tbody > tr:nth-child(2n+1):hover > th {
     color:white;
 }
-
+.thth{
+	border-bottom:2px solid #be8d6e;
+}
 </style>
 </head>
 <body>
@@ -73,8 +79,10 @@
 			alert('${noticeWriteResult}');
 		</script>
 	</c:if>
-	<table class="table table-striped mx-2">
-		<thead>
+	
+	
+	<table class="table">
+		<thead class="thth">
 			<tr class="text-center">
 				<th><i class="bi bi-justify"></i> 번호</th>
 				<th class="text-start"><i class="bi bi-chat-dots-fill"></i> 제목</th>
@@ -83,7 +91,7 @@
 				<th><i class="bi bi-fire"></i> 조회수</th>
 			</tr>
 		</thead>
-		<tbody class="table-group-divider">
+		<tbody > <!--  -class="table-group-divider"-->
 			<c:if test="${noticeList.size() eq 0}">
 				<tr><td colspan="5">해당 페이지의 글이 없습니다</td></tr>
 			</c:if>
@@ -110,12 +118,12 @@
 		</tbody>
 	</table>
 	
-		<c:if test="${not empty admin}">
+		<%-- <c:if test="${not empty admin}">
 		   <button class="write btn mybtn">글쓰기</button>
-		</c:if>
-	   
+		</c:if> --%>
+			   
 	   <!-- 페이징 -->
-	   <nav aria-label="Page navigation example">
+	   <nav aria-label="Page navigation example" class="my-4">
 	  <ul class="pagination justify-content-center pb-2">
 	  	<c:if test="${paging.startPage <= paging.blockSize}">
 		    <li class="page-item disabled">
@@ -162,10 +170,10 @@
 	<!-- 페이징 끝 -->
 	
 	<!-- 검색 기능 시작 -->
-	<div class="container my-3 text-center">
+	<div class="text-center d-flex justify-content-center mb-3">
 		<form action="${conPath}/notice/list.do" class="d-flex forma" role="search">
 		<input type="hidden" name="pageNum" value="${pageNum}">
-			<div class="d-flex w-75 m-auto justify-content-center">
+			<div class="d-flex justify-content-center">
 			
 				<select name="type" class="form-select" style="width:100px">
 				  <option <c:if test="${param.type eq 'full'}">selected="selected"</c:if> value="full">전체</option>
@@ -174,7 +182,7 @@
 				  <option <c:if test="${param.type eq 'writer'}">selected="selected"</c:if> value="writer">작성자</option>
 				</select>
 				
-				<input class="form-control mx-2 w-25" type="search" name="search" id="qa" value="${param.search}">
+				<input class="form-control mx-2 w-50" type="search" name="search" id="qa" value="${param.search}">
 				
 				<button type="button" id="searchbtn" class="btn mybtn"><i class="bi bi-search"></i></button>
 				
@@ -182,6 +190,7 @@
 		</form>
 	</div>
 	<!-- 검색 기능 끝 -->
+	
 	
 <script>
 $(document).ready(function(){

@@ -597,7 +597,7 @@
 				+'<input type="hidden" name="sizeNum" value="'+size+'">'
 				+'<input type="hidden" name="colorNum" value="'+color+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+price+'</span>원'
+				+'<span class="price">'+disPrice+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -622,7 +622,7 @@
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" name="sizeNum" value="'+size+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+price+'</span>원'
+				+'<span class="price">'+disPrice+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -647,7 +647,7 @@
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" name="colorNum" value="'+color+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+price+'</span>원'
+				+'<span class="price">'+disPrice+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -670,7 +670,7 @@
 				+'<td class="obj">'
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+price+'</span>원'
+				+'<span class="price">'+disPrice+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;

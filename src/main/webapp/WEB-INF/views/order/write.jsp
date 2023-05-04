@@ -315,7 +315,7 @@
 			</tbody>
 		</table>
 		
-		<div class="px-5 py-1">
+		<div class="d-flex justify-content-end pt-3" style="width:1250px; margin:0 auto;">
 			<input type="button" class="btn mybtn" value="장바구니 돌아가기" onclick="location.href='${conPath}/cart/list.do'">
 		</div>
 		
