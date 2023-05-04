@@ -1,5 +1,6 @@
 package com.lec.bowow.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -35,7 +36,9 @@ public interface OrderDao {
 	
 	// 매출통계
 	public List<Integer> salesOfDate();
-	public List<Order> salesOfCategory();
+	// public List<Integer> sumTotalOfDate();
+	public List<String> salesOfCategory();
+	public List<Integer> sumTotalOfCategory();
 	
 	
 }

@@ -92,12 +92,8 @@
 		h2 {
 			padding-top: 20px;
 		}
-		.box1, .box2, .box3, .box4{
+		.box1, .box2, .box3, .box4, .box5, .box6 {
 			height: 400px;
-			border: 1px solid #BE8D6E;
-			border-radius: 5px;
-		}
-		.box5, .box6 {
 			border: 1px solid #BE8D6E;
 			border-radius: 5px;
 			margin-bottom: 50px;
@@ -106,42 +102,36 @@
 			min-width: 680px;
 			height: 440px;
 			margin-top: 50px;
-			margin-right: 20px;
-			margin: 50px 20px 0 0;
+			/* margin: 50px 20px 0 0; */
 		}
 		.box2 {
 			min-width: 400px;
 			height: 440px;
 			margin-top: 50px;
+			/* margin-left: 20px; */
 		}
-		.box3 {
-			margin: 50px 20px 50px 0;
-		}
+		/* .box3, .box5 {
+			margin: 0 20px 0 0;
+		} */
 		.box4 {
-			min-width: 650px;
-			margin: 50px 0;
+			min-width: 660px;
+			/* margin-left: 20px; */
 		}
-		.box5 {
-			margin-right: 20px;
+		/* .box6 {
 			margin-left: 20px;
-		}
-		.box6 {
-			min-height: 400px;
-			max-height: 800px;
-			min-width: 400px;
-			margin-left: 20px;
-		}
+		} */
 		.accordion-button{
 		    display: block;
 		    width: 375px;
 		    margin-right: 1000px;
-		    font-size: 30px;
+		    font-size: 20px;
 		    font-family: Arial, sans-serif;
 		    background-color: #f2f2f2;
 		    border-bottom: 1px #cccccc solid;
 		    cursor: pointer;
 		    transition: 1s;
 		    height: 50px;
+		    margin-bottom: 10px;
 		}
 	
 		.accordion-container{
@@ -298,34 +288,21 @@
 		const clickN = function(noticeNum) {
 			location.href = "${conPath}/notice/content.do?noticeNum=" + noticeNum + '&pageNum=${paging.currentPage}';
 		};
+		const clickI = function(inquiryNum) {
+			location.href = "${conPath}/inquiry/reply.do?inquiryNum=" + inquiryNum;
+		};
 	</script>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="wrap">
-		<c:forEach var="category" items="${categorySales}">
+		<%-- <c:forEach var="category" items="${categorySales}">
 			${category.category } / ${category.sumTotal } 
-		</c:forEach>
-			<jsp:include page="side.jsp"/>
+		</c:forEach> --%>
+		<jsp:include page="side.jsp"/>
 			
 			<div class="maincontent">
-			<!-- <div class="col-3">
-			  <div class="card">
-			    <div class="card-body">
-			      <h5 class="card-title">Register product</h5>
-			      <a href="#" class="btn">상품등록</a>
-			    </div>
-			  </div>
-			</div>
-			<div class="col-3">
-			  <div class="card">
-			    <div class="card-body">
-			      <h5 class="card-title">Register for Notice</h5>
-			      <a href="#" class="btn">공지사항 추가하기</a>
-			    </div>
-			  </div>W
-			</div> -->
 			<div class="row">
 			
 				<div class="box1 col-6">
@@ -387,7 +364,7 @@
 						view >
 					</a>
 				</div>
-				<div class="box4 col-5">
+				<div class="box4 col-6">
 					<h2>상담문의</h2>
 					<hr>
 					<table class="table table-hover">
@@ -445,7 +422,8 @@
 			            <tbody>
 			                <c:forEach var="inquiry" items="${inquiryList }" varStatus="status" begin="0" end="4">
 				            	<c:if test="${member.memberId eq inquiry.memberId or not empty admin}">
-				                    <tr>
+				                    <tr onclick="clickI(${inquiry.inquiryNum})">
+				                        <td><c:out value="${inquiry.inquiryNum }"/></td>
 				                        <td><c:out value="${inquiry.memberId }"/></td>
 				                        <td><c:out value="${inquiry.inquiryTitle }"/></td>
 				                        <td><c:out value="${inquiry.inquiryContent }"/></td>
@@ -467,7 +445,8 @@
 						<c:forEach var="faq" items="${faqList }" begin="0" end="3">
 							<tr onclick="clickTr(${faq.faqTitle})">
 								<th>
-								    <div class="accordion-button">${faq.faqTitle }<i id="cross" class="cross"></i>
+								    <div class="accordion-button">
+								    	${faq.faqTitle }<!-- <i id="cross" class="cross"></i> -->
 								    </div>
 								    <div class="accordion-text-wrapper">
 								    	<p class="accordion-text">${faq.faqContent }</p>
@@ -478,7 +457,7 @@
 							</tr>
 						</c:forEach>
 					</div>
-					<a href="${conPath }/faq/list">
+					<a href="${conPath }/faq/list.do">
 						view >
 					</a>
 				</div>
@@ -486,6 +465,7 @@
 			
 		</div>
 	</div>
+	
 	<script>
 	var sale = new Array();
 	let dataSales = ${dateSales};
@@ -500,7 +480,7 @@
 	  let data2023 = {
 	      label: calendarYear + '년',
 		  backgroundColor: 'rgba(54, 162, 235, 0.5)',
-	      borderColor: 'rgba(255, 99, 132, 0.5)',
+	      borderColor: 'rgba(55, 110, 132, 0.5)',
 	      // data: [7000, 5000, 5000, 2000, 20000, 30000, 45000, 2000, 11000, 9000, 32000, 21000, 50000, 29000, 39000],
 	      data: sale
 	 };   
@@ -531,17 +511,13 @@
 	 );
 	</script>
 	<script>
+		var temp =  '${categorySales}' // '[fashion, ...]'
+		var categorySales = temp.substring(1, temp.length-1).split(',');
 		var data = {
-			  labels: [
-			    'fashion',
-			    'food',
-			    'toy',
-			    'walking',
-			    'clean'
-			  ],
+			  labels: categorySales,
 			  datasets: [{
 			    label: 'My First Dataset',
-			    data: [300, 50, 100, 70, 80],
+			    data: ${categorySumTotal},
 			    backgroundColor: [
 			      'rgb(255, 99, 132)',
 			      'rgb(54, 162, 235)',

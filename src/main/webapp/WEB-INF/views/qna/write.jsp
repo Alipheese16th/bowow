@@ -49,7 +49,7 @@
 	<c:if test="${empty member and empty admin }">
 		<script>
 			alert('로그인 후 작성이 가능합니다');
-			history.back();
+			location.href='${conPath}/login.do?after=qna/write.do';
 		</script>
 	</c:if>
 	

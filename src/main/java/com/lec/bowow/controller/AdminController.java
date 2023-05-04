@@ -1,5 +1,8 @@
 package com.lec.bowow.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,6 @@ import com.lec.bowow.service.AdminService;
 import com.lec.bowow.service.FaqService;
 import com.lec.bowow.service.InquiryService;
 import com.lec.bowow.service.NoticeService;
-import com.lec.bowow.service.OrderService;
 import com.lec.bowow.service.QnaService;
 
 @Controller
@@ -42,7 +44,12 @@ public class AdminController {
 		model.addAttribute("noticeList", noticeService.getNoticeList(pageNum, type, search));
 		model.addAttribute("inquiryList", inquiryService.inquiryList(inquiry, pageNum));
 		model.addAttribute("dateSales", orderDao.salesOfDate());
+//		List<String> temp1 = new ArrayList<String>(); temp1.add("fashion"); temp1.add("abcc");temp1.add("zzzz");temp1.add("yyy");temp1.add("hello");
+//		List<Integer> temp2 = new ArrayList<Integer>();temp2.add(1200); temp2.add(3600);temp2.add(1200); temp2.add(3600);temp2.add(1200); 
+//		model.addAttribute("categorySales", temp1);
+//		model.addAttribute("sumTotalSales", temp2);
 		model.addAttribute("categorySales", orderDao.salesOfCategory());
+		model.addAttribute("categorySumTotal", orderDao.sumTotalOfCategory());
 		return "admin/main";
 	}
 	@RequestMapping(value="login", method=RequestMethod.GET)

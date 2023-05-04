@@ -1,27 +1,48 @@
 select 
-		  to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate,
-		  sum(totalprice) as sumTotal
-		from 
-		  orders
-		GROUP BY
-		  to_Date(TO_CHAR(orderdate, 'RRMMDD'));
-          
-select SUMTOTAL from 
-        (select to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate,
+        to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate
+    from orders
+        GROUP BY to_Date(TO_CHAR(orderdate, 'RRMMDD')); 
+select 
         sum(totalprice) as sumTotal
-    from orders 
-        GROUP BY to_Date(TO_CHAR(orderdate, 'RRMMDD')))
-    where orderdate between sysdate-15 and sysdate
-        order by orderdate;
+    from orders
+        GROUP BY to_Date(TO_CHAR(orderdate, 'RRMMDD'));
+        
+        
+        
+        
+-- 일별 매출통계
+SELECT NVL(SUMTOTAL, 0) FROM 
+  (SELECT TO_DATE(ORDERDATE) ORDERDATE, SUM(TOTALPRICE) SUMTOTAL FROM ORDERS 
+    WHERE ORDERDATE BETWEEN SYSDATE-15 AND SYSDATE
+    GROUP BY TO_DATE(ORDERDATE)
+    ORDER BY ORDERDATE) A, 
+  (SELECT TO_DATE(SYSDATE-14 + LEVEL - 1) AS dt
+    FROM dual 
+        CONNECT BY LEVEL <= 14) B
+  WHERE A.ORDERDATE(+)=B.DT
+  ORDER BY DT;
 
-select * from orders;
-INSERT INTO ORDERS (orderCODE, MEMBERID, totalPrice, orderdate, ORDERNAME, ORDERPOST, ORDERADDR1, ORDERADDR2, ORDERTEL)
-  VALUES (CONCAT(TO_CHAR(SYSDATE-7,'RRMMDD'),LPAD(ORDERS_SEQ.CURRVAL,4,'0')), 'aaa', 300000, sysdate-4, '택배받는사람', '12323', '택배기본주소','택배상세주소', '010-9999-9999');
-  commit;
-select category, sum(cost) from orderdetail od, product p where od.productcode = p.productcode group by category;
-select * from orderdetail;
-SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
-    		WHERE P.PRODUCTCODE = I.PRODUCTCODE AND TYPE='title' ORDER BY PRODUCTDATE DESC;
+-- 일별 매출통계
+select NVL(sum(a.sumTotal), 0) sumTotal
+    from (select TO_DATE(orderdate, 'YY/MM/DD') as orderdate,
+                sum(totalprice) as sumTotal
+            from orders
+            where orderdate between TO_DATE(sysdate-14,'YY/MM/DD')
+                                and TO_DATE(sysdate,'YY/MM/DD')
+            GROUP BY TO_DATE(orderdate, 'YY/MM/DD')) a,
+        
+        (SELECT TO_DATE(sysdate-14,'YY/MM/DD') + LEVEL - 1 AS dt
+            FROM dual
+            CONNECT BY LEVEL <= (TO_DATE(sysdate-1,'YY/MM/DD')
+                        - TO_DATE(sysdate-14,'YY/MM/DD') + 1)) b
+    where b.dt = a.orderdate(+)
+    group by b.dt
+    order by b.dt;
+      
+-- 카테고리별 매출통계
+select sum(cost) sumTotal from orderdetail od, product p where od.productcode = p.productcode group by category;
+select category from orderdetail od, product p where od.productcode = p.productcode group by category;
+
 
 ----------------------------------------------<ADMIN>----------------------------------------------
 CREATE TABLE ADMIN(

@@ -12,8 +12,10 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />	
 	<style>
 		.inquiry {margin: 0 auto; min-width: 800px;}
+		.inquiry .container {padding: 0 250px;}
+		.inquiry table {width: 800px;}
 		.inquiry h2 {text-align: center; margin: 30px 0;}
-		.inquiry .write {margin: 20px 0; text-align: right;}
+		.inquiry .write {margin: 20px 0; text-align: right; width: 800px;}
 		.inquiry .write a:hover {background-color: gray; border: 1px solid lightgray; font-weight: bold;}
 		.inquiry .write a {
 			color: #fff;

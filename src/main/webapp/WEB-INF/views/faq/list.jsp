@@ -14,8 +14,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 	<style>
-		.faq {min-width: 1270px; text-align: center;}
-		.faq h1 {font-size: 2.7em; height: 100px; line-height: 100px;}
+		.faq {min-width: 1250px; text-align: center; padding: 0 525px;}
+		.faq h1 {
+			font-size: 2em; height: 100px; line-height: 100px; width: 700px;
+			text-align: center; border-bottom: 1px solid #BE8D6E; margin-bottom: 50px;
+		}
 		.faq .write {
 			background-color: #BE8D6E; color: #fff;
 			font-size: 1.2em; margin: 30px 0;
@@ -26,16 +29,17 @@
 		}
 		.faq .paging {margin: 30px 0 30px;}
 		.faq .paging b {color: red;}
-		.accordion-button{
+		.accordion-button {
 		    display: block;
 		    width: 700px;
-		    font-size: 30px;
+		    font-size: 20px;
 		    font-family: Arial, sans-serif;
 		    background-color: #f2f2f2;
 		    border-bottom: 1px #cccccc solid;
 		    cursor: pointer;
 		    transition: 1s;
 		    height: 50px;
+		    margin-bottom: 20px;
 		}
 		
 		.accordion-container{
@@ -108,35 +112,14 @@
 
 	<jsp:include page="../main/header.jsp"/>
 	
-	<%-- <div class="faq">
-		<h1>자주 묻는 질문(FAQ)</h1>
-		<div class="table">
-			<table>
-				<tr>
-					<th>제목</th>
-					<th>내용</th>
-				</tr>
-				<c:if test="${totCntFaq eq 0 }">
-					<tr><td colspan="2">해당 페이지의 글이 없습니다</td></tr>
-				</c:if>
-				<c:if test="${totCntFaq != 0 }">
-					<c:forEach var="faq" items="${faqList }">
-						<tr onclick="clickTr(${qna.qnaNum})">
-							<td>${faq.faqTitle }</td>
-					  		<td>${faq.faqContent }</td>
-						</tr>
-					</c:forEach>
-				</c:if>
-			</table>
-		</div>
-	</div> --%>
 	<div class="faq">
 		<h1>자주 묻는 질문(FAQ)</h1>
 		<div class="accordion-container">
 			<c:forEach var="faq" items="${faqList }">
 				<tr onclick="clickTr(${faq.faqTitle})">
 					<th>
-					    <div class="accordion-button">${faq.faqTitle }<i id="cross" class="cross"></i>
+					    <div class="accordion-button">
+					    	${faq.faqTitle }<!-- <i id="cross" class="cross"></i> -->
 					    </div>
 					    <div class="accordion-text-wrapper">
 					    	<p class="accordion-text">${faq.faqContent }</p>
@@ -156,6 +139,7 @@
 				</button>
 			</c:if>
 		</div>
+		
 		<%-- <div class="paging">
 			<c:if test="${paging.startPage > paging.blockSize }">
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${conPath }/faq/list.do?pageNum=${paging.startPage-1}'">
@@ -178,6 +162,7 @@
 				</button>
 			</c:if>
 		</div> --%>
+		
 	</div>
 	
 	<jsp:include page="../main/footer.jsp"/>

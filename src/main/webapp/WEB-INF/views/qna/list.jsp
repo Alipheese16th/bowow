@@ -11,8 +11,8 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style>
-		.qna {min-width: 1400px; text-align: center;}
-		.qna h1 {font-size: 2.7em; height: 100px; line-height: 100px;}
+		.qna {min-width: 1250px; text-align: center; padding: 0 250px;}
+		.qna h1 {font-size: 2em; height: 100px; line-height: 100px;}
 		.qna a {color: black; text-decoration: none;}
 		.qna .write {
 			background-color: #BE8D6E; color: #fff;
@@ -37,6 +37,20 @@
 <body>
 	<c:set var="success" value="1"/>
 	<c:set var="fail" value="0"/>
+	
+	<c:if test="${writeQResult eq -1 }">
+		<script>
+			alert('로그인이 끊어졌습니다 다시 로그인하세요');
+			location.href='${conPath}/login.do?after=qna/list.do';
+		</script>
+	</c:if>
+	<c:if test="${writeQResult eq fail }">
+		<script>
+			alert('qna작성 실패');
+			history.back();
+		</script>
+	</c:if>
+	
 	<c:if test="${replyQResult eq success }">
 		<script>alert('답변글이 작성되었습니다');</script>
 	</c:if>
