@@ -16,7 +16,9 @@
 		<result property="qnaIndent" column="qnaIndent"/>
 		<result property="qnaIp" column="qnaIp"/>
 		<result property="qnaHit" column="qnaHit"/>
+		<result property="memberName" column="memberName"/>
 	</resultMap>
+	
 	<select id="qnaAList" resultMap="QnaResult">
 		SELECT * FROM QNA ORDER BY qnaGroup DESC, qnaStep
 	</select>
@@ -80,4 +82,12 @@
 		INSERT INTO QNA (qnaNum, adminId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
     		VALUES (QNA_SEQ.NEXTVAL, #{adminId}, #{productCode, jdbcType=VARCHAR}, #{qnaTitle}, #{qnaContent}, #{qnaGroup}, #{qnaStep}+1, #{qnaIndent}+1, #{qnaIp})
 	</insert>
+	
+	<select id="productQnaList" parameterType="String" resultMap="QnaResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, A.* FROM
+		    (SELECT Q.*,MEMBERNAME FROM QNA Q, MEMBER M WHERE Q.MEMBERID = M.MEMBERID AND PRODUCTCODE = #{productCode} ORDER BY QNADATE DESC) A)
+		  WHERE RN BETWEEN 1 AND 10
+	</select>
+	
 </mapper>

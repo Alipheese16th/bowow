@@ -12,6 +12,7 @@ import com.lec.bowow.model.Image;
 import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Sizes;
 import com.lec.bowow.service.ProductService;
+import com.lec.bowow.service.QnaService;
 import com.lec.bowow.util.Paging;
 
 @Controller
@@ -20,6 +21,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private QnaService qnaService;
 	
 	// 상품 리스트
 	@RequestMapping(value="list", method=RequestMethod.GET)
@@ -35,6 +38,7 @@ public class ProductController {
 		model.addAttribute("imageList",productService.imageList(productCode));
 		model.addAttribute("sizeList",productService.sizeList(productCode));
 		model.addAttribute("colorList",productService.colorList(productCode));
+		model.addAttribute("qnaList",qnaService.productQnaList(productCode));
 		return "product/content";
 	}
 	// 상품 검색

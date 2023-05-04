@@ -18,6 +18,7 @@
 			$("ul .lnb-down").mouseleave(function(){ $(this).children(".lnb").stop().slideUp(300);})
 			$(".search").click(function(){
 				$(".search-view").toggleClass("up");
+				$('.searchHeaderName').focus();
 			});
 			$("div.bar-close").click(function(){
 				$(".top-bar").css("display", "none");

@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- 부트스트랩 아이콘 -->
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <style>
 
 .pagination > li > a:focus,
@@ -84,14 +84,14 @@
 	<table class="table">
 		<thead class="thth">
 			<tr class="text-center">
-				<th><i class="bi bi-justify"></i> 번호</th>
-				<th class="text-start"><i class="bi bi-chat-dots-fill"></i> 제목</th>
-				<th><i class="bi bi-person-fill"></i> 작성자</th>
-				<th><i class="bi bi-calendar3"></i> 날짜</th>
-				<th><i class="bi bi-fire"></i> 조회수</th>
+				<th>번호</th>
+				<th class="text-start">제목</th>
+				<th>작성자</th>
+				<th>날짜</th>
+				<th>조회수</th>
 			</tr>
 		</thead>
-		<tbody > <!--  -class="table-group-divider"-->
+		<tbody>
 			<c:if test="${noticeList.size() eq 0}">
 				<tr><td colspan="5">해당 페이지의 글이 없습니다</td></tr>
 			</c:if>
@@ -117,11 +117,11 @@
 			
 		</tbody>
 	</table>
-	
-		<%-- <c:if test="${not empty admin}">
-		   <button class="write btn mybtn">글쓰기</button>
-		</c:if> --%>
-			   
+		
+		<c:if test="${not empty admin}">
+		   <button class="write btn mybtn mt-2">글쓰기</button>
+		</c:if>
+		
 	   <!-- 페이징 -->
 	   <nav aria-label="Page navigation example" class="my-4">
 	  <ul class="pagination justify-content-center pb-2">

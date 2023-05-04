@@ -18,9 +18,14 @@ public class Qna {
 	private int qnaIndent;
 	private String qnaIp;
 	private int qnaHit;
+	// 회원이름
+	private String memberName;
+	// 페이징
 	private int startRow;
 	private int endRow;
+	// 검색
 	private String schItem;
 	private String schWord;
+	// 상품
 	private String image;
 }

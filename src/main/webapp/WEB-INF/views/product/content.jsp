@@ -12,21 +12,80 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
+
+
+<!-- 플레스 슬라이더 -->
+<link rel="stylesheet" href="${conPath}/css/flexslider.css" type="text/css" media="screen" />
+<!-- jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- FlexSlider -->
+<script defer src="${conPath}/js/jquery.flexslider.js"></script>
+<script type="text/javascript">
+  $(window).load(function(){
+    $('.flexslider').flexslider({
+      animation: "slide",
+      controlNav: "thumbnails",
+      start: function(slider){
+        $('body').removeClass('loading');
+      }
+    });
+  });
+</script>
+
+
+
 <style>
 .container{
 	min-width: 1300px !important;
 	font-family: 'Pretendard';
 }
-.imageArea, .titleImage{
+.heading{
+	text-align:center;
+	margin:40px auto;
+}
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
+}
+
+
+.flexslider .slides img{
+	height: 300px;
+}
+.imageArea{
 	width:600px;
 	height:600px;
 }
+ section{
+	height:300px;
+}
+.titleImage{
+	height:300px;
+}
+
+
+
 .infoArea{
 	width:600px;
 }
 .infoLeft{
 	text-align: left !important;
 	padding-right: 50px;
+	vertical-align: middle;
 }
 .left{
 	text-align: left !important;
@@ -53,15 +112,6 @@
 .contentImg{
 	max-width: 1000px;
 }
-
-.btn-myColor{
-	background-color:#BE8D6E;
-	color:white;
-}
-.btn-myColor:hover{
-	background-color:#FFFFFF;
-	color:#BE8D6E;
-}
 #cartResult{
 	position:fixed;
 	top:30%;
@@ -87,17 +137,56 @@
 	width:40px;
 	height:20px !important;
 }
-/* .productFont{
-	font-size:12px;
-} */
+.thth{
+	border-bottom:2px solid #be8d6e;
+}
+.retable td{
+	padding:0;
+	height:50px;
+	line-height:50px;
+	border:none;
+	vertical-align: middle;
+}
+#proInfo, #proReview, #proQna{
+	width:1250px;
+	margin:0 auto;
+}
+.nav a.active{
+	border-bottom:none;
+}
 
 </style>
 </head>
-<body>
+<body class="loading">
 
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="container">
+	
+	
+	
+	<%-- <section class="slider">
+		<div class="flexslider">
+			<ul class="slides">
+				<li data-thumb="${conPath}/img/kitchen_adventurer_cheesecake_brownie.jpg">
+  	    	    <img src="${conPath}/img/kitchen_adventurer_cheesecake_brownie.jpg" />
+  	    		</li>
+  	    		<li data-thumb="${conPath}/img/kitchen_adventurer_lemon.jpg">
+  	    	    <img src="${conPath}/img/kitchen_adventurer_lemon.jpg" />
+  	    		</li>
+  	    		<li data-thumb="${conPath}/img/kitchen_adventurer_donut.jpg">
+  	    	    <img src="${conPath}/img/kitchen_adventurer_donut.jpg" />
+  	    		</li>
+  	    		<li data-thumb="${conPath}/img/kitchen_adventurer_caramel.jpg">
+  	    	    <img src="${conPath}/img/kitchen_adventurer_caramel.jpg" />
+				</li>
+			</ul>
+		</div>
+	</section> --%>
+	
+	
+	
+	
 		
 		<div class="d-flex justify-content-center my-5">
 		
@@ -114,7 +203,27 @@
 		</script>
 			
 			<div class="imageArea">
-				<!-- 캐러셀 시작 -->
+			
+				<section class="slider">
+					<div class="flexslider">
+						<ul class="slides">
+							
+							<c:forEach items="${imageList}" var="image">
+								<c:if test="${image.type eq 'title' or image.type eq 'subTitle'}">
+								
+									<li data-thumb="${conPath}/productImage/${image.image}">
+								  	<img class="d-block w-100 titleImage" src="${conPath}/productImage/${image.image}">
+								  	 </li>
+								  	 
+							    </c:if>
+							</c:forEach>
+							
+						</ul>
+					</div>
+				</section>
+			
+			
+				<%-- <!-- 캐러셀 시작 -->
 				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 				  <c:if test="${carnum > 1}">
 					  <div class="carousel-indicators">
@@ -152,29 +261,23 @@
 						    <span class="visually-hidden">Next</span>
 						  </button>
 				  	 </c:if>
-				</div> <!-- carousel -->
+				</div> <!-- carousel --> --%>
 				
 			</div><!-- imageArea -->
 			
 			<div class="infoArea px-5">
-				
 				<div class="py-3">
-					<h2>
+					<h2 class="m-0">
 						${product.productName}
 					</h2>
 				</div>
-				
-				<hr>
-				
 				<c:if test="${not empty product.productContent}">
 					<div>
 						<pre>${product.productContent}</pre>
 					</div>
 					<hr>
 				</c:if>
-				
-				<table>
-					
+				<table class="table">
 					<tr>
 						<td class="infoLeft">
 							판매가
@@ -234,18 +337,18 @@
 					
 				</table>
 				
-				<hr>
-				
 				<input type="hidden" id="productCode" value="${product.productCode}">
 				<input type="hidden" id="memberId" value="${member.memberId}">
 				
-				<table class="w-100">
-					<tbody id="result">
+				<table class="table retable">
+					<thead class="thth">
 						<tr>
 							<th class="w-50">이름</th>
 							<th>수량</th>
 							<th>가격</th>
 						</tr>
+					</thead>
+					<tbody id="result">
 					</tbody>
 					<tbody>
 						<tr>
@@ -373,19 +476,47 @@
 		  </li>
 		</ul>
 		
-		<div id="proReview">
-			
-			<h5>Review</h5>
-			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-outline-dark">WRITE</button>
-				<button type="button" class="btn btn-outline-dark">LIST</button>
-			</div>
-			<table>
-				<tr><td>1</td></tr>
-				<tr><td>2</td></tr>
-				<tr><td>3</td></tr>
-			</table>
+		<div id="proReview" class="mb-5">
 		
+			<h5 class="text-center m-0">상품 리뷰</h5>
+			
+			<div class="d-flex justify-content-between">
+				<button type="button" class="btn btn-myColor">WRITE</button>
+				<button type="button" class="btn btn-myColor">LIST</button>
+			</div>
+			<!-- 게시판시작 -->
+			<table class="table">
+				<thead class="thth">
+					<tr class="text-center">
+						<th>번호</th>
+						<th class="text-start">제목</th>
+						<th>작성자</th>
+						<th>날짜</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${empty noticeList}">
+						<tr><td colspan="5">해당 상품의 리뷰 글이 없습니다</td></tr>
+					</c:if>
+					<c:if test="${noticeList.size() ne 0}">
+						<c:forEach var="notice" items="${noticeList}">
+							<tr>
+								<td class="text-center">${notice.noticeNum}</td>
+								<td class="w-50">
+									${notice.noticeTitle}
+								</td>
+								<td class="text-center">${notice.adminId}</td>
+								<td class="text-center">
+									<fmt:formatDate value="${notice.noticeDate}" pattern="yy/MM/dd HH:mm"/>
+								</td>
+								<td class="text-center">${notice.noticeHit}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+			<!-- 게시판끝 -->
 		</div>
 		
 		<ul class="nav nav-tabs d-flex justify-content-center my-5">
@@ -403,9 +534,48 @@
 		  </li>
 		</ul>
 		
-		<div id="proQna">
+		<div id="proQna" class="mb-5">
 		
-			<h5>상품 문의</h5>
+			<h5 class="text-center m-0">상품 문의</h5>
+			
+			<div class="d-flex justify-content-between">
+				<button type="button" class="btn btn-myColor goQnaWrite">WRITE</button>
+				<button type="button" class="btn btn-myColor goQnaList">LIST</button>
+			</div>
+			
+			<!-- 게시판시작 -->
+			<table class="table">
+				<thead class="thth">
+					<tr class="text-center">
+						<th>번호</th>
+						<th class="text-start">제목</th>
+						<th>작성자</th>
+						<th>날짜</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${empty qnaList}">
+						<tr><td colspan="5">해당 상품의 문의글이 없습니다</td></tr>
+					</c:if>
+					<c:if test="${qnaList.size() ne 0}">
+						<c:forEach var="qna" items="${qnaList}">
+							<tr>
+								<td class="text-center">${qna.qnaNum}</td>
+								<td class="w-50">
+									${qna.qnaTitle}
+								</td>
+								<td class="text-center">${qna.memberName}(${qna.memberId})</td>
+								<td class="text-center">
+									<fmt:formatDate value="${qna.qnaDate}" pattern="yy/MM/dd HH:mm"/>
+								</td>
+								<td class="text-center">${qna.qnaHit}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+			<!-- 게시판끝 -->
 		
 		</div>
 		
@@ -445,6 +615,21 @@
 	}
 	var memberId = $('#memberId').val();
 	var productCode = $('#productCode').val();
+	
+	
+	// 문의게시판 리스트로 가기 
+	$('.goQnaList').click(function(){
+		location.href='${conPath}/qna/list.do';
+	});
+	// 문의게시판 작성하기
+	$('.goQnaWrite').click(function(){
+		if(!memberId){
+			alert('로그인 한 회원만 가능합니다');
+			location.href='${conPath}/login.do?after=product/content.do&productCode='+productCode;
+			return;
+		}
+		location.href='${conPath}/qna/write.do?selectCode='+productCode;
+	});
 	
 	
 	////////////////////////////////////////////////////////////////// 장바구니 클릭시
@@ -581,7 +766,7 @@
 		var product = $('<tr>'
 				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+sizeName+' '+colorName
-				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'<img class="delete pe-2" src="${conPath}/img/delete.gif">'
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
@@ -597,7 +782,7 @@
 				+'<input type="hidden" name="sizeNum" value="'+size+'">'
 				+'<input type="hidden" name="colorNum" value="'+color+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -607,7 +792,7 @@
 		var product = $('<tr>'
 				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+sizeName
-				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'<img class="delete pe-2" src="${conPath}/img/delete.gif">'
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
@@ -622,7 +807,7 @@
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" name="sizeNum" value="'+size+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -632,7 +817,7 @@
 		var product = $('<tr>'
 				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+colorName
-				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'<img class="delete pe-2" src="${conPath}/img/delete.gif">'
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
@@ -647,7 +832,7 @@
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" name="colorNum" value="'+color+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -670,7 +855,7 @@
 				+'<td class="obj">'
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;

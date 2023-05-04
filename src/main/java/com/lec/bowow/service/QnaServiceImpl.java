@@ -1,19 +1,16 @@
 package com.lec.bowow.service;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.lec.bowow.dao.QnaDao;
 import com.lec.bowow.model.Admin;
 import com.lec.bowow.model.Member;
-import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Qna;
 import com.lec.bowow.util.Paging;
+
 @Service
 public class QnaServiceImpl implements QnaService {
 	@Autowired
@@ -61,5 +58,9 @@ public class QnaServiceImpl implements QnaService {
 		qna.setQnaIp(request.getRemoteAddr());
 		qna.setAdminId(admin.getAdminId());
 		return qnaDao.replyQna(qna);
+	}
+	@Override
+	public List<Qna> productQnaList(String productCode) {
+		return qnaDao.productQnaList(productCode);
 	}
 }

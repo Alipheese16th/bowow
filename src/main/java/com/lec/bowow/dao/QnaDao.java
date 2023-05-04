@@ -19,4 +19,7 @@ public interface QnaDao {
 	public void preReplyQna(Qna qna);
 	public int replyQna(Qna qna);
 	public Qna modifyReplyQnaView(int qnaNum);
+	
+	// 해당 상품코드의 qna리스트 출력
+	public List<Qna> productQnaList(String productcode);
 }

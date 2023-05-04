@@ -254,9 +254,6 @@ UPDATE NOTICECOMMENT SET NCCONTENT = 'ASDF', NCIP = '111' WHERE NCNUM = 1;
 -- 댓글 삭제 (ncNum)
 DELETE FROM NOTICECOMMENT WHERE NCNUM = 1;
 
-
-
-
 --------------------------------------------------------관리자
 --------------------- 관리자 상품 관리
 
@@ -302,4 +299,30 @@ UPDATE NOTICE
 DELETE FROM NOTICE WHERE noticeNum = 1;
 
 -----------------------------------------------------------------
+-----------------------------------------------------------------
+
+-- 상품상세에서 해당 상품의 문의글 리스트 10개까지만 (PRODUCTCODE)
+SELECT * FROM
+  (SELECT ROWNUM RN, A.* FROM
+    (SELECT Q.*,MEMBERNAME FROM QNA Q, MEMBER M WHERE Q.MEMBERID = M.MEMBERID AND PRODUCTCODE = 'P0001' ORDER BY QNADATE DESC) A)
+  WHERE RN BETWEEN 1 AND 10;
+
+select * from product;
+select * from qna;
+
+
+
+
+
+
+-- 상품상세에서 해당 상품의 리뷰글 리스트 10개까지만 (PRODUCTCODE)
+SELECT * FROM
+  (SELECT ROWNUM RN, A.* FROM
+    (SELECT R.*,MEMBERNAME FROM REVIEW R, MEMBER M WHERE R.MEMBERID = M.MEMBERID AND PRODUCTCODE = 'P0001' ORDER BY REVIEWDATE DESC) A)
+  WHERE RN BETWEEN 1 AND 10;
+
+
+
+
+
 

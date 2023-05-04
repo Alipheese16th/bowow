@@ -21,13 +21,25 @@
 }
 .heading{
 	text-align:center;
-	text-weight:bold;
-	width:1250px;
-	margin:60px auto;
-	padding-top:30px;
-	padding-bottom:30px;
-	background: #fff;
-    border-top: 3px solid #be8D6e;
+	margin:40px auto;
+}
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
 }
 
 .plist .titleImg{
@@ -146,11 +158,6 @@
     background: #BE8D6E;
 }
 
-.mybtn{
-	background: #BE8D6E;
-	color:white;
-	font-size:18px;
-}
 .table{
 	box-sizing:border-box;
 	border: 1px solid #DDDDDD;
@@ -316,7 +323,7 @@
 		</table>
 		
 		<div class="d-flex justify-content-end pt-3" style="width:1250px; margin:0 auto;">
-			<input type="button" class="btn mybtn" value="장바구니 돌아가기" onclick="location.href='${conPath}/cart/list.do'">
+			<input type="button" class="btn btn-myColor" value="장바구니 돌아가기" onclick="location.href='${conPath}/cart/list.do'">
 		</div>
 		
 		
