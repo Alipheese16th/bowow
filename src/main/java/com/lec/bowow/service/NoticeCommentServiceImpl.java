@@ -17,6 +17,7 @@ public class NoticeCommentServiceImpl implements NoticeCommentService {
 	@Autowired
 	private NoticeCommentDao noticeCommentDao;
 	
+	// 댓글리스트 탑앤구문
 	@Override
 	public List<NoticeComment> ncList(int noticeNum, String commentPageNum) {
 		Paging paging = new Paging(ncTotCnt(noticeNum),commentPageNum, 10, 5);
@@ -26,17 +27,23 @@ public class NoticeCommentServiceImpl implements NoticeCommentService {
 		nc.setEndRow(paging.getEndRow());
 		return noticeCommentDao.ncList(nc);
 	}
+	// 댓글 갯수 페이징
 	@Override
 	public int ncTotCnt(int noticeNum) {
 		return noticeCommentDao.ncTotCnt(noticeNum);
 	}
-
+	// 댓글작성
 	@Override
 	public int ncWrite(NoticeComment noticeComment, HttpServletRequest request) {
 		noticeComment.setNcIp(request.getRemoteAddr());
 		return noticeCommentDao.ncWrite(noticeComment);
 	}
-
+	
+	@Override
+	public NoticeComment getNc(int ncNum) {
+		return noticeCommentDao.getNc(ncNum);
+	}
+	
 	@Override
 	public int ncUpdate(NoticeComment noticeComment) {
 		// TODO Auto-generated method stub
@@ -48,7 +55,7 @@ public class NoticeCommentServiceImpl implements NoticeCommentService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	
+
 
 }

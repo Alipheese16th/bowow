@@ -20,6 +20,7 @@
 		      WHERE NC.MEMBERID = M.MEMBERID AND NOTICENUM = #{noticeNum} ORDER BY NCDATE DESC) A)
 		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
+	
 	<select id="ncTotCnt" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM NOTICECOMMENT WHERE NOTICENUM = #{noticeNum}
 	</select>
@@ -28,6 +29,10 @@
 		INSERT INTO NOTICECOMMENT (NCNUM, MEMBERID, NOTICENUM, NCCONTENT, NCIP)
   			VALUES(NOTICECOMMENT_SEQ.NEXTVAL,#{memberId},#{noticeNum},#{ncContent},#{ncIp})
 	</insert>
+	
+	<select id="getNc" parameterType="int" resultType="NoticeComment">
+		SELECT * FROM NOTICECOMMENT WHERE NCNUM = #{ncNum}
+	</select>
 	
 	<update id="ncUpdate" parameterType="NoticeComment">
 		UPDATE NOTICECOMMENT SET NCCONTENT = #{ncContent}, NCIP = #{ncIp} WHERE NCNUM = #{ncNum}

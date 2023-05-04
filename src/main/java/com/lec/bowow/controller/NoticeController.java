@@ -21,13 +21,14 @@ public class NoticeController {
 	@Autowired
 	private NoticeCommentService noticeCommentService;
 	
+	// 공지리스트
 	@RequestMapping(value="list", method = {RequestMethod.GET, RequestMethod.POST})
 	public String list(Model model, String pageNum, String type, String search) {
 		model.addAttribute("noticeList", noticeService.getNoticeList(pageNum, type, search));
 		model.addAttribute("paging", noticeService.getPaging(pageNum, type, search));
 		return "notice/noticeList";
 	}
-	
+	// 공지상세보기 (댓글리스트)
 	@RequestMapping(value="content", method = {RequestMethod.GET,RequestMethod.POST})
 	public String content(Model model, int noticeNum, String pageNum, String type, String search, String commentPageNum) {
 		model.addAttribute("noticeList", noticeService.getNoticeList(pageNum, type, search));
@@ -39,19 +40,28 @@ public class NoticeController {
 		
 		return "notice/content";
 	}
+	// 공지 작성form
 	@RequestMapping(value="write", method = RequestMethod.GET)
 	public String write() {
 		return "notice/write";
 	}
+	// 공지 작성처리
 	@RequestMapping(value="write", method = RequestMethod.POST)
 	public String write(Model model, Notice notice, String ad) {
 		model.addAttribute("noticeWriteResult",noticeService.writeNotice(notice));
 		return "forward:list.do";
 	}
+	// 공지댓글 작성
 	@RequestMapping(value="ncWrite", method = RequestMethod.POST)
 	public String ncWrite(Model model, NoticeComment noticeComment, HttpServletRequest request) {
 		model.addAttribute("ncWriteResult",noticeCommentService.ncWrite(noticeComment, request));
 		return "forward:content.do";
+	}
+	// 공지댓글 수정
+	@RequestMapping(value="ncModify", method=RequestMethod.GET)
+	public String ncModify(Model model, int ncNum) {
+		model.addAttribute("nc",noticeCommentService.getNc(ncNum));
+		return null;
 	}
 	
 	

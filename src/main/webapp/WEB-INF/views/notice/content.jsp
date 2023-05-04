@@ -76,13 +76,16 @@
 		   		<c:if test="${commentList.size() ne 0}">
 		   			<c:forEach var="comment" items="${commentList}">
 		   			
-		   				<div class="card mb-3">
+		   				<div class="card mb-3" id="comment${comment.ncNum}">
 						  <div class="card-header d-flex justify-content-between py-0">
 						  	<div><small>${comment.memberName}(${comment.memberId})</small></div>
 						  	<div>
 						  		<small><fmt:formatDate value="${comment.ncDate}" pattern="yy/MM/dd HH:mm:ss"/></small>
-						  		<c:if test="${member.memberId eq comment.memberId or not empty admin}">
-							  		<button type="button" id="${dto.commentNo}" class="btn btn-sm btn-outline-dark py-0 px-1 ms-2 commentModifyView">수정</button>
+						  		<c:if test="${member.memberId eq comment.memberId}">
+							  		<button type="button" id="${comment.ncNum}" class="btn btn-sm btn-outline-dark py-0 px-1 ms-2 commentModifyView">수정</button>
+							  		<button type="button" class="btn btn-sm btn-outline-dark py-0 px-1" onclick="commentDelete()">삭제</button>
+						  		</c:if>
+						  		<c:if test="${not empty admin}">
 							  		<button type="button" class="btn btn-sm btn-outline-dark py-0 px-1" onclick="commentDelete()">삭제</button>
 						  		</c:if>
 						  	</div>
@@ -110,7 +113,7 @@
 			  	 	</c:if>
 			  	 	<c:if test="${commentPaging.startPage > commentPaging.blockSize}">
 				    <li class="page-item">
-					    <a class="page-link" href="${conPath}/notice/content.do?noticeNum=${notice.noticeNum}&pageNum=${commentPaging.startPage-1}&search=${param.search}&type=${param.type}">
+					    <a class="page-link" href="${conPath}/notice/content.do?commentPageNum=${commentPaging.startPage -1}&noticeNum=${notice.noticeNum}&pageNum=${param.pageNum}&search=${param.search}&type=${param.type}">
 					    <span aria-hidden="true">&laquo;</span>
 					    </a>
 				    </li>
@@ -121,14 +124,14 @@
 						<li class="page-item active"><a class="page-link">${i}</a></li>
 					</c:if>
 			  	 		<c:if test="${i ne commentPaging.currentPage}">
-						<li class="page-item"><a class="page-link" href="${conPath}/notice/content.do?noticeNum=${notice.noticeNum}&pageNum=${i}&search=${param.search}&type=${param.type}">${i}</a></li>
+						<li class="page-item"><a class="page-link" href="${conPath}/notice/content.do?commentPageNum=${i}&noticeNum=${notice.noticeNum}&pageNum=${param.pageNum}&search=${param.search}&type=${param.type}">${i}</a></li>
 					</c:if>
 			  	 	
 			  	 	</c:forEach>
 			  	 	
 			  	 	<c:if test="${commentPaging.endPage < commentPaging.pageCnt}">
 					<li class="page-item">
-						<a class="page-link" href="${conPath}/notice/content.do?noticeNum=${notice.noticeNum}&pageNum=${commentPaging.endPage+1}&search=${param.search}&type=${param.type}">
+						<a class="page-link" href="${conPath}/notice/content.do?commentPageNum=${commentPaging.endPage}&noticeNum=${notice.noticeNum}&pageNum=${param.pageNum}&search=${param.search}&type=${param.type}">
 						<span aria-hidden="true">&raquo;</span>
 						</a>
 					</li>
@@ -145,7 +148,6 @@
 			</nav>
 	    	<!-- 댓글페이징 끝 -->
 	    	
-	    	
 	    	<c:if test="${empty member}">
 	    		<h4>댓글 작성 권한이 없습니다 <button class="nextlogin btn btn-outline-dark gologin">로그인</button></h4>
 	    	</c:if>
@@ -160,7 +162,7 @@
 				    	<input type="hidden" name="pageNum" id="pageNum" value="${param.pageNum}">
 				    	<input type="hidden" name="search" value="${param.search}">
 				    	<input type="hidden" name="type" value="${param.type}">
-				    	<input type="hidden" name="noticeNum" class="noticeNum" value="${notice.noticeNum}">
+				    	<input type="hidden" name="noticeNum" value="${notice.noticeNum}">
 				    	<input type="hidden" name="memberId" value="${member.memberId}">
 				    	<textarea name="ncContent" class="form-control ml-1 shadow-none textarea"></textarea>
 				    	<input type="submit" class="btn btn-dark mt-3" value="댓글 등록">
@@ -178,6 +180,7 @@
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
 	<input type="hidden" class="noticeNum" value="${notice.noticeNum}">
+	<input type="hidden" class="commentPageNum" value="${commentPaging.currentPage}">
 <script>
 
 // 비로그인상태에서 댓글작성하고싶으면 로그인하러가라고 버튼
@@ -186,39 +189,30 @@ $('.gologin').click(function(){
 	location.href='${conPath}/login.do?after=notice/content.do&noticeNum='+noticeNum;
 });
 
-
-
-
-
-
-$(document).ready(function(){
 	
-	$('.commentModifyView').click(function(){
-		var commentNo = $(this).attr('id');
-		var commentPageNum = $('#commentPageNum').val();
-		var pageNum = "<c:out value='${pageNum}'/>";
-		var search = "<c:out value='${param.search}'/>";
-		var type = "<c:out value='${type}'/>";
-		
-		$.ajax({
-			url : '${conPath}/commentModifyView.do',
-			type : 'post',
-			data : 'commentNo='+commentNo+'&commentPageNum='+commentPageNum+'&pageNum='+pageNum+'&search='+search+'&type='+type,
-			dataType : 'html',
-			success : function(data){
-				$('#comment'+commentNo).html(data);
-			}
-		});
-		
+$('.commentModifyView').click(function(){
+	var ncNum = $(this).attr('id');
+	var commentPageNum = $('.commentPageNum').val();
+	var pageNum = "<c:out value='${param.pageNum}'/>";
+	var search = "<c:out value='${param.search}'/>";
+	var type = "<c:out value='${param.type}'/>";
+	
+	$.ajax({
+		url : '${conPath}/notice/ncModify.do',
+		type : 'get',
+		data : 'ncNum='+ncNum+'&commentPageNum='+commentPageNum+'&pageNum='+pageNum+'&search='+search+'&type='+type,
+		dataType : 'html',
+		success : function(data){
+			$('#comment'+ncNum).html(data);
+		}
 	});
+	
 });
 
-function boardDelete() {
-	
-  if (confirm("글 삭제를 진행하시겠습니까?")) {
-    location.href = "${conPath}/boardDelete.do?boardGroup=${board.boardGroup}&boardStep=${board.boardStep}&boardIndent=${board.boardIndent}&pageNum=${pageNum}&search=${param.search}&type=${type}";
-  }
-}
+
+
+
+
 
 function commentDelete() {
 

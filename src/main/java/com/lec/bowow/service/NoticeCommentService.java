@@ -10,8 +10,9 @@ public interface NoticeCommentService {
 	
 	public List<NoticeComment> ncList(int noticeNum, String commentPageNum);
 	public int ncTotCnt(int noticeNum);
-	
 	public int ncWrite(NoticeComment noticeComment, HttpServletRequest request);
+	
+	public NoticeComment getNc(int ncNum);
 	
 	public int ncUpdate(NoticeComment noticeComment);
 	public int ncDelete(int ncNum);

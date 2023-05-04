@@ -231,11 +231,9 @@ UPDATE NOTICE SET NOTICEHIT = NOTICEHIT + 1 WHERE NOTICENUM = 1;
 INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '제목', '내용');
 
-
-
-
+--------------------------- NOTICECOMMENT ------------------------------------------------
 ------------------------------------------------ 공지 댓글
--- 해당글의 공지댓글 가져오기 (NOTICENUM)
+-- 해당글의 공지댓글리스트 가져오기 (NOTICENUM)
 SELECT * FROM
   (SELECT ROWNUM RN, A.* FROM
     (SELECT NC.*, MEMBERNAME FROM NOTICECOMMENT NC, MEMBER M 
@@ -247,6 +245,10 @@ SELECT COUNT(*) FROM NOTICECOMMENT WHERE NOTICENUM = 1;
 -- 댓글작성 (memberId, noticeNum, ncContent, ncIp)
 INSERT INTO NOTICECOMMENT (NCNUM, MEMBERID, NOTICENUM, NCCONTENT, NCIP)
   VALUES(NOTICECOMMENT_SEQ.NEXTVAL,'aaa',1,'댓글내용','192.168.0.1');
+
+-- 해당댓글의 정보(ncNum)
+SELECT * FROM NOTICECOMMENT WHERE NCNUM = 1;
+
 -- 댓글 수정 (ncContent, ncIp, ncNum)
 UPDATE NOTICECOMMENT SET NCCONTENT = 'ASDF', NCIP = '111' WHERE NCNUM = 1;
 -- 댓글 삭제 (ncNum)
