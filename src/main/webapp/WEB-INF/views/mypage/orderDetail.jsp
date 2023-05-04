@@ -121,9 +121,7 @@
 								<tr>
 									<th class="row">총 주문금액</th>
 									<td style="cursor:text;font-weight:600; color:#666;">
-										<fmt:formatNumber  value="${contentorder.totalPrice+totaldiscount}" pattern="#,###"/>원
-										${totaldiscount}
-										${contentorder.totalPrice}
+										<fmt:formatNumber  value="${contentorder.totalPrice}" pattern="#,###"/>원
 									</td>
 								</tr>
 								<tr>
@@ -135,8 +133,11 @@
 									<th class="row">총 할인금액</th>
 									<td style="font-weight:500;">
 										<c:if test="${totaldiscount != 0}">
-											<c:set var="coupon" value="${(totaldiscount+ship)-(contentorder.totalPrice+totaldiscount)}"/>
-											<fmt:formatNumber value="${totaldiscount+coupon}" pattern="#,###"/>원 (상품할인 : ${totaldiscount}원, 쿠폰사용 : ${coupon}원)
+											<c:forEach items="${orderDetail}" var="order">
+												<c:set var="coupon" value="${(contentorder.totalPrice+ship)-(contentorder.totalPrice+totaldiscount)}"/>
+											</c:forEach>
+											<fmt:formatNumber value="${totaldiscount+coupon}" pattern="#,###"/>원 (상품할인 :<fmt:formatNumber value="${totaldiscount}"/>원 ,
+											 쿠폰사용 :<fmt:formatNumber value="${coupon}"/>원)
 										</c:if>
 									</td>	
 								</tr>

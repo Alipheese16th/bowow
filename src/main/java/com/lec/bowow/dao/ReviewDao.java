@@ -9,5 +9,5 @@ import com.lec.bowow.model.Review;
 @Mapper
 public interface ReviewDao {
 	public List<Review>reviewList(Review review);
-	public int totCntProduct(Review review);
+	public int totCntReview(Review review);
 }

@@ -2,11 +2,14 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
 <mapper namespace="com.lec.bowow.dao.ReviewDao">
 	<resultMap type="Review" id="ReviewResult">
 		<result property="reviewNum" column="reviewNum"/>
 		<result property="memberId" column="memberId"/>
+		<result property="memberName" column="memberName"/>
 		<result property="productCode" column="productCode"/>
+		<result property="productName" column="productName"/>
 		<result property="reviewTitle" column="reviewTitle"/>
 		<result property="reviewContent" column="reviewContent"/>
 		<result property="reviewScore" column="reviewScore"/>
@@ -14,55 +17,69 @@
 		<result property="reviewDate" column="reviewDate"/>
 		<result property="reviewIp" column="reviewIp"/>
 		<result property="reviewHit" column="reviewHit"/>
+		<result property="reviews" column="reviews"/>
+		<result property="category" column="category"/>
 	</resultMap>
 	<select id="reviewList" parameterType="Review" resultMap="ReviewResult">
 		<!-- 리뷰글 최신순으로 -->
-		<if test="reviews==null or reviews==''">
-			SELECT *
-			    FROM (SELECT ROWNUM RN, R.*
-			        FROM (SELECT * FROM REVIEW ORDER BY reviewDATE DESC)R)
-			    WHERE RN BETWEEN #{startRow} AND #{endRow}
-		</if>
-		<!-- 리뷰 글 조회순으로 -->
-		<if test="reviews=='like'">
-			SELECT *
-			    FROM (SELECT ROWNUM RN, R.*
-			        FROM (SELECT * FROM REVIEW ORDER BY REVIEWSCORE DESC)R)
-			        WHERE RN BETWEEN #{startRow} AND #{endRow}
-		</if>
 		<if test="category==null or category==''">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, R.*
-			        FROM (SELECT * FROM REVIEW ORDER BY reviewDATE DESC)R)
+			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME FROM REVIEW R, MEMBER M, PRODUCT P WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE = R.PRODUCTCODE ORDER BY reviewDATE DESC)R)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
+		<!-- 조회순 -->
+		<if test="reviews=='hit'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, R.*
+			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME FROM REVIEW R, MEMBER M, PRODUCT P WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE=R.PRODUCTCODE ORDER BY REVIEWHIT DESC)R)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<!-- 별점순 -->
+		<if test="reviews=='like'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, R.*
+			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME FROM REVIEW R, MEMBER M, PRODUCT P WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE=R.PRODUCTCODE ORDER BY REVIEWSCORE DESC)R)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<!-- 패션카데코리 -->
 		<if test="category=='fashion'">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'fashion' ORDER BY REVIEWHIT DESC)A)
+			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='fashion' ORDER BY REVIEWHIT DESC)A)
 			        WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
+		<!-- 장난감카테고리 -->
 		<if test="category=='toy'">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'food' ORDER BY REVIEWHIT DESC)A)
+			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='toy' ORDER BY REVIEWHIT DESC)A)
 			        WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
+		<!-- 음식 카테고리 -->
+		<if test="category=='food'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, A.*
+			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='food' ORDER BY REVIEWHIT DESC)A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<!-- 산책카테고리 -->
 		<if test="category=='walking'">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'walking' ORDER BY REVIEWHIT DESC)A)
+			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='walking' ORDER BY REVIEWHIT DESC)A)
 			        WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
+		<!-- 목욕카테고리 -->
 		<if test="category=='clean'">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'clean' ORDER BY REVIEWHIT DESC)A)
+			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='clean' ORDER BY REVIEWHIT DESC)A)
 			        WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 	</select>
 	<select id="totCntReview" parameterType="Review" resultType="int">
-		<if test="category==null or category==''or reviews==null or reviews=='' or reviews=='like'">
+		<if test="category==null or category=='' or reviews=='hit' or reviews='like'">
 			SELECT COUNT(*) FROM REVIEW
 		</if>
 		<if test="category=='fashion'">
