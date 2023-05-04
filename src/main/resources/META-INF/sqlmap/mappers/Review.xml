@@ -17,17 +17,68 @@
 	</resultMap>
 	<select id="reviewList" parameterType="Review" resultMap="ReviewResult">
 		<!-- 리뷰글 최신순으로 -->
-		<if test="schItem==null or schItem==''">
+		<if test="reviews==null or reviews==''">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, R.*
 			        FROM (SELECT * FROM REVIEW ORDER BY reviewDATE DESC)R)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
-		<if test="schItem=='like'">
+		<!-- 리뷰 글 조회순으로 -->
+		<if test="reviews=='like'">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, R.*
 			        FROM (SELECT * FROM REVIEW ORDER BY REVIEWSCORE DESC)R)
 			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="category==null or category==''">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, R.*
+			        FROM (SELECT * FROM REVIEW ORDER BY reviewDATE DESC)R)
+			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="category=='fashion'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, A.*
+			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'fashion' ORDER BY REVIEWHIT DESC)A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="category=='toy'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, A.*
+			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'food' ORDER BY REVIEWHIT DESC)A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="category=='walking'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, A.*
+			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'walking' ORDER BY REVIEWHIT DESC)A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="category=='clean'">
+			SELECT *
+			    FROM (SELECT ROWNUM RN, A.*
+			        FROM (SELECT R.*, CATEGORY FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE = P.PRODUCTCODE AND CATEGORY = 'clean' ORDER BY REVIEWHIT DESC)A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+	</select>
+	<select id="totCntReview" parameterType="Review" resultType="int">
+		<if test="category==null or category==''or reviews==null or reviews=='' or reviews=='like'">
+			SELECT COUNT(*) FROM REVIEW
+		</if>
+		<if test="category=='fashion'">
+			SELECT COUNT(*) FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE=P.PRODUCTCODE AND CATEGORY = 'fashion'
+		</if>
+		<if test="category=='toy'">
+			SELECT COUNT(*) FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE=P.PRODUCTCODE AND CATEGORY = 'toy'
+		</if>
+		<if test="category=='food'">
+			SELECT COUNT(*) FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE=P.PRODUCTCODE AND CATEGORY = 'food'
+		</if>
+		<if test="category=='walking'">
+			SELECT COUNT(*) FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE=P.PRODUCTCODE AND CATEGORY = 'walking'
+		</if>
+		<if test="category=='clean'">
+			SELECT COUNT(*) FROM REVIEW R, PRODUCT P WHERE R.PRODUCTCODE=P.PRODUCTCODE AND CATEGORY = 'clean'
 		</if>
 	</select>
 </mapper>

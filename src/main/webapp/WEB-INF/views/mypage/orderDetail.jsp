@@ -11,7 +11,22 @@
 	<link href="${conPath}/css/mypage_orderDetail.css" rel="stylesheet">
 	<link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet">
 	<style>
-
+		.mypage-content .detail-ordercode>span{
+			font-size:13px;
+			color:rgb(102,102,102);
+		}
+		.mypage-content .detail-ordercode>span a{
+			color:#be8d6e;
+		}
+		.mypage-content .detail-ordercode .svg-icon{
+			display: inline-block;
+		    width: 20px;
+		    height: 20px;
+		    vertical-align: top;
+		}
+		.mypage-content .detail-ordercode span .st0{
+			fill:#be8d6e;
+		}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 </head>
@@ -24,7 +39,18 @@
 				<div class="detail-ordercode">
 					<span>
 						배송 또는 상품에 문제가 있나요?
-						<a href="#">1:1 문의하기<img alt="화살표이미지"></a>
+						<a href="${conPath}/inquiry/list.do">
+							1:1 문의하기
+							<span class="svg-icon">
+								<svg id="Layer_1" style="enable-background:new 0 0 64 64;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<g>
+									<g id="Icon-Chevron-Left" transform="translate(237.000000, 335.000000)">
+										<polyline class="st0" id="Fill-35" points="-210.9,-289 -212.9,-291 -201.1,-302.7 -212.9,-314.4 -210.9,-316.4 -197.1,-302.7-210.9,-289"/>
+									</g>
+								</g>
+								</svg>
+							</span>
+						</a>
 					</span>
 				</div>
 				<div class="mypage-content-line"></div>
@@ -66,8 +92,9 @@
 										</td>
 										<td>${order.qty}</td>
 										<td style="font-weight:700;">
-											<c:if test="${order.productDiscount > 0}">
-												<span style="text-decoration:line-through; font-weight:500;"><fmt:formatNumber value="${order.productPrice * order.qty}" pattern="#,###"/></span>원<br>
+											<c:if test="${order.productDiscount != 0}">
+												<span style="text-decoration:line-through; font-weight:500;">
+													<fmt:formatNumber value="${order.productPrice * order.qty}" pattern="#,###"/></span>원<br>
 												<fmt:formatNumber value="${order.cost}" pattern="#,###"/>원
 											</c:if>
 											<c:if test="${order.productDiscount eq 0}">
@@ -91,29 +118,34 @@
 					<div class="right-txt secP">
 					<c:set var="ship" value="3000"/>
 						<table>
-							<tr>
-								<th class="row">총 주문금액</th>
-								<td style="cursor:text;font-weight:600; color:#666;">
-									<fmt:formatNumber  value="${contentorder.totalPrice+ totaldiscount}" pattern="#,###"/>원		
-								</td>
-							</tr>
-							<tr>
-								<th class="row">배송비</th>
-								<td>
-									<fmt:formatNumber value="${ship}" pattern="#,###"/>원</td>
-							</tr>
-							<tr>
-								<th class="row">총 할인금액</th>
-								<td style="font-weight:600;">
-									<fmt:formatNumber value="${contentorder.totalPrice+ totaldiscount+ship-contentorder.totalPrice}" pattern="#,###"/>원
-								</td>	
-							</tr>
-							<tr>
-								<th class="row">결제금액</th>
-								<td style="font-weight:700;font-size:16px;">
-									<fmt:formatNumber value="${contentorder.totalPrice}" pattern="#,###"/>원
-								</td>
-							</tr>
+							<c:forEach items="${orderDetail}" var="order">
+								<tr>
+									<th class="row">총 주문금액</th>
+									<td style="cursor:text;font-weight:600; color:#666;">
+										<fmt:formatNumber  value="${order.cost+totaldiscount}" pattern="#,###"/>원
+									</td>
+								</tr>
+								<tr>
+									<th class="row">배송비</th>
+									<td>
+										<fmt:formatNumber value="${ship}" pattern="#,###"/>원</td>
+								</tr>
+								<tr>
+									<th class="row">총 할인금액</th>
+									<td style="font-weight:500;">
+										<c:if test="${totaldiscount != 0}">
+											<c:set var="coupon" value="${(order.cost+totaldiscount+ship)-(contentorder.totalPrice+totaldiscount)}"/>
+											<fmt:formatNumber value="${totaldiscount+coupon}" pattern="#,###"/>원 (상품할인 : ${totaldiscount}원, 쿠폰사용 : ${coupon}원)
+										</c:if>
+									</td>	
+								</tr>
+								<tr>
+									<th class="row">결제금액</th>
+									<td style="font-weight:700;font-size:16px;">
+										<fmt:formatNumber value="${contentorder.totalPrice}" pattern="#,###"/>
+									</td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>

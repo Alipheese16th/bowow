@@ -143,7 +143,7 @@ INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT
   VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 
   (SELECT PRODUCTCODE FROM PRODUCT WHERE PRODUCTNAME LIKE '%' || '럭셔리티셔츠' || '%'), 
   '리뷰제목', '이 티셔츠 이상해요', 1, 'review.jpg', '192.168.0.1');
-  
+
 
 ----------------------------- 17. GOOD -----------------------------------------
 INSERT INTO GOOD (REVIEWNUM, MEMBERID)
