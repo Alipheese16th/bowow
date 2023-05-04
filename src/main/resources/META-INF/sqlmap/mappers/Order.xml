@@ -103,19 +103,44 @@
 		SELECT SUM((PRODUCTPRICE*(PRODUCTDISCOUNT * 0.01)*NVL(QTY,0)))DISCOUNT 
 			FROM ORDERDETAIL OD, PRODUCT P WHERE OD.PRODUCTCODE = P.PRODUCTCODE AND ORDERCODE = #{orderCode} 
 	</select>
+	
 	<!-- 일별 매출통계 -->
 	<select id="salesOfDate" resultType="int">
-		select SUMTOTAL from 
-		        (select to_Date(TO_CHAR(orderDate, 'RRMMDD')) as orderDate,
-		        sum(totalPrice) as sumTotal
-		    from orders 
-		        GROUP BY to_Date(TO_CHAR(orderDate, 'RRMMDD')))
-		    where orderDate between SYSDATE-15 and SYSDATE
-		    	order by orderdate
+		<![CDATA[
+		SELECT NVL(SUMTOTAL, 0) FROM 
+		  (SELECT TO_DATE(ORDERDATE) ORDERDATE, SUM(TOTALPRICE) SUMTOTAL FROM ORDERS 
+		    WHERE ORDERDATE BETWEEN SYSDATE-15 AND SYSDATE
+		    GROUP BY TO_DATE(ORDERDATE)
+		    ORDER BY ORDERDATE) A, 
+		  (SELECT TO_DATE(SYSDATE-14 + LEVEL - 1) AS dt
+		    FROM dual 
+		        CONNECT BY LEVEL <= 14) B
+		  WHERE A.ORDERDATE(+)=B.DT
+		  ORDER BY DT
+		]]>
 	</select>
-	<select id="salesOfCategory" resultMap="OrderResult">
-		select category, sum(cost) from OrderDetail od, product p where od.productcode = p.productcode group by category
+	<!-- <select id="salesOfDate" resultType="date">
+		select 
+		        to_Date(TO_CHAR(orderdate, 'RRMMDD')) as orderdate
+		    from orders
+		        GROUP BY to_Date(TO_CHAR(orderdate, 'RRMMDD'))
 	</select>
-
+	<select id="sumTotalOfDate" resultType="int">
+		select 
+		        sum(totalprice) as sumTotal
+		    from orders
+		        GROUP BY to_Date(TO_CHAR(orderdate, 'RRMMDD'))
+	</select> -->
+	
+	<!-- 카테고리별 매출통계 -->
+	<!-- <select id="salesOfCategory" resultMap="OrderResult">
+		select category, sum(cost) sumTotal from orderdetail od, product p where od.productcode = p.productcode group by category
+	</select> -->
+	<select id="salesOfCategory" resultType="String">
+		select category from orderdetail od, product p where od.productcode = p.productcode group by category
+	</select>
+	<select id="sumTotalOfCategory" resultType="int">
+		select sum(cost) sumTotal from orderdetail od, product p where od.productcode = p.productcode group by category
+	</select>
 	
 </mapper>

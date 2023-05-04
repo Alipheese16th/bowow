@@ -34,8 +34,13 @@ public class QnaServiceImpl implements QnaService {
 	public int writeQna(Qna qna, HttpServletRequest request, HttpSession httpSession) {
 		qna.setQnaIp(request.getRemoteAddr());
 		Member member = (Member) httpSession.getAttribute("member");
-		qna.setMemberId(member.getMemberId());
-		return qnaDao.writeQna(qna);
+		if(member == null) {
+			return -1;
+		}else {
+			qna.setMemberId(member.getMemberId());
+			return qnaDao.writeQna(qna);
+			
+		}
 	}
 	@Override
 	public Qna contentQna(int qnaNum) {
