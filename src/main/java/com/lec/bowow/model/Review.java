@@ -8,7 +8,9 @@ import lombok.Data;
 public class Review {
 	private int reviewNum;
 	private String memberId;
+	private String memberName;
 	private String productCode;
+	private String productName;
 	private String reviewTitle;
 	private String reviewContent;
 	private int reviewScore;
@@ -21,4 +23,5 @@ public class Review {
 	private int endRow;
 	private String reviews;
 	private String category;
+	private String schWord;
 }

@@ -82,6 +82,7 @@ INSERT INTO MEMBERGRADE (GRADENO, GRADE, LOWAMOUNT, HIAMOUNT)
 INSERT INTO MEMBER (MEMBERID, MEMBERPW, MEMBERNAME, MEMBEREMAIL, MEMBERTEL, MEMBERPOST, MEMBERADDR1, MEMBERADDR2, MEMBERBIRTH, MEMBERPOINT)
   VALUES ('aaa', '111', '신치윤', 'shwoo1103@gmail.com', '010-6344-4081','12212','인천시 남동구 만수동', '1081-3 201호', '93-11-03', 0);
 
+
 --------------------------- 9. COUPON ------------------------------------------
 INSERT INTO COUPON (COUPONNUM, MEMBERID, COUPONNAME, COUPONDISCOUNT)
   VALUES (COUPON_SEQ.NEXTVAL, 'aaa', '2000천원 할인 쿠폰', 2000);
@@ -141,9 +142,8 @@ INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, 
 ----------------------------- 16. REVIEW ---------------------------------------
 INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
   VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 
-  (SELECT PRODUCTCODE FROM PRODUCT WHERE PRODUCTNAME LIKE '%' || '럭셔리티셔츠' || '%'), 
-  '리뷰제목', '이 티셔츠 이상해요', 1, 'review.jpg', '192.168.0.1');
-
+  (SELECT PRODUCTCODE FROM PRODUCT WHERE PRODUCTNAME LIKE '%' || '개샴푸' || '%'), 
+  '리뷰제목', '이 티셔츠 이상해요', 1, 'n1.jpeg', '192.168.0.1');
 
 ----------------------------- 17. GOOD -----------------------------------------
 INSERT INTO GOOD (REVIEWNUM, MEMBERID)
