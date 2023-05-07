@@ -90,6 +90,7 @@ public class MemverServiceImpl implements MemberService {
 			member.setMemberBirth(Date.valueOf(memberBirthTemp));
 		}
 		System.out.println(member);
+		System.out.println(member.getMemberId());
 		session.setAttribute("memberId", member.getMemberId());
 		return memberDao.joinMember(member);
 	}
@@ -104,7 +105,7 @@ public class MemverServiceImpl implements MemberService {
 		}else {	
 			session.removeAttribute("admin");
 			session.setAttribute("member", member);
-		}
+		} 
 		return result;
 	}
 	@Override

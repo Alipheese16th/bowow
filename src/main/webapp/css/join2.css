@@ -1,0 +1,157 @@
+@charset "UTF-8";
+#content-form *{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: 'Pretendard';
+}
+body{
+	margin:0;
+	padding:0;
+}
+li{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+	color: #333;
+	display:block;
+}
+.mypage-content .mypage-content-right{
+	width:1000px;
+}
+.mypage-content .mypage-content-right .content-detail{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-bottom: 27px;
+    -webkit-box-pack: justify;
+    justify-content: space-between
+}
+.mypage-content .mypage-content-right .mypage-content-line{
+display: flex;
+   flex-direction: row;
+   width: 100%;
+   -webkit-box-align: center;
+   align-items: center;
+   border-bottom: 1px solid #ccc;
+}
+
+#content-form{
+	margin:0px auto;
+	width:1000px;
+	background:#fff;
+}
+#content-form .join-title{
+	text-align:center;
+	font-size:30px;
+	font-weight: 600;
+	letter-spacing: -1px;
+	color:#333;
+	line-height:35px;
+	margin-bottom:50px;
+}
+#content-form .join-wrap{
+	width:840px;
+	margin:0 auto;
+	padding: 7px 120px 7px 60px;
+}
+#content-form .join-wrap .join-form-line{
+	color: rgb(102, 102, 102);
+	text-align: right;
+	padding-bottom:10px;
+	font-size:14px;
+	line-height:17px;
+	font-weight: 500;
+}
+#content-form .join-wrap .point{
+	color:red;
+	margin:0 2px 0 2px;
+}
+#content-form .join-wrap .join-form .join-row{
+	border-spacing: 40px 20px;
+}
+#content-form .join-wrap .join-form .join-row .join-form-wrap{
+	display:inline-flex;
+	width:100%;
+	padding:10px 20px;
+}
+#content-form .join-wrap .join-form .join-row .join-form-wrap .bottom{
+    margin-top: 3px;
+ 	font-weight: 600;
+    font-size: 14px;
+}
+#content-form .join-wrap .join-form .join-row .join-form-title{
+	width:139px;
+	padding-top:12px;
+	text-align:left;
+}
+#content-form .join-wrap .join-form .join-row .join-form-title .font-left{
+	font-weight:500;
+	color:#000;
+	line-height:12px;
+}
+#content-form .join-wrap .join-form .join-row .join-form-wrap .join-form-text{
+	flex:1 1 0%;
+	position:relative;
+	height:48px;
+}
+#content-form .join-wrap .join-form .join-row .join-form-wrap .join-form-text input{
+	width:100%;
+	height:46px;
+	border-radius: 5px;
+	padding:0px 11px 1px 15px;
+	border:1px solid #D1D1D1;
+	font-weight:500;
+	font-size:16px;
+	line-height:1.5;
+	color:#333;
+	box-sizing: border-box;
+	outline:none;
+}
+#content-form .join-wrap .join-form .join-row .join-form-wrap .join-form-text input[type='text'],
+#content-form .join-wrap .join-form .join-row .join-form-wrap .join-form-text input[type='password']{
+	box-shadow:0 0 0 0;
+	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+}
+#content-form .join-wrap .join-form .join-row .join-form-wrap .join-form-btn{
+	width:128px;
+	margin-left:8px;
+}
+#content-form .join-wrap .join-form .join-row .join-form-wrap .join-form-btn button{
+	height:46px;
+	width: 100%;
+    border-radius: 5px;
+    background: #BE8D6E;
+    color: #fff;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+#content-form .join-wrap .join-form .join-row .btnStyle2{
+	width: 30%;
+    height: 60px;
+    border-radius: 5px;
+    border: 1px solid #BE8D6E;
+    color: #222;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 10px;
+    margin-top: 40px;
+    background: #fff;
+}
+#content-form .join-wrap .join-form .join-row .btnStyle{
+	width: 30%;
+    height: 60px;
+    border-radius: 5px;
+    border: 0px none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 10px;
+    margin-top: 40px;
+    background: #BE8D6E;
+}
+.focusB{
+	text-align:left;
+}

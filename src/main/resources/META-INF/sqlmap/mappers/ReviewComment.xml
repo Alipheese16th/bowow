@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.bowow.dao.ReviewCommentDao">
+	<resultMap type="ReviewComment" id="ReviewCommentResult">
+		<result property="commentNum" column="commentNum"/>
+		<result property="memberId" column="memberId"/>
+		<result property="reviewNum" column="reviewNum"/>
+		<result property="commentContent" column="commentContent"/>
+		<result property="commentDate" column="commentDate"/>
+		<result property="commentIp" column="commentIp"/>
+	</resultMap>
+	<select id="rcommentList" parameterType="ReviewComment" resultMap="ReviewCommentResult">
+		SELECT * 
+    		FROM (SELECT ROWNUM RN, C.*
+        		FROM (SELECT C.* FROM COMMENTS C, REVIEW R WHERE C.REVIEWNUM=R.REVIEWNUM AND R.REVIEWNUM = #{reviewNum} ORDER BY COMMENTDATE DESC)C)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="rcommentTotCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*)CNT FROM COMMENTS WHERE REVIEWNUM = #{reviewNum}
+	</select>
+	<insert id="rcommentWrite" parameterType="ReviewComment">
+		INSERT INTO COMMENTS (COMMENTNUM, MEMBERID, REVIEWNUM, COMMENTCONTENT,COMMENTIP)
+  			VALUES (COMMENTS_SEQ.NEXTVAL, #{memberId}, #{reviewNum}, #{commentContent}, #{commentIp})
+	</insert>
+	<select id="getRcomment" parameterType="int" resultType="ReviewComment">
+		SELECT * FROM COMMENTS WHERE COMMENTNUM = #{commentNum}
+	</select>
+	<update id="rcommentModify" parameterType="ReviewComment">
+		UPDATE COMMENTS SET 
+    		COMMENTCONTENT = #{commentContent},
+    		COMMENTIP = #{commentIp}
+    	WHERE COMMENTNUM = #{commentNum}
+	</update>
+	<delete id="rcommentDelete" parameterType="int">
+		DELETE FROM COMMENTS WHERE COMMENTNUM = #{commentNum}
+	</delete>
+</mapper>

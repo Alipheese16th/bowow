@@ -103,7 +103,10 @@
 											</c:if>
 											
 										</td>
-										<td>배송완료</td>
+										<td>
+											배송완료
+											<button onclick="location.href='${conPath}/review/write.do?productCode=${order.productCode}&orderCode=${order.orderCode}'">구매후기</button>
+										</td>
 									</tr>
 							</c:forEach>
 						</table>
@@ -121,7 +124,7 @@
 								<tr>
 									<th class="row">총 주문금액</th>
 									<td style="cursor:text;font-weight:600; color:#666;">
-										<fmt:formatNumber  value="${contentorder.totalPrice}" pattern="#,###"/>원
+										<fmt:formatNumber  value="${sumPrice+totaldiscount}" pattern="#,###"/>원
 									</td>
 								</tr>
 								<tr>
@@ -132,19 +135,15 @@
 								<tr>
 									<th class="row">총 할인금액</th>
 									<td style="font-weight:500;">
-										<c:if test="${totaldiscount != 0}">
-											<c:forEach items="${orderDetail}" var="order">
-												<c:set var="coupon" value="${(contentorder.totalPrice+ship)-(contentorder.totalPrice+totaldiscount)}"/>
-											</c:forEach>
-											<fmt:formatNumber value="${totaldiscount+coupon}" pattern="#,###"/>원 (상품할인 :<fmt:formatNumber value="${totaldiscount}"/>원 ,
-											 쿠폰사용 :<fmt:formatNumber value="${coupon}"/>원)
-										</c:if>
+											<c:set var="coupon" value="${(sumPrice+totaldiscount)-(contentorder.totalPrice-ship)-totaldiscount}"/>
+											<fmt:formatNumber value="${totaldiscount+coupon}" pattern="#,###"/>원 (상품할인 : <fmt:formatNumber value="${totaldiscount}"/>원 ,
+											 쿠폰사용 : <fmt:formatNumber value="${coupon}"/>원)
 									</td>	
 								</tr>
 								<tr>
 									<th class="row">결제금액</th>
 									<td style="font-weight:700;font-size:16px;">
-										<fmt:formatNumber value="${contentorder.totalPrice}" pattern="#,###"/>
+										<fmt:formatNumber value="${contentorder.totalPrice}" pattern="#,###"/>원
 									</td>
 								</tr>
 						</table>

@@ -11,6 +11,7 @@ public class Review {
 	private String memberName;
 	private String productCode;
 	private String productName;
+	private int productPrice;
 	private String reviewTitle;
 	private String reviewContent;
 	private int reviewScore;
@@ -18,6 +19,7 @@ public class Review {
 	private Date reviewDate;
 	private String reviewIp;
 	private int reviewHit;
+	private String image;
 	//페이징
 	private int startRow;
 	private int endRow;

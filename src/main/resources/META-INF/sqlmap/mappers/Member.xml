@@ -62,7 +62,10 @@
 	<delete id="deleteMember" parameterType="String">
 		DELETE FROM MEMBER WHERE MEMBERID = #{memberId}
 	</delete>
-	
+	<insert id="joinCoupon" parameterType="Coupon">
+		INSERT INTO COUPON (COUPONNUM, MEMBERID, COUPONNAME, COUPONDISCOUNT)
+  			VALUES (COUPON_SEQ.NEXTVAL, #{memberId}, #{couponName}, #{couponDiscount})
+	</insert>
 	<!-- 해당 회원의 쿠폰리스트 -->
 	<select id="couponList" parameterType="String" resultMap="CouponResult">
 		select * from coupon where memberid = #{memberId}

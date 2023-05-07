@@ -10,6 +10,7 @@
 		<result property="memberName" column="memberName"/>
 		<result property="productCode" column="productCode"/>
 		<result property="productName" column="productName"/>
+		<result property="productPrice" column="productPrice"/>
 		<result property="reviewTitle" column="reviewTitle"/>
 		<result property="reviewContent" column="reviewContent"/>
 		<result property="reviewScore" column="reviewScore"/>
@@ -17,95 +18,149 @@
 		<result property="reviewDate" column="reviewDate"/>
 		<result property="reviewIp" column="reviewIp"/>
 		<result property="reviewHit" column="reviewHit"/>
-		<result property="reviews" column="reviews"/>
-		<result property="category" column="category"/>
+		<result property="image" column="image"/>
 	</resultMap>
 	<select id="reviewList" parameterType="Review" resultMap="ReviewResult">
 		<!-- 리뷰글 최신순으로 -->
 		<if test="category==null or category==''">
 			SELECT *
-			    FROM (SELECT ROWNUM RN, R.*
-			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME FROM REVIEW R, MEMBER M, PRODUCT P WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE = R.PRODUCTCODE ORDER BY reviewDATE DESC)R)
-			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+    			FROM (SELECT ROWNUM RN, B.*
+    				FROM (SELECT A.*
+    					FROM (SELECT R.*,CATEGORY, MEMBERNAME, IMAGE, PRODUCTNAME FROM REVIEW R, PRODUCT P, MEMBER M, IMAGE I WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWDATE DESC)A
+        			WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B)
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<!-- 조회순 -->
 		<if test="reviews=='hit'">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, R.*
-			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME FROM REVIEW R, MEMBER M, PRODUCT P WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE=R.PRODUCTCODE ORDER BY REVIEWHIT DESC)R)
+			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME, IMAGE FROM REVIEW R, MEMBER M, PRODUCT P, IMAGE I WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE=R.PRODUCTCODE AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWHIT DESC)R)
 			        WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<!-- 별점순 -->
 		<if test="reviews=='like'">
 			SELECT *
 			    FROM (SELECT ROWNUM RN, R.*
-			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME FROM REVIEW R, MEMBER M, PRODUCT P WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE=R.PRODUCTCODE ORDER BY REVIEWSCORE DESC)R)
+			        FROM (SELECT R.*, MEMBERNAME, PRODUCTNAME, IMAGE FROM REVIEW R, MEMBER M, PRODUCT P, IMAGE I WHERE M.MEMBERID=R.MEMBERID AND P.PRODUCTCODE=R.PRODUCTCODE AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWSCORE DESC)R)
 			        WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<!-- 패션카데코리 -->
 		<if test="category=='fashion'">
 			SELECT *
-			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='fashion' ORDER BY REVIEWHIT DESC)A)
-			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+    			FROM (SELECT ROWNUM RN, B.*
+   	 				FROM (SELECT A.*
+    					FROM (SELECT R.*,CATEGORY, MEMBERNAME, IMAGE, PRODUCTNAME FROM REVIEW R, PRODUCT P, MEMBER M, IMAGE I WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWDATE DESC)A
+        				WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            		WHERE CATEGORY = 'fashion')
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<!-- 장난감카테고리 -->
 		<if test="category=='toy'">
 			SELECT *
-			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='toy' ORDER BY REVIEWHIT DESC)A)
-			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+    			FROM (SELECT ROWNUM RN, B.*
+   	 				FROM (SELECT A.*
+    					FROM (SELECT R.*,CATEGORY, IMAGE, MEMBERNAME, PRODUCTNAME FROM REVIEW R, PRODUCT P, MEMBER M, IMAGE I WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWDATE DESC)A
+        				WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            		WHERE CATEGORY = 'toy')
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<!-- 음식 카테고리 -->
 		<if test="category=='food'">
 			SELECT *
-			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='food' ORDER BY REVIEWHIT DESC)A)
-			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+    			FROM (SELECT ROWNUM RN, B.*
+   	 				FROM (SELECT A.*
+    					FROM (SELECT R.*,CATEGORY, MEMBERNAME, IMAGE, PRODUCTNAME FROM REVIEW R, PRODUCT P, MEMBER M, IMAGE I WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWDATE DESC)A
+        				WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            		WHERE CATEGORY = 'food')
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<!-- 산책카테고리 -->
 		<if test="category=='walking'">
 			SELECT *
-			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='walking' ORDER BY REVIEWHIT DESC)A)
-			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+    			FROM (SELECT ROWNUM RN, B.*
+   	 				FROM (SELECT A.*
+    					FROM (SELECT R.*,CATEGORY, MEMBERNAME, IMAGE, PRODUCTNAME FROM REVIEW R, PRODUCT P, MEMBER M, IMAGE I WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWDATE DESC)A
+        				WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            		WHERE CATEGORY = 'walking')
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<!-- 목욕카테고리 -->
 		<if test="category=='clean'">
 			SELECT *
-			    FROM (SELECT ROWNUM RN, A.*
-			        FROM (SELECT R.*, MEMBERNAME, CATEGORY FROM REVIEW R, PRODUCT P, MEMBER M WHERE R.PRODUCTCODE = P.PRODUCTCODE AND R.MEMBERID=M.MEMBERID AND REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY ='clean' ORDER BY REVIEWHIT DESC)A)
-			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+    			FROM (SELECT ROWNUM RN, B.*
+   	 				FROM (SELECT A.*
+    					FROM (SELECT R.*,CATEGORY, MEMBERNAME, IMAGE, PRODUCTNAME FROM REVIEW R, PRODUCT P, MEMBER M, IMAGE I WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID AND I.PRODUCTCODE=P.PRODUCTCODE AND TYPE='title' ORDER BY REVIEWDATE DESC)A
+        				WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            		WHERE CATEGORY = 'clean')
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 	</select>
 	<select id="totCntReview" parameterType="Review" resultType="int">
-		<if test="category==null or category=='' or reviews=='hit' or reviews='like'">
-			SELECT COUNT(*) FROM REVIEW
+		<if test="category==null or category=='' or reviews=='hit' or reviews=='like'">
+			SELECT count(*)
+    			FROM (SELECT A.*
+    				FROM (SELECT R.*,CATEGORY, MEMBERNAME FROM REVIEW R, PRODUCT P, MEMBER M WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID ORDER BY REVIEWDATE DESC)A
+        		WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))
 		</if>
 		<if test="category=='fashion'">
-			SELECT COUNT(*)
-			    FROM (SELECT R.*,CATEGORY FROM REVIEW R, PRODUCT P WHERE P.PRODUCTCODE = R.PRODUCTCODE)A
-			    WHERE REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY='fashion'
+			SELECT count(*)
+    			FROM (SELECT A.*
+    				FROM (SELECT R.*,CATEGORY, MEMBERNAME FROM REVIEW R, PRODUCT P, MEMBER M WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID ORDER BY REVIEWDATE DESC)A
+        			WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            	WHERE CATEGORY = 'fashion'
 		</if>
 		<if test="category=='toy'">
-			SELECT COUNT(*)
-			    FROM (SELECT R.*,CATEGORY FROM REVIEW R, PRODUCT P WHERE P.PRODUCTCODE = R.PRODUCTCODE)A
-			    WHERE REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY='toy'
+			SELECT count(*)
+    			FROM (SELECT A.*
+    				FROM (SELECT R.*,CATEGORY, MEMBERNAME FROM REVIEW R, PRODUCT P, MEMBER M WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID ORDER BY REVIEWDATE DESC)A
+        			WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            	WHERE CATEGORY = 'toy'
 		</if>
 		<if test="category=='food'">
-			SELECT COUNT(*)
-			    FROM (SELECT R.*,CATEGORY FROM REVIEW R, PRODUCT P WHERE P.PRODUCTCODE = R.PRODUCTCODE)A
-			    WHERE REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY='food'
+			SELECT count(*)
+    			FROM (SELECT A.*
+    				FROM (SELECT R.*,CATEGORY, MEMBERNAME FROM REVIEW R, PRODUCT P, MEMBER M WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID ORDER BY REVIEWDATE DESC)A
+        			WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            	WHERE CATEGORY = 'food'
 		</if>
 		<if test="category=='walking'">
-			SELECT COUNT(*)
-			    FROM (SELECT R.*,CATEGORY FROM REVIEW R, PRODUCT P WHERE P.PRODUCTCODE = R.PRODUCTCODE)A
-			    WHERE REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY='walking'
+			SELECT count(*)
+    			FROM (SELECT A.*
+    				FROM (SELECT R.*,CATEGORY, MEMBERNAME FROM REVIEW R, PRODUCT P, MEMBER M WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID ORDER BY REVIEWDATE DESC)A
+        			WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            	WHERE CATEGORY = 'walking'
 		</if>
 		<if test="category=='clean'">
-			SELECT COUNT(*)
-			    FROM (SELECT R.*,CATEGORY FROM REVIEW R, PRODUCT P WHERE P.PRODUCTCODE = R.PRODUCTCODE)A
-			    WHERE REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%' AND CATEGORY='clean'
+			SELECT count(*)
+    			FROM (SELECT A.*
+    				FROM (SELECT R.*,CATEGORY, MEMBERNAME FROM REVIEW R, PRODUCT P, MEMBER M WHERE P.PRODUCTCODE = R.PRODUCTCODE AND R.MEMBERID = M.MEMBERID ORDER BY REVIEWDATE DESC)A
+        			WHERE (REVIEWTITLE LIKE '%'||TRIM(#{schWord})||'%' OR REVIEWCONTENT LIKE '%'||TRIM(#{schWord})||'%'))B 
+            	WHERE CATEGORY = 'clean'
 		</if>
 	</select>
+	<select id="reviewProduct" parameterType="String" resultType="Review">
+		SELECT PRODUCTNAME, IMAGE, P.PRODUCTCODE FROM PRODUCT P, IMAGE I WHERE P.PRODUCTCODE = I.PRODUCTCODE AND TYPE='title' AND P.PRODUCTCODE=#{productCode}
+	</select>
+	<insert id="writeReview" parameterType="Review">
+		INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  			VALUES (REVIEW_SEQ.NEXTVAL, #{memberId}, #{productCode}, #{reviewTitle}, #{reviewContent}, #{reviewScore}, #{reviewImage}, #{reviewIp})
+	</insert>
+	<update id="reviewHitUp" parameterType="int">
+		UPDATE REVIEW SET REVIEWHIT = REVIEWHIT + 1 WHERE REVIEWNUM = #{reviewNum}
+	</update>
+	<select id="getDetailReview" parameterType="int" resultType="Review">
+		SELECT R.*, IMAGE, PRODUCTNAME, PRODUCTPRICE, MEMBERNAME FROM REVIEW R, PRODUCT P, IMAGE I, MEMBER M WHERE R.PRODUCTCODE=P.PRODUCTCODE AND P.PRODUCTCODE=I.PRODUCTCODE  AND M.MEMBERID=R.MEMBERID AND TYPE='title' AND REVIEWNUM = #{reviewNum}
+	</select>
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM REVIEW WHERE REVIEWNUM = #{reviewNum}
+	</delete>
+	<update id="modifyReview" parameterType="Review">
+		UPDATE REVIEW SET 
+        	REVIEWTITLE = #{reviewTitle},
+        	REVIEWCONTENT = #{reviewContent},
+        	REVIEWSCORE = #{reviewScore},
+        	REVIEWIMAGE = #{reviewImage},
+        	REVIEWIP = #{reviewIp}
+    	WHERE REVIEWNUM = #{reviewNum}
+	</update>
 </mapper>

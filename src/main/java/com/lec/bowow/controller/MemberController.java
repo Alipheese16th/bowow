@@ -53,7 +53,6 @@ public class MemberController {
 				return "redirect:"+after+"?noticeNum="+noticeNum;
 			}
 			return "redirect:"+after;
-			
 		}else {
 			model.addAttribute("loginResult", loginResult);
 			model.addAttribute("memberId", memberId);

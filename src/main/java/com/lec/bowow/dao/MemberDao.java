@@ -17,7 +17,7 @@ public interface MemberDao {
 	public Member getDetailMember(String memberId);
 	public Member modifyMember(Member member);
 	public int deleteMember(String memberId);
-	
+	public void  joinCoupon(Coupon coupon);
 	//쿠폰
 	public List<Coupon> couponList(String memberId);
 }

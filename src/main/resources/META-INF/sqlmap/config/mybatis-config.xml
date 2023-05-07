@@ -12,6 +12,7 @@
 		<typeAlias type="com.lec.bowow.model.Member" alias="Member"/>
 		<typeAlias type="com.lec.bowow.model.Coupon" alias="Coupon"/>
 		<typeAlias type="com.lec.bowow.model.Review" alias="Review"/>
+		<typeAlias type="com.lec.bowow.model.ReviewComment" alias="ReviewComment"/>
 		<!-- 김소연 끝 -->
 		
 		<!-- 유민상 시작 -->
@@ -38,6 +39,7 @@
 		<!-- 김소연 시작 -->
 		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Review.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/ReviewComment.xml"/>
 		<!-- 김소연 끝 -->
 		
 		<!-- 유민상 시작 -->
