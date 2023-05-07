@@ -19,6 +19,7 @@
 .heading{
 	text-align:center;
 	margin:40px auto;
+	font-size:2rem;
 }
 .content{
 	width:1250px;

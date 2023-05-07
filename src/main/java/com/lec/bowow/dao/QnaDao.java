@@ -21,5 +21,6 @@ public interface QnaDao {
 	public Qna modifyReplyQnaView(int qnaNum);
 	
 	// 해당 상품코드의 qna리스트 출력
-	public List<Qna> productQnaList(String productcode);
+	public List<Qna> productQnaList(Qna qna);
+	public int productQnaTotCnt(String productCode);
 }

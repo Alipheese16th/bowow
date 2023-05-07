@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lec.bowow.model.Color;
 import com.lec.bowow.model.Product;
+import com.lec.bowow.model.Qna;
 import com.lec.bowow.model.Image;
 import com.lec.bowow.model.Sizes;
 
@@ -37,4 +38,11 @@ public interface ProductService {
 	// 상품 수정
 	public String modifyProduct(Product product);
 	
+	// 메인페이지
+	public List<Product> mainHotList();
+	public List<Product> mainNewList();
+	
+	// 상품상세에서 게시판
+	public List<Qna> productQnaList(String productCode, String pageNum);
+	public int productQnaTotCnt(String productCode);
 }

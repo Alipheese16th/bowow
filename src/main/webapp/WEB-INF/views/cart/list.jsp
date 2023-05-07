@@ -20,6 +20,7 @@
 .heading{
 	text-align:center;
 	margin:40px auto;
+	font-size:2rem;
 }
 .btn-myColor{
 	background-color:#BE8D6E;
@@ -96,7 +97,10 @@
 	cursor:pointer;
 	border-radius:5px;
 }
-
+.emp{
+	width:1000px;
+	margin:0 auto;
+}
 </style>
 </head>
 <body>
@@ -115,8 +119,8 @@
 		
 		<c:if test="${empty cartList}">
 		
-			<div class="p-3">
-				<h1 class="text-center py-5">상품이 존재하지 않습니다</h1>
+			<div class="emp p-3">
+				<h2 class="text-center py-5">상품이 존재하지 않습니다</h2>
 				<hr class="pb-3">
 				<div class="d-flex justify-content-between">
 					<button type="button" class="btn btn-myColor" onclick="location.href='${conPath}/main.do'">메인 페이지</button>
@@ -186,12 +190,14 @@
 						</td>
 						<td>
 							<c:if test="${cart.productDiscount ne 0}">
-								<del>${cart.productPrice}원</del>
+								<del>
+									<fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원
+								</del>
 								<br>
-								<fmt:parseNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" integerOnly="true"/>원
+								<fmt:formatNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" pattern="#,###"/>원
 							</c:if>
 							<c:if test="${cart.productDiscount eq 0}">
-								${cart.productPrice}원
+								<fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원
 							</c:if>
 						</td>
 						<td>
@@ -208,10 +214,10 @@
 						</td>
 						<td>-</td>
 						<td>기본배송</td>
-						<td>3000원</td>
+						<td>3,000원</td>
 						<td>
 							<span class="cost" id="${cart.cost}">
-								${cart.cost}원
+								<fmt:formatNumber value="${cart.cost}" pattern="#,###"/>원
 							</span>
 						</td>
 						<td>
@@ -232,7 +238,9 @@
 							[기본배송]
 							</span>
 							<span>
-								상품구매금액 ${totalPrice}원 + 배송비 3000원 = 합계 : ${totalPrice + 3000}원
+								상품구매금액 <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 
+								+ 배송비 3,000원 
+								= 합계 : <fmt:formatNumber value="${totalPrice + 3000}" pattern="#,###"/>원
 							</span>
 						</div>
 					</td>
@@ -255,13 +263,13 @@
 		
 		<table class="table mytable">
 			<tr>
-				<th>주문금액</th><td>${totalPrice}원</td>
+				<th>주문금액</th><td><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원</td>
 			</tr>
 			<tr>
 				<th>배송비</th><td>3,000원</td>
 			</tr>
 			<tr>
-				<th class="border-0">합계</th><td class="border-0">${totalPrice + 3000}원</td>
+				<th class="border-0">합계</th><td class="border-0"><fmt:formatNumber value="${totalPrice + 3000}" pattern="#,###"/>원</td>
 			</tr>
 			<tr>
 				<td colspan="2" class="border-0">

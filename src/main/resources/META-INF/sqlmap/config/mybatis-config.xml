@@ -38,6 +38,7 @@
 		<!-- 김소연 시작 -->
 		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/Review.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Coupon.xml"/>
 		<!-- 김소연 끝 -->
 		
 		<!-- 유민상 시작 -->

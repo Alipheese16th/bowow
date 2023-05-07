@@ -14,6 +14,4 @@ public interface QnaService {
 	public int modifyQna(Qna qna, HttpServletRequest request, HttpSession httpSession);
 	public int deleteQna(int qnaNum);
 	public int replyQna(Qna qna, HttpServletRequest request, HttpSession httpSession);
-	// 해당 상품코드의 qna리스트 출력
-	public List<Qna> productQnaList(String productCode);
 }

@@ -6,13 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.lec.bowow.model.Color;
 import com.lec.bowow.model.Image;
 import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Sizes;
 import com.lec.bowow.service.ProductService;
-import com.lec.bowow.service.QnaService;
 import com.lec.bowow.util.Paging;
 
 @Controller
@@ -21,8 +19,6 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	private QnaService qnaService;
 	
 	// 상품 리스트
 	@RequestMapping(value="list", method=RequestMethod.GET)
@@ -33,14 +29,22 @@ public class ProductController {
 	}
 	// 상품 상세보기
 	@RequestMapping(value="content", method=RequestMethod.GET)
-	public String content(Model model, String productCode) {
+	public String content(Model model, String productCode, String qpageNum) {
 		model.addAttribute("product",productService.productDetail(productCode));
 		model.addAttribute("imageList",productService.imageList(productCode));
 		model.addAttribute("sizeList",productService.sizeList(productCode));
 		model.addAttribute("colorList",productService.colorList(productCode));
-		model.addAttribute("qnaList",qnaService.productQnaList(productCode));
+		
+		model.addAttribute("qnaList",productService.productQnaList(productCode, qpageNum));
+		model.addAttribute("qpaging",new Paging(productService.productQnaTotCnt(productCode), qpageNum, 5, 3));
+		
+		
 		return "product/content";
 	}
+	
+	
+	
+	
 	// 상품 검색
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(Model model, Product product, String pageNum) {

@@ -22,6 +22,7 @@
 .heading{
 	text-align:center;
 	margin:40px auto;
+	font-size:2rem;
 }
 .btn-myColor{
 	background-color:#BE8D6E;
@@ -279,12 +280,12 @@
 							</td>
 							<td>
 								<c:if test="${cart.productDiscount ne 0}">
-									<del>${cart.productPrice}원</del>
+									<del><fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원</del>
 									<br>
-									<fmt:parseNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" integerOnly="true"/>원
+									<fmt:formatNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" pattern="#,###"/>원
 								</c:if>
 								<c:if test="${cart.productDiscount eq 0}">
-									${cart.productPrice}원
+									<fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원
 								</c:if>
 							</td>
 							<td>
@@ -292,10 +293,10 @@
 							</td>
 							<td>-</td>
 							<td>기본배송</td>
-							<td>3000원</td>
+							<td>3,000원</td>
 							<td>
 								<span class="cost" id="${cart.cost}">
-									${cart.cost}원
+									<fmt:formatNumber value="${cart.cost}" pattern="#,###"/>원
 								</span>
 							</td>
 						</tr>
@@ -313,7 +314,9 @@
 							[기본배송]
 							</span>
 							<span>
-								상품구매금액 ${totalPrice}원 + 배송비 3000원 = 합계 : ${totalPrice + 3000}원
+								상품구매금액 <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 
+								+ 배송비 3,000원 
+								= 합계 : <fmt:formatNumber value="${totalPrice + 3000}" pattern="#,###"/>원
 								<c:set var="totalPrice" value="${totalPrice + 3000}"/>
 							</span>
 						</div>
@@ -563,9 +566,9 @@
 				<th scope="col">총 결제 금액</th>
 			</tr>
 			<tr class="text-center">
-				<td><b>${totalPrice}</b></td>
+				<td><b><fmt:formatNumber value="${totalPrice}" pattern="#,###"/></b></td>
 				<td class="bd"><b><span class="dis">0</span></b></td>
-				<td><b><span class="tot">${totalPrice}</span></b></td>
+				<td><b><span class="tot"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/></span></b></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -581,7 +584,7 @@
 					<div class="payresult">
 						<span>카드최종결제금액</span>
 						<br>
-						<b><span class="tot">${totalPrice}</span>원</b>
+						<b><span class="tot"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/></span>원</b>
 						<input type="hidden" id="totalPrice" value="${totalPrice}">
 					</div>
 					<div class="paybutton">
@@ -623,11 +626,10 @@
 	
 	// 쿠폰선택시 가격들 변동
 	$('#couponList').change(function(){
-		discount = $("#couponList option:selected").attr('id');
+		discount = Number($("#couponList option:selected").attr('id'));
 		console.log(discount);
-		$('.dis').text(discount);
-		$('.tot').text(totalPrice-discount);
-		
+		$('.dis').text(discount.toLocaleString('ko-KR'));
+		$('.tot').text((totalPrice-discount).toLocaleString('ko-KR'));
 		
 	});
 	
@@ -755,7 +757,6 @@
 		$('.orderForm').append($(input));
 		$('.orderForm').submit();
 	};
-	
 		
 	/* $('.orderSubmit').click(function(){
 		var sub = true;

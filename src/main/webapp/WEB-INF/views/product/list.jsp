@@ -19,6 +19,7 @@
 .heading{
 	text-align:center;
 	margin:40px auto;
+	font-size:2rem;
 }
 .pagination > li > a:focus,
 .pagination > li > a:hover,
@@ -50,7 +51,7 @@
 }
 
 .d4d4{
-	height:400px;
+	height:450px;
 }
 
 </style>
@@ -83,14 +84,16 @@
 			  <div class="card-body">
 			    <h5 class="card-title pb-1 mb-0">${product.productName}</h5>
 			    <p class="card-text">
+			    	<span style="color:#BE8D6E">
 			    	<c:if test="${product.productDiscount ne 0}">
-						<del><small>${product.productPrice}원</small></del>
+						<del><small><fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원</small></del>
 						<br>
-						<fmt:parseNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" integerOnly="true"/>원
+						<fmt:formatNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" pattern="#,###"/>원
 					</c:if>
 					<c:if test="${product.productDiscount eq 0}">
-						${product.productPrice}원
+						<fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원
 					</c:if>
+			    	</span>
 			    </p>
 			  </div>
 			</div>
@@ -105,6 +108,7 @@
 		
 		</div>
 		
+		<c:if test="${paging.totCnt > 16}">
 		<!-- 페이지 네비게이션 시작 -->
 		<nav aria-label="Page navigation">
 		  <ul class="pagination justify-content-center">
@@ -151,7 +155,7 @@
 		  </ul>
 		</nav>
 		<!-- 페이지 네비게이션 끝 -->
-		
+		</c:if>
 		
 		
 	</div>

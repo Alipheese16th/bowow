@@ -50,7 +50,7 @@
 
 
 	<!-- 예외처리 -->
-	<!-- <error-page>
+	<error-page>
 		<error-code>400</error-code>
 		<location>/error/error400.do</location>
 	</error-page>
@@ -61,7 +61,6 @@
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error/error500.do</location>
-	</error-page> -->
+	</error-page>
 	
-	  
 </web-app>

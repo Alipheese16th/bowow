@@ -83,11 +83,16 @@
     		VALUES (QNA_SEQ.NEXTVAL, #{adminId}, #{productCode, jdbcType=VARCHAR}, #{qnaTitle}, #{qnaContent}, #{qnaGroup}, #{qnaStep}+1, #{qnaIndent}+1, #{qnaIp})
 	</insert>
 	
-	<select id="productQnaList" parameterType="String" resultMap="QnaResult">
+	<!-- 상품상세에서 qna리스트 -->
+	<select id="productQnaList" parameterType="Qna" resultMap="QnaResult">
 		SELECT * FROM
 		  (SELECT ROWNUM RN, A.* FROM
 		    (SELECT Q.*,MEMBERNAME FROM QNA Q, MEMBER M WHERE Q.MEMBERID = M.MEMBERID AND PRODUCTCODE = #{productCode} ORDER BY QNADATE DESC) A)
-		  WHERE RN BETWEEN 1 AND 10
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
+	<select id="productQnaTotCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM QNA WHERE PRODUCTCODE = #{productCode}
+	</select>
+	
 	
 </mapper>

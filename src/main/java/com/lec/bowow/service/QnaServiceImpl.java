@@ -64,8 +64,4 @@ public class QnaServiceImpl implements QnaService {
 		qna.setAdminId(admin.getAdminId());
 		return qnaDao.replyQna(qna);
 	}
-	@Override
-	public List<Qna> productQnaList(String productCode) {
-		return qnaDao.productQnaList(productCode);
-	}
 }
