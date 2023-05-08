@@ -16,8 +16,12 @@
 	<style>
 		.faq {width: 700px; text-align: center; padding: 0 600px;}
 		.faq h1 {
-			font-size: 2em; height: 100px; line-height: 100px; width: 700px;
-			text-align: center; border-bottom: 1px solid #BE8D6E; margin: 40px 0;
+			font-size: 2rem; width: 700px; font-weight: bold;
+			text-align: center; margin: 40px auto 80px;
+		}
+		.faq .hr {
+			width: 700px; text-align: center;
+			background-color: #BE8D6E; height: 2px; margin-bottom: 30px;
 		}
 		.faq .write {
 			background-color: #BE8D6E; color: #fff;
@@ -113,7 +117,8 @@
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="faq">
-		<h1>자주 묻는 질문(FAQ)</h1>
+		<h1>FAQ</h1>
+		<div class="hr"></div>
 		<div class="accordion-container">
 			<c:forEach var="faq" items="${faqList }">
 				<tr onclick="clickTr(${faq.faqTitle})">

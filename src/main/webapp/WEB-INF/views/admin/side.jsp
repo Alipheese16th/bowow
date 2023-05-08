@@ -83,17 +83,17 @@
 	          </ul>
 	        </div>
 	      </li> --%>
-	      <li class="mb-1">
+	      <%-- <li class="mb-1">
 	        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false" onclick="location.href='${conPath}/inquiry/list.do'">
 	          1:1문의 관리
 	        </button>
-	        <%-- <div class="collapse" id="account-collapse" style="">
+	        <div class="collapse" id="account-collapse" style="">
 	          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 	            <li><a href="${conPath }/inquiry/list.do" class="link-dark d-inline-flex text-decoration-none rounded">1:1문의 답변</a></li>
 	            <li><a href="${conPath }/inquiry/list.do" class="link-dark d-inline-flex text-decoration-none rounded">1:1문의 삭제</a></li>
 	          </ul>
-	        </div> --%>
-	      </li>
+	        </div>
+	      </li> --%>
 	      <%-- <li class="mb-1">
 	        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#faq-collapse" aria-expanded="false">
 				FAQ관리▽

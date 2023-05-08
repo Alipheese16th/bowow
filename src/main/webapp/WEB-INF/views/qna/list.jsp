@@ -10,13 +10,47 @@
 	<title>Insert title here</title>
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link
+	  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+	  rel="stylesheet"
+	/>
+	<!-- Google Fonts -->
+	<link
+	  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+	  rel="stylesheet"
+	/>
+	<!-- MDB -->
+	<link
+	  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+	  rel="stylesheet"
+	/>
+	<!-- MDB -->
+	<script
+	  type="text/javascript"
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+	></script>
 	<style>
-		.qna {min-width: 1250px; text-align: center; padding: 0 250px;}
-		.qna h1 {font-size: 2em; height: 100px; line-height: 100px;}
+		.qna {width: 1250px; margin: 0 auto; text-align: center;}
+		/* .qna h1 {font-size: 2em; height: 100px; line-height: 100px;} */
+		.qna h1 {
+			text-align:center;
+			margin:40px auto 30px;
+			font-size:2rem;
+			font-weight: bold;
+		}
 		.qna a {color: black; text-decoration: none;}
+		.qna .input-group {
+			width: 400px;
+			text-align: center;
+			margin: 0 auto;
+		}
+		.qna .fas {
+			background-color: #BE8D6E;
+		}
 		.qna .write {
 			background-color: #BE8D6E; color: #fff;
-			font-size: 1.2em;
+			font-size: 1.2em; margin-top: 25px;
 		}
 		.qna .write:hover {background-color: gray;}
 		.qna .write a {
@@ -73,10 +107,10 @@
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="qna">
-		<h1>상품문의 게시판</h1>
+		<h1>QnA</h1>
 		<form action="${conPath }/qna/list.do">
 			<table class="table table-hover">
-			  <tr>
+			  <tr style="border-bottom: 2px solid #BE8D6E">
 			  	<th>No</th><th>이미지</th><th>제목</th><th>본문</th><th>작성일</th><th>IP</th><th>조회수</th>
 			  </tr>
 			  <c:if test="${totCntQna eq 0 }">
@@ -89,7 +123,7 @@
 						<td>
 							<c:if test="${empty qna.image }"></c:if>
 							<c:if test="${not empty qna.image }">
-								<img src="${conPath }/productImage/${qna.image}" style="width: 50px;">
+								<img src="${conPath }/productImage/${qna.image}" style="width: 30px;">
 							</c:if>
 						</td>
 				  		<td style="text-align: left;">
@@ -111,6 +145,7 @@
 				</c:forEach>
 			  </c:if>
 			</table>
+			<div class="input-group rounded">
 			<select name="schItem">
 				<option value="qnaTitle"
 					<c:if test="${param.schItem eq 'qnaTitle' }">selected="selected"</c:if>
@@ -119,8 +154,11 @@
 					<c:if test="${param.schItem eq 'qnaContent' }">selected="selected"</c:if>
 				>내용</option>
 			</select>
-			<input type="text" name="schWord" value="${param.schWord }">
-			<input type="submit" value="검색">
+			  <input type="text" name="schWord" value="${param.schWord }" class="form-control rounded" placeholder="검색" aria-label="Search" aria-describedby="search-addon" />
+			<input type="submit" value="검색" class="fas fa-search">
+			</div>
+			
+			
 			<button class="btn write" type="button" onclick="location.href='${conPath }/qna/write.do'">
 				WRITE
 			</button>
