@@ -93,7 +93,7 @@
 			padding-top: 20px;
 		}
 		.box1, .box2, .box3, .box4, .box5, .box6 {
-			height: 400px;
+			height: 600px;
 			border: 1px solid #BE8D6E;
 			border-radius: 5px;
 			margin-bottom: 50px;
