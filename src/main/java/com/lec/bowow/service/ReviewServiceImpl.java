@@ -18,15 +18,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lec.bowow.dao.ReviewDao;
 import com.lec.bowow.model.Member;
+import com.lec.bowow.model.Order;
 import com.lec.bowow.model.Review;
 import com.lec.bowow.util.Paging;
 @Service
 public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	private ReviewDao reviewDao;
-	//String backupPath = "/Users/gimsoyeon/sykim/source/10_2nd_teamProject/bowow/src/main/webapp/reviewImage/";
+	String backupPath = "/Users/gimsoyeon/sykim/source/10_2nd_teamProject/bowow/src/main/webapp/reviewImage/";
 	//String backupPath = "C:/webPro/source/10_2ndTeamProject/bowow/src/main/webapp/reviewImage/"; //소연씨꺼
-	String backupPath = "D:/webPro/source/10_2ndTeamProject/bowow/src/main/webapp/reviewImage/"; // 멤버공용
+	//String backupPath = "D:/webPro/source/10_2ndTeamProject/bowow/src/main/webapp/reviewImage/"; // 멤버공용
 	
 	@Override
 	public List<Review> reviewList(Review review, String pageNum) {
@@ -165,6 +166,21 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int deleteReview(int reviewNum) {
 		return reviewDao.deleteReview(reviewNum);
+	}
+	@Override
+	public List<Review> memberWriteList(String pageNum, HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		Paging paging = new Paging(reviewDao.memberWriteCnt(member.getMemberId()), pageNum, 5, 5);
+		Review review = new Review();
+		review.setStartRow(paging.getStartRow());
+		review.setEndRow(paging.getEndRow());
+		review.setMemberId(member.getMemberId());
+		return reviewDao.memberWriteList(review);
+	}
+	@Override
+	public int memberWriteCnt(HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		return reviewDao.memberWriteCnt(member.getMemberId());
 	}
 }
 

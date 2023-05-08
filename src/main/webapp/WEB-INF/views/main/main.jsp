@@ -173,6 +173,9 @@
 	</style>
 </head>
 <body>
+	<c:if test="${withdrawalResult eq 1}">
+		<script>alert("회원탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.")</script>
+	</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
 		<div class="main-slide">

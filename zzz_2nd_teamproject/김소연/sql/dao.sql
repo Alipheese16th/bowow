@@ -6,8 +6,9 @@ SELECT MEMBERID FROM MEMBER WHERE MEMBERID = 'ddd';
 SELECT COUNT(*) FROM MEMBER WHERE MEMBERID = 'aaa';
 -- 회원 email중복체크 id = memberMailConfirm
 SELECT COUNT(*) FROM MEMBER WHERE MEMBEREMAIL = 'kim@naver.com';
-
+commit;
 SELECT * FROM MEMBER;
+update member set memberpw='111' where memberid='aaa';
 DELETE FROM MEMBER WHERE MEMBERID = 'ddd';
 DELETE FROM MEMBER WHERE MEMBERNAME = '김길동';
 COMMIT;
@@ -47,6 +48,15 @@ UPDATE MEMBER SET
         MEMBERADDR2 = '합정이젠아카데미 1층',
         MEMBERBIRTH = '10/03/23'
     WHERE MEMBERID = 'aaa';
+    
+-- 회원이 갖고 있는 쿠폰갯수 
+SELECT COUNT(*) FROM COUPON WHERE MEMBERID = 'aaa';
+select * from coupon;
+-- 회원 적립금 조회
+SELECT MEMBERPOINT FROM MEMBER WHERE MEMBERID = 'aaa';
+-- 회원 등급 
+SELECT GRADE FROM MEMBERGRADE G, MEMBER M WHERE M.GRADENO = G.GRADENO AND MEMBERID='aaa';
+
 -- 회원탈퇴(작성 글 모두 지우고) id = deleteMember
 DELETE FROM MEMBER WHERE MEMBERID = 'bbb';
 

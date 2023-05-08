@@ -71,7 +71,11 @@
 		select * from coupon where memberid = #{memberId}
 	</select>
 	<!-- 해당 회원의 등급 -->
-	<select id="">
-		
+	<select id="memberGrade" parameterType="String" resultType="String">
+		SELECT GRADE FROM MEMBERGRADE G, MEMBER M WHERE M.GRADENO = G.GRADENO AND MEMBERID=#{memberId}
+	</select>
+	<!-- 해당 회원의 쿠폰갯수 -->
+	<select id="couponTotCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM COUPON WHERE MEMBERID = #{memberId}
 	</select>
 </mapper>

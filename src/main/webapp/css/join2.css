@@ -139,6 +139,7 @@ display: flex;
     padding: 0 10px;
     margin-top: 40px;
     background: #fff;
+    cursor: pointer;
 }
 #content-form .join-wrap .join-form .join-row .btnStyle{
 	width: 30%;
@@ -151,6 +152,7 @@ display: flex;
     padding: 0 10px;
     margin-top: 40px;
     background: #BE8D6E;
+    cursor: pointer;
 }
 .focusB{
 	text-align:left;

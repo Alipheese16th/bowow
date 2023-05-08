@@ -17,6 +17,7 @@ import com.lec.bowow.dao.CouponDao;
 import com.lec.bowow.dao.MemberDao;
 import com.lec.bowow.model.Coupon;
 import com.lec.bowow.model.Member;
+import com.lec.bowow.util.Paging;
 @Service
 public class MemverServiceImpl implements MemberService {
 	@Autowired
@@ -53,7 +54,7 @@ public class MemverServiceImpl implements MemberService {
 						"		}</style>"+
 						"	<div class=\"body\" style=\"background:#f2f2f2; padding:25px;\">\r\n" + 
 						"		<div style=\"width:600px; margin: 0 auto; background:#fff; padding:40px; \">\r\n" + 
-						"			<img src=\"http://localhost:8098/bowow/img/bowow_logo.png\" style=\"width:200px; height:auto;margin:0; padding:0;\">\r\n" + 
+						"			<img src=\"http://localhost:8099/bowow/img/bowow_logo.png\" style=\"width:200px; height:auto;margin:0; padding:0;\">\r\n" + 
 						"			<br><br>\r\n" + 
 						"			<h1>회원가입에 감사드립니다.</h1>\r\n" + 
 						"			<p style=\"line-height:25px;\">회원가입 감사 <b>10% 쿠폰</b>을 발급해 드렸으니,<br>\r\n" + 
@@ -196,17 +197,47 @@ public class MemverServiceImpl implements MemberService {
 		return memberDao.getDetailMember(memberId);
 	}
 	@Override
-	public Member modifyMember(Member member, HttpSession session) {
+	public int modifyMember(Member member, HttpSession session, String oldMemberPw, String memberBirthTemp) {
+		System.out.println(memberBirthTemp);
+		if(memberBirthTemp != null && !memberBirthTemp.equals("")) {
+			member.setMemberBirth(Date.valueOf(memberBirthTemp));
+		}
+		if(member.getMemberPw().equals("")) {
+			member.setMemberPw(oldMemberPw);
+		}
+		System.out.println(member);
+		System.out.println(member.getMemberPw());
+		session.setAttribute("member", member);
+		System.out.println("회원정보수정완료");
 		return memberDao.modifyMember(member);
 	}
 	@Override
-	public int deleteMember(String memberId, HttpSession session) {
-		return memberDao.deleteMember(memberId);
+	public int deleteMember(HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		session.invalidate();
+		return memberDao.deleteMember(member.getMemberId());
 	}
 	
 	@Override
 	public List<Coupon> couponList(HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
-		return couponDao.couponList(member.getMemberId());
+		if(member==null) {
+			return null;
+		}else {
+			Coupon coupon = new Coupon();
+			coupon.setMemberId(member.getMemberId());
+			return couponDao.couponList(member.getMemberId());
+		}	
 	}
+	@Override
+	public String memberGrade(HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		return memberDao.memberGrade(member.getMemberId());
+	}
+	@Override
+	public int couponTotCnt(HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		return memberDao.couponTotCnt(member.getMemberId());
+	}
+
 }

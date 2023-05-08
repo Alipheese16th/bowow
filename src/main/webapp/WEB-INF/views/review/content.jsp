@@ -52,6 +52,14 @@
 	        		}
 	        	}
 			});
+		 	$("form").submit(function(){
+		 		var comtxt = $(".comtxt").val();
+		 		if(!comtxt){
+		 			$(this).focus();
+		 			alert("댓글을 입력해주세요.");
+		 			return false;
+		 		}
+		 	});
 		});
 	 	function modifyComment(commentNum, pageNum, reviewNum, commentPageNum){
 	 		$.ajax({
@@ -93,7 +101,7 @@
 						</tr>
 						<tr>
 							<td class="name">
-								${contentReview.memberName} 고객님 | <fmt:formatDate value="${contentReview.reviewDate }" type="date" pattern="yyyy.MM.dd"/>
+								${contentReview.memberName} 고객님 &nbsp;&nbsp;<fmt:formatDate value="${contentReview.reviewDate }" type="date" pattern="yyyy.MM.dd"/> &nbsp;&nbsp; 조회수 : ${contentReview.reviewHit}
 								<input type="number" id="input-1-ltr-star-xs"  class="kv-ltr-theme-svg-star rating-loading" min="0" max="5" dir="ltr" data-size=md name="reviewRating" value="${contentReview.reviewScore}">
 							</td>
 						</tr>
@@ -161,7 +169,7 @@
 							<input type="hidden" name="memberId" value="${member.memberId}">
 							<div class="comment-inbox" style="border:2px solid #ddd;border-radius:5px;padding:12px 20px;">
 								<span style="display:block;margin-bottom:10px;font-weight:600;font-size:14px;">${member.memberId}</span>
-								<textarea rows="2" cols="5" name="commentContent" placeholder="댓글을 남겨보세요" style="width:100%;border:0;"></textarea>
+								<textarea rows="2" cols="5" name="commentContent" placeholder="댓글을 남겨보세요" style="width:100%;border:0;" class="comtxt"></textarea>
 								<div style="color:#888;text-align:right;padding-top:10px;">
 									<input type="submit" value="등록" class="btn" style="background-color:#fff;">
 								</div>

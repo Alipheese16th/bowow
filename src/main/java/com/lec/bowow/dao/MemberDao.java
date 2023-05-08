@@ -15,9 +15,11 @@ public interface MemberDao {
 	public String searchIdMember(Member member);
 	public String searchPwMember(Member member);
 	public Member getDetailMember(String memberId);
-	public Member modifyMember(Member member);
+	public int modifyMember(Member member);
 	public int deleteMember(String memberId);
-	public void  joinCoupon(Coupon coupon);
+	public void joinCoupon(Coupon coupon);
 	//쿠폰
 	public List<Coupon> couponList(String memberId);
+	public String memberGrade(String memberId);
+	public int couponTotCnt(String memberId);
 }

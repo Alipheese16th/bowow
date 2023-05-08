@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.lec.bowow.service.ProductService;
 @Controller
-public class mainController {
+public class MainController {
 	
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping(value="main", method=RequestMethod.GET)
+	@RequestMapping(value="main", method= {RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model) {
 		model.addAttribute("hotList",productService.mainHotList());
 		model.addAttribute("newList",productService.mainNewList());

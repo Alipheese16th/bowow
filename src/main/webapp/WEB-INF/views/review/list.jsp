@@ -35,6 +35,13 @@
 			        displayOnly:true,
 			        showCaption:false,
 			});
+			$('.reviewSearch').submit(function(){
+				var shname = $('.searchReview').val();
+				if(shname.trim() == ''){
+					alert('빈칸은 검색할 수 없습니다');
+					return false;
+				}
+			});
 		});
 	</script>
 </head>
@@ -45,7 +52,7 @@
 		<div class="review-top">
 			<div class="reviewTotCnt">총 <b>${paging.totCnt}</b>개</div>
 			<div>
-				<form action="${conPath}/review/list.do">
+				<form action="${conPath}/review/list.do" class="reviewSearch">
 					<select name="category">
 						<option value=""
 							<c:if test="${param.category eq ''}">selected="selected"</c:if>>
@@ -72,7 +79,7 @@
 							청결
 						</option>
 					</select>
-					<input type="text" name="schWord" value="${param.schWord}">
+					<input type="text" name="schWord" value="${param.schWord}" class="searchReview">
 					<input type="submit" value="검색">
 				</form>
 			</div>

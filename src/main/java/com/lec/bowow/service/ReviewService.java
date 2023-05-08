@@ -17,4 +17,6 @@ public interface ReviewService {
 	public Review getDetailReview(int reviewNum);
 	public int modifyReview(Review review, MultipartHttpServletRequest mRequest, HttpServletRequest request, String reviewRating, HttpSession session);
 	public int deleteReview(int reviewNum);
+	public List<Review> memberWriteList(String pageNum, HttpSession session);
+	public int memberWriteCnt(HttpSession session);
 }
