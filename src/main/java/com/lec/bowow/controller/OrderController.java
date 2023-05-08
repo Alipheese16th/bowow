@@ -35,7 +35,7 @@ public class OrderController {
 	}
 	// 주문 처리
 	@RequestMapping(value="write", method = RequestMethod.POST)
-	public String write(Model model, HttpSession httpSession, Order order, int[] cartNum, int[] chkNum, String submit, int coupon) {
+	public String write(Model model, HttpSession httpSession, Order order, int[] cartNum, int coupon) {
 		int result = orderService.insertOrder(httpSession, order, cartNum, coupon);
 		if(result == 0) {
 			model.addAttribute("insertOrderError","주문 오류 - 다시 시도해주십시오");
@@ -62,12 +62,6 @@ public class OrderController {
 		model.addAttribute("cartNumList",cartNum);
 		return "forward:write.do";
 	}
-	
-	/*
-	 * @RequestMapping(value ="orderDelete", method= RequestMethod.GET) public
-	 * String orderDelete(int[] cartNum) { cartService.deleteCart(cartNum); return
-	 * "forward:write.do"; }
-	 */
 	
 
 }

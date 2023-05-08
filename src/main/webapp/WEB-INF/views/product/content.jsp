@@ -12,8 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
 <!-- 플레스 슬라이더 -->
 <link rel="stylesheet" href="${conPath}/css/flexslider.css" type="text/css" media="screen" />
 <!-- jQuery -->
@@ -109,17 +107,16 @@
 .right{
 	text-align: right !important;
 }
-
 .nav-tabs .nav-item .nav-link {
 	background-color: #FFFFFF;
 	color: #000000;
 	border-color:#DDDDDD;
-	border-collapse:collapse;
+	border-bottom:none;
 }
 .nav-tabs .nav-item .nav-link.active {
-	border-top:2px solid black;
+	border-top:3px solid black;
+	border-bottom:1px solid white;
 }
-
 .plus, .minus, .delete{
 	display:block;
 	height:11px;
@@ -166,9 +163,6 @@
 #proInfo, #proReview, #proQna{
 	width:1000px;
 	margin:0 auto;
-}
-.nav a.active{
-	border-bottom:none;
 }
 .table small{
 	font-weight:300;

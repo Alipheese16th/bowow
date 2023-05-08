@@ -100,7 +100,7 @@
 		
 		<div class="search-view py-5">
 			<form action="${conPath}/product/search.do" class="d-flex justify-content-center mysearch">
-				<input type="text" name="searchName" class="mysearchName">
+				<input type="text" name="searchName" value="${param.searchName}" class="mysearchName">
 				<input type="submit" class="searchP">
 			</form>
 		</div>

@@ -38,11 +38,8 @@ public class ProductController {
 		model.addAttribute("qnaList",productService.productQnaList(productCode, qpageNum));
 		model.addAttribute("qpaging",new Paging(productService.productQnaTotCnt(productCode), qpageNum, 5, 3));
 		
-		
 		return "product/content";
 	}
-	
-	
 	
 	
 	// 상품 검색
@@ -112,11 +109,6 @@ public class ProductController {
 		model.addAttribute("modifyResult",productService.modifyProduct(product));
 		return "forward:manage.do";
 	}
-	
-	
-	
-	
-	
 	
 	
 	

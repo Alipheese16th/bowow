@@ -79,23 +79,6 @@ public class CartController {
 		
 		return "forward:list.do";
 	}
-	
-	
-	
-//	@RequestMapping(value="confirmCart", method=RequestMethod.GET)
-//	public String confirmCart(Model model, String productCode, String memberId, int[] sizeNum, int[] colorNum, int[] qty) {
-//		
-//		model.addAttribute("result",cartService.confirmCart(productCode, memberId, sizeNum, colorNum, qty));
-//		
-//		
-//		model.addAttribute("productCode",productCode);
-//		model.addAttribute("memberId",memberId);
-//		model.addAttribute("sizeNum",sizeNum);
-//		model.addAttribute("colorNum",colorNum);
-//		model.addAttribute("qty",qty);
-//		return "cart/confirmCart";
-//	}
-	
-	
+
 	
 }
