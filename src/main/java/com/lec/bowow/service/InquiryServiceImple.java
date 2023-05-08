@@ -92,7 +92,7 @@ public class InquiryServiceImple implements InquiryService {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				// 받을 메일 설정 
 				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(inquiry.getInquiryEmail()));
-				// mimeMessage.setFrom(new InternetAddress("alstkd1200@gmail.com"));
+				mimeMessage.setFrom(new InternetAddress("sykim789456@gmail.com"));
 				mimeMessage.setSubject("[BOWOW]" + inquiry.getMemberId() + "님 문의 하신 글에 답변 드립니다.");
 				mimeMessage.setText(content, "utf-8", "html");
 			}
