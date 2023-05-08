@@ -234,18 +234,18 @@
 					        <a href="${conPath}/product/content.do?productCode=${product.productCode}">
 					        	<img src="${conPath}/productImage/${product.image}"/>
 					        </a>
-					        <p style="font-size:14px;">
+					        <p>
 					        	${product.productName}
 					        	<br>
 					        	<c:if test="${product.productDiscount ne 0}">
-					        		<span style="color:#BE8D6E">
+					        		<span>
 										<del><small><fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원</small></del>
-										<br>
+										&nbsp; 
 										<fmt:formatNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" pattern="#,###"/>원
 					        		</span>
 								</c:if>
 								<c:if test="${product.productDiscount eq 0}">
-									<span style="color:#BE8D6E">
+									<span>
 										<fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원
 					        		</span>
 								</c:if>

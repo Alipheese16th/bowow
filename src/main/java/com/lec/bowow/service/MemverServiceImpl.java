@@ -125,8 +125,7 @@ public class MemverServiceImpl implements MemberService {
 		}else {	
 			session.removeAttribute("admin");
 			session.setAttribute("member", member);
-
-		} 
+			
 			Date now = new Date(System.currentTimeMillis());
 	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	        String nowstr = format.format(now);
@@ -141,7 +140,8 @@ public class MemverServiceImpl implements MemberService {
 				coupon.setCouponDiscount(4000);
 				couponDao.insertCoupon(coupon); // 쿠폰증정
 			}
-		}
+
+		} 
 		return result;
 	}
   
