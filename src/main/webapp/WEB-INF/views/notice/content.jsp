@@ -100,11 +100,11 @@
 							  	<div>
 							  		<small><fmt:formatDate value="${comment.ncDate}" pattern="yy/MM/dd HH:mm:ss"/></small>
 							  		<c:if test="${member.memberId eq comment.memberId}">
-								  		<button type="button" id="${comment.ncNum}" class="btn btn-sm btn-outline-dark py-0 px-1 ms-2 commentModifyView">수정</button>
-								  		<button type="button" class="btn btn-sm btn-outline-dark py-0 px-1" onclick="commentDelete(${comment.ncNum})">삭제</button>
+								  		<button type="button" id="${comment.ncNum}" class="btn btn-sm btn-outline-myColor py-0 px-1 ms-2 commentModifyView">수정</button>
+								  		<button type="button" class="btn btn-sm btn-outline-myColor py-0 px-1" onclick="commentDelete(${comment.ncNum})">삭제</button>
 							  		</c:if>
 							  		<c:if test="${not empty admin}">
-								  		<button type="button" class="btn btn-sm btn-outline-dark py-0 px-1" onclick="commentDelete(${comment.ncNum})">삭제</button>
+								  		<button type="button" class="btn btn-sm btn-outline-myColor py-0 px-1" onclick="commentDelete(${comment.ncNum})">삭제</button>
 							  		</c:if>
 							  	</div>
 							  </div>
@@ -120,6 +120,7 @@
 			   	<!-- 댓글리스트 끝 -->
 		   	
 			   	<!-- 댓글페이징 시작 -->
+			   		<c:if test="${commentPaging.totCnt > commentPaging.pageSize}">
 				   <nav aria-label="Page navigation example">
 				  <ul class="pagination justify-content-center pb-2">
 				  	<c:if test="${commentPaging.startPage <= commentPaging.blockSize}">
@@ -164,6 +165,7 @@
 				    
 				  </ul>
 				</nav>
+				</c:if>
 		    	<!-- 댓글페이징 끝 -->
 		    	
 		    	<c:if test="${empty member}">

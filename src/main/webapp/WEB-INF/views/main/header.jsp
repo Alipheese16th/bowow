@@ -121,7 +121,7 @@
 										<li><a href="${conPath}/product/list.do?category=clean">목욕(위생)</a></li>
 									</ul>
 							</li>
-							<li><a href="#">매거진</a></li>
+							<li><a href="${conPath}/magazine.do">매거진</a></li>
 							<li class="lnb-down">
 								<a href="#">고객센터</a>
 									<ul class="lnb">

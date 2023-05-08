@@ -24,6 +24,15 @@ display:none;
 	margin-left:280px;
 	font-family: 'Pretendard';
 }
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
+}
 
 </style>
 </head>
@@ -32,7 +41,7 @@ display:none;
 	
 	<jsp:include page="side.jsp"/>
 			
-	<h1 class="my-5 text-center">공지 등록</h1>
+	<h1 class="my-5 text-center">공지사항 등록</h1>
 	
 	<div class="container">
 	
@@ -59,8 +68,8 @@ display:none;
 			</div>
 			
 			<div class="d-flex justify-content-center">
-				<input type="submit" value="글쓰기" class="btn btn-dark mx-1">
-			  	<input type="reset" value="취소" class="btn btn-dark mx-1" onclick="history.back()">
+				<input type="submit" value="글쓰기" class="btn btn-outline-myColor mx-1">
+			  	<input type="reset" value="취소" class="btn btn-outline-myColor mx-1" onclick="history.back()">
 			</div>
 	    </form>
 	    

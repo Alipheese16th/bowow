@@ -21,7 +21,7 @@
 	  		<input type="hidden" name="ncNum" value="${comment.ncNum}">
 	  		<input type="hidden" name="noticeNum" value="${comment.noticeNum}">
 	  		<textarea name="ncContent" class="form-control ml-1 shadow-none textarea">${comment.ncContent}</textarea>
-			<input type="submit" class="btn btn-outline-dark" value="댓글수정">
+			<input type="submit" class="btn btn-outline-myColor" value="댓글수정">
 	  	</form>
 	  </div>
 	</div>
