@@ -12,11 +12,11 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script>
 		$(document).ready(function(){
-			var myleft = $(".mypage-content .mypage-content-left ul li a");
+ 			var myleft = $(".mypage-content .mypage-content-left ul li a");
 			$(myleft).click(function(){
 				  $(myleft).removeClass("active");
 				  $(this).addClass("active");
-			});
+			}); 
 		});
 	</script>
 </head>
