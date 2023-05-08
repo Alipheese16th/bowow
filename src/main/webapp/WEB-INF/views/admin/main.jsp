@@ -410,6 +410,7 @@
 			<div class="row">
 				<div class="box5 col-6">
 					<h2>1:1문의</h2>
+					<hr>
 					<table class="table table-striped table-hover">
 			            <thead>
 			                <tr>
@@ -441,7 +442,23 @@
 				<div class="box6 col-5">
 					<h2>자주 묻는 질문</h2>
 					<hr>
-					<div class="accordion-container">
+					<table class="table table-striped table-hover">
+			            <thead>
+			                <tr>
+			                    <th>제목</th>
+			                    <th>내용</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <c:forEach var="faq" items="${faqList }" varStatus="status" begin="0" end="3">
+				                    <tr>
+				                        <td><c:out value="${faq.faqTitle }"/></td>
+				                        <td><c:out value="${faq.faqContent }"/></td>
+				                    </tr>
+			                </c:forEach>
+			            </tbody>
+			        </table>
+					<%-- <div class="accordion-container">
 						<c:forEach var="faq" items="${faqList }" begin="0" end="3">
 							<tr onclick="clickTr(${faq.faqTitle})">
 								<th>
@@ -456,7 +473,7 @@
 								</th>
 							</tr>
 						</c:forEach>
-					</div>
+					</div> --%>
 					<a href="${conPath }/faq/list.do">
 						view >
 					</a>

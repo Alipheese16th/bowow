@@ -11,11 +11,14 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />	
 	<style>
-		.inquiry {margin: 0 auto; min-width: 800px;}
-		.inquiry .container {padding: 0 250px;}
-		.inquiry table {width: 800px;}
-		.inquiry h2 {text-align: center; margin: 30px 0;}
-		.inquiry .write {margin: 20px 0; text-align: right; width: 800px;}
+		.inquiry table {width: 1250px; margin-left: 20px;}
+		.inquiry h2 {
+			text-align:center;
+			margin:40px auto 30px;
+			font-size:2rem;
+			font-weight: bold;
+		}
+		.inquiry .write {margin: 20px 0; text-align: center;}
 		.inquiry .write a:hover {background-color: gray; border: 1px solid lightgray; font-weight: bold;}
 		.inquiry .write a {
 			color: #fff;
@@ -58,14 +61,14 @@
 	
 	<div class="inquiry">
 		<div class="container">
-		    	<h2>1:1문의 게시판</h2>
+		    	<h2>1:1문의</h2>
 		    	<c:if test="${totCntInquiry eq 0 }">
 		    		<tr><td colspan="5">문의한 글이 없습니다</td></tr>
 		    	</c:if>
 		    	<c:if test="${totCntInquiry != 0 }">
 			        <table class="table table-striped table-hover">
 			            <thead>
-			                <tr>
+			                <tr style="border-bottom: 2px solid #BE8D6E;">
 			                    <th>작성자</th>
 			                    <th>제목</th>
 			                    <th>내용</th>

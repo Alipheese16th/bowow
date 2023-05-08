@@ -11,15 +11,15 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style>
-		.faq {min-width: 1400px;}
+		.faq {width: 700px; text-align: center; margin: 0 auto;}
 		.faq h1 {text-align: center; height: 100px; line-height: 100px;}
 		.faq .form-label {left: 0;}
 		.faq .form-control {border: 1px solid #BE8D6E;}
-		.faq label {font-size: 1.2em; font-weight: bold;}
-		.faq textarea {height: 300px;}
+		.faq label {font-size: 1em; font-weight: bold; margin-right: 600px;}
+		.faq textarea {height: 200px;}
 		.faq .btn {
-			background: #BE8D6E; font-size: 1.2em; border: 1px solid #BE8D6E;
-			width: 200px; margin-bottom: 20px; text-align: center;
+			background: #BE8D6E; font-size: 1em; border: 1px solid #BE8D6E;
+			width: 100px; margin-bottom: 20px; text-align: center;
 		}
 		.faq .btn:hover {
 			background: gray;
@@ -45,7 +45,7 @@
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="faq">
-		<h1>FAQ 게시판 수정</h1>
+		<h1>FAQ 수정</h1>
 		<form action="${conPath }/faq/modify.do" method="post">
 		<input type="hidden" name="oldFaqTitle" value="${faq.faqTitle }">
 			<div class="mb-3">

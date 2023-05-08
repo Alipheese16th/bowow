@@ -11,19 +11,19 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style>
-		.qna {min-width: 1400px; text-align: center;}
+		.qna {width: 750px; text-align: center; margin: 0 auto;}
 		.qna h1 {font-size: 2em; height: 100px; line-height: 100px;}
 		.qna a {color: black; text-decoration: none;}
 		.qna .write {
 			background-color: #BE8D6E; color: #fff;
-			font-size: 1.2em;
+			font-size: 1em;
 		}
 		.qna .write:hover {background-color: gray;}
 		.qna .write a {
 			color: #fff;
 		}
 		.qna .btn {
-			width: 200px;
+			width: 120px;
 		}
 		.qna b {color: red;}
 		.qna tr:hover {cursor: pointer;}

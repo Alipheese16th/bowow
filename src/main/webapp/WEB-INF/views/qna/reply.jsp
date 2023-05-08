@@ -11,9 +11,10 @@
 	<link href="${conPath}/css/styles.css" rel="stylesheet" />	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style>
+		.qna {width: 700px; text-align: center; margin: 0 auto;}
 		.qna h1 {text-align: center; height: 100px; line-height: 100px;}
 		.qna .form-control {border: 1px solid #BE8D6E;}
-		.qna label {font-size: 1.2em; font-weight: bold;}
+		.qna label {font-size: 1.2em; font-weight: bold; margin-right: 600px;}
 		.qna textarea {height: 300px;}
 		.qna .btn {
 			background: #BE8D6E; font-size: 1.2em; border: 1px solid #BE8D6E;
@@ -33,7 +34,7 @@
 	<jsp:include page="../main/header.jsp"/>
 	
 	<div class="qna">
-		<h1>상품문의(${param.qnaNum }번) 답변 작성</h1>
+		<h1>${param.qnaNum }번 상품문의 답변 작성</h1>
 		<form action="${conPath }/qna/reply.do" method="post">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<input type="hidden" name="qnaNum" value="${param.qnaNum }">
