@@ -16,4 +16,9 @@ public interface ReviewDao {
 	public Review getDetailReview(int reviewNum);
 	public int modifyReview(Review review);
 	public int deleteReview(int reviewNum);
+	
+	// 상품상세에서 리뷰리스트
+	public List<Review> productReviewList(Review review);
+	public int productReviewTotCnt(String productCode);
+	
 }

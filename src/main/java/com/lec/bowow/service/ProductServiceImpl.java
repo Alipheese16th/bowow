@@ -13,9 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.lec.bowow.dao.ProductDao;
 import com.lec.bowow.dao.QnaDao;
+import com.lec.bowow.dao.ReviewDao;
 import com.lec.bowow.model.Color;
 import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Qna;
+import com.lec.bowow.model.Review;
 import com.lec.bowow.model.Image;
 import com.lec.bowow.model.Sizes;
 import com.lec.bowow.util.Paging;
@@ -27,6 +29,8 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDao productDao;
 	@Autowired
 	private QnaDao qnaDao;
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	// 상품리스트
 	@Override
@@ -215,6 +219,20 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productQnaTotCnt(String productCode) {
 		return qnaDao.productQnaTotCnt(productCode);
+	}
+	
+	@Override
+	public List<Review> productReviewList(String productCode, String pageNum) {
+		Paging paging = new Paging(productReviewTotCnt(productCode), pageNum, 5, 3);
+		Review review = new Review();
+		review.setProductCode(productCode);
+		review.setStartRow(paging.getStartRow());
+		review.setEndRow(paging.getEndRow());
+		return reviewDao.productReviewList(review);
+	}
+	@Override
+	public int productReviewTotCnt(String productCode) {
+		return reviewDao.productReviewTotCnt(productCode);
 	}
 	
 	

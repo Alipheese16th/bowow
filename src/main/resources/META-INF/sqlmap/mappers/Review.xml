@@ -163,4 +163,20 @@
         	REVIEWIP = #{reviewIp}
     	WHERE REVIEWNUM = #{reviewNum}
 	</update>
+	
+	<!-- 상품상세에서 리뷰 리스트 -->
+	<select id="productReviewList" parameterType="Review" resultMap="ReviewResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, A.* FROM
+		    (SELECT R.*,MEMBERNAME FROM REVIEW R, MEMBER M 
+		      WHERE R.MEMBERID = M.MEMBERID 
+		        AND PRODUCTCODE = #{productCode} 
+		        ORDER BY REVIEWDATE DESC) A)
+		  WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="productReviewTotCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE PRODUCTCODE = #{productCode}
+	</select>
+	
+	
 </mapper>

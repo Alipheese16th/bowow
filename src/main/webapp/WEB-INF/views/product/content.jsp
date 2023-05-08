@@ -12,22 +12,42 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- 별점기능 -->
+<link href="${conPath}/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="${conPath}/css/theme.css" media="all" rel="stylesheet" type="text/css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="${conPath}/js/star-rating.min.js" type="text/javascript"></script>
+<script src="${conPath}/js/theme.js" type="text/javascript"></script>
+
 <!-- 플레스 슬라이더 -->
 <link rel="stylesheet" href="${conPath}/css/flexslider.css" type="text/css" media="screen" />
-<!-- jQuery -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<!-- FlexSlider -->
 <script defer src="${conPath}/js/jquery.flexslider.js"></script>
+
 <script type="text/javascript">
-  $(window).load(function(){
-    $('.flexslider').flexslider({
-      animation: "slide",
-      controlNav: "thumbnails",
-      start: function(slider){
-        $('body').removeClass('loading');
-      }
-    });
-  });
+  
+  $(document).ready(function(){
+	  
+	  $('.flexslider').flexslider({
+		    animation: "slide",
+		    controlNav: "thumbnails",
+		    start: function(slider){
+		      $('body').removeClass('loading');
+		    }
+	   });
+
+		$('.kv-ltr-theme-svg-star').rating({
+	        hoverOnClear: false,
+	        theme: 'krajee-svg',
+	        min:0,
+	        max:5,
+	        step:1,
+	        size:'sm',
+	        stars:5,
+	        displayOnly:true,
+	        showCaption:false,
+		});
+   });
+
 </script>
 
 <style>
@@ -173,6 +193,9 @@
 	text-decoration:none;
 	color:black;
 }
+.infotable td{
+	border:none;
+}
 </style>
 </head>
 <body class="loading">
@@ -234,7 +257,7 @@
 					<hr>
 				</c:if>
 				
-				<table class="table">
+				<table class="table infotable">
 					<tr>
 						<td class="infoLeft">
 							판매가
@@ -438,11 +461,6 @@
 		
 			<h5 class="text-center m-0">상품 리뷰</h5>
 			
-			<div class="d-flex justify-content-between py-3">
-				<button type="button" class="btn btn-myColor">WRITE</button>
-				<button type="button" class="btn btn-myColor">LIST</button>
-			</div>
-			
 			<!-- 게시판시작 -->
 			<c:if test="${empty reviewList}">
 				<p class="my-4 text-center h6">
@@ -451,41 +469,44 @@
 			</c:if>
 			<c:if test="${reviewList.size() ne 0}">
 				<table class="table">
-					<!-- <thead class="thth">
-						<tr class="text-center">
-							<th>번호</th>
-							<th class="text-start">제목</th>
-							<th>작성자</th>
-							<th>날짜</th>
-							<th>조회수</th>
-						</tr>
-					</thead> -->
 					<tbody>
+						<tr><td colspan="2"></td></tr>
 						<c:forEach var="review" items="${reviewList}">
 							<tr>
-								<td class="text-center" style="width:100px;">
-								<small>${review.reviewNum}</small>
+								<td style="width:260px; height:1px; padding:20px;">
+									<div style="background-color:#fafafa; padding:15px; height:100%;">
+										<div class="d-flex justify-content-between">
+										<small>${review.memberName}(${review.memberId})</small>
+										<small><fmt:formatDate value="${review.reviewDate}" pattern="yy/MM/dd"/></small>
+										</div>
+									</div>
 								</td>
-								<td style="width:600px;">
-									<a href="">
-										${review.reviewTitle}
-									</a>
-								</td>
-								<td class="text-center">
-								<small>${review.memberName}(${review.memberId})</small>
-								</td>
-								<td class="text-center">
-									<small><fmt:formatDate value="${review.reviewDate}" pattern="yy/MM/dd HH:mm"/></small>
+								<td style="padding:20px;">
+									<div style="padding:15px;">
+										<div class="d-flex justify-content-between">
+											<div style="font-size:1.2rem;">
+											${review.reviewTitle}
+											</div>
+											<div>
+											<input type="number" id="input-1-ltr-star-xs"  class="kv-ltr-theme-svg-star rating-loading" min="0" max="5" dir="ltr" data-size="xs" name="reviewRating" value="${review.reviewScore}">
+											</div>
+										</div>
+										<c:if test="${not empty review.reviewImage}">
+											<img class="my-3" style="width:185px; height:185px;" src="${conPath}/reviewImage/${review.reviewImage}">
+										</c:if>
+										<pre class="m-0">${review.reviewContent}</pre>
+									</div>
 								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				
 			</c:if>
 			<!-- 게시판끝 -->
 			
 			<!-- 페이징 -->
-			<c:if test="${rpaging.totCnt ne 0}">
+			<c:if test="${rpaging.totCnt > rpaging.pageSize}">
 		   <nav aria-label="Page navigation" class="my-4">
 		  <ul class="pagination pagination-sm justify-content-center pb-2">
 		  	<c:if test="${rpaging.startPage <= rpaging.blockSize}">
@@ -497,7 +518,7 @@
 		  	 	</c:if>
 		  	 	<c:if test="${rpaging.startPage > rpaging.blockSize}">
 			    <li class="page-item">
-				    <a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${rpaging.startPage-1}#proQna">
+				    <a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${rpaging.startPage-1}#proReview">
 				    <span aria-hidden="true">&laquo;</span>
 				    </a>
 			    </li>
@@ -507,12 +528,12 @@
 					<li class="page-item active"><a class="page-link">${i}</a></li>
 				</c:if>
 		  	 		<c:if test="${i ne rpaging.currentPage}">
-					<li class="page-item"><a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${i}#proQna">${i}</a></li>
+					<li class="page-item"><a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${i}#proReview">${i}</a></li>
 				</c:if>
 		  	 	</c:forEach>
 		  	 <c:if test="${rpaging.endPage < rpaging.pageCnt}">
 				<li class="page-item">
-					<a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${rpaging.endPage+1}#proQna">
+					<a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${rpaging.endPage+1}#proReview">
 					<span aria-hidden="true">&raquo;</span>
 					</a>
 				</li>
@@ -598,7 +619,7 @@
 			<!-- 게시판끝 -->
 			
 			<!-- 페이징 -->
-			<c:if test="${qpaging.totCnt ne 0}">
+			<c:if test="${qpaging.totCnt > qpaging.pageSize}">
 		   <nav aria-label="Page navigation" class="my-4">
 		  <ul class="pagination pagination-sm justify-content-center pb-2">
 		  	<c:if test="${qpaging.startPage <= qpaging.blockSize}">
@@ -663,7 +684,7 @@
 	</div>
 
 <script>
-	
+
 	// 초기값 변수
 	var size = 0;
 	var color = 0;

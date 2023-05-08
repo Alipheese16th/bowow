@@ -108,7 +108,7 @@
 		
 		</div>
 		
-		<c:if test="${paging.totCnt > 16}">
+		<c:if test="${paging.totCnt > paging.pageSize}">
 		<!-- 페이지 네비게이션 시작 -->
 		<nav aria-label="Page navigation">
 		  <ul class="pagination justify-content-center">

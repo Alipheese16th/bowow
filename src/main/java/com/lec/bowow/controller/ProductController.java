@@ -29,7 +29,7 @@ public class ProductController {
 	}
 	// 상품 상세보기
 	@RequestMapping(value="content", method=RequestMethod.GET)
-	public String content(Model model, String productCode, String qpageNum) {
+	public String content(Model model, String productCode, String qpageNum, String rpageNum) {
 		model.addAttribute("product",productService.productDetail(productCode));
 		model.addAttribute("imageList",productService.imageList(productCode));
 		model.addAttribute("sizeList",productService.sizeList(productCode));
@@ -37,6 +37,9 @@ public class ProductController {
 		
 		model.addAttribute("qnaList",productService.productQnaList(productCode, qpageNum));
 		model.addAttribute("qpaging",new Paging(productService.productQnaTotCnt(productCode), qpageNum, 5, 3));
+		
+		model.addAttribute("reviewList",productService.productReviewList(productCode, rpageNum));
+		model.addAttribute("rpaging",new Paging(productService.productReviewTotCnt(productCode), rpageNum, 5, 3));
 		
 		return "product/content";
 	}
