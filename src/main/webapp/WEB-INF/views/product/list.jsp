@@ -16,7 +16,11 @@
 	min-width: 1300px !important;
 	font-family: 'Pretendard';
 }
-
+.heading{
+	text-align:center;
+	margin:40px auto;
+	font-size:2rem;
+}
 .pagination > li > a:focus,
 .pagination > li > a:hover,
 .pagination > li > span:focus,
@@ -46,48 +50,67 @@
 	cursor:pointer;
 }
 
+.d4d4{
+	height:450px;
+}
+
 </style>
 </head>
 <body>
 	
 	<jsp:include page="../main/header.jsp"/>
-	
-	<div class="container py-5">
+	<div class="container">
 		
-		<div class="d-flex justify-content-evenly">
+		<h1 class="heading">
+			<c:if test="${param.category eq 'fashion'}">FASHION</c:if>
+			<c:if test="${param.category eq 'food'}">FOOD</c:if>
+			<c:if test="${param.category eq 'toy'}">TOY</c:if>
+			<c:if test="${param.category eq 'walking'}">WALKING</c:if>
+			<c:if test="${param.category eq 'clean'}">CLEAN</c:if>
+		</h1>
+		
+		
+		
+		<div class="d-flex justify-content-evenly d4d4">
 		
 		<c:forEach items="${productList}" var="product" varStatus="i">
-			
+			<c:if test="${i.index!=0 and i.index%4 eq 0}">
+				</div>
+				<div class="d-flex justify-content-evenly d4d4">
+			</c:if>
+			<!-- 상품 시작 -->
 			<div class="card border-0 rounded-0" id="${product.productCode}" style="width: 18rem;">
 			  <img src="${conPath}/productImage/${product.image}" class="card-img-top rounded-0">
 			  <div class="card-body">
 			    <h5 class="card-title pb-1 mb-0">${product.productName}</h5>
 			    <p class="card-text">
+			    	<span style="color:#BE8D6E">
 			    	<c:if test="${product.productDiscount ne 0}">
-						<del>${product.productPrice}원</del>
+						<del><small><fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원</small></del>
 						<br>
-						<fmt:parseNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" integerOnly="true"/>원
+						<fmt:formatNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" pattern="#,###"/>원
 					</c:if>
 					<c:if test="${product.productDiscount eq 0}">
-						${product.productPrice}원
+						<fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원
 					</c:if>
+			    	</span>
 			    </p>
 			  </div>
 			</div>
+			<!-- 상품 끝 -->
 			
-			<c:if test="${i.index%4 eq 3}">
+			<%-- <c:if test="${i.index%4 eq 3}">
 				</div>
-				<div class="d-flex justify-content-evenly">
-			</c:if>
+				<div class="d-flex justify-content-evenly d4d4">
+			</c:if> --%>
 			
 		</c:forEach>
 		
 		</div>
-
 		
-		
+		<c:if test="${paging.totCnt > 16}">
 		<!-- 페이지 네비게이션 시작 -->
-		<nav aria-label="Page navigation example pt-5 mt-5">
+		<nav aria-label="Page navigation">
 		  <ul class="pagination justify-content-center">
 		  	<c:if test="${paging.startPage <= paging.blockSize }">
 			    <li class="page-item disabled">
@@ -132,11 +155,10 @@
 		  </ul>
 		</nav>
 		<!-- 페이지 네비게이션 끝 -->
-		
+		</c:if>
 		
 		
 	</div>
-	
 	<jsp:include page="../main/footer.jsp"/>
 
 <script>

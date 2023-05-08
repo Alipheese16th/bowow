@@ -52,10 +52,8 @@ public class NoticeCommentServiceImpl implements NoticeCommentService {
 
 	@Override
 	public int ncDelete(int ncNum) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeCommentDao.ncDelete(ncNum);
 	}
-	
 
 
 }

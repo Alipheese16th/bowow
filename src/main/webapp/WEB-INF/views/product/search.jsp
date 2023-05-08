@@ -16,36 +16,40 @@
 	min-width: 1300px !important;
 	font-family: 'Pretendard';
 }
-
-.pagination > li > a{
-    background-color: white;
-    color: #5A4181;
+.heading{
+	text-align:center;
+	margin:40px auto;
+	font-size:2rem;
 }
 
 .pagination > li > a:focus,
 .pagination > li > a:hover,
 .pagination > li > span:focus,
 .pagination > li > span:hover{
-    color: #5a5a5a;
-    background-color: #eee;
-    border-color: #ddd;
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
 }
-
+.pagination > li > a{
+    background-color: white;
+    color: #BE8D6E;
+}
+.pagination > .disabled > a{
+    color: #BE8D6E;
+    background-color: white;
+}
 .pagination > .active > a{
     color: white;
-    background-color: #444444 !Important;
-    border: solid 1px #444444 !Important;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
 }
-
 .pagination > .active > a:hover{
-    background-color: #444444 !Important;
-    border: solid 1px #444444;
+    background-color: #9E6D4E;
 }
 
 .card img, .card-title, .card-text{
 	cursor:pointer;
 }
-
 
 .search-view{
 	border:1px solid #000;
@@ -81,20 +85,22 @@
 	background:url("../img/search.png")center no-repeat;
 	background-size:30px;
 }
-
+.d4d4{
+	height:450px;
+}
 </style>
 </head>
 <body>
 	
 	<jsp:include page="../main/header.jsp"/>
 	
-	<div class="container py-5">
+	<div class="container">
 	
-		<h3 class="text-center">SEARCH</h3>
+		<h1 class="heading">SEARCH</h1>
 		
 		<div class="search-view py-5">
-			<form action="${conPath}/product/search.do" class="d-flex justify-content-center">
-				<input type="text" name="searchName">
+			<form action="${conPath}/product/search.do" class="d-flex justify-content-center mysearch">
+				<input type="text" name="searchName" value="${param.searchName}" class="mysearchName">
 				<input type="submit" class="searchP">
 			</form>
 		</div>
@@ -102,32 +108,39 @@
 		<p class="text-center pb-5">총 ${paging.totCnt}개의 상품이 검색되었습니다.</p>
 		
 		
-		<div class="d-flex justify-content-evenly">
-			
+		<div class="d-flex justify-content-evenly d4d4">
+		
 			<c:forEach items="${productList}" var="product" varStatus="i">
-			<c:if test="${product.productUsed eq 'Y'}">
-			
+				<c:if test="${i.index!=0 and i.index%4 eq 0}">
+					</div>
+					<div class="d-flex justify-content-evenly d4d4">
+				</c:if>
+				<!-- 상품 시작 -->
 				<div class="card border-0 rounded-0" id="${product.productCode}" style="width: 18rem;">
 				  <img src="${conPath}/productImage/${product.image}" class="card-img-top rounded-0">
 				  <div class="card-body">
 				    <h5 class="card-title pb-1 mb-0">${product.productName}</h5>
-				    <p class="card-text">${product.productPrice}원</p>
+				    <p class="card-text">
+				    	<span style="color:#BE8D6E">
+				    	<c:if test="${product.productDiscount ne 0}">
+							<del><small><fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원</small></del>
+							<br>
+							<fmt:formatNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" pattern="#,###"/>원
+						</c:if>
+						<c:if test="${product.productDiscount eq 0}">
+							<fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원
+						</c:if>
+				    	</span>
+				    </p>
 				  </div>
 				</div>
+				<!-- 상품 끝 -->
 				
-				<c:if test="${i.count%4 eq 0}">
-				
-				</div>
-				<div class="d-flex justify-content-evenly">
-				
-				</c:if>
-				
-			</c:if>
 			</c:forEach>
 		
 		</div>
 		
-		
+		<c:if test="${paging.totCnt > 16}">
 		<!-- 페이지 네비게이션 시작 -->
 		<nav aria-label="Page navigation example pt-5 mt-5">
 		  <ul class="pagination pagination-sm justify-content-center">
@@ -174,6 +187,7 @@
 		  </ul>
 		</nav>
 		<!-- 페이지 네비게이션 끝 -->
+		</c:if>
 		
 	</div>
 	
@@ -187,6 +201,14 @@
 			location.href = '${conPath}/product/content.do?productCode='+productCode;
 		});
 		
+	});
+	
+	$('.mysearch').submit(function(){
+		var sname = $('.mysearchName').val();
+		if(sname.trim() == ''){
+			alert('빈칸은 검색할 수 없습니다');
+			return false;
+		}
 	});
 </script>
 

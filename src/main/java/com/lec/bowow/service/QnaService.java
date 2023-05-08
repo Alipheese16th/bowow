@@ -1,14 +1,8 @@
 package com.lec.bowow.service;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
-
-import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Qna;
 
 public interface QnaService {

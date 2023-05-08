@@ -12,46 +12,58 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- 플레스 슬라이더 -->
+<link rel="stylesheet" href="${conPath}/css/flexslider.css" type="text/css" media="screen" />
+<!-- jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- FlexSlider -->
+<script defer src="${conPath}/js/jquery.flexslider.js"></script>
+<script type="text/javascript">
+  $(window).load(function(){
+    $('.flexslider').flexslider({
+      animation: "slide",
+      controlNav: "thumbnails",
+      start: function(slider){
+        $('body').removeClass('loading');
+      }
+    });
+  });
+</script>
+
 <style>
 .container{
 	min-width: 1300px !important;
 	font-family: 'Pretendard';
 }
-.imageArea, .titleImage{
-	width:600px;
-	height:600px;
-}
-.infoArea{
-	width:600px;
-}
-.infoLeft{
-	text-align: left !important;
-	padding-right: 50px;
-}
-.left{
-	text-align: left !important;
-}
-.right{
-	text-align: right !important;
+.heading{
+	text-align:center;
+	margin:40px auto;
+	font-size:2rem;
 }
 
-.nav-tabs .nav-item .nav-link {
-	background-color: #FFFFFF;
-	color: #000000;
-	border-color:#DDDDDD;
-	border-collapse:collapse;
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover{
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
 }
-.nav-tabs .nav-item .nav-link.active {
-	border-top:2px solid black;
+.pagination > li > a{
+    background-color: white;
+    color: #BE8D6E;
 }
-
-.plus, .minus, .delete{
-	display:block;
-	height:11px;
+.pagination > .disabled > a{
+    color: #BE8D6E;
+    background-color: white;
 }
-
-.contentImg{
-	max-width: 1000px;
+.pagination > .active > a{
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
+}
+.pagination > .active > a:hover{
+    background-color: #9E6D4E;
 }
 
 .btn-myColor{
@@ -61,6 +73,57 @@
 .btn-myColor:hover{
 	background-color:#FFFFFF;
 	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
+}
+
+.flexslider{
+	margin:0;
+}
+.imageArea{
+	width:600px;
+	min-height:600px;
+}
+.infoArea{
+	width:600px;
+	min-height:600px;
+}
+.infoLeft{
+	text-align: left !important;
+	padding-right: 50px;
+	vertical-align: middle;
+}
+.left{
+	text-align: left !important;
+}
+.right{
+	text-align: right !important;
+}
+.nav-tabs .nav-item .nav-link {
+	background-color: #FFFFFF;
+	color: #000000;
+	border-color:#DDDDDD;
+	border-bottom:none;
+}
+.nav-tabs .nav-item .nav-link.active {
+	border-top:3px solid black;
+	border-bottom:1px solid white;
+}
+.plus, .minus, .delete{
+	display:block;
+	height:11px;
+}
+
+.contentImg{
+	max-width: 1000px;
 }
 #cartResult{
 	position:fixed;
@@ -87,13 +150,32 @@
 	width:40px;
 	height:20px !important;
 }
-/* .productFont{
-	font-size:12px;
-} */
-
+.thth{
+	border-bottom:2px solid #be8d6e;
+}
+.retable td{
+	padding:0;
+	height:50px;
+	line-height:50px;
+	border:none;
+	vertical-align: middle;
+}
+#proInfo, #proReview, #proQna{
+	width:1000px;
+	margin:0 auto;
+}
+.table small{
+	font-weight:300;
+}
+.table a{
+	display:inline-block;
+	width:100%;
+	text-decoration:none;
+	color:black;
+}
 </style>
 </head>
-<body>
+<body class="loading">
 
 	<jsp:include page="../main/header.jsp"/>
 	
@@ -114,52 +196,31 @@
 		</script>
 			
 			<div class="imageArea">
-				<!-- 캐러셀 시작 -->
-				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-				  <c:if test="${carnum > 1}">
-					  <div class="carousel-indicators">
-					  	<c:forEach begin="0" end="${carnum-1}" varStatus="status">
-					  		<c:if test="${status.first eq true}">
-							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index}" class="active"></button>
-					  		</c:if>
-					  		<c:if test="${status.first ne true}">
-							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index}"></button>
-					  		</c:if>
-					  	</c:forEach>
-					  </div>
-				  </c:if>
-				  <div class="carousel-inner">
-				  	<c:forEach items="${imageList}" var="image">
-						<c:if test="${image.type eq 'title'}">
-							<div class="carousel-item active titleImage">
-						  	 	<img class="d-block w-100" src="${conPath}/productImage/${image.image}">
-						    </div>
-					    </c:if>
-						<c:if test="${image.type eq 'subTitle'}">
-							<div class="carousel-item titleImage">
-						    	<img class="d-block w-100" src="${conPath}/productImage/${image.image}">
-						    </div>
-					    </c:if>
-					</c:forEach>
-				  </div>
-				  	 <c:if test="${carnum > 1}">
-						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Previous</span>
-						  </button>
-						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Next</span>
-						  </button>
-				  	 </c:if>
-				</div> <!-- carousel -->
+			
+				<section class="slider">
+					<div class="flexslider">
+						<ul class="slides">
+							
+							<c:forEach items="${imageList}" var="image">
+								<c:if test="${image.type eq 'title' or image.type eq 'subTitle'}">
+								
+									<li data-thumb="${conPath}/productImage/${image.image}">
+								  	<img class="d-block titleImage" src="${conPath}/productImage/${image.image}">
+								  	 </li>
+								  	 
+							    </c:if>
+							</c:forEach>
+							
+						</ul>
+					</div>
+				</section>
 				
 			</div><!-- imageArea -->
 			
 			<div class="infoArea px-5">
-				
+			
 				<div class="py-3">
-					<h2>
+					<h2 class="m-0">
 						${product.productName}
 					</h2>
 				</div>
@@ -173,18 +234,17 @@
 					<hr>
 				</c:if>
 				
-				<table>
-					
+				<table class="table">
 					<tr>
 						<td class="infoLeft">
 							판매가
 						</td>
 						<td class="price" id="${product.productPrice}">
 							<c:if test="${product.productDiscount ne 0}">
-								<del>${product.productPrice}원</del>
+								<del><fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원</del>
 							</c:if>
 							<c:if test="${product.productDiscount eq 0}">
-								${product.productPrice}원
+								<fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원
 							</c:if>
 						</td>
 					</tr>
@@ -194,7 +254,7 @@
 								할인판매가
 							</td>
 							<td class="disPrice" id="${product.productPrice - (product.productPrice * (product.productDiscount/100))}">
-								<fmt:parseNumber value="${product.productPrice - (product.productPrice * (product.productDiscount/100))}" integerOnly="true"/>원
+								<fmt:formatNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" pattern="#,###"/>원
 							</td>
 						</tr>
 					</c:if>
@@ -202,7 +262,7 @@
 						<td class="infoLeft">
 							배송비
 						</td>
-						<td>3000원</td>
+						<td>3,000원</td>
 					</tr>
 					
 					<c:if test="${not empty sizeList}">
@@ -234,21 +294,21 @@
 					
 				</table>
 				
-				<hr>
-				
 				<input type="hidden" id="productCode" value="${product.productCode}">
 				<input type="hidden" id="memberId" value="${member.memberId}">
 				
-				<table class="w-100">
-					<tbody id="result">
+				<table class="table retable">
+					<thead class="thth">
 						<tr>
 							<th class="w-50">이름</th>
 							<th>수량</th>
 							<th>가격</th>
 						</tr>
+					</thead>
+					<tbody id="result">
 					</tbody>
 					<tbody>
-						<tr>
+						<tr class="border-bottom">
 							<td colspan="3" class="right pt-3">
 								총 상품금액 <span id="total"></span>원
 							</td>
@@ -316,7 +376,8 @@
 			<br>
 			무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.  
 			주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.
-			
+			<br>
+			<br>
 			<h5>배송정보</h5>
 			<div>
 				<strong>배송 방법</strong>
@@ -341,7 +402,8 @@
 				 고객님께서 주문하신 상품은 입금 확인후 배송해 드립니다. 
 				 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
 			</div>
-			
+			<br>
+			<br>
 			<h5>교환 및 반품</h5>
 			
 			교환 및 반품안내<br>
@@ -354,7 +416,6 @@
 			+ 택배 수령 후 1주일이 경과한 제품<br>
 			+ 세탁 및 케이스, 택, 라벨을 제거 및 훼손하신 제품<br>
 			+ 세일 및  프로모션을 통해 구매하신 제품(사전 공지)<br>
-			
 			
 		</div>
 		
@@ -373,20 +434,103 @@
 		  </li>
 		</ul>
 		
-		<div id="proReview">
-			
-			<h5>Review</h5>
-			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-outline-dark">WRITE</button>
-				<button type="button" class="btn btn-outline-dark">LIST</button>
-			</div>
-			<table>
-				<tr><td>1</td></tr>
-				<tr><td>2</td></tr>
-				<tr><td>3</td></tr>
-			</table>
+		<div id="proReview" class="mb-5">
 		
-		</div>
+			<h5 class="text-center m-0">상품 리뷰</h5>
+			
+			<div class="d-flex justify-content-between py-3">
+				<button type="button" class="btn btn-myColor">WRITE</button>
+				<button type="button" class="btn btn-myColor">LIST</button>
+			</div>
+			
+			<!-- 게시판시작 -->
+			<c:if test="${empty reviewList}">
+				<p class="my-4 text-center h6">
+				해당 상품의 상품 후기가 아직 없습니다.
+				</p>
+			</c:if>
+			<c:if test="${reviewList.size() ne 0}">
+				<table class="table">
+					<!-- <thead class="thth">
+						<tr class="text-center">
+							<th>번호</th>
+							<th class="text-start">제목</th>
+							<th>작성자</th>
+							<th>날짜</th>
+							<th>조회수</th>
+						</tr>
+					</thead> -->
+					<tbody>
+						<c:forEach var="review" items="${reviewList}">
+							<tr>
+								<td class="text-center" style="width:100px;">
+								<small>${review.reviewNum}</small>
+								</td>
+								<td style="width:600px;">
+									<a href="">
+										${review.reviewTitle}
+									</a>
+								</td>
+								<td class="text-center">
+								<small>${review.memberName}(${review.memberId})</small>
+								</td>
+								<td class="text-center">
+									<small><fmt:formatDate value="${review.reviewDate}" pattern="yy/MM/dd HH:mm"/></small>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+			<!-- 게시판끝 -->
+			
+			<!-- 페이징 -->
+			<c:if test="${rpaging.totCnt ne 0}">
+		   <nav aria-label="Page navigation" class="my-4">
+		  <ul class="pagination pagination-sm justify-content-center pb-2">
+		  	<c:if test="${rpaging.startPage <= rpaging.blockSize}">
+			    <li class="page-item disabled">
+				    <a class="page-link">
+				    <span aria-hidden="true">&laquo;</span>
+				    </a>
+			    </li>
+		  	 	</c:if>
+		  	 	<c:if test="${rpaging.startPage > rpaging.blockSize}">
+			    <li class="page-item">
+				    <a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${rpaging.startPage-1}#proQna">
+				    <span aria-hidden="true">&laquo;</span>
+				    </a>
+			    </li>
+		   	</c:if>
+		  	 	<c:forEach var="i" begin="${rpaging.startPage}" end="${rpaging.endPage}">
+		  	 		<c:if test="${i eq rpaging.currentPage}">
+					<li class="page-item active"><a class="page-link">${i}</a></li>
+				</c:if>
+		  	 		<c:if test="${i ne rpaging.currentPage}">
+					<li class="page-item"><a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${i}#proQna">${i}</a></li>
+				</c:if>
+		  	 	</c:forEach>
+		  	 <c:if test="${rpaging.endPage < rpaging.pageCnt}">
+				<li class="page-item">
+					<a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&rpageNum=${rpaging.endPage+1}#proQna">
+					<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</c:if>
+		  	 	<c:if test="${rpaging.endPage >= rpaging.pageCnt}">
+				<li class="page-item disabled">
+					<a class="page-link">
+					<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</c:if>
+		    
+		  </ul>
+		</nav>
+		</c:if>
+		<!-- 페이징 끝 -->
+			
+		</div> <!-- div#proReview -->
 		
 		<ul class="nav nav-tabs d-flex justify-content-center my-5">
 		  <li class="nav-item" style="width:200px;">
@@ -403,13 +547,105 @@
 		  </li>
 		</ul>
 		
-		<div id="proQna">
+		<div id="proQna" class="mb-5">
 		
-			<h5>상품 문의</h5>
+			<h5 class="text-center m-0">상품 문의</h5>
+			
+			<div class="d-flex justify-content-between py-3">
+				<button type="button" class="btn btn-myColor goQnaWrite">WRITE</button>
+				<button type="button" class="btn btn-myColor goQnaList">LIST</button>
+			</div>
+			
+			<!-- 게시판시작 -->
+			<c:if test="${empty qnaList}">
+				<p class="my-4 text-center h6">
+				해당 상품의 문의 글이 존재하지 않습니다.
+				</p>
+			</c:if>
+			<c:if test="${qnaList.size() ne 0}">
+				<table class="table">
+					<!-- <thead class="thth">
+						<tr class="text-center">
+							<th>번호</th>
+							<th class="text-start">제목</th>
+							<th>작성자</th>
+							<th>날짜</th>
+							<th>조회수</th>
+						</tr>
+					</thead> -->
+					<tbody>
+						<c:forEach var="qna" items="${qnaList}">
+							<tr>
+								<td class="text-center" style="width:100px;">
+								<small>${qna.qnaNum}</small>
+								</td>
+								<td style="width:600px;">
+									<a href="${conPath}/qna/content.do?qnaNum=${qna.qnaNum}">
+										${qna.qnaTitle}
+									</a>
+								</td>
+								<td class="text-center">
+								<small>${qna.memberName}(${qna.memberId})</small>
+								</td>
+								<td class="text-center">
+									<small><fmt:formatDate value="${qna.qnaDate}" pattern="yy/MM/dd HH:mm"/></small>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+			<!-- 게시판끝 -->
+			
+			<!-- 페이징 -->
+			<c:if test="${qpaging.totCnt ne 0}">
+		   <nav aria-label="Page navigation" class="my-4">
+		  <ul class="pagination pagination-sm justify-content-center pb-2">
+		  	<c:if test="${qpaging.startPage <= qpaging.blockSize}">
+			    <li class="page-item disabled">
+				    <a class="page-link">
+				    <span aria-hidden="true">&laquo;</span>
+				    </a>
+			    </li>
+		  	 	</c:if>
+		  	 	<c:if test="${qpaging.startPage > qpaging.blockSize}">
+			    <li class="page-item">
+				    <a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&qpageNum=${qpaging.startPage-1}#proQna">
+				    <span aria-hidden="true">&laquo;</span>
+				    </a>
+			    </li>
+		   	</c:if>
+		  	 	<c:forEach var="i" begin="${qpaging.startPage}" end="${qpaging.endPage}">
+		  	 		<c:if test="${i eq qpaging.currentPage}">
+					<li class="page-item active"><a class="page-link">${i}</a></li>
+				</c:if>
+		  	 		<c:if test="${i ne qpaging.currentPage}">
+					<li class="page-item"><a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&qpageNum=${i}#proQna">${i}</a></li>
+				</c:if>
+		  	 	</c:forEach>
+		  	 <c:if test="${qpaging.endPage < qpaging.pageCnt}">
+				<li class="page-item">
+					<a class="page-link" href="${conPath}/product/content.do?productCode=${product.productCode}&qpageNum=${qpaging.endPage+1}#proQna">
+					<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</c:if>
+		  	 	<c:if test="${qpaging.endPage >= qpaging.pageCnt}">
+				<li class="page-item disabled">
+					<a class="page-link">
+					<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</c:if>
+		    
+		  </ul>
+		</nav>
+		</c:if>
+		<!-- 페이징 끝 -->
+			
+		</div><!-- div#proQna -->
 		
-		</div>
-		
-	</div>
+	</div><!-- container -->
 	
 	<jsp:include page="../main/footer.jsp"/>
 	<div class="d-none confirmResult"></div>
@@ -445,6 +681,21 @@
 	}
 	var memberId = $('#memberId').val();
 	var productCode = $('#productCode').val();
+	
+	
+	// 문의게시판 리스트로 가기 
+	$('.goQnaList').click(function(){
+		location.href='${conPath}/qna/list.do';
+	});
+	// 문의게시판 작성하기
+	$('.goQnaWrite').click(function(){
+		if(!memberId){
+			alert('로그인 한 회원만 가능합니다');
+			location.href='${conPath}/login.do?after=product/content.do&productCode='+productCode;
+			return;
+		}
+		location.href='${conPath}/qna/write.do?selectCode='+productCode;
+	});
 	
 	
 	////////////////////////////////////////////////////////////////// 장바구니 클릭시
@@ -581,7 +832,7 @@
 		var product = $('<tr>'
 				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+sizeName+' '+colorName
-				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'<img class="delete pe-2" src="${conPath}/img/delete.gif">'
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
@@ -597,7 +848,8 @@
 				+'<input type="hidden" name="sizeNum" value="'+size+'">'
 				+'<input type="hidden" name="colorNum" value="'+color+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price.toLocaleString('ko-KR')+'</span>원'
+				
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -607,7 +859,7 @@
 		var product = $('<tr>'
 				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+sizeName
-				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'<img class="delete pe-2" src="${conPath}/img/delete.gif">'
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
@@ -622,7 +874,7 @@
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" name="sizeNum" value="'+size+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price.toLocaleString('ko-KR')+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -632,7 +884,7 @@
 		var product = $('<tr>'
 				+'<td class="d-flex justify-content-between align-items-center productFont">'
 				+'${product.productName} - '+colorName
-				+'<img class="delete" src="${conPath}/img/delete.gif">'
+				+'<img class="delete pe-2" src="${conPath}/img/delete.gif">'
 				+'</td>'
 				+'<td>'
 				+'<div class="d-flex">'
@@ -647,7 +899,7 @@
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" name="colorNum" value="'+color+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price.toLocaleString('ko-KR')+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -670,7 +922,7 @@
 				+'<td class="obj">'
 				+'<input type="hidden" class="num" value="'+num+'">'
 				+'<input type="hidden" class="pre" value="1">'
-				+'<span class="price">'+disPrice+'</span>원'
+				+'<span class="price">'+price.toLocaleString('ko-KR')+'</span>원'
 				+'</td>'
 				+'</tr>');
 		num++;
@@ -709,7 +961,7 @@
 						
 						$('#result').append(getProductBoth(size, color, sizeName, colorName));
 						totQty = totQty + 1;
-						$('#total').text(totQty * disPrice);
+						$('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
 					}
 					
 				}
@@ -742,7 +994,7 @@
 						
 						$('#result').append(getProductBoth(size, color, sizeName, colorName));
 						totQty = totQty + 1;
-						$('#total').text(totQty * disPrice);
+						$('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
 					}
 				}
 			});
@@ -776,7 +1028,7 @@
 						
 						$('#result').append(getProductSize(size, sizeName));
 						totQty = totQty + 1;
-						$('#total').text(totQty * disPrice);
+						$('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
 					}
 					
 				}
@@ -812,7 +1064,7 @@
 					
 					$('#result').append(getProductColor(color, colorName));
 					totQty = totQty + 1;
-					$('#total').text(totQty * disPrice);
+					$('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
 				}
 				
 			}
@@ -833,7 +1085,7 @@
 		
 		$('#result').append(getProductNo());
 		totQty = totQty + 1;
-		$('#total').text(totQty * disPrice);
+		$('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
 		
 	}
 	
@@ -852,8 +1104,8 @@
 		$(this).parents('tr').find('.qty').val(product.qty);
 		$(this).parents('tr').find('.pre').val(product.qty);
 		totQty = totQty + 1;
-		$('#total').text(totQty * disPrice);
-		$(this).parents('tr').find('.price').text(product.qty * price);
+		$('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
+		$(this).parents('tr').find('.price').text((product.qty * price).toLocaleString('ko-KR'));
 		
 	});
 	$(document).on("click",".minus",function(){
@@ -873,8 +1125,8 @@
 		$(this).parents('tr').find('.qty').val(product.qty);
 		$(this).parents('tr').find('.pre').val(product.qty);
 		totQty = totQty - 1;
-		$('#total').text(totQty * disPrice);
-		$(this).parents('tr').find('.price').text(product.qty * price);
+		$('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
+		$(this).parents('tr').find('.price').text((product.qty * price).toLocaleString('ko-KR'));
 	});
 	
 	////////////////////////////////////////////////////// 상품의 수량 변경을 직접적으로 입력
@@ -899,10 +1151,10 @@
 		totQty = totQty + (after - pre);
         console.log('총수량 : ' + totQty);
         
-        $('#total').text(totQty * disPrice);
+        $('#total').text((totQty * disPrice).toLocaleString('ko-KR'));
         $(this).parents('tr').find('.pre').val(after);
         product.qty = after;
-        $(this).parents('tr').find('.price').text(product.qty * price);
+        $(this).parents('tr').find('.price').text((product.qty * price).toLocaleString('ko-KR'));
 	});
 	
 	///////////////////////////////////////////////////////// 상품 삭제

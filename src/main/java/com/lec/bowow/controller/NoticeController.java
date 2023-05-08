@@ -69,9 +69,12 @@ public class NoticeController {
 		noticeCommentService.ncUpdate(noticeComment, request);
 		return "forward:content.do";
 	}
-	
-	
-	
+	// 공지댓글 삭제
+	@RequestMapping(value="ncDelete", method=RequestMethod.GET)
+	public String ncDelete(int ncNum) {
+		noticeCommentService.ncDelete(ncNum);
+		return "forward:content.do";
+	}
 	
 	///////////////////////////////////////////////// 관리자
 	// 관리자 공지 등록

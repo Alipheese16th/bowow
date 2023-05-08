@@ -18,9 +18,20 @@
 			$("ul .lnb-down").mouseleave(function(){ $(this).children(".lnb").stop().slideUp(300);})
 			$(".search").click(function(){
 				$(".search-view").toggleClass("up");
+				$('.searchHeaderName').focus();
 			});
 			$("div.bar-close").click(function(){
 				$(".top-bar").css("display", "none");
+				
+				$.ajax({
+					url : '${conPath}/eventClose.do',
+					type : 'get',
+					dataType : 'html',
+					success : function(data){
+						console.log('ajax성공적으로 수행 eventClose');
+					}
+				});
+				
 			})
 			
 			var memberId = $('#memberId').val();
@@ -33,6 +44,14 @@
 				location.href="${conPath}/cart/list.do";
 			});
 			
+			$('.headerSearch').submit(function(){
+				var shname = $('.searchHeaderName').val();
+				if(shname.trim() == ''){
+					alert('빈칸은 검색할 수 없습니다');
+					return false;
+				}
+			});
+			
 		});
 		$(window).scroll(function(){
 			var scroll = $(this).scrollTop();
@@ -43,28 +62,24 @@
 			}
 		});
 		
-		$('.headerSearch').submit(function(){
-			var shname = $('.searchHeaderName').val();
-			if(shname.trim() == ''){
-				alert('빈칸은 검색할 수 없습니다');
-				return false;
-			}
-		});
-		
 	</script>
 </head>
 <body>
 	<input type="hidden" id="memberId" value="${member.memberId}">
 	
 	<div id="header">
-		<div class="top-bar">
-			<div>				
-				<a>BOWOW 바우와우에 신규가입하고 <span class="point-font">2천원 즉시 할인혜택 받기</span></a>
-				<div class="bar-close">
-					<span></span>
+	
+		<c:if test="${empty member and empty eventClose}">
+			<div class="top-bar">
+				<div>				
+					<a href="${conPath}/join.do">BOWOW 바우와우에 신규가입하고 <span class="point-font">2천원 즉시 할인혜택 받기</span></a>
+					<div class="bar-close">
+						<span></span>
+					</div>
 				</div>
 			</div>
-		</div>
+		</c:if>
+		
 		<div class="header-top">
 			<div class="header-inner">
 				<div class="inner">
@@ -94,8 +109,8 @@
 				<div class="gnb">
 					<div class="gnb-left">
 						<ul style="display:inline-block;">
-							<li><a href="#">회사소개</a></li>
-							<li><a href="#">오시는길</a></li>
+							<li><a href="${conPath}/ourStory.do">회사소개</a></li>
+							<li><a href="${conPath}/contact.do">오시는길</a></li>
 							<li class="lnb-down">
 								<a href="#">상품</a>
 									<ul class="lnb">

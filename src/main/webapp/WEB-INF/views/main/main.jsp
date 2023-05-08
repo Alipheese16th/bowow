@@ -228,12 +228,32 @@
 		 		<!-- Swiper -->
 				<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff; float:left; width:400px; margin-right:50px;" class="swiper mySwiper2">
 					<div class="swiper-wrapper">
-				      <div class="swiper-slide newp" style="width:450px;">
-				        <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new1.jpeg"/>
-				        </a>
-				        	<p style="font-size:14px;">누기프레시 500ml (냄새 제거제)<br><span style="color:#BE8D6E">2900원</span></p>
-				      </div>
-				      <div class="swiper-slide newp" style="width:450px;">
+					  
+					  <c:forEach items="${hotList}" var="product">
+					      <div class="swiper-slide newp" style="width:450px;">
+					        <a href="${conPath}/product/content.do?productCode=${product.productCode}">
+					        	<img src="${conPath}/productImage/${product.image}"/>
+					        </a>
+					        <p style="font-size:14px;">
+					        	${product.productName}
+					        	<br>
+					        	<c:if test="${product.productDiscount ne 0}">
+					        		<span style="color:#BE8D6E">
+										<del><small><fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원</small></del>
+										<br>
+										<fmt:formatNumber value="${product.productPrice-(product.productPrice*(product.productDiscount/100))}" pattern="#,###"/>원
+					        		</span>
+								</c:if>
+								<c:if test="${product.productDiscount eq 0}">
+									<span style="color:#BE8D6E">
+										<fmt:formatNumber value="${product.productPrice}" pattern="#,###"/>원
+					        		</span>
+								</c:if>
+					        </p>
+					      </div>
+					  </c:forEach>
+				      
+				      <%-- <div class="swiper-slide newp" style="width:450px;">
 				        <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new2.jpeg"/></a>
 				        <p style="font-size:14px;"> 멍랩 산책 와펜 - 친구 환영<br><span style="color:#BE8D6E">9,900원</span></p>
 				      </div>
@@ -260,7 +280,8 @@
 				      <div class="swiper-slide newp" style="width:450px;">
 				      	 <a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/n5.jpeg"/></a>
 				      	  <p style="font-size:14px;">SSFW 러브 워크 스트라이프 하네스 (블루)<br><span style="color:#BE8D6E">45,000원</span></p>
-				      </div>
+				      </div> --%>
+				      
 				    </div>
 				    <div class="swiper-button-next"></div>
 				    <div class="swiper-button-prev"></div>
@@ -268,10 +289,14 @@
 				  <div class="newp-sub">
 					  <div thumbsSlider="" class="swiper mySwiper3">
 					    <div class="swiper-wrapper">
-					      <div class="swiper-slide newp" style="width:200px;">
-					       	<img src="${conPath}/img/new1.jpeg"/>
-					      </div>
-					      <div class="swiper-slide newp" style="width:200px;">
+					    
+					      <c:forEach items="${hotList}" var="product">
+						      <div class="swiper-slide newp" style="width:200px;">
+						       	<img src="${conPath}/productImage/${product.image}"/>
+						      </div>
+					      </c:forEach>
+					      
+					     <%--  <div class="swiper-slide newp" style="width:200px;">
 					        <img src="${conPath}/img/new2.jpeg"/>
 					      </div>
 					      <div class="swiper-slide newp" style="width:200px;">
@@ -291,7 +316,8 @@
 					      </div>
 					      <div class="swiper-slide newp" style="width:200px;">
 					         <img src="${conPath}/img/n5.jpeg"/>
-					      </div>
+					      </div> --%>
+					      
 					   </div>
 					</div>
 				</div>
@@ -303,15 +329,25 @@
 		 	 <!-- Swiper -->
 			  <div class="swiper mySwiper4">
 			    <div class="swiper-wrapper">
-			      <div class="swiper-slide">
-			      	<div style="width:1100px;margin:0 auto;">
-			      		<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/best1.jpeg"></a>
-			      	</div>
-			      </div>
-			      <div class="swiper-slide">
-			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/best2.jpeg"></a>
-			      </div>
-			      <div class="swiper-slide">
+			      
+			      <c:forEach items="${newList}" var="product" varStatus="i">
+			      	
+			      	<c:if test="${i.index eq 0}">
+					    <div class="swiper-slide">
+						    <div style="width:1100px;margin:0 auto;">
+						    	<a href="${conPath}/product/content.do?productCode=${product.productCode}"><img src="${conPath}/productImage/${product.image}"></a>
+						    </div>
+					    </div>
+			      	</c:if>
+				    <c:if test="${i.index ne 0}">
+					    <div class="swiper-slide">
+					    	<a href="${conPath}/product/content.do?productCode=${product.productCode}"><img src="${conPath}/productImage/${product.image}"></a>
+					    </div>
+				    </c:if>
+			      	
+			      </c:forEach>
+			      
+			      <%-- <div class="swiper-slide">
 			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/best3.jpeg"></a>
 			      </div>
 			      <div class="swiper-slide">
@@ -328,7 +364,8 @@
 			      </div>
 			      <div class="swiper-slide">
 			      	<a href="${conPath}/product/content.do?productCode=P0001"><img src="${conPath}/img/new8.jpeg"></a>
-			      </div>
+			      </div> --%>
+			      
 			    </div>
 			  </div>
 		 	</div>

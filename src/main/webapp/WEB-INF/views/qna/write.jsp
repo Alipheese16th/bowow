@@ -49,7 +49,7 @@
 	<c:if test="${empty member and empty admin }">
 		<script>
 			alert('로그인 후 작성이 가능합니다');
-			history.back();
+			location.href='${conPath}/login.do?after=qna/write.do';
 		</script>
 	</c:if>
 	
@@ -62,7 +62,9 @@
 				<select id="selectId" name="selectCode" class="selectpicker my-select" data-live-search="true">
 					<option>상품명을 입력해주세요</option>
 					<c:forEach var="product" items="${productList }">
-						<option value="${product.productCode }">
+						<option value="${product.productCode }"
+							<c:if test="${product.productCode eq param.selectCode}">selected="selected"</c:if>
+						>
 							${product.productName }
 						</option>
 					</c:forEach>

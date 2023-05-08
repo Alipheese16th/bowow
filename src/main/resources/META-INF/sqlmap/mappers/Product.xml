@@ -232,4 +232,26 @@
 		WHERE productCode = #{productCode}
 	</update>
 	
+	<select id="mainHotList" resultMap="ProductResult">
+		SELECT * FROM 
+		  (SELECT ROWNUM RN, A.* FROM 
+		    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+		      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+		        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+		        AND PRODUCTUSED = 'Y'
+		        ORDER BY PRODUCTHIT DESC) A)
+		  WHERE RN BETWEEN 1 AND 8
+	</select>
+	
+	<select id="mainNewList" resultMap="ProductResult">
+		SELECT * FROM
+		  (SELECT ROWNUM RN, A.* FROM 
+		    (SELECT P.*, IMAGE FROM PRODUCT P, IMAGE I 
+		      WHERE P.PRODUCTCODE = I.PRODUCTCODE(+) 
+		        AND (TYPE='title' or I.PRODUCTCODE IS NULL) 
+		        AND PRODUCTUSED = 'Y'
+		        ORDER BY PRODUCTDATE DESC) A)
+		  WHERE RN BETWEEN 1 AND 8
+	</select>
+	
 </mapper>

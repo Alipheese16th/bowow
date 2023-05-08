@@ -21,13 +21,26 @@
 }
 .heading{
 	text-align:center;
-	text-weight:bold;
-	width:1250px;
-	margin:60px auto;
-	padding-top:30px;
-	padding-bottom:30px;
-	background: #fff;
-    border-top: 3px solid #be8D6e;
+	margin:40px auto;
+	font-size:2rem;
+}
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
 }
 
 .plist .titleImg{
@@ -146,11 +159,6 @@
     background: #BE8D6E;
 }
 
-.mybtn{
-	background: #BE8D6E;
-	color:white;
-	font-size:18px;
-}
 .table{
 	box-sizing:border-box;
 	border: 1px solid #DDDDDD;
@@ -272,12 +280,12 @@
 							</td>
 							<td>
 								<c:if test="${cart.productDiscount ne 0}">
-									<del>${cart.productPrice}원</del>
+									<del><fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원</del>
 									<br>
-									<fmt:parseNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" integerOnly="true"/>원
+									<fmt:formatNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" pattern="#,###"/>원
 								</c:if>
 								<c:if test="${cart.productDiscount eq 0}">
-									${cart.productPrice}원
+									<fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원
 								</c:if>
 							</td>
 							<td>
@@ -285,10 +293,10 @@
 							</td>
 							<td>-</td>
 							<td>기본배송</td>
-							<td>3000원</td>
+							<td>3,000원</td>
 							<td>
 								<span class="cost" id="${cart.cost}">
-									${cart.cost}원
+									<fmt:formatNumber value="${cart.cost}" pattern="#,###"/>원
 								</span>
 							</td>
 						</tr>
@@ -306,7 +314,9 @@
 							[기본배송]
 							</span>
 							<span>
-								상품구매금액 ${totalPrice}원 + 배송비 3000원 = 합계 : ${totalPrice + 3000}원
+								상품구매금액 <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 
+								+ 배송비 3,000원 
+								= 합계 : <fmt:formatNumber value="${totalPrice + 3000}" pattern="#,###"/>원
 								<c:set var="totalPrice" value="${totalPrice + 3000}"/>
 							</span>
 						</div>
@@ -316,7 +326,7 @@
 		</table>
 		
 		<div class="d-flex justify-content-end pt-3" style="width:1250px; margin:0 auto;">
-			<input type="button" class="btn mybtn" value="장바구니 돌아가기" onclick="location.href='${conPath}/cart/list.do'">
+			<input type="button" class="btn btn-myColor" value="장바구니 돌아가기" onclick="location.href='${conPath}/cart/list.do'">
 		</div>
 		
 		
@@ -556,9 +566,9 @@
 				<th scope="col">총 결제 금액</th>
 			</tr>
 			<tr class="text-center">
-				<td><b>${totalPrice}</b></td>
+				<td><b><fmt:formatNumber value="${totalPrice}" pattern="#,###"/></b></td>
 				<td class="bd"><b><span class="dis">0</span></b></td>
-				<td><b><span class="tot">${totalPrice}</span></b></td>
+				<td><b><span class="tot"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/></span></b></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -574,7 +584,7 @@
 					<div class="payresult">
 						<span>카드최종결제금액</span>
 						<br>
-						<b><span class="tot">${totalPrice}</span>원</b>
+						<b><span class="tot"><fmt:formatNumber value="${totalPrice}" pattern="#,###"/></span>원</b>
 						<input type="hidden" id="totalPrice" value="${totalPrice}">
 					</div>
 					<div class="paybutton">
@@ -616,11 +626,10 @@
 	
 	// 쿠폰선택시 가격들 변동
 	$('#couponList').change(function(){
-		discount = $("#couponList option:selected").attr('id');
+		discount = Number($("#couponList option:selected").attr('id'));
 		console.log(discount);
-		$('.dis').text(discount);
-		$('.tot').text(totalPrice-discount);
-		
+		$('.dis').text(discount.toLocaleString('ko-KR'));
+		$('.tot').text((totalPrice-discount).toLocaleString('ko-KR'));
 		
 	});
 	
@@ -748,86 +757,6 @@
 		$('.orderForm').append($(input));
 		$('.orderForm').submit();
 	};
-	
-		
-	/* $('.orderSubmit').click(function(){
-		var sub = true;
-		
-		var orderName  = $('#orderName').val();
-		var orderPost  = $('#sample6_postcode').val();
-		var orderAddr1 = $('#sample6_address').val();
-		var orderAddr2 = $('#sample6_detailAddress').val();
-		var orderTel   = $('#orderTel').val();
-		
-		if(orderName.search(/\s/)!=-1){
-			alert('이름에 공백을 입력하지 마세요');
-			sub = false;
-		}else if(!orderName.match(patternName)){
-			alert('이름을 제대로 입력해주세요');
-			sub = false;
-		}else if(!orderPost.trim() || orderPost.length < 2){
-			alert('우편번호를 입력해주세요');
-			sub = false;
-			
-		}else if(!orderAddr1.trim() || orderAddr1.length < 2){
-			alert('기본주소를 입력해주세요');
-			sub = false;
-			
-		}else if(!orderAddr2.trim() || orderAddr2.length < 2){
-			alert('상세주소를 입력해주세요');
-			sub = false;
-			
-		}else if(!orderTel.match(patternTel)){
-			alert('전화번호를 제대로 입력해주세요');
-			sub = false;
-			
-		}else if(!$('.terms').prop('checked')){
-			alert('약관에 체크하세요');
-			sub = false;
-		}
-		if(sub){
-			requestPay('kakaopay.TC0ONETIME');
-		}
-	}); */
-	
-	/* //전체체크박스 선택시 전체선택
-	$('.chkAll').change(function(){
-		if($('.chkAll').is(':checked')){
-			$('.chk').prop('checked',true);
-		}else{
-			$('.chk').prop('checked',false);
-		}
-	});
-	var chkNumList = [];
-	$('.chk').change(function(){
-		var chkNum = $(this).val();
-		console.log('현재 체크한 번호 '+chkNum);
-		if($(this).is(':checked')){
-			chkNumList.push(chkNum);
-			console.log('배열에 추가 '+chkNumList);
-		}else{
-			chkNumList = chkNumList.filter(num => num !== chkNum);
-			console.log('배열에서 삭제 '+chkNumList);
-		}
-	});
-	console.log(asdf);
-	console.log(asdf[0]);
-	//선택삭제 버튼 눌렀을경우
-	$('.delete').click(function(){
-		if($('.chk:checked').length < 1){
-			alert('선택된 상품이 없습니다');
-		}else{
-			var parameter = '';
-			chkNumList.forEach(function(num, idx){
-				if(idx == 0){
-					parameter += 'cartNum='+num
-				}else{
-					parameter += '&cartNum='+num
-				}
-			});
-			location.href='${conPath}/order/orderDelete.do?'+parameter;
-		}
-	}); */
 		
 	
 </script>

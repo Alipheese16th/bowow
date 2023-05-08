@@ -38,15 +38,16 @@ public interface ProductDao {
 	// 상품 색상 등록
 	public int registerColor(Color color);
 	
-	// 관리자 상품검색
+	// 관리자
 	public List<Product> adminSearchProduct(Product product);
 	public int adminTotCntSearch(Product product);
-	
-	// 관리자 - 상품 판매정지 재판매 전환
 	public String getUsed(String productCode);
 	public int deleteProduct(String productCode);
 	public int activeProduct(String productCode);
-	
 	public int modifyProduct(Product product);
+	
+	// 메인페이지
+	public List<Product> mainHotList();
+	public List<Product> mainNewList();
 	
 }

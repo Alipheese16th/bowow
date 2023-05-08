@@ -77,12 +77,14 @@
 				<input type="button" value="목록가기" class="btn" style="width: 200px;" onclick="location.href='${conPath}/inquiry/list.do'">
 	    	</form>
 			<table class="table table-striped table-hover">
-				<h3>관리자 답변</h3>
-				<c:forEach items="${reInquiry }" var="admin" begin="0" end="0">
-				<tr>
-					<th>관리자답변</th><td>${admin.inquiryContent }</td>
-				</tr>
-				</c:forEach>
+				<c:if test="${not empty reInquiry }">
+					<h3>관리자 답변</h3>
+					<c:forEach items="${reInquiry }" var="admin" begin="0" end="0">
+					<tr>
+						<th>관리자답변</th><td>${admin.inquiryContent }</td>
+					</tr>
+					</c:forEach>
+				</c:if>
 			</table>
 		</div>
 	</div>

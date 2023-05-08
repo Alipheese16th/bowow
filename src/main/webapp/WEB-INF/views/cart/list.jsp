@@ -12,6 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
+
 .container{
 	min-width: 1300px !important;
 	font-family: 'Pretendard';
@@ -19,6 +20,25 @@
 .heading{
 	text-align:center;
 	margin:40px auto;
+	font-size:2rem;
+}
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
 }
 
 .plist .titleImg{
@@ -45,26 +65,13 @@
 	width:40px;
 	height:20px !important;
 }
-.mybtn{
-	background: #BE8D6E;
-	color: white;
-	font-size: 24px;
-	font-weight: bold;
-}
-.lastorder{
-	width:50%;
-	margin:0 auto;
-	background: #BE8D6E;
-	color: white;
-	font-size: 24px;
-	font-weight: bold;
-	height:50px;
-	vertical-align:middle;
-	cursor:pointer;
-}
 
+.table{
+	width:1250px;
+	margin:0 auto;
+}
 .mytable{
-	width:60%;
+	width:70%;
 	margin:50px auto;
 	box-sizing:border-box;
 	border-collapse: collapse;
@@ -78,7 +85,22 @@
 	text-align:right;
 	padding:5px 0;
 }
-
+.lastorder{
+	width:250px;
+	margin:0 auto;
+	background: #BE8D6E;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	height:50px;
+	line-height:50px;
+	cursor:pointer;
+	border-radius:5px;
+}
+.emp{
+	width:1000px;
+	margin:0 auto;
+}
 </style>
 </head>
 <body>
@@ -97,12 +119,12 @@
 		
 		<c:if test="${empty cartList}">
 		
-			<div class="p-3">
-				<h1 class="text-center py-5">상품이 존재하지 않습니다</h1>
+			<div class="emp p-3">
+				<h2 class="text-center py-5">상품이 존재하지 않습니다</h2>
 				<hr class="pb-3">
 				<div class="d-flex justify-content-between">
-					<button type="button" class="btn mybtn" onclick="location.href='${conPath}/main.do'">메인 페이지</button>
-					<button type="button" class="btn mybtn" onclick="location.href='${conPath}/product/list.do'">상품 추가하러 가기</button>
+					<button type="button" class="btn btn-myColor" onclick="location.href='${conPath}/main.do'">메인 페이지</button>
+					<button type="button" class="btn btn-myColor" onclick="location.href='${conPath}/product/list.do'">상품 추가하러 가기</button>
 				</div>
 			</div>
 		
@@ -168,16 +190,18 @@
 						</td>
 						<td>
 							<c:if test="${cart.productDiscount ne 0}">
-								<del>${cart.productPrice}원</del>
+								<del>
+									<fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원
+								</del>
 								<br>
-								<fmt:parseNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" integerOnly="true"/>원
+								<fmt:formatNumber value="${cart.productPrice - (cart.productPrice * (cart.productDiscount/100))}" pattern="#,###"/>원
 							</c:if>
 							<c:if test="${cart.productDiscount eq 0}">
-								${cart.productPrice}원
+								<fmt:formatNumber value="${cart.productPrice}" pattern="#,###"/>원
 							</c:if>
 						</td>
 						<td>
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-center mb-1">
 								<input class="form-control form-control-sm qty" type="text" value="${cart.qty}" min="1" max="${cart.productStock}">
 								<div class="d-flex flex-column justify-content-center">
 									<img class="plus" src="${conPath}/img/up.gif">
@@ -190,16 +214,16 @@
 						</td>
 						<td>-</td>
 						<td>기본배송</td>
-						<td>3000원</td>
+						<td>3,000원</td>
 						<td>
 							<span class="cost" id="${cart.cost}">
-								${cart.cost}원
+								<fmt:formatNumber value="${cart.cost}" pattern="#,###"/>원
 							</span>
 						</td>
 						<td>
-							<div class="d-flex flex-column">
-								<input type="button" class="btn btn-outline-dark order" value="주문하기">
-								<input type="button" class="btn btn-outline-dark delete" value="삭제">
+							<div class="d-flex flex-column justify-content-center align-items-center">
+								<button type="button" class="btn btn-myColor w-75 order mb-1">주문하기</button>
+								<button type="button" class="btn btn-outline-myColor w-75 delete">삭제</button>
 							</div>
 						</td>
 					</tr>
@@ -214,7 +238,9 @@
 							[기본배송]
 							</span>
 							<span>
-								상품구매금액 ${totalPrice}원 + 배송비 3000원 = 합계 : ${totalPrice + 3000}원
+								상품구매금액 <fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원 
+								+ 배송비 3,000원 
+								= 합계 : <fmt:formatNumber value="${totalPrice + 3000}" pattern="#,###"/>원
 							</span>
 						</div>
 					</td>
@@ -222,32 +248,32 @@
 			</tbody>
 		</table>
 		
-		<div class="d-flex justify-content-between px-5 py-1">
+		<div class="d-flex justify-content-between px-5 py-3">
 			<div>
-				<input type="submit" class="btn btn-outline-dark" name="submit" value="선택삭제">
-				<input type="button" class="btn btn-outline-dark deleteAll" value="전체삭제">
+				<input type="submit" class="btn btn-outline-myColor" name="submit" value="선택삭제">
+				<input type="button" class="btn btn-myColor deleteAll" value="전체삭제">
 			</div>
 			<div>
-				<input type="submit" class="btn btn-outline-dark selectOrder" name="submit" value="선택주문">
-				<input type="button" class="btn btn-outline-dark orderAll" value="전체주문">
+				<input type="submit" class="btn btn-outline-myColor selectOrder" name="submit" value="선택주문">
+				<input type="button" class="btn btn-myColor orderAll" value="전체주문">
 			</div>
 		</div>
 		
 		</form>
 		
-		<table class="mytable">
+		<table class="table mytable">
 			<tr>
-				<th>주문금액</th><td>${totalPrice}원</td>
+				<th>주문금액</th><td><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원</td>
 			</tr>
 			<tr>
 				<th>배송비</th><td>3,000원</td>
 			</tr>
 			<tr>
-				<th>합계</th><td>${totalPrice + 3000}원</td>
+				<th class="border-0">합계</th><td class="border-0"><fmt:formatNumber value="${totalPrice + 3000}" pattern="#,###"/>원</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<div class="d-flex justify-content-center px-5 py-1 lastorder">
+				<td colspan="2" class="border-0">
+					<div class="d-flex justify-content-center lastorder">
 						주문하기
 					</div>
 				</td>

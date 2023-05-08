@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.lec.bowow.dao.ProductDao;
+import com.lec.bowow.dao.QnaDao;
 import com.lec.bowow.model.Color;
 import com.lec.bowow.model.Product;
+import com.lec.bowow.model.Qna;
 import com.lec.bowow.model.Image;
 import com.lec.bowow.model.Sizes;
 import com.lec.bowow.util.Paging;
@@ -25,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductDao productDao;
+	@Autowired
+	private QnaDao qnaDao;
 	
 	// 상품리스트
 	@Override
@@ -191,5 +193,39 @@ public class ProductServiceImpl implements ProductService {
 			return "상품 수정 성공";
 		}
 	}
+	@Override
+	public List<Product> mainHotList() {
+		return productDao.mainHotList();
+	}
+	@Override
+	public List<Product> mainNewList() {
+		return productDao.mainNewList();
+	}
+	
+	// 상품상세에서 해당상품코드의 qna리스트
+	@Override
+	public List<Qna> productQnaList(String productCode, String pageNum) {
+		Paging paging = new Paging(productQnaTotCnt(productCode), pageNum, 5, 3);
+		Qna qna = new Qna();
+		qna.setProductCode(productCode);
+		qna.setStartRow(paging.getStartRow());
+		qna.setEndRow(paging.getEndRow());
+		return qnaDao.productQnaList(qna);
+	}
+	@Override
+	public int productQnaTotCnt(String productCode) {
+		return qnaDao.productQnaTotCnt(productCode);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

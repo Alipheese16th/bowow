@@ -1,19 +1,16 @@
 package com.lec.bowow.service;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.lec.bowow.dao.QnaDao;
 import com.lec.bowow.model.Admin;
 import com.lec.bowow.model.Member;
-import com.lec.bowow.model.Product;
 import com.lec.bowow.model.Qna;
 import com.lec.bowow.util.Paging;
+
 @Service
 public class QnaServiceImpl implements QnaService {
 	@Autowired
@@ -37,8 +34,13 @@ public class QnaServiceImpl implements QnaService {
 	public int writeQna(Qna qna, HttpServletRequest request, HttpSession httpSession) {
 		qna.setQnaIp(request.getRemoteAddr());
 		Member member = (Member) httpSession.getAttribute("member");
-		qna.setMemberId(member.getMemberId());
-		return qnaDao.writeQna(qna);
+		if(member == null) {
+			return -1;
+		}else {
+			qna.setMemberId(member.getMemberId());
+			return qnaDao.writeQna(qna);
+			
+		}
 	}
 	@Override
 	public Qna contentQna(int qnaNum) {

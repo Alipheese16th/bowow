@@ -27,44 +27,51 @@
 	<select id="noticeListFull" parameterType="Notice" resultMap="NoticeResult">
 		SELECT * FROM
 		  (SELECT ROWNUM RN, N.* FROM 
-		    (SELECT * FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%' OR NOTICECONTENT LIKE '%' || #{search} || '%' OR ADMINID LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		    (SELECT * FROM NOTICE 
+		    	WHERE NOTICETITLE LIKE '%' || TRIM(#{search}) || '%' 
+		    		OR NOTICECONTENT LIKE '%' || TRIM(#{search}) || '%' 
+		    		OR ADMINID LIKE '%' || TRIM(#{search}) || '%' 
+		    		ORDER BY NOTICEDATE DESC) N)
 		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntNoticeFull" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%' OR NOTICECONTENT LIKE '%' || #{search} || '%' OR ADMINID LIKE '%' || #{search} || '%'
+		SELECT COUNT(*) FROM NOTICE 
+			WHERE NOTICETITLE LIKE '%' || TRIM(#{search}) || '%' 
+				OR NOTICECONTENT LIKE '%' || TRIM(#{search}) || '%' 
+				OR ADMINID LIKE '%' || TRIM(#{search}) || '%'
 	</select>
 	
 	<!-- 공지사항 리스트 검색 (제목) -->
 	<select id="noticeListTitle" parameterType="Notice" resultMap="NoticeResult">
 		SELECT * FROM
 		  (SELECT ROWNUM RN, N.* FROM 
-		    (SELECT * FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		    (SELECT * FROM NOTICE WHERE NOTICETITLE LIKE '%' || TRIM(#{search}) || '%' ORDER BY NOTICEDATE DESC) N)
 		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntNoticeTitle" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM NOTICE WHERE NOTICETITLE LIKE '%' || #{search} || '%'
+		SELECT COUNT(*) FROM NOTICE WHERE NOTICETITLE LIKE '%' || TRIM(#{search}) || '%'
 	</select>
 	
 	<!-- 공지사항 리스트 검색 (내용) -->
 	<select id="noticeListContent" parameterType="Notice" resultMap="NoticeResult">
 		SELECT * FROM
 		  (SELECT ROWNUM RN, N.* FROM 
-		    (SELECT * FROM NOTICE WHERE NOTICECONTENT LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		    (SELECT * FROM NOTICE WHERE NOTICECONTENT LIKE '%' || TRIM(#{search}) || '%' ORDER BY NOTICEDATE DESC) N)
 		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntNoticeContent" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM NOTICE WHERE NOTICECONTENT LIKE '%' || #{search} || '%'
+		SELECT COUNT(*) FROM NOTICE WHERE NOTICECONTENT LIKE '%' || TRIM(#{search}) || '%'
 	</select>
 	
 	<!-- 공지사항 리스트 검색 (작성자) -->
 	<select id="noticeListWriter" parameterType="Notice" resultMap="NoticeResult">
 		SELECT * FROM
 		  (SELECT ROWNUM RN, N.* FROM 
-		    (SELECT * FROM NOTICE WHERE ADMINID LIKE '%' || #{search} || '%' ORDER BY NOTICEDATE DESC) N)
+		    (SELECT * FROM NOTICE WHERE ADMINID LIKE '%' || TRIM(#{search}) || '%' ORDER BY NOTICEDATE DESC) N)
 		  WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntNoticeWriter" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM NOTICE WHERE ADMINID LIKE '%' || #{search} || '%'
+		SELECT COUNT(*) FROM NOTICE WHERE ADMINID LIKE '%' || TRIM(#{search}) || '%'
 	</select>
 	
 	<select id="contentNotice" parameterType="int" resultType="Notice">
@@ -73,7 +80,6 @@
 	<update id="noticeHitUp" parameterType="int">
 		UPDATE NOTICE SET NOTICEHIT = NOTICEHIT + 1 WHERE NOTICENUM = #{noticeNum}
 	</update>
-	
 	
 	<insert id="writeNotice" parameterType="Notice">
 		INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
