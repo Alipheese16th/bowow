@@ -14,10 +14,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 	<style>
-		.faq {min-width: 1250px; text-align: center; padding: 0 525px;}
+		.faq {width: 700px; text-align: center; padding: 0 600px;}
 		.faq h1 {
 			font-size: 2em; height: 100px; line-height: 100px; width: 700px;
-			text-align: center; border-bottom: 1px solid #BE8D6E; margin-bottom: 50px;
+			text-align: center; border-bottom: 1px solid #BE8D6E; margin: 40px 0;
 		}
 		.faq .write {
 			background-color: #BE8D6E; color: #fff;

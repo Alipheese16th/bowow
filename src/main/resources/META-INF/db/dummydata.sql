@@ -93,16 +93,15 @@ INSERT INTO ORDERDETAIL (ODNO, orderCODE, PRODUCTCODE, SIZENUM, COLORNUM, QTY, C
           'P0001', 1, 2, 3, 3*(SELECT PRODUCTPRICE - PRODUCTPRICE*(PRODUCTDISCOUNT/100) FROM PRODUCT WHERE PRODUCTCODE = 'P0001'));
 
 ----------------------------- 13. FAQ ------------------------------------------
-INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('자주묻는문', '자주묻는질문의답');
-INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('주묻질문2', '자주묻는질문의답2');
-INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('자는질문3', '자주묻는질문의답3');
-INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('주묻는질문4', '자주묻는질문의답4');
+INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('교환 배송료나 차액금은 어디서 결제하나요?', '모든 상품의 교환 및 환불처리를 해드리고 있사오나 부득이 다음과 같은 경우는 교환 및 환불이 되지 않습니다.');
+INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('환불이 되지 않았어요', '반송상품이 도착한 날에 바로 환불 처리를 해드리고 있습니다.');
+INSERT INTO FAQ (FAQTITLE, FAQCONTENT) VALUES ('반품 시, 받은 박스로만 보내야 하나요?', '반드시 바우와우 배송 박스에 반송하셔야 하는 것은 아닙니다. ^^');
 
 ----------------------------- 14. INQUIRY --------------------------------------
 INSERT INTO INQUIRY (INQUIRYNUM, MEMBERID, INQUIRYTITLE, INQUIRYCONTENT, INQUIRYEMAIL, INQUIRYGROUP, INQUIRYSTEP)
-  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목', '문의내용', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 0);
+  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '비밀번호 설정 문의', '비밀번호를 변경하고싶어요', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 0);
 INSERT INTO INQUIRY (INQUIRYNUM, MEMBERID, INQUIRYTITLE, INQUIRYCONTENT, INQUIRYEMAIL, INQUIRYGROUP, INQUIRYSTEP)
-  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의제목2', '문의내용2', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 0);
+  VALUES (INQUIRY_SEQ.NEXTVAL, 'aaa', '문의내역 이메일 변경', '문의하면서 기재한 이메일을 변경하고싶어요', 'mmm@naver.com', INQUIRY_SEQ.CURRVAL, 0);
 
 ----------------------------- 15. QNA ------------------------------------------
 INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, qnaStep, qnaIndent, qnaIp)
