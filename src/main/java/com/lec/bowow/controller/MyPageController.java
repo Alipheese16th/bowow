@@ -33,13 +33,18 @@ public class MyPageController {
 			return "mypage/orderList";
 		}
 	}
-	@RequestMapping(value="orderDetail", method=RequestMethod.GET)
+	@RequestMapping(value="orderDetail", method= {RequestMethod.GET,RequestMethod.POST})
 	public String orderListContent(String orderCode, Model model) {
 		model.addAttribute("contentorder",orderService.contentOrder(orderCode));
 		model.addAttribute("orderDetail", orderService.contentOrderDetail(orderCode));
 		model.addAttribute("totaldiscount", orderService.getorderdetailDiscount(orderCode));
 		model.addAttribute("sizeList",cartService.sizeList());
 		model.addAttribute("colorList",cartService.colorList());
+		model.addAttribute("sumPrice", orderService.getorderSumCost(orderCode));
 		return "mypage/orderDetail";
+	}
+	@RequestMapping(value="modify", method=RequestMethod.GET)
+	public String modifyView() {
+		return "mypage/modify";
 	}
 }

@@ -1,0 +1,151 @@
+@charset "UTF-8";
+#review-form *{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: 'pretendard';
+}
+li{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+	color: #333;
+	display:block;
+}
+#review-form{
+	width:1000px;
+	margin:0 auto;
+	margin-top:100px;
+	margin-bottom: 100px;
+}
+#review-form .review-title{
+	text-align:center;
+	font-size:35px;
+	font-weight:600;
+	letter-spacing: -1px;
+	color:#333;
+	line-height: 35px;
+	padding-bottom:40px;
+	border-bottom:2px solid #be8d6e;
+}
+#review-form .review-wrap table{
+	width:100%;
+	margin:0 auto;
+	border-collapse: collapse
+}
+#review-form .review-wrap table tr{
+	border-bottom:1px solid #e0e0e0;
+}
+#review-form .review-wrap table tr .rtitle{
+	width: 712px;
+ 	height: 30px;
+	text-align: left;
+}
+#review-form .review-wrap table tr th{
+	font-weight:600;
+	text-align: left;
+    padding: 15px 10px 15px 30px;
+    font-weight: 600;
+    vertical-align: center;
+    font-size:16px;
+    color:#515151;
+    cursor:pointer;
+}
+#review-form .review-wrap table tr td{
+    text-align: left;
+    padding: 15px 10px 15px 30px;
+    font-weight: 400;
+    vertical-align: center;
+    font-size:15px;
+    color:#515151;
+    cursor:pointer;
+}
+#review-form .review-wrap table tr td .focusB{
+	box-shadow:0 0 6px rgba(0, 0,0,0.1);
+	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+	border:1px solid #b8b8b8;
+}
+#review-form .review-wrap table tr td .focusC{
+	box-shadow:0 0 6px rgba(0, 0,0,0.1);
+	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+	border:1px solid #b8b8b8;
+}
+#review-form .review-wrap table tr td textarea{
+	border:1px solid #b8b8b8;
+}
+#review-form .review-wrap table tr:last-child{
+	border-bottom:0;
+}
+/*미리보기 부분 예시 */
+#review-form .review-wrap .file-left{
+	flex-direction: column;
+	display:block;
+}
+#review-form .review-wrap .file-left .upload_file{
+    width: 50%;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #dbdbdb;
+    margin-bottom:10px;
+    position: relative;
+}
+#review-form .review-wrap .file-left .upload_file .noline{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border:none;
+}
+#review-form .review-wrap .file-left .upload_file img{
+	width:40px;
+}
+#review-form .review-wrap .file-left .preview{
+	display:none;
+	position:absolute;
+	left:0;
+	width:100%;
+	height:100%;
+}
+/*미리보기 예시 끝부분*/
+#review-form .review-wrap input[type=file]::file-selector-button{
+	background:#be8d6e;
+	color:#fff;
+	border:0px;
+	width:100px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	font-size:12px;
+}
+#review-form .review-wrap button.btnStyle{
+    width: 10%;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px none;
+    background: #be8d6e;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left:10px;
+    margin-top:20px; 
+    cursor:pointer;
+}
+#review-form .review-wrap button.btn2{
+    width: 10%;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px none;
+    color: #000;
+    border:1px solid #dbdbdb;
+    background:#fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left:10px;
+    margin-top:20px;
+    cursor:pointer;
+}

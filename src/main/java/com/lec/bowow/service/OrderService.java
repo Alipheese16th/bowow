@@ -19,5 +19,5 @@ public interface OrderService {
 	// 주문 상세보기
 	public Order contentOrder(String orderCode);
 	public List<OrderDetail> contentOrderDetail(String orderCode);
-	
+	public int getorderSumCost(String orderCode);
 }

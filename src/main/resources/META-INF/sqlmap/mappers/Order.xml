@@ -103,7 +103,11 @@
 		SELECT SUM((PRODUCTPRICE*(PRODUCTDISCOUNT * 0.01)*NVL(QTY,0)))DISCOUNT 
 			FROM ORDERDETAIL OD, PRODUCT P WHERE OD.PRODUCTCODE = P.PRODUCTCODE AND ORDERCODE = #{orderCode} 
 	</select>
-	
+  
+	<select id="orderSumCost" parameterType="String" resultType="int">
+		SELECT SUM(COST) FROM ORDERDETAIL WHERE ORDERCODE = #{orderCode} 
+	</select>
+  
 	<!-- 일별 매출통계 -->
 	<select id="salesOfDate" resultType="int">
 		<![CDATA[

@@ -11,8 +11,7 @@ public class ReviewComment {
 	private int reviewNum;
 	private String commentContent;
 	private Date commentDate;
-	private int commentGroup;
-	private int commentStep;
-	private int commentIndent;
 	private String commentIp;
+	private int startRow;
+	private int endRow;
 }

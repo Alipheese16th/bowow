@@ -16,12 +16,30 @@ a{
 #review-wrap{
 	width:1250px;
 	margin:0 auto;
-	margin-top:140px;
-	min-width:1213px;
+	margin-top:80px;
+	min-width:1250px;
 	min-height: 100%;
     position: relative;
     height:auto;
     padding-bottom:100px;
+}
+#review-wrap .review-title{
+	text-align: center;
+	font-size: 30px;
+    color: #222;
+	letter-spacing: 0.08em;
+	 margin-bottom: 50px;
+}
+#review-wrap .review-content .reviewTitle{
+	text-align: left;
+    line-height: 25px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 25px;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
 }
 #review-wrap .review-top{
 	padding-bottom: 20px;
@@ -44,26 +62,68 @@ a{
 	float:left;
 }
 #review-wrap .review-content td{
-	width:364px;
+	width:290px;
 	float:left;
-	text-align:center;
-	margin: 0 20px;
-	margin-bottom:30px;
-	height:400px;
+	text-align:left;
+	height:100%;
+	border:1px solid #ddd;
+	border-radius:5px;
+	margin-left:20px;
+	margin-top:20px;
 }
-
 #review-wrap .review-content .review_view .reviewImage{
 	border-radius: 5px;
+	height:260px;
 }
-#review-wrap .review-content .review_view img{
+#review-wrap .review-content .review_view .reviewImage img{
 	width:100%;
 	height:260px;
 	border-radius: 5px;
 	object-fit: cover;
 }
+
+#review-wrap .review-content .review_view .review-txt{
+	padding:12px;
+}
 #review-wrap .review-content .review_view .reviewTitle{
 	margin-top:10px;
+	margin-bottom:10px;
 }
+#review-wrap .review-content .review_view .reviewContent{
+	line-height: 30px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 30px;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	word-break: break-all;	
+}
+#review-wrap .review-content .review_view .reviewName{
+	margin-bottom: 5px;
+}
+#review-wrap .review-content .review_view .product{
+	display:flex;
+}
+#review-wrap .review-content .review_view .product .productimg img{
+	width:50px;
+	height:50px;
+	object-fit: cover;
+}
+#review-wrap .review-content .review_view .product .productName{
+	vertical-align: baseline;
+    line-height: 50px;
+    margin-left: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 50px;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
+}	
+
+/*페이징 시작*/
 #review-wrap .review-content .paging{
 	text-align: center;
     margin-top: 50px;

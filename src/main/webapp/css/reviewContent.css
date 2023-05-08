@@ -1,0 +1,149 @@
+@charset "UTF-8";
+#review-form *{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: 'pretendard';
+}
+li{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+	color: #333;
+	display:block;
+}
+#review-form{
+	width:1000px;
+	margin:0 auto;
+	margin-top:80px;
+	margin-bottom: 100px;
+}
+#review-form .review-title{
+	text-align: center;
+	font-size: 30px;
+    color: #222;
+	letter-spacing: 0.08em;
+	 margin-bottom: 50px;
+}
+#review-form .review-wrap table{
+	width:100%;
+	margin:0 auto;
+	border-collapse: collapse
+}
+#review-form .review-wrap table tr .rphotView{
+    text-align: center;
+    padding: 15px 10px 15px 30px;
+    width:100%;
+}
+#review-form .review-wrap table tr td{
+    text-align: center;
+    padding: 15px 10px 15px 30px;
+    font-weight: 400;
+    vertical-align: center;
+    font-size:15px;
+    color:#515151;
+    cursor:pointer;
+}
+#review-form .review-wrap table tr td img{
+	width:100%;
+	height:100%;
+	object-fit: cover;
+}
+#review-form .review-wrap table tr .title span{
+	font-size:25px;
+	font-weight:600;
+	color:#000;
+}
+#review-form .review-wrap table tr .name{
+	font-size:14px;
+}
+#review-form .review-wrap table tr .content{
+	font-size:20px;
+	font-weight:400;
+	color:#000;
+	line-height: 25px;
+}
+#review-form .review-wrap table tr:last-child{
+	border-bottom:0;
+}
+#review-form .review-wrap .loginBtn{
+	width: 5%;
+    height: 30px;
+    border-radius: 5px;
+    border:1px solid #888 !important;
+    font-size: 14px;
+    font-weight: 400;
+    cursor:pointer;
+    margin-left:10px;
+    background:none;
+}
+#review-form .review-wrap .review-btn button.btnStyle{
+    width: 10%;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px none;
+    background: #be8d6e;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left:10px;
+    margin-top:30px;
+    cursor:pointer;
+}
+#review-form .review-wrapm .review-btn button.btn2{
+    width: 10%;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px none;
+    color: #be8d6e;
+    border:1px solid #dbdbdb;
+    background:#fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left:10px;
+    margin-top:20px;
+    cursor:pointer;
+}
+/*페이징*/
+/*페이징 시작*/
+#review-form .review-wrap .paging{
+	text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+#review-form .review-wrap .paging a{
+	display:inline-block;
+	width:40px;
+	font-size:16px;
+	color:#333;
+	line-height:40px;
+	text-align:center;
+	cursor:pointer;
+	vertical-align: middle;
+}
+#review-form .review-wrap .paging b{
+	display:inline-block;
+	width:40px;
+	height:40px;
+	background:#f1f1f1;
+	border-radius:50%;
+	font-size:16px;
+	color:#333;
+	line-height:40px;
+	text-align:center;
+	cursor:pointer;
+	vertical-align: middle;
+}
+#review-form .review-wrap .paging a.prev{
+	background: url(../img/prev.png)center/ auto 12px no-repeat;
+	margin:0 25px 0 3px;
+	border:1px solid #ccc;
+	border-radius: 100%;
+}
+#review-form .review-wrap .paging a.next{
+	background: url(../img/next.png)center/ auto 12px no-repeat;
+	margin:0 3px 0 25px;
+	border:1px solid #ccc;
+	border-radius: 100%;
+}

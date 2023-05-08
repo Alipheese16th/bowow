@@ -124,6 +124,7 @@
 				var mpwChkResult = $(".mpwChkResult").text().trim();
 				var mtelResult = $(".mtelResult").text().trim();
 				var memailResult = $(".memailResult").text().trim();
+				var mtelResult = $(".mtelResult").text().trim();
 				if(midResult != "사용가능한 ID입니다"){
 					alert("사용가능한 아이디인지 확인 요망");
 					$("#id").focus();
@@ -139,7 +140,7 @@
 					alert("이름을 확인하세요.")
 					$("#name").focus();
 					return false;
-				}else if(memberTel=="형식에 맞지 않는 번호입니다."){
+				}else if(mtelResult=="형식에 맞지 않는 번호입니다."){
 					alert("전화번호를 확인하세요.");
 					$("#tel").focus();
 					return false;

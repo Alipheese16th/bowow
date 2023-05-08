@@ -24,7 +24,7 @@
 <body>
 	<c:if test="${empty member}">
 		<script>
-			alert("여기아니");
+			alert("로그인 후 이용해주세요");
 			history.back();
 		</script>
 	</c:if>
@@ -39,10 +39,6 @@
 					<span style="margin-left: 20px;color: #ccc;font-size: 15px;">최대 지난 3년간의 주문 내역까지 확인할 수 있어요</span>
 				</div>
 				<div class="detail">
-					<select>
-						<option></option>
-						<option></option>
-					</select>
 				</div>
 			</div>
 			<div class="mypage-content-line"></div>
@@ -59,7 +55,7 @@
 								<td>결제상태</td>
 							</tr>
 							<c:if test="${paging.totCnt eq 0}">
-								<tr><td colspan="7">해당페이지에 글이 없습니다.</td></tr>
+								<tr><td colspan="7">주문 내역이 없습니다.</td></tr>
 							</c:if>
 							<c:if test="${paging.totCnt != 0}">
 							<c:set var="code" value=""/>

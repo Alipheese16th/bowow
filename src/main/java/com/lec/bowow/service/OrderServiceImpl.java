@@ -109,7 +109,10 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("주문상세디테일 총할인 가격");
 		return orderDao.orderdetailDiscount(orderCode);
 	}
-	
 
-	
+	@Override
+	public int getorderSumCost(String orderCode) {
+		System.out.println("주문상세디테일 상품원가 합계 가격");
+		return orderDao.orderSumCost(orderCode);
+	}
 }
