@@ -1,0 +1,154 @@
+.container{
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
+}
+.heading{
+	text-align:center;
+	margin:40px auto;
+	font-size:2rem;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover{
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
+}
+.pagination > li > a{
+    background-color: white;
+    color: #BE8D6E;
+}
+.pagination > .disabled > a{
+    color: #BE8D6E;
+    background-color: white;
+}
+.pagination > .active > a{
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
+}
+.pagination > .active > a:hover{
+    background-color: #9E6D4E;
+}
+
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
+}
+
+.flexslider{
+	margin:0;
+}
+.imageArea{
+	width:600px;
+	min-height:600px;
+}
+.infoArea{
+	width:600px;
+	min-height:600px;
+}
+.infoLeft{
+	text-align: left !important;
+	padding-right: 50px;
+	vertical-align: middle;
+}
+.left{
+	text-align: left !important;
+}
+.right{
+	text-align: right !important;
+}
+.nav-tabs .nav-item .nav-link {
+	background-color: #FFFFFF;
+	color: #000000;
+	border-color:#DDDDDD;
+	border-bottom:none;
+}
+.nav-tabs .nav-item .nav-link.active {
+	border-top:3px solid black;
+	border-bottom:1px solid white;
+}
+.plus, .minus, .delete{
+	display:block;
+	height:11px;
+}
+
+.contentImg{
+	max-width: 1000px;
+}
+#cartResult{
+	position:fixed;
+	top:30%;
+	margin: 0 auto;
+    left: 0;
+    right: 0;
+ 	display:none;
+	z-index:2;
+	width:400px;
+}
+#cartResult .header, #cartResult .caca{
+	background-color:#BE8D6E;
+	color:white;
+}
+#cartResult a{
+	text-decoration:none;
+}
+#cartResult .content, #cartResult .gogo{
+	backgorund-color:white;
+	color:#BE8D6E;
+}
+.qty{
+	width:40px;
+	height:20px !important;
+}
+.thth{
+	border-bottom:2px solid #be8d6e;
+}
+.retable td:not(.productFont){
+	padding:0;
+	height:50px;
+	line-height:50px;
+	border:none;
+	vertical-align: middle;
+}
+.retable td.productFont{
+	padding:0;
+	height:50px;
+	border:none;
+	vertical-align: middle;
+}
+#proInfo, #proReview, #proQna{
+	width:1000px;
+	margin:0 auto;
+}
+.table small{
+	font-weight:300;
+}
+.table a{
+	display:inline-block;
+	width:100%;
+	text-decoration:none;
+	color:black;
+}
+.infotable td{
+	border:none;
+}
+.productFont{
+	font-size:0.8rem;
+}

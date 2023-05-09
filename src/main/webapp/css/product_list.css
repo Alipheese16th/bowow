@@ -1,0 +1,41 @@
+.container{
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
+}
+.heading{
+	text-align:center;
+	margin:40px auto;
+	font-size:2rem;
+}
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover{
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
+}
+.pagination > li > a{
+    background-color: white;
+    color: #BE8D6E;
+}
+.pagination > .disabled > a{
+    color: #BE8D6E;
+    background-color: white;
+}
+.pagination > .active > a{
+    color: white;
+    background-color: #BE8D6E;
+    border-color: #BE8D6E;
+}
+.pagination > .active > a:hover{
+    background-color: #9E6D4E;
+}
+
+.card img, .card-title, .card-text{
+	cursor:pointer;
+}
+
+.d4d4{
+	height:450px;
+}

@@ -81,7 +81,7 @@
 			    </div>
 			    <hr>
 		    	<div class="row mx-2">
-		    		<pre id="content" class="fs-6">${notice.noticeContent}</pre>
+		    		<pre id="content">${notice.noticeContent}</pre>
 		    	</div>
 		    	
 		    	<hr>

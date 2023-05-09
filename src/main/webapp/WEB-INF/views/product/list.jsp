@@ -11,50 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-.container{
-	min-width: 1300px !important;
-	font-family: 'Pretendard';
-}
-.heading{
-	text-align:center;
-	margin:40px auto;
-	font-size:2rem;
-}
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover{
-    color: white;
-    background-color: #BE8D6E;
-    border-color: #BE8D6E;
-}
-.pagination > li > a{
-    background-color: white;
-    color: #BE8D6E;
-}
-.pagination > .disabled > a{
-    color: #BE8D6E;
-    background-color: white;
-}
-.pagination > .active > a{
-    color: white;
-    background-color: #BE8D6E;
-    border-color: #BE8D6E;
-}
-.pagination > .active > a:hover{
-    background-color: #9E6D4E;
-}
-
-.card img, .card-title, .card-text{
-	cursor:pointer;
-}
-
-.d4d4{
-	height:450px;
-}
-
-</style>
+<link href="${conPath}/css/product_list.css" rel="stylesheet">
 </head>
 <body>
 	
@@ -68,8 +25,6 @@
 			<c:if test="${param.category eq 'walking'}">WALKING</c:if>
 			<c:if test="${param.category eq 'clean'}">CLEAN</c:if>
 		</h1>
-		
-		
 		
 		<div class="d-flex justify-content-evenly d4d4">
 		
@@ -98,12 +53,7 @@
 			  </div>
 			</div>
 			<!-- 상품 끝 -->
-			
-			<%-- <c:if test="${i.index%4 eq 3}">
-				</div>
-				<div class="d-flex justify-content-evenly d4d4">
-			</c:if> --%>
-			
+
 		</c:forEach>
 		
 		</div>
@@ -156,7 +106,6 @@
 		</nav>
 		<!-- 페이지 네비게이션 끝 -->
 		</c:if>
-		
 		
 	</div>
 	<jsp:include page="../main/footer.jsp"/>

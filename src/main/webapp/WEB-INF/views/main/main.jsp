@@ -191,7 +191,7 @@
 			      			빅포우즈타운 23SS 신상 아이템을 할인된 가격으로!
 			      		</div>
 			      	</div>
-						<a href="#"><img src="${conPath}/img/bannerimg1.jpeg" alt="메인1"></a>
+						<a href="${conPath}/magazine.do"><img src="${conPath}/img/bannerimg1.jpeg" alt="메인1"></a>
 					</div>
 				</div>
 		      <div class="swiper-slide bg-color">
@@ -203,7 +203,7 @@
 			      			크리쳐호텔 입점 기념 15% 할인 프로모션
 			      		</div>
 			      	</div>
-			     	 <a href="#"><img src="${conPath}/img/bannerimg2.jpeg" alt="메인2"></a>
+			     	 <a href="${conPath}/magazine.do"><img src="${conPath}/img/bannerimg2.jpeg" alt="메인2"></a>
 			     </div>
 		     </div>
 		      <div class="swiper-slide bg-color">
@@ -216,7 +216,7 @@
 			      			*세일 제품 교환 및 반품 불가
 			      		</div>
 			      	</div>
-			      	<a><img src="${conPath}/img/bannerImg3.jpeg" alt="메인3"></a>
+			      	<a href="${conPath}/magazine.do"><img src="${conPath}/img/bannerImg3.jpeg" alt="메인3"></a>
 			     </div>
 		      </div>
 		    </div>

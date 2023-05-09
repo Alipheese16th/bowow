@@ -1,0 +1,89 @@
+
+.container{
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
+}
+.heading{
+	text-align:center;
+	margin:40px auto;
+	font-size:2rem;
+}
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
+}
+
+.plist .titleImg{
+	width:80px;
+	height:80px;
+	cursor:pointer;
+}
+.plist .title{
+	cursor:pointer;
+}
+.plist td, th{
+	vertical-align:middle;
+	text-align:center;
+}
+.left{
+	text-align:left;
+}
+
+.right{
+	text-align:right;
+}
+
+.plist .qty{
+	width:40px;
+	height:20px !important;
+}
+
+.table{
+	width:1250px;
+	margin:0 auto;
+}
+.mytable{
+	width:70%;
+	margin:50px auto;
+	box-sizing:border-box;
+	border-collapse: collapse;
+}
+.mytable th{
+	font-weight:normal;
+	text-align:left;
+	padding:5px 0;
+}
+.mytable td{
+	text-align:right;
+	padding:5px 0;
+}
+.lastorder{
+	width:250px;
+	margin:0 auto;
+	background: #BE8D6E;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	height:50px;
+	line-height:50px;
+	cursor:pointer;
+	border-radius:5px;
+}
+.emp{
+	width:1000px;
+	margin:0 auto;
+}
