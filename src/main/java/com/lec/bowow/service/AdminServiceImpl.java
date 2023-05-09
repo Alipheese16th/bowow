@@ -4,18 +4,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lec.bowow.dao.AdminDao;
-import com.lec.bowow.dao.OrderDao;
 import com.lec.bowow.model.Admin;
 @Service
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDao adminDao;
-	@Autowired
-	private OrderDao orderDao;
-//	@Override
-//	public List<Admin> mainList() {
-//		return adminDao.adminList();
-//	}
+	
 	@Override
 	public String adminLogin(String adminId, String adminPw, HttpSession httpSession) {
 		String result = "관리자 로그인 성공";

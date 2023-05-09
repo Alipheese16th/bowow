@@ -9,69 +9,7 @@
 <meta charset="UTF-8">
 <!-- 부트스트랩 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<style>
-
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover{
-    color: white;
-    background-color: #BE8D6E;
-    border-color: #BE8D6E;
-}
-.pagination > li > a{
-    background-color: white;
-    color: #BE8D6E;
-}
-.pagination > .disabled > a{
-    color: #BE8D6E;
-    background-color: white;
-}
-.pagination > .active > a{
-    color: white;
-    background-color: #BE8D6E;
-    border-color: #BE8D6E;
-}
-.pagination > .active > a:hover{
-    background-color: #9E6D4E;
-}
-.mybtn{
-	background: #white;
-	color: #BE8D6E;
-	border-color:#BE8D6E;
-}
-.mybtn:hover{
-	background: #BE8D6E;
-	color: white;
-}
-/* .table, form-select{
-	color: #BE8D6E;
-	border-color:#BE8D6E;
-}
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-    color: #BE8D6E;
-	border-color:#BE8D6E;
-} */
-.table{
-	width:1250px;
-	margin:0 auto;
-}
-.table-striped > tbody > tr:nth-child(2n+1):hover, .table-striped > tbody > tr:nth-child(2n+1):hover {
-   background-color: #BE8D6E;
-}
-.table-striped > tbody > tr:nth-child(2n):hover, .table-striped > tbody > tr:nth-child(2n):hover {
-   background-color: #BE8D6E;
-}
-.table-striped > tbody > tr:nth-child(2n):hover > td, .table-striped > tbody > tr:nth-child(2n):hover > th {
-    color:white;
-}
-.table-striped > tbody > tr:nth-child(2n+1):hover > td, .table-striped > tbody > tr:nth-child(2n+1):hover > th {
-    color:white;
-}
-.thth{
-	border-bottom:2px solid #be8d6e;
-}
-</style>
+<link rel="stylesheet" href="${conPath}/css/notice_list.css">
 </head>
 <body>
 	<c:if test="${not empty noticeWriteResult}">

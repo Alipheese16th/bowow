@@ -1,21 +1,17 @@
 package com.lec.bowow.service;
 
 import java.util.List;
-
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-
 import com.lec.bowow.dao.InquiryDao;
 import com.lec.bowow.model.Inquiry;
 import com.lec.bowow.model.Member;
-import com.lec.bowow.util.Paging;
 @Service
 public class InquiryServiceImple implements InquiryService {
 	@Autowired
@@ -24,7 +20,7 @@ public class InquiryServiceImple implements InquiryService {
 	private JavaMailSender mailSender;
 	@Override
 	public List<Inquiry> inquiryList(Inquiry inquiry, String pageNum) {
-		Paging paging = new Paging(inquiryDao.totCntInquiry(), pageNum);
+		//Paging paging = new Paging(inquiryDao.totCntInquiry(), pageNum);
 		return inquiryDao.inquiryList(inquiry);
 	}
 	@Override

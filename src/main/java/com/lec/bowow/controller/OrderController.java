@@ -6,12 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.lec.bowow.model.Order;
 import com.lec.bowow.service.CartService;
 import com.lec.bowow.service.MemberService;
 import com.lec.bowow.service.OrderService;
-import com.lec.bowow.service.ReviewService;
 
 @Controller
 @RequestMapping(value="order")

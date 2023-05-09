@@ -1,11 +1,8 @@
 package com.lec.bowow.dao;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
-
 import com.lec.bowow.model.Inquiry;
-import com.lec.bowow.model.Qna;
 
 @Mapper
 public interface InquiryDao {

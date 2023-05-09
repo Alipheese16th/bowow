@@ -1,0 +1,34 @@
+.container{
+	min-width: 1300px !important;
+	font-family: 'Pretendard';
+}
+.heading{
+	text-align:center;
+	margin:40px auto;
+	font-size:2rem;
+}
+.content{
+	width:1250px;
+	margin:0 auto;
+}
+#content{
+	min-height:200px;
+}
+.btn-myColor{
+	background-color:#BE8D6E;
+	color:white;
+}
+.btn-myColor:hover{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
+}

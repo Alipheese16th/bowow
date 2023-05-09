@@ -11,42 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-.container{
-	min-width: 1300px !important;
-	font-family: 'Pretendard';
-}
-.heading{
-	text-align:center;
-	margin:40px auto;
-	font-size:2rem;
-}
-.content{
-	width:1250px;
-	margin:0 auto;
-}
-#content{
-	min-height:200px;
-}
-.btn-myColor{
-	background-color:#BE8D6E;
-	color:white;
-}
-.btn-myColor:hover{
-	background-color:#FFFFFF;
-	color:#BE8D6E;
-	border:1px solid #BE8D6E;
-}
-.btn-outline-myColor{
-	background-color:#FFFFFF;
-	color:#BE8D6E;
-	border:1px solid #BE8D6E;
-}
-.btn-outline-myColor:hover{
-	background-color:#BE8D6E;
-	color:white;
-}
-</style>
+<link href="${conPath}/css/notice_content.css" rel="stylesheet">
 </head>
 <body>
 	<c:if test="${ncWriteResult eq 0}">

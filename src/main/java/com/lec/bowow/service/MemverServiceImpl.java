@@ -3,7 +3,6 @@ package com.lec.bowow.service;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
-
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -12,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-
 import com.lec.bowow.dao.CouponDao;
 import com.lec.bowow.dao.MemberDao;
 import com.lec.bowow.model.Coupon;
 import com.lec.bowow.model.Member;
-import com.lec.bowow.util.Paging;
 @Service
 public class MemverServiceImpl implements MemberService {
 	@Autowired
@@ -127,22 +124,25 @@ public class MemverServiceImpl implements MemberService {
 			session.removeAttribute("admin");
 			session.setAttribute("member", member);
 			
-//			Date now = new Date(System.currentTimeMillis());
-//	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//	        String nowstr = format.format(now);
-//	        System.out.println(nowstr);
-//			String memstr = format.format(member.getMemberBirth());
-//			System.out.println(memstr);
-//			if(nowstr.equals(memstr)) {
-//				System.out.println("오늘이 생일");
-//				Coupon coupon = new Coupon();
-//				coupon.setMemberId(member.getMemberId());
-//				coupon.setCouponName("생일축하쿠폰");
-//				coupon.setCouponDiscount(4000);
-//				couponDao.insertCoupon(coupon); // 쿠폰증정
-//			}
+			if(member.getMemberBirth()!=null) { // 회원가입시 생일을 입력한경우만
+				
+				Date now = new Date(System.currentTimeMillis());
+		        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		        String nowstr = format.format(now);
+		        System.out.println(nowstr);
+				String memstr = format.format(member.getMemberBirth());
+				System.out.println(memstr);
+				if(nowstr.equals(memstr)) {
+					System.out.println("오늘이 생일");
+					Coupon coupon = new Coupon();
+					coupon.setMemberId(member.getMemberId());
+					coupon.setCouponName("생일축하쿠폰");
+					coupon.setCouponDiscount(4000);
+					couponDao.insertCoupon(coupon); // 쿠폰증정
+				}
+				
+			}
 			
-
 		} 
 		return result;
 	}

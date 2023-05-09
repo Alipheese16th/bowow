@@ -1,9 +1,6 @@
 package com.lec.bowow.service;
 
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import com.lec.bowow.model.Faq;
 
 public interface FaqService {

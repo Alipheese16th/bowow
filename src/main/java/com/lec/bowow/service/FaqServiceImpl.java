@@ -1,12 +1,8 @@
 package com.lec.bowow.service;
 
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.lec.bowow.dao.FaqDao;
 import com.lec.bowow.model.Faq;
 import com.lec.bowow.util.Paging;

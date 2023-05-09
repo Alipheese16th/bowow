@@ -1,10 +1,7 @@
 package com.lec.bowow.dao;
 
-import java.sql.Date;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
-
 import com.lec.bowow.model.Cart;
 import com.lec.bowow.model.Order;
 import com.lec.bowow.model.OrderDetail;
