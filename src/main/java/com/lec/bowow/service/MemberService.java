@@ -15,9 +15,11 @@ public interface MemberService {
 	public String searchIdMember(String memberName, String memberEmail);
 	public String searchPwMember(String memberId, String memberEmail);
 	public Member getDetailMember(String memberId);
-	public Member modifyMember(Member member, HttpSession session);
-	public int deleteMember(String memberId, HttpSession session);
+	public int modifyMember(Member member, HttpSession session, String oldMemberPw, String memberBirthTemp);
+	public int deleteMember(HttpSession session);
 	
 	//쿠폰리스트
 	public List<Coupon> couponList(HttpSession session);
+	public String memberGrade(HttpSession session);
+	public int couponTotCnt(HttpSession session);
 }

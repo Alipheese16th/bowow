@@ -36,10 +36,11 @@ ul{
 /*mypage-left*/
 #mypage .mypage-wrap .mypage-left{
 	padding: 30px;
- 	 		width: 70%;
+ 	 width: 70%;
 }
 #mypage .mypage-wrap .mypage-left .mypage-info{
 	padding-top: 10px;
+	text-align: left;
 }
 /*mypage-right*/
 #mypage .mypage-wrap .mypage-right{
@@ -47,8 +48,10 @@ ul{
   		padding: 30px;
 }
 #mypage .mypage-right .mypage-point{
-	margin-top: 37px;
+	margin-top: 50px;
+	text-align: right;
 }
 #mypage .mypage-right .mypage-coupon{
-	margin-top: 10px
+	margin-top: 5px;
+	text-align: right;
 }

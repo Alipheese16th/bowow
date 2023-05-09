@@ -120,6 +120,7 @@ a{
     padding: 0 10px;
     margin-top: 40px;
     background: #BE8D6E;
+     cursor: pointer;
 }
 .focusB{
 	text-align:left;

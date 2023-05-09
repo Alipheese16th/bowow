@@ -2,6 +2,8 @@ package com.lec.bowow.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.lec.bowow.model.Review;
@@ -20,5 +22,9 @@ public interface ReviewDao {
 	// 상품상세에서 리뷰리스트
 	public List<Review> productReviewList(Review review);
 	public int productReviewTotCnt(String productCode);
+	
+	// 마이페이지에서 리뷰리스트
+	public List<Review> memberWriteList(Review review);
+	public int memberWriteCnt(String memberId);
 	
 }

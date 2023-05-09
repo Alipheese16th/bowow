@@ -177,6 +177,14 @@
 	<select id="productReviewTotCnt" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM REVIEW WHERE PRODUCTCODE = #{productCode}
 	</select>
-	
-	
+	<!-- 회원이 작성한 리뷰 글 -->
+	<select id="memberWriteList" parameterType="Review" resultMap="ReviewResult">
+		SELECT * 
+    		FROM (SELECT ROWNUM RN, A.*
+        		FROM (SELECT * FROM REVIEW WHERE MEMBERID = #{memberId} ORDER BY REVIEWDATE DESC)A) 
+    	WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="memberWriteCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE MEMBERID=#{memberId}
+	</select>
 </mapper>

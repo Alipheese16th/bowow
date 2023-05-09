@@ -17,6 +17,7 @@ public class Member {
 	private int memberPoint;
 	private int gradeno;
 	private String grade;
+	private int couponCnt;
 	private int startRow;
 	private int endRow;
 }

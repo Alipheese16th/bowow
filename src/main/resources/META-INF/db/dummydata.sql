@@ -142,6 +142,60 @@ INSERT INTO QNA (qnaNum, memberId, productCode, qnaTitle, qnaContent, qnaGroup, 
 INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
   VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0001', '리뷰제목', '좋았습니다 감사합니다', 3, 'n1.jpeg', '192.168.0.1');
 
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0041', '제일 좋아해요', '베이컨박스 토이 여러개 있는데 이거 젤로 좋아해요. 몽글몽글한 원단이어서 씹는 맛이 있나봐요', 5, 'r1.jpeg', '192.168.0.1');
+
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0047', '기호성 좋아요!!!', '냄새도 좋고 강아지들이 엄청 좋아합니다 ! 매번 재구맿ㅐ요', 5, 'r2.jpeg', '192.168.0.1');
+
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0053', '완전 추천합니다.', '펫페어에서 물건 구매후 한롤 받아서 사용해 본후 너무 만족해서 구매했어요. 두께감도 톡톡하고 비침 없고 향도 좋고 다 만족합니다.
+소형견이라 웅가양이 적어 봉지가 좀 큰감은 있지만 덩치 큰 친구들에겐 사이즈도 딱일거 같아요.', 5, 'r3.jpeg', '192.168.0.1');
+
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0039', '딱 위생관리 하기 좋은 사이즈예요.', '발털이 많이 자랐는데 병원까지 데려가면 스트레스일 것 같아 구매해봤어요. 딱 위생관리 하기 좋은 사이즈예요.', 4, 'r4.jpeg', '192.168.0.1');
+
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0039', '색상 정말 예뻐요.', '작고 색상 퍼플인데 이쁘네요. 작은 발 깎이기엔 소형이라 큰것보다 확실히 깔끔하게 밀어줄수있어좋아요. 단점은 완충되어도 불빛 색상은 그대로 붉은색이네요ㅜㅜ 소음크고 진동도 커요. 큰 바리깡 사용할땐 발을 빼거나하지않았는데 진동이 크고 소음이 커서그런지 발을 빼내려고하네요. 블프라 쿠폰적용+포인트로 저렴하게구매했어요. 작은것치고 판매가는 비싼편인것같아요', 3, 'r5.jpeg', '192.168.0.1');
+
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0040', '너무 좋아해요!!!', '정말 죽도록 좋아해요 말이되나싶어욬ㅋㅋㅋㅋ 짱짱 또살듯', 5, 'r6.jpeg', '192.168.0.1');
+   
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0045', '믿고 주문하는 브랜드입니다.', '게눈 감추듯 순식간에 먹어요 야채라고 걱정할 필요같없어요 복슬강아지 좋아하는 반려동물 간식 브랜드입니다', 5, 'r7.jpeg', '192.168.0.1');
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0046', '기호성 좋아요!!!', '뼈같은 부산물이 안들어있어 조아요', 5, '', '192.168.0.1');
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0046', '보양식 추천합니다.', '아이가 스튜형식을 좋아해요.보양식으로 좋겠어요', 5, 'r8.jpeg', '192.168.0.1');
+   
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0054', '디자인 너무 마음에 들어요.', '사용전이지만 사용하기 편리한 디자인이예요~♡', 4, 'r9.jpeg', '192.168.0.1');
+
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0056', '추천추천!', '어노인트 워낙 입소문이 많이 난 제품이라 구매해봤는데 , 진짜 순한 제품인 것 같아요 ~', 5, 'r10.jpeg', '192.168.0.1');
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0038', '너무 작아요...', '목부분이 조금 더 넓었으면 좋겠어요.', 4, '', '192.168.0.1');
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0031', '포인트템으로 추천', '울 검둥이들 산책할때 포인트 주기 딱 좋아요. 쨍한 색감과 캐릭터가 넘 귀엽다는ㅎ', 4, 'r11.jpeg', '192.168.0.1');
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0031', '약간 아쉬워요.', '버클이 생각보다 둔탁하고 무거워요. 자견용으로 쓰기에는 조금 부담이 있을 것 같아요. 프린팅이나 웨빙줄 자체는 견고하고 좋습니다.', 4, '', '192.168.0.1');
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0023', '정말 좋아해요.', '이거 정말 좋아해요.. 처음에 보고 작아서 조금 놀라긴 했는데 먹이다 보니 적당히 들어있는 것 같아요', 5, 'r12.jpeg', '192.168.0.1');
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0023', '엄청 좋아해욬ㅋ', '사진과 실물 똑같어요 잘 먹일게요 감사합니다', 5, '', '192.168.0.1');
+
+  
+INSERT INTO REVIEW (REVIEWNUM, MEMBERID, PRODUCTCODE, REVIEWTITLE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE, REVIEWIP)
+  VALUES (REVIEW_SEQ.NEXTVAL, 'aaa', 'P0016', '예뻐요 선물하기 좋은거같아요', '예뻐요 선물하기 좋은거같아요', 5, '', '192.168.0.1');
+
+
 ----------------------------- 17. GOOD -----------------------------------------
 INSERT INTO GOOD (REVIEWNUM, MEMBERID)
   VALUES ( (SELECT REVIEWNUM FROM REVIEW WHERE REVIEWTITLE = '리뷰제목'), 'aaa');

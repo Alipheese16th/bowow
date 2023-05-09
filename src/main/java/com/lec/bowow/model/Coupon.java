@@ -8,4 +8,6 @@ public class Coupon {
 	private String memberId;
 	private String couponName;
 	private int couponDiscount;
+	private int startRow;
+	private int endRow;
 }

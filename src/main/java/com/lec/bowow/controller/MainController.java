@@ -14,7 +14,7 @@ public class MainController {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping(value="main", method=RequestMethod.GET)
+	@RequestMapping(value="main", method= {RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model) {
 		model.addAttribute("hotList",productService.mainHotList());
 		model.addAttribute("newList",productService.mainNewList());
@@ -25,15 +25,17 @@ public class MainController {
 	public String ourStory() {
 		return "main/ourStory";
 	}
+  
 	@RequestMapping(value="contact", method=RequestMethod.GET)
 	public String contact() {
 		return "main/contact";
 	}
+  
 	@RequestMapping(value="magazine", method=RequestMethod.GET)
 	public String magazine() {
 		return "main/magazine";
 	}
-	
+
 	@RequestMapping(value="eventClose", method=RequestMethod.GET)
 	public String eventClose(HttpSession session) {
 		session.setAttribute("eventClose", "eventClose");
