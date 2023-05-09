@@ -127,20 +127,21 @@ public class MemverServiceImpl implements MemberService {
 			session.removeAttribute("admin");
 			session.setAttribute("member", member);
 			
-			Date now = new Date(System.currentTimeMillis());
-	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	        String nowstr = format.format(now);
-	        System.out.println(nowstr);
-			String memstr = format.format(member.getMemberBirth());
-			System.out.println(memstr);
-			if(nowstr.equals(memstr)) {
-				System.out.println("오늘이 생일");
-				Coupon coupon = new Coupon();
-				coupon.setMemberId(member.getMemberId());
-				coupon.setCouponName("생일축하쿠폰");
-				coupon.setCouponDiscount(4000);
-				couponDao.insertCoupon(coupon); // 쿠폰증정
-			}
+//			Date now = new Date(System.currentTimeMillis());
+//	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//	        String nowstr = format.format(now);
+//	        System.out.println(nowstr);
+//			String memstr = format.format(member.getMemberBirth());
+//			System.out.println(memstr);
+//			if(nowstr.equals(memstr)) {
+//				System.out.println("오늘이 생일");
+//				Coupon coupon = new Coupon();
+//				coupon.setMemberId(member.getMemberId());
+//				coupon.setCouponName("생일축하쿠폰");
+//				coupon.setCouponDiscount(4000);
+//				couponDao.insertCoupon(coupon); // 쿠폰증정
+//			}
+			
 
 		} 
 		return result;

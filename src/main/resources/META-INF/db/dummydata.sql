@@ -4,13 +4,73 @@ INSERT INTO ADMIN VALUES ('admin', '111', '관리자');
 
 ---------------------- 2. NOTICE -----------------------------------------------
 INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
-	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '제목', '내용');
+	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '리뷰 규정 안내', '안녕하세요 Bowow입니다.
+
+
+
+
+
+제품을 구매하시고 리뷰를 달기 위해 방문해주신 여러분,
+
+감사합니다.
+
+
+
+
+
+리뷰 규정을 안내해드리니 참고해주세요.
+
+
+
+﻿사진 리뷰 적립금 1000원 
+
+﻿글 리뷰 적립금 500원 
+
+
+
+01 ﻿Bowow는 시즌이 지난 후 제품을 재입고 하지 않는 경우가 많기 때문에, 
+
+﻿제품 출시 기준 3개월 이상 지난 제품의 경우 위의 기준에서 50%의 적립금만 적용됩니다. 
+
+02 시즌 오프나 세일기간 구매하신 제품의 경우 위의 적립금에서 50%만 적용됩니다.
+
+03 리뷰는 모두 3줄 이상의 글이 작성되어야 하며,
+
+     동일 제품의 경우 여러장 구매하셨어도 리뷰는 1건으로만 적용되오니 확인 부탁드립니다.
+
+03 구매 후 15일 안에 작성해주신 리뷰만 포인트가 지급됩니다. 
+
+
+
+
+
+
+
+Bowow의 제품을 항상 사랑해주셔서 감사합니다.');
 INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
-	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '공지사항 입니다', '게시판에서의 폭언은 삼가주세요');
+	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '적립금 사용 안내', '안녕하세요 Bowow입니다.
+
+
+
+적립금 사용 안내드립니다.
+
+처음 회원가입시 3000원의 적립금이 지급되며 총 구매 금액의 7% 이내로 사용이 가능합니다.
+
+또한 업체의 판매 정책 및 광고 접속 여부에 따라 일부 할인 정책 및 적립금과 쿠폰 사용이 제한되는 경우가 있으니 양해 부탁드립니다.
+
+
+
+사용에 따른 불편사항은 게시판 혹은 대표번호(010-0000-0000)로
+
+언제든 연락주세요:)
+
+
+
+감사합니다!');
 INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
 	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '필독', '무조건 읽어주세요');
 INSERT INTO NOTICE (noticeNum, adminId, noticeTitle, noticeContent)
-	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '두번째 공지사항', '회원가입 후 다양한 기능을 사용하실 수 있습니다!');
+	VALUES (NOTICE_SEQ.NEXTVAL, 'admin', '회원가입', '회원가입 후 다양한 기능을 사용하실 수 있습니다!');
 
 --------------------- 3. PRODUCT ( 카테고리 : fashion / food / toy / walking / clean ) -------------------------
 INSERT INTO PRODUCT (PRODUCTCODE, CATEGORY, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTSTOCK, PRODUCTUSED) 
