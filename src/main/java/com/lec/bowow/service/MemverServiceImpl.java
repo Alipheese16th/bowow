@@ -24,7 +24,6 @@ public class MemverServiceImpl implements MemberService {
 	private MemberDao memberDao;
 	@Autowired
 	private CouponDao couponDao;
-	
 	@Autowired
 	private JavaMailSender mailSender;
 	@Override
