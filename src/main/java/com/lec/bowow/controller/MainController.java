@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.lec.bowow.service.ProductService;
 @Controller
-public class mainController {
+public class MainController {
 	
 	@Autowired
 	private ProductService productService;
