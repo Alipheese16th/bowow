@@ -25,9 +25,9 @@ import com.lec.bowow.util.Paging;
 public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	private ReviewDao reviewDao;
-	String backupPath = "/Users/gimsoyeon/sykim/source/10_2nd_teamProject/bowow/src/main/webapp/reviewImage/";
+	//String backupPath = "/Users/gimsoyeon/sykim/source/10_2nd_teamProject/bowow/src/main/webapp/reviewImage/";
 	//String backupPath = "C:/webPro/source/10_2ndTeamProject/bowow/src/main/webapp/reviewImage/"; //소연씨꺼
-	//String backupPath = "D:/webPro/source/10_2ndTeamProject/bowow/src/main/webapp/reviewImage/"; // 멤버공용
+	String backupPath = "D:/webPro/source/10_2ndTeamProject/bowow/src/main/webapp/reviewImage/"; // 멤버공용
 	
 	@Override
 	public List<Review> reviewList(Review review, String pageNum) {
