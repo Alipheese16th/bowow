@@ -21,6 +21,15 @@
 	margin-left:280px;
 	font-family: 'Pretendard';
 }
+.btn-outline-myColor{
+	background-color:#FFFFFF;
+	color:#BE8D6E;
+	border:1px solid #BE8D6E;
+}
+.btn-outline-myColor:hover{
+	background-color:#BE8D6E;
+	color:white;
+}
 </style>
 </head>
 <body>
@@ -79,8 +88,8 @@
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
-							<input type="submit" class="btn btn-primary" value="상품 수정">
-							<input type="button" class="btn btn-primary list" value="목록으로">
+							<input type="submit" class="btn btn-outline-myColor" value="상품 수정">
+							<input type="button" class="btn btn-outline-myColor list" value="목록으로">
 						</td>
 					</tr>
 				</table>

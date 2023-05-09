@@ -66,7 +66,7 @@
 		    		<tr><td colspan="5">문의한 글이 없습니다</td></tr>
 		    	</c:if>
 		    	<c:if test="${totCntInquiry != 0 }">
-			        <table class="table table-striped table-hover">
+			        <table class="table table-hover">
 			            <thead>
 			                <tr style="border-bottom: 2px solid #BE8D6E;">
 			                    <th>작성자</th>

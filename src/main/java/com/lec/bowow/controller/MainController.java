@@ -25,11 +25,17 @@ public class MainController {
 	public String ourStory() {
 		return "main/ourStory";
 	}
+  
 	@RequestMapping(value="contact", method=RequestMethod.GET)
 	public String contact() {
 		return "main/contact";
 	}
-	
+  
+	@RequestMapping(value="magazine", method=RequestMethod.GET)
+	public String magazine() {
+		return "main/magazine";
+	}
+
 	@RequestMapping(value="eventClose", method=RequestMethod.GET)
 	public String eventClose(HttpSession session) {
 		session.setAttribute("eventClose", "eventClose");

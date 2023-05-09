@@ -14,18 +14,18 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 	<style>
-		.faq {width: 700px; text-align: center; padding: 0 600px;}
+		.faq {width: 900px; text-align: center; margin: 0 auto;}
 		.faq h1 {
 			font-size: 2rem; width: 700px; font-weight: bold;
-			text-align: center; margin: 40px auto 80px;
+			text-align: center; margin: 40px 0 80px 90px;
 		}
 		.faq .hr {
-			width: 700px; text-align: center;
+			width: 900px; text-align: center;
 			background-color: #BE8D6E; height: 2px; margin-bottom: 30px;
 		}
 		.faq .write {
 			background-color: #BE8D6E; color: #fff;
-			font-size: 1.2em; margin: 30px 0;
+			font-size: 1.2em; margin-bottom: 30px;
 		}
 		.faq .write:hover {background-color: gray;}
 		.faq .write a {
@@ -35,8 +35,8 @@
 		.faq .paging b {color: red;}
 		.accordion-button {
 		    display: block;
-		    width: 700px;
-		    font-size: 20px;
+		    width: 900px;
+		    font-size: 17px;
 		    font-family: Arial, sans-serif;
 		    background-color: #f2f2f2;
 		    border-bottom: 1px #cccccc solid;
@@ -48,12 +48,12 @@
 		
 		.accordion-container{
 		    display: block;
-		    width: 700px;
-		    margin: auto;
+		    width: 900px;
+		    margin: 0 auto;
 		}
 		
 		.accordion-text-wrapper{
-		    width: 700px;
+		    width: 900px;
 		    max-height: 0;
 		    overflow: hidden;
 		    transition: max-height .6s ease-out;

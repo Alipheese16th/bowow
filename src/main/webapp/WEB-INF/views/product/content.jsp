@@ -196,6 +196,9 @@
 .infotable td{
 	border:none;
 }
+.productFont{
+	font-size:0.8rem;
+}
 </style>
 </head>
 <body class="loading">
@@ -474,7 +477,7 @@
 						<c:forEach var="review" items="${reviewList}">
 							<tr>
 								<td style="width:260px; height:1px; padding:20px;">
-									<div style="background-color:#fafafa; padding:15px; height:100%;">
+									<div style="background-color:#f8f8f8; padding:15px; height:100%;">
 										<div class="d-flex justify-content-between">
 										<small>${review.memberName}(${review.memberId})</small>
 										<small><fmt:formatDate value="${review.reviewDate}" pattern="yy/MM/dd"/></small>
