@@ -1,23 +1,3 @@
-방문해 주셔서 감사합니다.
-
-본 공유공간은 이젠 아카데미에서 운영하는
-
-"디지털컨버전스 풀스택 웹개발자 과정"
-
-2nd Project 3인 협업 팀 프로젝트
-
-[신치윤](https://github.com/Alipheese16th)
-
-[김소연](https://github.com/sykim00)
-
-[유민상](https://github.com/yooms2)
-
-의 Bowow 애견 쇼핑몰 사이트 프로젝트입니다.
-
-감사합니다.
-
-----------------------
-
 # Bowow
 
 ========
@@ -42,18 +22,18 @@
 
 ![1메인](https://github.com/Alipheese16th/bowow/assets/117807553/ce59dd0d-e557-4d49-a46b-6589a8aa4cea)
 
-## 목차
+## 목차 (본인이 직접한 내용만 기술)
 
-[1. 작업분할 구조도](https://github.com/Alipheese16th/bowow/assets/117807553/5549b7cf-586d-458e-80e0-842a29d70242)<br>
-[2. Gantt chart](https://github.com/Alipheese16th/CheeYoonMovie#gantt-chart)<br>
-[3. 이용자 권한](https://github.com/Alipheese16th/CheeYoonMovie#%EC%9D%B4%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C)<br>
-[4. Usecase Diagram](https://github.com/Alipheese16th/CheeYoonMovie#usecase-diagram)<br>
-[5. Sequence Diagram](https://github.com/Alipheese16th/CheeYoonMovie#sequence-diagram)<br>
-[6. 기능정의서](https://github.com/Alipheese16th/CheeYoonMovie#%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98%EC%84%9C)<br>
-[7. E-R Diagram](https://github.com/Alipheese16th/CheeYoonMovie#e-r-diagram)<br>
-[8. Project Source Explorer](https://github.com/Alipheese16th/CheeYoonMovie#project-source-explorer)<br>
-[9. 실행화면](https://github.com/Alipheese16th/CheeYoonMovie#%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)<br>
-[10. 차후 개발내용](https://github.com/Alipheese16th/CheeYoonMovie#%EC%B0%A8%ED%9B%84-%EA%B0%9C%EB%B0%9C-%EA%B3%84%ED%9A%8D)<br>
+[1. 작업분할 구조도](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84)<br>
+[2. Gantt chart](https://github.com/Alipheese16th/bowow/blob/master/README.md#gantt-chart)<br>
+[3. 이용자 권한](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EC%9D%B4%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C)<br>
+[4. Usecase Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#usecase-diagram)<br>
+[5. Sequence Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#sequence-diagram)<br>
+[6. 핵심기능](https://github.com/Alipheese16th/bowow/blob/master/README.md#%ED%95%B5%EC%8B%AC%EA%B8%B0%EB%8A%A5dfd)<br>
+[7. 기능정의서](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98%EC%84%9C)<br>
+[8. E-R Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98%EC%84%9C)<br>
+[9. Project Source Explorer](https://github.com/Alipheese16th/bowow/blob/master/README.md#project-source-explorer)<br>
+[10. 실행화면](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)<br>
 
 ## 작업분할 구조도
 ![작업분할도](https://github.com/Alipheese16th/bowow/assets/117807553/5549b7cf-586d-458e-80e0-842a29d70242)<br>
