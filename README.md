@@ -29,7 +29,7 @@
 [5. Sequence Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#sequence-diagram)<br>
 [6. 핵심기능](https://github.com/Alipheese16th/bowow/blob/master/README.md#%ED%95%B5%EC%8B%AC%EA%B8%B0%EB%8A%A5dfd)<br>
 [7. 기능정의서](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98%EC%84%9C)<br>
-[8. E-R Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98%EC%84%9C)<br>
+[8. E-R Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#e-r-diagram)<br>
 [9. Project Source Explorer](https://github.com/Alipheese16th/bowow/blob/master/README.md#project-source-explorer)<br>
 [10. 실행화면](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)<br>
 
