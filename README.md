@@ -18,7 +18,7 @@
 
 - **프로젝트 소개** : 기존 애견샵의 기능들을 그대로 구현하고, 매출 통계나 게시판을 한눈에 보는관리자 모드 페이지 등 새로운 방식으로 쇼핑몰 사이트를 완성
 
-![1메인](https://github.com/Alipheese16th/bowow/assets/117807553/ce59dd0d-e557-4d49-a46b-6589a8aa4cea)
+![1메인](https://user-images.githubusercontent.com/117807553/238189641-107ca158-dfd3-487d-a854-73b8ba039cb6.PNG)
 
 ## 목차 (본인이 직접한 내용만 기술)
 
@@ -32,49 +32,55 @@
 [8. E-R Diagram](https://github.com/Alipheese16th/bowow#e-r-diagram)<br>
 [9. Project Source Explorer](https://github.com/Alipheese16th/bowow#project-source-explorer)<br>
 [10. 실행화면](https://github.com/Alipheese16th/bowow#%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)<br>
+[11. 차후 개발 계획](https://github.com/Alipheese16th)<br>
 
 ## 작업분할 구조도
-![작업분할도](https://github.com/Alipheese16th/bowow/assets/117807553/5549b7cf-586d-458e-80e0-842a29d70242)<br>
-![](https://github.com/Alipheese16th/bowow/assets/117807553/812f23db-7a04-42ab-b57d-65f57f42be10)<br>
-![](https://github.com/Alipheese16th/bowow/assets/117807553/5b2c4267-ee50-4119-b64c-23a5bd6ed3da)<br>
+![작업분할도1](https://user-images.githubusercontent.com/117807553/238189644-6874c697-7a29-4f0a-b1e5-2b6bc522d1b0.PNG)<br>
+![작업분할도2](https://user-images.githubusercontent.com/117807553/238189647-569d7ae8-adfc-4bd1-aae5-518ecb59c109.PNG)<br>
+![작업분할도3](https://user-images.githubusercontent.com/117807553/238189655-b0260a1d-2d97-4f49-a9ee-10d0dfceb0bf.PNG)<br>
 
 ## Gantt Chart
-![간트차트](https://github.com/Alipheese16th/bowow/assets/117807553/768c5281-7d44-42ee-a114-570b45d9ffec)
+![간트차트](https://user-images.githubusercontent.com/117807553/238189657-f1e950db-e2d3-4055-81f6-f42e4b7374c8.png)
 
 ## 이용자 권한
-![이용자권한](https://github.com/Alipheese16th/bowow/assets/117807553/1793894f-d687-46a7-a5af-962d9a829e12)
+![이용자권한](https://user-images.githubusercontent.com/117807553/238189662-8e18bb73-16f1-4346-a1be-f7f26518e4ea.PNG)
 
 ## Usecase Diagram
-![유스케이스](https://github.com/Alipheese16th/bowow/assets/117807553/15d1f724-8f8d-4c81-8bb2-62cef31985df)
+![유스케이스](https://user-images.githubusercontent.com/117807553/238189664-a80c7ace-5e1c-4813-b85b-4f51ddad7a43.PNG)
 
 ## Sequence Diagram
-![시퀀스다이어그램-회원](https://github.com/Alipheese16th/bowow/assets/117807553/0c23f342-5c07-4d96-8888-8d69cdaf01b7)
-![시퀀스다이어그램-관리자](https://github.com/Alipheese16th/bowow/assets/117807553/69cc2ebe-32d9-4ea9-bf58-ec36d6c9c3f3)
+![시퀀스다이어그램-회원](https://user-images.githubusercontent.com/117807553/238189669-2cfdf345-41e6-4971-b691-1441a02e7600.PNG)
+![시퀀스다이어그램-관리자](https://user-images.githubusercontent.com/117807553/238189673-0a5ffc89-3df9-4ddd-82c2-b29661edd879.PNG)
 
 ## 핵심기능(DFD)
-![핵심기능-상품검색](https://github.com/Alipheese16th/bowow/assets/117807553/a69001ab-1d6a-4b16-be47-bef9c569983e)
-![핵심기능-주문](https://github.com/Alipheese16th/bowow/assets/117807553/31334fd9-4a96-4e9d-ba75-16c4fff8bbbc)
+![핵심기능-상품검색](https://user-images.githubusercontent.com/117807553/238189677-0615fc8c-ab16-4e12-9837-05ab5f3d90b3.PNG)
+![핵심기능-주문](https://user-images.githubusercontent.com/117807553/238189678-ba2d65cf-1fc3-4595-9373-c02fcf492b49.PNG)
 
 ## 기능 정의서
-![기능정의서](https://github.com/Alipheese16th/bowow/assets/117807553/b51e7ba4-9174-4b43-be85-cd9cac3f17e5)
+![기능정의서](https://user-images.githubusercontent.com/117807553/238189681-6a36fe20-f463-46d5-b1c5-b91e5a06d026.PNG)
 
 ## E-R Diagram
-![erd](https://github.com/Alipheese16th/bowow/assets/117807553/51366875-f15a-4111-b0eb-87df1cefb6c5)
+![erd](https://user-images.githubusercontent.com/117807553/238189683-5da5ad45-bd1d-4168-b881-1aff299a8190.PNG)
 
 ## Project Source Explorer
-![소스파일](https://github.com/Alipheese16th/bowow/assets/117807553/c7e96032-279e-45d6-a6f3-35f6b724eb8a)
+![소스파일](https://user-images.githubusercontent.com/117807553/238189684-7a87201c-c6e0-4333-a3ac-0dba01ca282e.PNG)
 
 ## 실행 화면
-![13 main](https://github.com/Alipheese16th/bowow/assets/117807553/cb51ac2b-f712-4032-9f96-f5287d0b0c00)
-![13 p_list](https://github.com/Alipheese16th/bowow/assets/117807553/945c2b9f-52f3-43c5-840c-75a133014ea4)
-![13 p_search](https://github.com/Alipheese16th/bowow/assets/117807553/1ebfa482-0c30-4618-8825-47a6dbccf5ea)
-![13 p_detail](https://github.com/Alipheese16th/bowow/assets/117807553/d8fab9b1-880c-48c7-8f08-75846c5be5ed)
-![13 p_detail2](https://github.com/Alipheese16th/bowow/assets/117807553/cf118603-085b-4228-a6a9-a9c27969960e)
-![13 cart](https://github.com/Alipheese16th/bowow/assets/117807553/162c7d00-f005-44b0-915d-5cd5c904171b)
-![13 order](https://github.com/Alipheese16th/bowow/assets/117807553/5f2df9e4-51b6-4bb2-a779-3d13071281d7)
-![13 orderpay](https://github.com/Alipheese16th/bowow/assets/117807553/95e17b40-aef1-48a6-8231-294240f71e08)
-![13 notice](https://github.com/Alipheese16th/bowow/assets/117807553/8e1c1589-369c-4806-a0d2-498c20adbddf)
-![13 p_insert](https://github.com/Alipheese16th/bowow/assets/117807553/608668d9-e9fd-4ca9-b831-3cccbbad32e1)
-![13 p_crud](https://github.com/Alipheese16th/bowow/assets/117807553/302a7f7a-7b79-41c1-b8c8-8f0542fa542b)
-![13 notice_crud](https://github.com/Alipheese16th/bowow/assets/117807553/8184a47d-cdd7-4bd0-9a70-fd760f01bd2e)
-![13 exception](https://github.com/Alipheese16th/bowow/assets/117807553/dbce69a2-6f58-47db-b02b-beb95325e742)
+![main](https://user-images.githubusercontent.com/117807553/238189686-f64dac80-8fae-4668-87b1-daa6ccf62f77.PNG)
+![p_list](https://user-images.githubusercontent.com/117807553/238189688-a59301f8-e105-49a7-a078-a062db6f97fe.PNG)
+![p_search](https://user-images.githubusercontent.com/117807553/238189691-5bdde0bd-7bb3-4cb0-8af1-61924af0fe49.PNG)
+![p_detail_1](https://user-images.githubusercontent.com/117807553/238189696-515f60b5-8f85-49a1-b742-de07afd77b13.PNG)
+![p_detail_2](https://user-images.githubusercontent.com/117807553/238189699-dde130f9-d1c3-4c2f-8098-6228ddd73777.PNG)
+![cart](https://user-images.githubusercontent.com/117807553/238189700-485a6ec9-cb33-4ef7-9b0c-9e42f6b48288.PNG)
+![order_1](https://user-images.githubusercontent.com/117807553/238189703-43eb3ac1-225f-49a8-bba3-1f67de214321.PNG)
+![order_2](https://user-images.githubusercontent.com/117807553/238189706-a20d1e02-5a27-4c82-9719-43d5694142b9.PNG)
+![notice](https://user-images.githubusercontent.com/117807553/238189708-e75a0bfb-57d9-4a50-b750-38921748df07.PNG)
+![p_insert](https://user-images.githubusercontent.com/117807553/238189709-5e1e586d-5b29-4263-ba9c-9e4044b60395.PNG)
+![p_crud](https://user-images.githubusercontent.com/117807553/238189712-e166ca45-bf3c-4fdb-a360-5a90ab04f1ef.PNG)
+![notice_crud](https://user-images.githubusercontent.com/117807553/238189719-36aee77c-9423-4180-8fd6-d926b34d43d4.PNG)
+![exception](https://user-images.githubusercontent.com/117807553/238189724-7b5d8b4e-952f-46f0-89d4-81daf7bcaa04.PNG)
+
+## 차후 개발 계획
+![after](https://user-images.githubusercontent.com/117807553/238189726-2923437b-706a-43b6-9779-5ee6954a2c12.PNG)
+
+
