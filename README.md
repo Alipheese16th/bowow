@@ -22,16 +22,16 @@
 
 ## 목차 (본인이 직접한 내용만 기술)
 
-[1. 작업분할 구조도](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84)<br>
-[2. Gantt chart](https://github.com/Alipheese16th/bowow/blob/master/README.md#gantt-chart)<br>
-[3. 이용자 권한](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EC%9D%B4%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C)<br>
-[4. Usecase Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#usecase-diagram)<br>
-[5. Sequence Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#sequence-diagram)<br>
-[6. 핵심기능](https://github.com/Alipheese16th/bowow/blob/master/README.md#%ED%95%B5%EC%8B%AC%EA%B8%B0%EB%8A%A5dfd)<br>
-[7. 기능정의서](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98%EC%84%9C)<br>
-[8. E-R Diagram](https://github.com/Alipheese16th/bowow/blob/master/README.md#e-r-diagram)<br>
-[9. Project Source Explorer](https://github.com/Alipheese16th/bowow/blob/master/README.md#project-source-explorer)<br>
-[10. 실행화면](https://github.com/Alipheese16th/bowow/blob/master/README.md#%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)<br>
+[1. 작업분할 구조도](https://github.com/Alipheese16th/bowow#%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84)<br>
+[2. Gantt chart](https://github.com/Alipheese16th/bowow#gantt-chart)<br>
+[3. 이용자 권한](https://github.com/Alipheese16th/bowow#%EC%9D%B4%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C)<br>
+[4. Usecase Diagram](https://github.com/Alipheese16th/bowow#usecase-diagram)<br>
+[5. Sequence Diagram](https://github.com/Alipheese16th/bowow#sequence-diagram)<br>
+[6. 핵심기능](https://github.com/Alipheese16th/bowow#%ED%95%B5%EC%8B%AC%EA%B8%B0%EB%8A%A5dfd)<br>
+[7. 기능정의서](https://github.com/Alipheese16th/bowow#%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98%EC%84%9C)<br>
+[8. E-R Diagram](https://github.com/Alipheese16th/bowow#e-r-diagram)<br>
+[9. Project Source Explorer](https://github.com/Alipheese16th/bowow#project-source-explorer)<br>
+[10. 실행화면](https://github.com/Alipheese16th/bowow#%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)<br>
 
 ## 작업분할 구조도
 ![작업분할도](https://github.com/Alipheese16th/bowow/assets/117807553/5549b7cf-586d-458e-80e0-842a29d70242)<br>
