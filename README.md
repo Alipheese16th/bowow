@@ -32,7 +32,7 @@
 [8. E-R Diagram](https://github.com/Alipheese16th/bowow#e-r-diagram)<br>
 [9. Project Source Explorer](https://github.com/Alipheese16th/bowow#project-source-explorer)<br>
 [10. 실행화면](https://github.com/Alipheese16th/bowow#%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)<br>
-[11. 차후 개발 계획](https://github.com/Alipheese16th)<br>
+[11. 차후 개발 계획](https://github.com/Alipheese16th/bowow#%EC%B0%A8%ED%9B%84-%EA%B0%9C%EB%B0%9C-%EA%B3%84%ED%9A%8D)<br>
 
 ## 작업분할 구조도
 ![작업분할도1](https://user-images.githubusercontent.com/117807553/238189644-6874c697-7a29-4f0a-b1e5-2b6bc522d1b0.PNG)<br>
